@@ -25,7 +25,7 @@ export default function Index({
           <title>{title}</title>
         </Head>
         <Container>
-          <h1 className="text-4xl font-bold py-12">Marketing Stack</h1>
+          <h1 className="py-12 text-4xl font-bold">Marketing Stack</h1>
         </Container>
       </Layout>
     </>

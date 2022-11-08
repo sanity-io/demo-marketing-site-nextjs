@@ -39,6 +39,6 @@ export function deskToolConfig() {
       }
 
       return null
-    }
+    },
   }
 }
