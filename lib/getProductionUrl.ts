@@ -1,6 +1,7 @@
-import settingsType from './schemas/settings'
-import postType from './schemas/post'
 import { Slug } from 'sanity'
+
+import postType from '../schemas/post'
+import settingsType from '../schemas/settings'
 
 export function getProductionUrl() {
   return async (prev, { document }) => {

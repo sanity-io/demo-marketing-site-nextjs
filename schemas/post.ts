@@ -1,4 +1,4 @@
-import { BookIcon } from '@sanity/icons'
+import { Feather } from 'lucide-react'
 import { defineType } from 'sanity'
 
 import authorType from './author'
@@ -18,7 +18,7 @@ import authorType from './author'
 export default defineType({
   name: 'post',
   title: 'Post',
-  icon: BookIcon,
+  icon: Feather,
   type: 'document',
   fields: [
     {
