@@ -9,11 +9,17 @@ import { indexQuery, settingsQuery } from '../lib/queries'
 import { usePreviewSubscription } from '../lib/sanity'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 
-export default function Index({ data: initialData, preview, query, queryParams, blogSettings }) {
+export default function Index({
+  data: initialData,
+  preview,
+  query,
+  queryParams,
+  blogSettings,
+}) {
   const { data: allPages } = usePreviewSubscription(query, {
     initialData: initialData,
     enabled: preview,
-    params: queryParams
+    params: queryParams,
   })
   const { title = 'Marketing Site.' } = blogSettings || {}
 
@@ -36,7 +42,9 @@ export default function Index({ data: initialData, preview, query, queryParams, 
                   </li>
                 ))}
               </ul>
-            ) : <p>No pages found</p>}
+            ) : (
+              <p>No pages found</p>
+            )}
           </div>
         </Container>
       </Layout>

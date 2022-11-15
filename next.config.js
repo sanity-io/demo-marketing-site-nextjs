@@ -16,9 +16,9 @@ const i18n = {
   defaultLocale: createAllLocalesFromMarkets(markets)[0],
   domains: markets.map((market) => ({
     domain:
-    // We run the app on localhost:80 (http://localhost) for development
-    // Requiring a port number creates a redirect loop in the /studio route
-    // It's an issue with Next.js + i18n Routing + Catch all routes
+      // We run the app on localhost:80 (http://localhost) for development
+      // Requiring a port number creates a redirect loop in the /studio route
+      // It's an issue with Next.js + i18n Routing + Catch all routes
       market.name === `US`
         ? `localhost`
         : `${market.name.toLowerCase()}.localhost`,

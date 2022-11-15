@@ -105,7 +105,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 }
 
 export async function getStaticPaths(context) {
-  console.log(context);
+  console.log(context)
   const paths = await getClient(false).fetch(pageSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
