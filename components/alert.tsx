@@ -13,6 +13,10 @@ type AlertProps = LayoutProps
 export default function Alert(props: AlertProps) {
   const { preview, queryParams } = props
 
+  if (!preview) {
+    return null
+  }
+
   const toggleAudienceUrl = new URLSearchParams()
   toggleAudienceUrl.set('slug', String(queryParams.slug))
   toggleAudienceUrl.set('audience', String(queryParams.audience === 0 ? 1 : 0))
@@ -32,15 +36,10 @@ export default function Alert(props: AlertProps) {
   )
 
   return (
-    <div
-      className={cn('border-b pointer-events-none', {
-        'border-accent-7 bg-accent-7 text-white': preview,
-        'border-accent-2 bg-accent-1': !preview,
-      })}
-    >
-      <div className="fixed flex h-screen w-screen items-end justify-center">
+    <div className="pointer-events-none bg-black text-white">
+      <div className="fixed inset-0 z-50 flex h-screen w-screen items-end justify-center">
         {preview && (
-          <div className="flex overflow-hidden rounded-t-lg bg-black pointer-events-auto">
+          <div className="pointer-events-auto flex overflow-hidden rounded-t-lg bg-black">
             <Link
               href="/api/exit-preview"
               className="py-2 px-4 transition-colors duration-200 hover:bg-cyan hover:text-black"

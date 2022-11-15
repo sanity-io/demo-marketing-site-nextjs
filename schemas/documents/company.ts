@@ -8,6 +8,10 @@ export default defineType({
   icon: Building,
   fields: [
     defineField({
+      name: 'market',
+      type: 'market',
+    }),
+    defineField({
       name: 'name',
       type: 'string',
     }),

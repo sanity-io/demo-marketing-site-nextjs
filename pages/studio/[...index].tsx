@@ -7,10 +7,15 @@
  * https://github.com/sanity-io/next-sanity
  */
 
+// import { useRouter } from 'next/router'
 import { NextStudio } from 'next-sanity/studio'
+import React from 'react'
 
 import config from '../../sanity.config'
 
 export default function StudioPage() {
+  // const router = useRouter()
+  // console.log(router)
+
   return <NextStudio config={config} />
 }

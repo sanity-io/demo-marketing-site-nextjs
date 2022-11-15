@@ -21,7 +21,7 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
         <Header />
         {preview && <Alert preview={preview} queryParams={queryParams} />}
         <main>{children}</main>
-        <Footer /> 
+        <Footer />
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import groq from 'groq'
 
-const postFields = groq`
+const pageFields = groq`
   _id,
   name,
   title,
@@ -14,8 +14,8 @@ const postFields = groq`
 export const settingsQuery = groq`*[_type == "settings"][0]{title}`
 
 export const indexQuery = groq`
-*[_type == "post"] | order(date desc, _updatedAt desc) {
-  ${postFields}
+*[_type == "page" && defined(slug.current) && upper(market) == upper($market)] | order(date desc, _updatedAt desc) {
+  ${pageFields}
 }`
 
 export const pageQuery = groq`
@@ -56,6 +56,6 @@ export const pageSlugsQuery = groq`
 
 export const pageBySlugQuery = groq`
 *[_type == "page" && slug.current == $slug][0] {
-  ${postFields}
+  ${pageFields}
 }
 `

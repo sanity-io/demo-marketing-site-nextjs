@@ -28,13 +28,13 @@ export default defineField({
                   filter: '!defined(market)',
                 }
               }
-    
+
               return {
                 filter: `market == $market`,
                 params: { market: document.market },
               }
-            }
-          }
+            },
+          },
         }),
       ],
     }),

@@ -23,7 +23,7 @@ const createAllMarketItems = (S: StructureBuilder, config: ConfigContext) =>
 // Create an Item for a market
 const createMarketItem = (
   S: StructureBuilder,
-  // config: ConfigContext,
+  config: ConfigContext,
   market: Market
 ) =>
   S.listItem()
@@ -84,7 +84,9 @@ export const structure = (
   context: ConfigContext,
   marketName?: string
 ) => {
-  const market = MARKETS.find((market) => market.name === marketName)
+  const market = marketName
+    ? MARKETS.find((market) => market.name === marketName)
+    : null
 
   if (market) {
     return S.list()

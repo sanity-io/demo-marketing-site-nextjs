@@ -6,18 +6,22 @@ import Container from './container'
 export default function Header() {
   const { domainLocales, locale } = useRouter()
 
-  const domainLocale = domainLocales.find(
-    (domainLocale) => domainLocale.defaultLocale === locale
-  )
+  const domainLocale =
+    domainLocales &&
+    domainLocales.find((domainLocale) => domainLocale.defaultLocale === locale)
 
   return (
-    <div className="bg-white py-5 text-black dark:bg-black dark:text-white">
+    <div className="border-b border-gray-100 py-5">
       <Container>
         <div className="flex items-center gap-5">
-          {/* TODO: Dynamic name from site meta */}
-          <span className="text-lg font-bold leading-tight tracking-tight md:text-xl md:tracking-tighter">
+          {/* TODO: use href from domainLocale */}
+          <Link
+            href="/"
+            className="text-lg font-bold leading-tight tracking-tight md:text-xl md:tracking-tighter"
+          >
+            {/* TODO: Dynamic name from site meta */}
             Marketing.
-          </span>
+          </Link>
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (
             <div className="ml-auto flex items-center gap-5 text-sm font-bold uppercase">
               {domainLocale.locales.map((language) => (

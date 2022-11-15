@@ -33,8 +33,8 @@ export default defineType({
             filter: `market == $market`,
             params: { market: document.market },
           }
-        }
-      }
+        },
+      },
     }),
   ],
   preview: {

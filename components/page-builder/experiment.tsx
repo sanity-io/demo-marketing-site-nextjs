@@ -1,7 +1,9 @@
 import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
-export default function PageBuilderExperiment(props: KeyedObject & TypedObject) {
+export default function PageBuilderExperiment(
+  props: KeyedObject & TypedObject
+) {
   const { title, _type } = props
 
   return (

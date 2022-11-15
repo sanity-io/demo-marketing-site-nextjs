@@ -29,8 +29,8 @@ export default defineField({
             filter: `market == $market`,
             params: { market: document.market },
           }
-        }
-      }
+        },
+      },
     }),
     defineField({
       name: 'rowOptions',

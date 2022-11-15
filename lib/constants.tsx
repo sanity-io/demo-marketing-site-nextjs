@@ -1,11 +1,6 @@
-import {
-  Building,
-  File,
-  Quote,
-  User,
-} from 'lucide-react'
+import { Building, File, Quote, User } from 'lucide-react'
 
-import {markets, uniqueLanguages} from './markets'
+import { markets, uniqueLanguages } from './markets'
 
 export const CMS_NAME = 'Sanity.io'
 export const CMS_URL = 'https://sanity.io/'

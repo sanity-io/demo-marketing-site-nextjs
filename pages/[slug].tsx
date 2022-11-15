@@ -39,12 +39,11 @@ export default function Page(props: Props) {
   return (
     <Layout preview={preview} queryParams={queryParams}>
       <Container>
-        <Title title={title} />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            <article>
+            <article className="flex flex-col gap-6 py-12 md:gap-12 md:py-24">
               <Head>
                 <title>{`${data.title} | ${title}`}</title>
                 {/* {post.coverImage?.asset?._ref && (
@@ -88,9 +87,9 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     // Rely on GROQ's `now()` function as a fallback
     date: preview && previewData?.date ? previewData.date : null,
   }
-  console.log(`Query Params`, queryParams)
+
   const page = await getClient(preview).fetch(pageQuery, queryParams)
-  const blogSettings = await getClient(preview).fetch(settingsQuery)
+  const websiteSettings = await getClient(preview).fetch(settingsQuery)
 
   return {
     props: {
@@ -98,7 +97,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
       data: page,
       query: preview ? pageQuery : null,
       queryParams: preview ? queryParams : null,
-      blogSettings,
+      websiteSettings,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
     revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
@@ -106,7 +105,6 @@ export async function getStaticProps({ params, preview = false, previewData }) {
 }
 
 export async function getStaticPaths(context) {
-  console.log(context);
   const paths = await getClient(false).fetch(pageSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
