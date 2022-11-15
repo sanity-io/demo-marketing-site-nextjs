@@ -19,3 +19,9 @@ export interface PageProps {
   slug?: string
   content?: (PageBuilderHero | PageBuilderExperiment)[]
 }
+
+export type PageQueryParams = {
+  slug: string
+  audience: 0 | 1
+  date: string | null
+}

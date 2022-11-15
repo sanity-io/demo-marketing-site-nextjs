@@ -1,22 +1,26 @@
 import cn from 'classnames'
 import Link from 'next/link'
 
-import Container from './container'
+import { LayoutProps } from './layout'
 
 const AUDIENCES = {
   0: 'A',
   1: 'B',
 }
 
-export default function Alert({ preview, queryParams }) {
+type AlertProps = LayoutProps
+
+export default function Alert(props: AlertProps) {
+  const { preview, queryParams } = props
+
   const toggleAudienceUrl = new URLSearchParams()
-  toggleAudienceUrl.set('slug', String(queryParams?.slug))
-  toggleAudienceUrl.set('audience', String(queryParams?.audience === 0 ? 1 : 0))
-  toggleAudienceUrl.set('date', String(queryParams?.date ?? ``))
+  toggleAudienceUrl.set('slug', String(queryParams.slug))
+  toggleAudienceUrl.set('audience', String(queryParams.audience === 0 ? 1 : 0))
+  toggleAudienceUrl.set('date', String(queryParams.date ?? ``))
 
   const updateTimeUrl = new URLSearchParams()
-  updateTimeUrl.set('slug', String(queryParams?.slug))
-  updateTimeUrl.set('audience', String(queryParams?.audience))
+  updateTimeUrl.set('slug', String(queryParams.slug))
+  updateTimeUrl.set('audience', String(queryParams.audience))
   updateTimeUrl.set(
     'date',
     queryParams?.date
@@ -29,14 +33,14 @@ export default function Alert({ preview, queryParams }) {
 
   return (
     <div
-      className={cn('border-b', {
+      className={cn('border-b pointer-events-none', {
         'border-accent-7 bg-accent-7 text-white': preview,
         'border-accent-2 bg-accent-1': !preview,
       })}
     >
       <div className="fixed flex h-screen w-screen items-end justify-center">
         {preview && (
-          <div className="flex overflow-hidden rounded-t-lg bg-black">
+          <div className="flex overflow-hidden rounded-t-lg bg-black pointer-events-auto">
             <Link
               href="/api/exit-preview"
               className="py-2 px-4 transition-colors duration-200 hover:bg-cyan hover:text-black"
@@ -48,7 +52,7 @@ export default function Alert({ preview, queryParams }) {
               className="py-2 px-4 transition-colors duration-200 hover:bg-cyan hover:text-black"
             >
               Audience:{' '}
-              <strong>{AUDIENCES[queryParams?.audience] ?? `Unknown`}</strong>
+              <strong>{AUDIENCES[queryParams.audience] ?? `Unknown`}</strong>
             </Link>
             <Link
               href={`/api/preview?${updateTimeUrl.toString()}`}
@@ -57,7 +61,7 @@ export default function Alert({ preview, queryParams }) {
               Time:{' '}
               <strong>
                 {queryParams?.date
-                  ? new Date(queryParams?.date).toLocaleDateString()
+                  ? new Date(queryParams.date).toLocaleDateString()
                   : `Now`}
               </strong>
             </Link>

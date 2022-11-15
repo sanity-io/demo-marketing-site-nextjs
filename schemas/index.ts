@@ -1,17 +1,29 @@
-import author from './author'
+import company from './documents/company'
+import page from './documents/page'
+import person from './documents/person'
+import quote from './documents/quote'
+import settings from './documents/settings'
+import market from './objects/market'
 import pageBuilder from './objects/pageBuilder'
 import rowOptions from './objects/rowOptions'
-import page from './page'
-import post from './post'
+import pageBuilderExperimentRow from './rows/pageBuilderExperimentRow'
 import pageBuilderHero from './rows/pageBuilderHero'
-import settings from './settings'
+import pageBuilderHeroRow from './rows/pageBuilderHeroRow'
+import pageBuilderLogosRow from './rows/pageBuilderLogosRow'
+import pageBuilderQuoteRow from './rows/pageBuilderQuoteRow'
 
 export const schemaTypes = [
-  post,
   page,
-  author,
+  person,
+  company,
   settings,
+  quote,
+  market,
   pageBuilder,
   pageBuilderHero,
+  pageBuilderHeroRow,
+  pageBuilderExperimentRow,
+  pageBuilderLogosRow,
+  pageBuilderQuoteRow,
   rowOptions,
 ]

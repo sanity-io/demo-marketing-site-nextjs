@@ -1,6 +1,6 @@
 import { Slug } from 'sanity'
 
-import pageType from '../schemas/page'
+import pageType from '../schemas/documents/page'
 
 export async function getPreviewUrl(document) {
   const url = new URL('/api/preview', location.origin)

@@ -8,8 +8,17 @@ export default defineType({
   icon: Type,
   fields: [
     defineField({
+      name: 'market',
+      type: 'market',
+    }),
+    defineField({
       name: 'title',
       type: 'string',
+    }),
+    defineField({
+      name: 'image',
+      type: 'image',
+      options: {hotspot: true}
     }),
   ],
 })

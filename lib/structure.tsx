@@ -7,18 +7,24 @@ import {
 import Iframe from 'sanity-plugin-iframe-pane'
 
 //   import Flag from './components/Flag'
-import { Market, MARKETS, SCHEMA_ITEMS, SchemaItem } from './constants'
+import {
+  Market,
+  MARKETS,
+  SCHEMA_ITEMS,
+  SchemaDivider,
+  SchemaItem,
+} from './constants'
 import { getPreviewUrl } from './getPreviewUrl'
 
 // Create Items for all Markets
-const createAllMarketItems = (S: StructureBuilder, context: ConfigContext) =>
-  MARKETS.map((market) => createMarketItem(market, S, context))
+const createAllMarketItems = (S: StructureBuilder, config: ConfigContext) =>
+  MARKETS.map((market) => createMarketItem(S, config, market))
 
 // Create an Item for a market
 const createMarketItem = (
-  market: Market,
   S: StructureBuilder,
-  config: ConfigContext
+  // config: ConfigContext,
+  market: Market
 ) =>
   S.listItem()
     .id(`${market.name.toLowerCase()}-market`)
@@ -27,21 +33,21 @@ const createMarketItem = (
     .child(
       S.list()
         .title(`${market.name} Market Content`)
-        .items(createAllSchemaItems(market, S, config))
+        .items(createAllSchemaItems(S, config, market))
     )
 
 // Create a list for each Schema in the Market
 const createAllSchemaItems = (
-  market: Market,
   S: StructureBuilder,
-  config: ConfigContext
-) => SCHEMA_ITEMS.map((schemaItem) => createSchemaItem(market, schemaItem, S))
+  config: ConfigContext,
+  market: Market
+) => SCHEMA_ITEMS.map((schemaItem) => createSchemaItem(S, schemaItem, market))
 
 // Create a schema item for this market for this schema type
 const createSchemaItem = (
-  market: Market,
-  schemaItem: SchemaItem,
-  S: StructureBuilder
+  S: StructureBuilder,
+  schemaItem: SchemaItem | SchemaDivider,
+  market: Market
 ) => {
   return schemaItem === 'divider'
     ? S.divider()
@@ -73,8 +79,25 @@ const createSchemaItem = (
         )
 }
 
-export const structure: StructureResolver = (S, context) =>
-  S.list().id('root').title('Markets').items(createAllMarketItems(S, context))
+export const structure = (
+  S: StructureBuilder,
+  context: ConfigContext,
+  marketName?: string
+) => {
+  const market = MARKETS.find((market) => market.name === marketName)
+
+  if (market) {
+    return S.list()
+      .id(`${market.name.toLowerCase()}-root`)
+      .title(`${market.name} Market`)
+      .items(createAllSchemaItems(S, context, market))
+  }
+
+  return S.list()
+    .id('root')
+    .title('Markets')
+    .items(createAllMarketItems(S, context))
+}
 
 // `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
 // You can add any React component to `S.view.component` and it will be rendered in the pane

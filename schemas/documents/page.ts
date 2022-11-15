@@ -1,7 +1,5 @@
 import { File } from 'lucide-react'
-import { defineType } from 'sanity'
-
-import { MARKETS } from '../lib/constants'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'page',
@@ -9,24 +7,16 @@ export default defineType({
   icon: File,
   type: 'document',
   fields: [
-    {
+    defineField({
+      name: 'market',
+      type: 'market',
+    }),
+    defineField({
       name: 'title',
       type: 'string',
       validation: (Rule) => Rule.required(),
-    },
-    {
-      name: 'market',
-      type: 'string',
-      //   readOnly: true,
-      validation: (Rule) => Rule.required(),
-      options: {
-        list: MARKETS.map((market) => ({
-          value: market.name,
-          title: market.title,
-        })),
-      },
-    },
-    {
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       options: {
@@ -34,11 +24,18 @@ export default defineType({
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
-    },
-    {
+    }),
+    defineField({
+      name: 'dateSpecificRows',
+      description:
+        'When enabled, allows you to specify a date range to display each Row in the Page Builder',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: 'content',
       type: 'pageBuilder',
-    },
+    }),
   ],
   preview: {
     select: {

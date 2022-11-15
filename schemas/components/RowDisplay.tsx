@@ -1,13 +1,6 @@
-import { Badge, Box, Flex } from '@sanity/ui'
 import React from 'react'
-import {
-  DefaultPreviewProps,
-  ObjectInputProps,
-  ObjectItemProps,
-  PreviewComponent,
-  PreviewProps,
-  useFormValue,
-} from 'sanity'
+import { PreviewProps } from 'sanity'
+import { Badge, Box, Flex } from '@sanity/ui'
 
 type RowValue = {
   rowOptions: {

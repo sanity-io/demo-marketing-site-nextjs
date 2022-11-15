@@ -3,24 +3,25 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import Container from '../components/container'
-import Header from '../components/header'
 import Layout from '../components/layout'
+import PageBuilder from '../components/page-builder'
 import PostHeader from '../components/post-header'
 import PostTitle from '../components/post-title'
+import Title from '../components/title'
 import { pageQuery, pageSlugsQuery, settingsQuery } from '../lib/queries'
 import { urlForImage, usePreviewSubscription } from '../lib/sanity'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
-import { PageProps } from '../types'
+import { PageProps, PageQueryParams } from '../types'
 
 interface Props {
   data: PageProps
   preview: any
   query: string | null
-  queryParams: { [key: string]: string | number } | null
+  queryParams: PageQueryParams
   blogSettings: any
 }
 
-export default function Post(props: Props) {
+export default function Page(props: Props) {
   const { data: initialData, preview, query, queryParams, blogSettings } = props
   const router = useRouter()
 
@@ -34,11 +35,11 @@ export default function Post(props: Props) {
   if (!router.isFallback && !data) {
     return <ErrorPage statusCode={404} />
   }
-  
+
   return (
     <Layout preview={preview} queryParams={queryParams}>
       <Container>
-        <Header title={title} />
+        <Title title={title} />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
@@ -58,24 +59,10 @@ export default function Post(props: Props) {
                   />
                 )} */}
               </Head>
-              <PostHeader title={data?.title ?? `Untitled?`} />
+              <PostHeader title={data?.title ?? `Untitled`} />
               {data.content && data.content.length > 0 ? (
-                <div className="flex flex-col gap-8 pb-24">
-                  {data.content.map((row) => (
-                    <div
-                      key={row._key}
-                      className="flex flex-col gap-2 bg-black p-4 text-white"
-                    >
-                      <h2 className="text-3xl font-bold leading-tight tracking-tighter">
-                        {row?.title ?? row._type}
-                      </h2>
-                      <hr />
-                      <span className="font-mono">{row._type}</span>
-                    </div>
-                  ))}
-                </div>
+                <PageBuilder rows={data?.content} />
               ) : null}
-              {/* <PostBody content={post.content} /> */}
             </article>
           </>
         )}
@@ -87,7 +74,7 @@ export default function Post(props: Props) {
 export async function getStaticProps({ params, preview = false, previewData }) {
   // These query params are used to power this preview
   // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
-  const queryParams = {
+  const queryParams: PageQueryParams = {
     // Necessary to query for the right page
     // And used by the preview route to redirect back to it
     slug: params.slug,
@@ -118,7 +105,8 @@ export async function getStaticProps({ params, preview = false, previewData }) {
   }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context) {
+  console.log(context);
   const paths = await getClient(false).fetch(pageSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
