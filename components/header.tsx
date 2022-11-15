@@ -19,6 +19,8 @@ export default function Header() {
             href="/"
             className="text-lg font-bold leading-tight tracking-tight md:text-xl md:tracking-tighter"
           >
+            {domainLocale.locales[0].split(`-`)[1]}
+            {` | `}
             {/* TODO: Dynamic name from site meta */}
             Marketing.
           </Link>

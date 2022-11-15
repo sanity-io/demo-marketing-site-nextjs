@@ -9,10 +9,11 @@ import { indexQuery, settingsQuery } from '../lib/queries'
 import { usePreviewSubscription } from '../lib/sanity'
 import { getClient, overlayDrafts } from '../lib/sanity.server'
 
-export default function Index({ data: initialData, preview, blogSettings }) {
-  const { data: allPages } = usePreviewSubscription(indexQuery, {
+export default function Index({ data: initialData, preview, query, queryParams, blogSettings }) {
+  const { data: allPages } = usePreviewSubscription(query, {
     initialData: initialData,
     enabled: preview,
+    params: queryParams
   })
   const { title = 'Marketing Site.' } = blogSettings || {}
 
@@ -35,7 +36,7 @@ export default function Index({ data: initialData, preview, blogSettings }) {
                   </li>
                 ))}
               </ul>
-            ) : null}
+            ) : <p>No pages found</p>}
           </div>
         </Container>
       </Layout>
@@ -44,13 +45,12 @@ export default function Index({ data: initialData, preview, blogSettings }) {
 }
 
 export async function getStaticProps(context) {
-  const { preview = false, previewData } = context
-  console.log(`home page context`, context)
+  const { preview = false } = context
 
   /* check if the project id has been defined by fetching the vercel envs */
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     const queryParams = {
-      market: 'us',
+      market: context.locale.split(`-`).pop(),
     }
     const allPages = overlayDrafts(
       await getClient(preview).fetch(indexQuery, queryParams)

@@ -16,9 +16,12 @@ const i18n = {
   defaultLocale: createAllLocalesFromMarkets(markets)[0],
   domains: markets.map((market) => ({
     domain:
+    // We run the app on localhost:80 (http://localhost) for development
+    // Requiring a port number creates a redirect loop in the /studio route
+    // It's an issue with Next.js + i18n Routing + Catch all routes
       market.name === `US`
-        ? `localhost:3000`
-        : `${market.name.toLowerCase()}.localhost:3000`,
+        ? `localhost`
+        : `${market.name.toLowerCase()}.localhost`,
     defaultLocale: createLocalesFromSingleMarket(market)[0],
     // Locales here have to be *globally* unique, so
     // these functions create ISO 639-1 like language-market pairs
@@ -35,31 +38,7 @@ module.exports = {
       { hostname: 'source.unsplash.com' },
     ],
   },
-  i18n: {
-    locales: ['en', 'fr', 'de'],
-    defaultLocale: 'en',
-    domains: [
-      {
-        domain: 'localhost:3000',
-        defaultLocale: 'en',
-        locales: ['en'],
-        http: true,
-      },
-      {
-        domain: 'fr.localhost:3000',
-        defaultLocale: 'fr',
-        locales: ['fr'],
-        http: true,
-      },
-      {
-        domain: 'de.localhost:3000',
-        defaultLocale: 'de',
-        locales: ['de'],
-        http: true,
-      },
-    ],
-  },
-  // i18n,
+  i18n,
   typescript: {
     // Set this to false if you want production builds to abort if there's type errors
     ignoreBuildErrors: process.env.VERCEL_ENV === 'production',

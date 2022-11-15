@@ -19,7 +19,9 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
       <Meta />
       <div className="min-h-screen">
         <Header />
-        {preview && <Alert preview={preview} queryParams={queryParams} />}
+        {preview && queryParams?.slug ? (
+          <Alert preview={preview} queryParams={queryParams} />
+        ) : null}
         <main>{children}</main>
         <Footer />
       </div>
