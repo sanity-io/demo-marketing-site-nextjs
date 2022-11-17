@@ -69,7 +69,12 @@ export default function Page(props: Props) {
   )
 }
 
-export async function getStaticProps({ params, locale, preview = false, previewData }) {
+export async function getStaticProps({
+  params,
+  locale,
+  preview = false,
+  previewData,
+}) {
   // These query params are used to power this preview
   // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
   const queryParams: PageQueryParams = {
