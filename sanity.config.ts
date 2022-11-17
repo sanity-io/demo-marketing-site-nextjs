@@ -3,111 +3,80 @@
  */
 
 import { visionTool } from '@sanity/vision'
-import { defineConfig, Slug } from 'sanity'
+import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 
-import authorType from './schemas/author'
-import postType from './schemas/post'
-import settingsType from './schemas/settings'
+import { MARKETS } from './lib/constants'
+import { defaultDocumentNode, structure } from './lib/structure'
+import { schemaTypes } from './schemas'
 
 // @TODO: update next-sanity/studio to automatically set this when needed
-const basePath = '/studio'
+const BASE_PATH = '/studio'
 
-export default defineConfig({
-  basePath,
+const pluginsBase = (marketName?: string) => [
+  deskTool({
+    structure: (S, context) => structure(S, context, marketName),
+    defaultDocumentNode,
+  }),
+  unsplashImageAsset(),
+  visionTool({
+    defaultApiVersion: '2022-08-08',
+  }),
+]
+
+const configBase = {
+  basePath: BASE_PATH + `/global`,
+  name: 'global',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  title:
-    process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
-    'Next.js Marketing Site Demo',
+  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Marketing.',
   schema: {
-    // If you want more content types, you can add them to this array
-    types: [settingsType, postType, authorType],
+    types: schemaTypes,
+    // TODO: Get initial templates working
+    // templates: (prev) => schemaTemplates(prev),
   },
-  plugins: [
-    deskTool({
-      structure: (S) => {
-        // The `Settings` root list item
-        const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
-          S.listItem()
-            .title(settingsType.title)
-            .icon(settingsType.icon)
-            .child(
-              S.editor()
-                .id(settingsType.name)
-                .schemaType(settingsType.name)
-                .documentId(settingsType.name)
-            )
+  plugins: pluginsBase(),
+}
 
-        // The default root list items (except custom ones)
-        const defaultListItems = S.documentTypeListItems().filter(
-          (listItem) => listItem.getId() !== settingsType.name
-        )
+export default defineConfig([
+  ...MARKETS.map((market) => ({
+    ...configBase,
+    basePath: BASE_PATH + `/` + market.name.toLowerCase(),
+    name: market.name,
+    title: `${market.name} | ${configBase.title}`,
+    plugins: pluginsBase(market.name),
+  })),
+  configBase,
+])
 
-        return S.list()
-          .title('Content')
-          .items([settingsListItem, S.divider(), ...defaultListItems])
-      },
+// TODO: Get document badge showing the `market` of the document
+// document: {
+//   badges: (prev, ctx, ...rest) => {
+//     console.log(prev, ctx, rest)
 
-      // `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
-      // You can add any React component to `S.view.component` and it will be rendered in the pane
-      // and have access to content in the form in real-time.
-      // It's part of the Studio's “Structure Builder API” and is documented here:
-      // https://www.sanity.io/docs/structure-builder-reference
-      defaultDocumentNode: (S, { schemaType }) => {
-        return null
-      },
-    }),
-    // Add an image asset source for Unsplash
-    unsplashImageAsset(),
-    // Vision lets you query your content with GROQ in the studio
-    // https://www.sanity.io/docs/the-vision-plugin
-    visionTool({
-      defaultApiVersion: '2022-08-08',
-    }),
-  ],
-  document: {
-    productionUrl: async (prev, { document }) => {
-      const url = new URL('/api/preview', location.origin)
-      const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
-      if (secret) {
-        url.searchParams.set('secret', secret)
-      }
-
-      try {
-        switch (document._type) {
-          case settingsType.name:
-            break
-          case postType.name:
-            url.searchParams.set('slug', (document.slug as Slug).current!)
-            break
-          default:
-            return prev
-        }
-        return url.toString()
-      } catch {
-        return prev
-      }
-    },
-    // Hide 'Settings' from new document options
-    // https://user-images.githubusercontent.com/81981/195728798-e0c6cf7e-d442-4e58-af3a-8cd99d7fcc28.png
-    newDocumentOptions: (prev, { creationContext }) => {
-      if (creationContext.type === 'global') {
-        return prev.filter(
-          (templateItem) => templateItem.templateId !== settingsType.name
-        )
-      }
-
-      return prev
-    },
-    // Removes the "duplicate" action on the "settings" singleton
-    actions: (prev, { schemaType }) => {
-      if (schemaType === settingsType.name) {
-        return prev.filter(({ action }) => action !== 'duplicate')
-      }
-
-      return prev
-    },
-  },
-})
+//     return [
+//       ...prev
+//     ]
+//   }
+// }
+// document: {
+// productionUrl: getProductionUrl,
+// Hide 'Settings' from new document options
+// https://user-images.githubusercontent.com/81981/195728798-e0c6cf7e-d442-4e58-af3a-8cd99d7fcc28.png
+// newDocumentOptions: (prev, { creationContext }) => {
+//   if (creationContext.type === 'global') {
+//     return prev.filter(
+//       (templateItem) => templateItem.templateId !== settingsType.name
+//     )
+//   }
+//   return prev
+// },
+// Removes the "duplicate" action on the "settings" singleton
+// actions: (prev, { schemaType }) => {
+//   if (schemaType === settingsType.name) {
+//     return prev.filter(({ action }) => action !== 'duplicate')
+//   }
+//   return prev
+// },
+// },
