@@ -3,7 +3,7 @@
  */
 
 import { visionTool } from '@sanity/vision'
-import { defineConfig, Slug } from 'sanity'
+import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 

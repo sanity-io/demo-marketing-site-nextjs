@@ -22,6 +22,7 @@ export interface PageProps {
 
 export type PageQueryParams = {
   slug: string
+  market: string
   audience: 0 | 1
   date: string | null
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
-export default function PageBuilderLogos(props: KeyedObject & TypedObject) {
+export default function PageBuilderQuote(props: KeyedObject & TypedObject) {
   const { _type } = props
 
   return (

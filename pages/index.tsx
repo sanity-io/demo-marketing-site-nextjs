@@ -53,12 +53,12 @@ export default function Index({
 }
 
 export async function getStaticProps(context) {
-  const { preview = false } = context
+  const { locale, preview = false } = context
 
   /* check if the project id has been defined by fetching the vercel envs */
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     const queryParams = {
-      market: context.locale.split(`-`).pop(),
+      market: locale.split(`-`).pop().toUpperCase(),
     }
     const allPages = overlayDrafts(
       await getClient(preview).fetch(indexQuery, queryParams)

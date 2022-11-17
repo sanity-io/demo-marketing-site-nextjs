@@ -19,12 +19,12 @@ export const indexQuery = groq`
 }`
 
 export const pageQuery = groq`
-*[_type == "page" && slug.current == $slug] | order(_updatedAt desc) [0] {
+*[_type == "page" && slug.current == $slug && upper(market) == upper($market)] | order(_updatedAt desc) [0] {
   title,
   "slug": slug.current,
   market,
   content[
-    // Neither start or end are set
+    // Neither start or end dates are set
     (!defined(rowOptions.displayTo) && !defined(rowOptions.displayFrom))
     // Only the end is set, check if it has expired
     || (!defined(rowOptions.displayTo) && dateTime(rowOptions.displayFrom) < dateTime(coalesce($date, now())))
@@ -55,7 +55,7 @@ export const pageSlugsQuery = groq`
 `
 
 export const pageBySlugQuery = groq`
-*[_type == "page" && slug.current == $slug][0] {
+*[_type == "page" && slug.current == $slug && upper(market) == upper($market)][0] {
   ${pageFields}
 }
 `

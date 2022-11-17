@@ -1,6 +1,6 @@
+import { Badge, Box, Flex } from '@sanity/ui'
 import React from 'react'
 import { PreviewProps } from 'sanity'
-import { Badge, Box, Flex } from '@sanity/ui'
 
 type RowValue = {
   rowOptions: {

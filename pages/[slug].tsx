@@ -7,10 +7,9 @@ import Layout from '../components/layout'
 import PageBuilder from '../components/page-builder'
 import PostHeader from '../components/post-header'
 import PostTitle from '../components/post-title'
-import Title from '../components/title'
 import { pageQuery, pageSlugsQuery, settingsQuery } from '../lib/queries'
-import { urlForImage, usePreviewSubscription } from '../lib/sanity'
-import { getClient, overlayDrafts } from '../lib/sanity.server'
+import { usePreviewSubscription } from '../lib/sanity'
+import { getClient } from '../lib/sanity.server'
 import { PageProps, PageQueryParams } from '../types'
 
 interface Props {
@@ -70,21 +69,26 @@ export default function Page(props: Props) {
   )
 }
 
-export async function getStaticProps({ params, preview = false, previewData }) {
+export async function getStaticProps({ params, locale, preview = false, previewData }) {
   // These query params are used to power this preview
   // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
   const queryParams: PageQueryParams = {
     // Necessary to query for the right page
     // And used by the preview route to redirect back to it
     slug: params.slug,
+    // This demo uses a "market" field to separate documents
+    // So that content does not leak between markets, we always include it in the query
+    market: locale.split(`-`).pop().toUpperCase() ?? `US`,
     // In preview mode we can set the audience
-    // This should otherwise be set in a session or cookie
+    // In production this should be set in a session cookie
     audience:
       preview && previewData?.audience
         ? previewData.audience
         : Math.round(Math.random()),
-    // We don't pass in a dynamic time as that would bust caching badly
-    // Rely on GROQ's `now()` function as a fallback
+    // Some Page Builder blocks are set to display only on specific times
+    // In preview mode, we can set this to preview the page as if it were a different time
+    // By default, set `null` here and the query will use GROQ's cache-friendly `now()` function
+    // Do not pass a dynamic value like `new Date()` as it will uniquely cache every request!
     date: preview && previewData?.date ? previewData.date : null,
   }
 
@@ -104,8 +108,10 @@ export async function getStaticProps({ params, preview = false, previewData }) {
   }
 }
 
-export async function getStaticPaths(context) {
-  console.log(context)
+export async function getStaticPaths() {
+  // The context here only has access to ALL locales
+  // Not the current one we're looking at
+  // So sadly, we have to fetch all slugs for all locales
   const paths = await getClient(false).fetch(pageSlugsQuery)
   return {
     paths: paths.map((slug) => ({ params: { slug } })),
