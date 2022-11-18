@@ -55,7 +55,7 @@ export const pageSlugsQuery = groq`
 `
 
 export const pageBySlugQuery = groq`
-*[_type == "page" && slug.current == $slug && upper(market) == upper($market)][0] {
+*[_type == "page" && slug.current == $slug][0] {
   ${pageFields}
 }
 `
