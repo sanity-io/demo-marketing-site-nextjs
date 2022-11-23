@@ -29,11 +29,12 @@ export default defineField({
         return `Documents in the "${market.title}" Market require a language field`
       }
 
-      if (!market.languages.find(l => l.id === value)) {
-        return `Invalid language "${value}", must be one of ${market.languages.map(l => l.id).join(', ')}`
+      if (!market.languages.find((l) => l.id === value)) {
+        return `Invalid language "${value}", must be one of ${market.languages
+          .map((l) => l.id)
+          .join(', ')}`
       }
 
       return true
-    }
-    ),
+    }),
 })

@@ -45,8 +45,8 @@ export default defineType({
           if (filetype !== 'jpg' && filetype !== 'png') {
             return 'Image must be a JPG or PNG'
           }
-          
-          const {width, height} = getImageDimensions(value.asset._ref)
+
+          const { width, height } = getImageDimensions(value.asset._ref)
 
           if (width < 1200 || height < 630) {
             return 'Image must be at least 1200x630 pixels'

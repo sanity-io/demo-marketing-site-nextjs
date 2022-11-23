@@ -43,16 +43,18 @@ export default async function (req: NextRequest) {
           // justifyContent: 'center',
         }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={imageUrl}
           alt=""
           width={WIDTH / 2}
           height={HEIGHT}
-          style={{objectFit: 'cover'}}
+          style={{ objectFit: 'cover' }}
         />
         <div
           style={{
-            backgroundImage: 'linear-gradient(-45deg, rgba(0,0,0,1), rgba(0,0,0,0.5) )',
+            backgroundImage:
+              'linear-gradient(-45deg, rgba(0,0,0,1), rgba(0,0,0,0.5) )',
             position: 'absolute',
             zIndex: `2`,
             top: 50,
