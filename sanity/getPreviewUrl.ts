@@ -14,7 +14,8 @@ export async function getPreviewUrl(document) {
   }
 
   const currentUrlMatchesMarket =
-    market !== 'US' && window.location.host.split(`.`)[0].toUpperCase() !== market.toUpperCase()
+    market !== 'US' &&
+    window.location.host.split(`.`)[0].toUpperCase() !== market.toUpperCase()
 
   if (!currentUrlMatchesMarket) {
     return ``

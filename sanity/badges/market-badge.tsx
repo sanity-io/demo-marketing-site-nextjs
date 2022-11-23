@@ -1,4 +1,4 @@
-import {DocumentBadgeDescription, DocumentBadgeProps} from 'sanity'
+import { DocumentBadgeDescription, DocumentBadgeProps } from 'sanity'
 
 import { Market } from '../../lib/constants'
 

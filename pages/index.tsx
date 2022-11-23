@@ -92,7 +92,9 @@ export async function getStaticProps(context) {
 
     const queryParams = { market, language }
     const allPages = await getClient(preview).fetch(indexQuery, queryParams)
-    const websiteSettings = await getClient(preview).fetch(settingsQuery, {market})
+    const websiteSettings = await getClient(preview).fetch(settingsQuery, {
+      market,
+    })
 
     return {
       props: {

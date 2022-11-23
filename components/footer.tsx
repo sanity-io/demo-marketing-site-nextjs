@@ -25,7 +25,11 @@ export default function Footer(props: FooterProps) {
                 <Link
                   key={domainLocale.domain}
                   href="/"
-                  className={domainLocale.locales.includes(locale) ? `opacity-50` : `opacity-100`}
+                  className={
+                    domainLocale.locales.includes(locale)
+                      ? `opacity-50`
+                      : `opacity-100`
+                  }
                   locale={domainLocale.defaultLocale}
                 >
                   {getMarketFromNextLocale(domainLocale.defaultLocale)}

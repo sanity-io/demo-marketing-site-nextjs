@@ -3,7 +3,9 @@
 const { markets } = require('./lib/markets')
 
 function createLocalesFromSingleMarket(market) {
-  return market.languages.map((language) => [language.id, market.name].join(`-`))
+  return market.languages.map((language) =>
+    [language.id, market.name].join(`-`)
+  )
 }
 
 function createAllLocalesFromMarkets(markets) {

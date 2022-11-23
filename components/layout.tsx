@@ -24,7 +24,7 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
           <Alert preview={preview} queryParams={queryParams} />
         ) : null}
         <main>{children}</main>
-        <Footer title={websiteSettings?.title}  />
+        <Footer title={websiteSettings?.title} />
       </div>
     </>
   )
