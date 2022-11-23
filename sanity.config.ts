@@ -8,7 +8,7 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 
-import { MARKETS } from './lib/constants'
+import { MARKETS, SCHEMA_ITEMS } from './lib/constants'
 import { marketBadge } from './sanity/badges/market-badge'
 import Icon from './sanity/components/Icon'
 import { schemaTemplates } from './sanity/schemaTemplates'
@@ -37,7 +37,7 @@ const pluginsBase = (marketName?: string) => {
     base.push(
       documentInternationalization({
         supportedLanguages: market.languages,
-        schemaTypes: ['page'],
+        schemaTypes: SCHEMA_ITEMS.map((item) => typeof item !== 'string' && item.schemaType).filter(Boolean),
       })
     )
   }
