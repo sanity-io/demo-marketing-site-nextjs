@@ -12,6 +12,8 @@ function createAllLocalesFromMarkets(markets) {
   return markets.map((market) => createLocalesFromSingleMarket(market)).flat()
 }
 
+const domainBase = process.env.VERCEL ? process.env.VERCEL_URL : `localhost`
+
 const i18n = {
   localeDetection: false,
   locales: createAllLocalesFromMarkets(markets),
@@ -22,8 +24,8 @@ const i18n = {
       // Requiring a port number creates a redirect loop in the /studio route
       // It's an issue with Next.js + i18n Routing + Catch all routes
       market.name === `US`
-        ? `localhost`
-        : `${market.name.toLowerCase()}.localhost`,
+        ? domainBase
+        : `${market.name.toLowerCase()}.${domainBase}`,
     defaultLocale: createLocalesFromSingleMarket(market)[0],
     // Locales here have to be *globally* unique, so
     // these functions create ISO 639-1 like language-market pairs
