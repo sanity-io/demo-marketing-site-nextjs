@@ -38,6 +38,12 @@ export default defineType({
       group: 'seo',
     }),
     defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'seo',
+      group: 'seo',
+    }),
+    defineField({
       name: 'dateSpecificRows',
       description:
         'When enabled, allows you to specify a date range to display each Row in the Page Builder',

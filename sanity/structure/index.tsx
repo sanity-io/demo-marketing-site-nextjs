@@ -14,8 +14,10 @@ import {
   SCHEMA_ITEMS,
   SchemaDivider,
   SchemaItem,
-} from '../lib/constants'
-import Icon from './components/Icon'
+} from '../../lib/constants'
+import Icon from '../components/Icon'
+import OGPreview from '../components/OGPreview'
+import { getOgUrl } from './getOgUrl'
 import { getPreviewUrl } from './getPreviewUrl'
 
 // Create Items for all Markets
@@ -196,6 +198,12 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
             reload: { button: true },
           })
           .title('Preview'),
+        S.view
+          .component(OGPreview)
+          .options({
+            url: (doc) => getOgUrl(doc),
+          })
+          .title('Open Graph'),
       ])
     default:
       return S.document().views([S.view.form()])

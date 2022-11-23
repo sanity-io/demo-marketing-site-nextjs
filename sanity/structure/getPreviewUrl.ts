@@ -1,6 +1,6 @@
 import { Slug } from 'sanity'
 
-import pageType from '../schemas/documents/page'
+import pageType from '../../schemas/documents/page'
 
 export async function getPreviewUrl(document) {
   // Ensure URL origin matches the document's market
