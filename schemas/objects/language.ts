@@ -1,7 +1,5 @@
 import { defineField } from 'sanity'
 
-import { MARKETS } from '../../lib/constants'
-
 export default defineField({
   name: 'language',
   title: 'Language',
