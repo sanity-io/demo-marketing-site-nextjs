@@ -8,6 +8,7 @@ export default defineField({
   title: 'Hero',
   type: 'object',
   icon: Type,
+  // @ts-ignore
   components: {
     preview: RowDisplay,
   },

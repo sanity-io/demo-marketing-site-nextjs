@@ -8,6 +8,7 @@ export default defineField({
   title: 'Quote',
   type: 'object',
   icon: Quote,
+  // @ts-ignore
   components: {
     preview: RowDisplay,
   },

@@ -8,6 +8,7 @@ export default defineField({
   title: 'Logos',
   type: 'object',
   icon: Building,
+  // @ts-ignore
   components: {
     preview: RowDisplay,
   },

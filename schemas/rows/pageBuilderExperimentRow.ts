@@ -8,6 +8,7 @@ export default defineField({
   title: 'Experiment',
   type: 'object',
   icon: Wand2,
+  // @ts-ignore
   components: {
     preview: RowDisplay,
   },
