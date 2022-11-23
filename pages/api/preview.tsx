@@ -1,7 +1,9 @@
-import { pageBySlugQuery } from '../../lib/queries'
-import { getClient } from '../../lib/sanity.server'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-function redirectToPreview(res, Location, data = {}) {
+import { pageBySlugQuery } from '../../sanity/queries'
+import { getClient } from '../../sanity/sanity.server'
+
+function redirectToPreview(res: NextApiResponse, Location: string, data = {}) {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(data)
   // Redirect to a preview capable route
@@ -9,7 +11,9 @@ function redirectToPreview(res, Location, data = {}) {
   res.end()
 }
 
-export default async function preview(req, res) {
+// In this preview route we direct to a full-path URL
+// This is so market and language-specific routes work from a single endpoint
+export default async function preview(req: NextApiRequest, res: NextApiResponse) {
   // Check the secret if it's provided, enables running preview mode locally before the env var is setup
   // Skip if preview is already enabled (TODO: check if this is okay)
   const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET

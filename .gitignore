@@ -39,3 +39,6 @@ yarn-error.log*
 # Env files created by scripts for working locally
 .env
 studio/.env.development
+
+.yalc
+yalc.lock

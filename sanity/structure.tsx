@@ -8,12 +8,14 @@ import Iframe from 'sanity-plugin-iframe-pane'
 
 //   import Flag from './components/Flag'
 import {
+  Language,
   Market,
   MARKETS,
   SCHEMA_ITEMS,
   SchemaDivider,
   SchemaItem,
-} from './constants'
+} from '../lib/constants'
+import Icon from './components/Icon'
 import { getPreviewUrl } from './getPreviewUrl'
 
 // Create Items for all Markets
@@ -29,7 +31,7 @@ const createMarketItem = (
   S.listItem()
     .id(`${market.name.toLowerCase()}-market`)
     .title(market.title)
-    .icon(() => <span>{market.flag}</span>)
+    .icon(() => Icon(market))
     .child(
       S.list()
         .title(`${market.name} Market Content`)
@@ -59,24 +61,97 @@ const createSchemaItem = (
         )
         .title(schemaItem.title)
         .icon(schemaItem.icon)
-        .child(
-          S.documentTypeList(schemaItem.schemaType)
-            .title(`${market.name} ${schemaItem.title}`)
-            .filter(
-              `_type == $schemaType && (!defined(market) || market == $market)`
-            )
-            // TODO: Replace when market is added by initial value template
-            // .filter(`_type == $schemaType && market == $market`)
-            .params({
-              schemaType: schemaItem.schemaType,
-              market: market.name,
-            })
-            .initialValueTemplates([
-              S.initialValueTemplateItem(schemaItem.schemaType, {
-                market: market.name,
-              }),
-            ])
-        )
+        .child(createSchemaItemChildren(S, schemaItem, market))
+}
+
+const createSchemaItemChildren = (
+  S: StructureBuilder,
+  schemaItem: SchemaItem,
+  market: Market
+) => {
+  const itemTitle = [market.name, schemaItem.title].filter(Boolean).join(` `)
+
+  return market.languages.length > 1
+    ? S.list()
+        .title(itemTitle)
+        .items([
+          // Create an item for every language
+          ...market.languages.map((language) =>
+            createSchemaItemList(S, schemaItem, market, language)
+          ),
+          // And one for no set language
+          createSchemaItemList(S, schemaItem, market, null),
+        ])
+    : createSchemaItemChild(S, schemaItem, market, null, itemTitle)
+}
+
+const createSchemaItemChild = (
+  S: StructureBuilder,
+  schemaItem: SchemaItem,
+  market: Market,
+  language: Language | null,
+  itemTitle: string
+) => {
+  let languageQuery = ``
+  if (language) {
+    // If language was supplied, use it
+    languageQuery = `language == $language`
+  } else if (!language && market.languages.length > 1) {
+    // If no language, but the market has multiple, show documents with no set language
+    languageQuery = `!defined(language)`
+  } else {
+    // No language in a single language market, don't filter by language
+    languageQuery = ``
+  }
+
+  return S.documentList()
+    .title(itemTitle)
+    .schemaType(schemaItem.schemaType)
+    .filter(
+      [
+        `_type == $schemaType`,
+        // TODO: Replace when market is added by initial value template
+        // `market == $market`,
+        `(!defined(market) || market == $market)`,
+        languageQuery,
+      ]
+        .filter(Boolean)
+        .join(` && `)
+    )
+    .params({
+      schemaType: schemaItem.schemaType,
+      market: market.name,
+      language: language?.id ?? null,
+    })
+    .initialValueTemplates([
+      S.initialValueTemplateItem(schemaItem.schemaType, {
+        market: market.name,
+      }),
+    ])
+}
+
+const createSchemaItemList = (
+  S: StructureBuilder,
+  schemaItem: SchemaItem,
+  market: Market,
+  language: Language | null
+) => {
+  const itemTitle = [
+    market.name,
+    schemaItem.title,
+    language?.id
+      ? `(${language.id.toUpperCase()})`
+      : market.languages.length > 1
+      ? `(No Language)`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(` `)
+
+  return S.listItem()
+    .title(itemTitle)
+    .icon(schemaItem.icon)
+    .child(createSchemaItemChild(S, schemaItem, market, language, itemTitle))
 }
 
 export const structure = (
@@ -118,10 +193,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
           .component(Iframe)
           .options({
             url: (doc) => getPreviewUrl(doc),
-            reload: {
-              button: true,
-              revision: true,
-            },
+            reload: { button: true },
           })
           .title('Preview'),
       ])

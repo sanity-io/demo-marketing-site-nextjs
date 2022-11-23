@@ -3,12 +3,18 @@ import { useRouter } from 'next/router'
 
 import Container from './container'
 
-export default function Header() {
+type HeaderProps = {
+  title: string
+}
+
+export default function Header(props: HeaderProps) {
+  const { title } = props
   const { domainLocales, locale } = useRouter()
 
   const domainLocale =
     domainLocales &&
-    domainLocales.find((domainLocale) => domainLocale.defaultLocale === locale)
+    domainLocales.find((domainLocale) => domainLocale.locales.includes(locale))
+  const domainMarket = domainLocale.locales[0].split(`-`)[1]
 
   return (
     <div className="border-b border-gray-100 py-5">
@@ -19,10 +25,9 @@ export default function Header() {
             href="/"
             className="text-lg font-bold leading-tight tracking-tight md:text-xl md:tracking-tighter"
           >
-            {domainLocale.locales[0].split(`-`)[1]}
-            {` | `}
-            {/* TODO: Dynamic name from site meta */}
-            Marketing.
+            {domainMarket}
+            {`//`}
+            {title}
           </Link>
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (
             <div className="ml-auto flex items-center gap-5 text-sm font-bold uppercase">
