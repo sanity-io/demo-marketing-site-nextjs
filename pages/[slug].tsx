@@ -23,7 +23,13 @@ interface Props {
 }
 
 export default function Page(props: Props) {
-  const { data: initialData, preview, query, queryParams, websiteSettings } = props
+  const {
+    data: initialData,
+    preview,
+    query,
+    queryParams,
+    websiteSettings,
+  } = props
   const router = useRouter()
 
   const { data } = usePreviewSubscription(query, {
@@ -38,7 +44,11 @@ export default function Page(props: Props) {
   }
 
   return (
-    <Layout preview={preview} queryParams={queryParams} websiteSettings={websiteSettings}>
+    <Layout
+      preview={preview}
+      queryParams={queryParams}
+      websiteSettings={websiteSettings}
+    >
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
@@ -63,13 +73,20 @@ export default function Page(props: Props) {
               {data.translations.length > 0 ? (
                 <ul className="flex items-center gap-4">
                   {data.translations.map((translation) => (
-                    <li key={translation.slug} className={translation.slug === data.slug ? `opacity-50` : undefined}>
+                    <li
+                      key={translation.slug}
+                      className={
+                        translation.slug === data.slug
+                          ? `opacity-50`
+                          : undefined
+                      }
+                    >
                       <Link
                         href={`/${translation.slug}`}
                         locale={[translation.language, data.market].join(`-`)}
                       >
                         {translation.title}{' '}
-                        <span className="font-bold text-xs tracking-tight inline-block -translate-y-0.5">
+                        <span className="inline-block -translate-y-0.5 text-xs font-bold tracking-tight">
                           ({translation.language.toUpperCase()})
                         </span>
                       </Link>
@@ -119,7 +136,9 @@ export async function getStaticProps({
   }
 
   const page = await getClient(preview).fetch(pageQuery, queryParams)
-  const websiteSettings = await getClient(preview).fetch(settingsQuery, {market: queryParams.market})
+  const websiteSettings = await getClient(preview).fetch(settingsQuery, {
+    market: queryParams.market,
+  })
 
   return {
     props: {

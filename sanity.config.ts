@@ -83,7 +83,7 @@ export default defineConfig([
     name: market.name,
     title: market.title,
     plugins: pluginsBase(market.name),
-    icon: () => Icon(market)
+    icon: () => Icon(market),
   })),
   configBase,
 ])
