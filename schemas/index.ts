@@ -7,6 +7,7 @@ import language from './objects/language'
 import market from './objects/market'
 import pageBuilder from './objects/pageBuilder'
 import rowOptions from './objects/rowOptions'
+import seo from './objects/seo'
 import pageBuilderExperimentRow from './rows/pageBuilderExperimentRow'
 import pageBuilderHero from './rows/pageBuilderHero'
 import pageBuilderHeroRow from './rows/pageBuilderHeroRow'
@@ -21,6 +22,7 @@ export const schemaTypes = [
   quote,
   market,
   language,
+  seo,
   pageBuilder,
   pageBuilderHero,
   pageBuilderHeroRow,

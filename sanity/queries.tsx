@@ -45,6 +45,9 @@ export const pageQuery = groq`
     _type == "hero" => {
       ...(hero->{title})
     },
+    _type == "quote" => {
+      ...(quote->{quote})
+    },
     _type == "experiment" => {
       ...(experiments[$audience]->{
         title
