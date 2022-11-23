@@ -12,6 +12,10 @@ export default defineType({
       type: 'market',
     }),
     defineField({
+      name: 'language',
+      type: 'language',
+    }),
+    defineField({
       name: 'title',
       description: 'This field is the title of your site.',
       type: 'string',

@@ -3,6 +3,7 @@ import page from './documents/page'
 import person from './documents/person'
 import quote from './documents/quote'
 import settings from './documents/settings'
+import language from './objects/language'
 import market from './objects/market'
 import pageBuilder from './objects/pageBuilder'
 import rowOptions from './objects/rowOptions'
@@ -19,6 +20,7 @@ export const schemaTypes = [
   settings,
   quote,
   market,
+  language,
   pageBuilder,
   pageBuilderHero,
   pageBuilderHeroRow,

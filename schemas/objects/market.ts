@@ -9,8 +9,8 @@ export default defineField({
     'Used to colocate documents to only those in the same "Market", not to be confused with "Language"',
   type: 'string',
   // TODO: Hide field completely once initial value templates are configured
-  hidden: ({ value }) => Boolean(value),
-  readOnly: ({ value }) => Boolean(value),
+  hidden: ({ document, value }) =>
+    !document._id.startsWith(`drafts.`) && Boolean(value),
   validation: (Rule) => Rule.required(),
   options: {
     list: MARKETS.map((market) => ({
