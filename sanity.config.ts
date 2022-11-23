@@ -37,7 +37,9 @@ const pluginsBase = (marketName?: string) => {
     base.push(
       documentInternationalization({
         supportedLanguages: market.languages,
-        schemaTypes: SCHEMA_ITEMS.map((item) => typeof item !== 'string' && item.schemaType).filter(Boolean),
+        schemaTypes: SCHEMA_ITEMS.map(
+          (item) => typeof item !== 'string' && item.schemaType
+        ).filter(Boolean),
       })
     )
   }
