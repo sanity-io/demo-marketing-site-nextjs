@@ -2,19 +2,22 @@ import groq from 'groq'
 
 const pageFields = groq`
   _id,
-  name,
   title,
-  date,
-  excerpt,
-  coverImage,
   "slug": slug.current,
-  "author": author->{name, picture},
 `
 
-export const settingsQuery = groq`*[_type == "settings"][0]{title}`
+export const settingsQuery = groq`*[_type == "settings" && market == $market][0]{title}`
 
 export const indexQuery = groq`
-*[_type == "page" && defined(slug.current) && upper(market) == upper($market)] | order(date desc, _updatedAt desc) {
+*[
+  _type == "page" 
+  // Only include pages with slugs
+  && defined(slug.current) 
+  // Filter pages by market
+  && upper(market) == upper($market)
+  // If $language is true, don't filter. If $language is provided, filter by it.
+  && select($language == null => true, upper(language) == upper($language))
+] | order(date desc, _updatedAt desc) {
   ${pageFields}
 }`
 
@@ -47,7 +50,12 @@ export const pageQuery = groq`
         title
       })
     }
-  }
+  },
+  "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    "slug": slug.current,
+    language
+  },
 }`
 
 export const pageSlugsQuery = groq`

@@ -1,4 +1,4 @@
-import { Building, File, Quote, User } from 'lucide-react'
+import { Building, Cog, File, Quote, User } from 'lucide-react'
 
 import { markets, uniqueLanguages } from './markets'
 
@@ -7,11 +7,16 @@ export const CMS_URL = 'https://sanity.io/'
 
 export const SHOW_GLOBAL = true
 
+export type Language = {
+  id: string
+  title: string
+}
+
 export type Market = {
   name: string
   flag: string
   title: string
-  languages: string[]
+  languages: Language[]
 }
 
 export const MARKETS: Market[] = markets
@@ -35,4 +40,6 @@ export const SCHEMA_ITEMS: (SchemaItem | SchemaDivider)[] = [
   { schemaType: `person`, title: 'People', icon: User },
   { schemaType: `company`, title: 'Companies', icon: Building },
   { schemaType: `quote`, title: 'Quotes', icon: Quote },
+  'divider',
+  { schemaType: `settings`, title: 'Settings', icon: Cog },
 ]

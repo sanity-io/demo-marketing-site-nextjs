@@ -5,27 +5,42 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import PostHeader from '../components/post-header'
 import Title from '../components/title'
-import { indexQuery, settingsQuery } from '../lib/queries'
-import { usePreviewSubscription } from '../lib/sanity'
-import { getClient, overlayDrafts } from '../lib/sanity.server'
+import { MARKETS } from '../lib/constants'
+import { indexQuery, settingsQuery } from '../sanity/queries'
+import { usePreviewSubscription } from '../sanity/sanity'
+import { getClient } from '../sanity/sanity.server'
+import { PageQueryParams, PageStubProps, WebsiteSettingsProps } from '../types'
 
-export default function Index({
-  data: initialData,
-  preview,
-  query,
-  queryParams,
-  blogSettings,
-}) {
+interface Props {
+  data: PageStubProps[]
+  preview: boolean
+  query: string | null
+  queryParams: PageQueryParams
+  websiteSettings: WebsiteSettingsProps
+}
+
+export default function Index(props: Props) {
+  const {
+    data: initialData,
+    preview,
+    query,
+    queryParams,
+    websiteSettings,
+  } = props
   const { data: allPages } = usePreviewSubscription(query, {
     initialData: initialData,
     enabled: preview,
     params: queryParams,
   })
-  const { title = 'Marketing Site.' } = blogSettings || {}
+  const { title = 'Marketing Site.' } = websiteSettings || {}
 
   return (
     <>
-      <Layout preview={preview}>
+      <Layout
+        preview={preview}
+        queryParams={queryParams}
+        websiteSettings={websiteSettings}
+      >
         <Head>
           <title>{title}</title>
         </Head>
@@ -52,18 +67,32 @@ export default function Index({
   )
 }
 
-export async function getStaticProps(context) {
-  const { locale, preview = false } = context
+// Takes `en-US` and returns `US`
+export function getMarketFromNextLocale(locale: string) {
+  return locale.split(`-`).pop().toUpperCase()
+}
 
+// Takes `en-US` and returns `en`
+export function getLanguageFromNextLocale(locale: string) {
+  return locale.split(`-`).shift()
+}
+
+export async function getStaticProps(context) {
   /* check if the project id has been defined by fetching the vercel envs */
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
-    const queryParams = {
-      market: locale.split(`-`).pop().toUpperCase(),
-    }
-    const allPages = overlayDrafts(
-      await getClient(preview).fetch(indexQuery, queryParams)
-    )
-    const websiteSettings = await getClient(preview).fetch(settingsQuery)
+    const { locale, preview = false } = context
+
+    // Scope index to just this `market`
+    const market = getMarketFromNextLocale(locale)
+    // Scope index to just this `language`, if the market contains more than one
+    const language =
+      MARKETS.find((m) => m.name === market).languages.length > 1
+        ? getLanguageFromNextLocale(locale)
+        : null
+
+    const queryParams = { market, language }
+    const allPages = await getClient(preview).fetch(indexQuery, queryParams)
+    const websiteSettings = await getClient(preview).fetch(settingsQuery, {market})
 
     return {
       props: {

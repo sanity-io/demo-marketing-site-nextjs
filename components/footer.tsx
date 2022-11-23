@@ -1,29 +1,35 @@
 // import Link from 'next/link'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
+import { getMarketFromNextLocale } from '../pages'
 import Container from './container'
+type FooterProps = {
+  title: string
+}
 
-export default function Footer() {
-  const { domainLocales } = useRouter()
+export default function Footer(props: FooterProps) {
+  const { title } = props
+  const { domainLocales, locale } = useRouter()
 
   return (
     <div className="border-t border-gray-100 py-5">
       <Container>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 font-bold">
+          {title}
           {domainLocales && domainLocales.length > 0 ? (
             <>
               <span>Global Sites:</span>
-              {domainLocales.map((locale) => (
-                <a
-                  key={locale.domain}
-                  href={`http://${locale.domain}`}
-                  className="font-bold"
-                  // TODO: Use next/link to *set* the desired locale
-                  // locale={locale.defaultLocale}
+              {domainLocales.map((domainLocale) => (
+                <Link
+                  key={domainLocale.domain}
+                  href="/"
+                  className={domainLocale.locales.includes(locale) ? `opacity-50` : `opacity-100`}
+                  locale={domainLocale.defaultLocale}
                 >
-                  {locale.defaultLocale.split(`-`).pop()} | Marketing.
-                </a>
+                  {getMarketFromNextLocale(domainLocale.defaultLocale)}
+                </Link>
               ))}
             </>
           ) : null}

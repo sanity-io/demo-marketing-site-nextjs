@@ -12,6 +12,8 @@ import React from 'react'
 
 import config from '../../sanity.config'
 
+// TODO: Re-route to root domain if accessed from subdomain
+// Not that it doesn't work, it's just likely to cause other bugs/confusion
 export default function StudioPage() {
   return <NextStudio config={config} />
 }
