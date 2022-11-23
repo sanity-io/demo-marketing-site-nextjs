@@ -17,6 +17,13 @@ export default async function preview(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const queryDate = Array.isArray(req.query.date)
+    ? req.query.date[0]
+    : req.query.date
+  const audience = !['string', 'boolean'].includes(typeof req.previewData)
+    ? req.query.audience
+    : null
+
   // Check the secret if it's provided, enables running preview mode locally before the env var is setup
   // Skip if preview is already enabled (TODO: check if this is okay)
   const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
@@ -28,9 +35,9 @@ export default async function preview(
   // These should typically be set by a cookie or session
   const previewData = {
     // Either use the date passed-in or reset to null
-    date: req.query.date ? new Date(req.query.date).toISOString() : null,
+    date: req.query.date ? new Date(queryDate).toISOString() : null,
     // Use the existing audience or create a new one
-    audience: req.previewData.audience ?? Math.round(Math.random()),
+    audience: audience ?? Math.round(Math.random()),
   }
 
   // Overwrite audience to whatever was passed-in as a query param, if valid
