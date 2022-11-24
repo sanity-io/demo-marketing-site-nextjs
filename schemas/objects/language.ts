@@ -1,6 +1,6 @@
 import { defineField } from 'sanity'
 
-import { MARKETS } from '../../lib/constants'
+import { MARKETS, SCHEMA_ITEMS } from '../../lib/constants'
 
 export default defineField({
   name: 'language',
@@ -9,6 +9,15 @@ export default defineField({
   // TODO: Hide field completely once initial value templates are configured
   hidden: ({ document, value }) => {
     const market = MARKETS.find((m) => m.name === document?.market)
+
+    // Hide on singleton documents
+    const schemaIsSingleton = SCHEMA_ITEMS.find(
+      (s) => s.kind === 'singleton' && s.schemaType === document._type
+    )
+
+    if (schemaIsSingleton) {
+      return true
+    }
 
     // Hide on *published* documents that have a language
     // In markets with more than one language
@@ -25,11 +34,16 @@ export default defineField({
     Rule.custom((value, { document }) => {
       const market = MARKETS.find((m) => m.name === document?.market)
 
-      if (market && market.languages.length > 1) {
+      // Not required on singleton documents
+      const schemaIsSingleton = SCHEMA_ITEMS.find(
+        (s) => s.kind === 'singleton' && s.schemaType === document._type
+      )
+
+      if (!schemaIsSingleton && market && market.languages.length > 1) {
         return `Documents in the "${market.title}" Market require a language field`
       }
 
-      if (!market.languages.find((l) => l.id === value)) {
+      if (value && !market.languages.find((l) => l.id === value)) {
         return `Invalid language "${value}", must be one of ${market.languages
           .map((l) => l.id)
           .join(', ')}`

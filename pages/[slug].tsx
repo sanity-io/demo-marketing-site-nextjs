@@ -126,7 +126,7 @@ export async function getStaticProps({
     // In production this should be set in a session cookie
     audience:
       preview && previewData?.audience
-        ? previewData.audience
+        ? previewData?.audience
         : Math.round(Math.random()),
     // Some Page Builder blocks are set to display only on specific times
     // In preview mode, we can set this to preview the page as if it were a different time
@@ -134,10 +134,12 @@ export async function getStaticProps({
     // Do not pass a dynamic value like `new Date()` as it will uniquely cache every request!
     date: preview && previewData?.date ? previewData.date : null,
   }
+  console.log(`in getStaticProps`, previewData?.audience)
 
   const page = await getClient(preview).fetch(pageQuery, queryParams)
   const websiteSettings = await getClient(preview).fetch(settingsQuery, {
-    market: queryParams.market,
+    id: `${queryParams.market}-settings`.toLowerCase(),
+    language: queryParams.language,
   })
 
   return {

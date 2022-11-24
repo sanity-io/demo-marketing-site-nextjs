@@ -24,22 +24,32 @@ export const MARKETS: Market[] = markets
 export const UNIQUE_LANGUAGES = uniqueLanguages
 
 export type SchemaItem = {
+  kind: 'list'
   schemaType: string
   title: string
   icon: (props) => JSX.Element
 }
 
-export type SchemaDivider = 'divider'
+export type SchemaSingleton = {
+  kind: 'singleton'
+  schemaType: string
+  title: string
+  icon: (props) => JSX.Element
+}
+
+export type SchemaDivider = {
+  kind: 'divider'
+}
 
 // This studio uses helper function to loop over these objects
 // As they're used to dynamically generate per-market schema items
 // With the helper functions defined in lib/structure.tsx
-export const SCHEMA_ITEMS: (SchemaItem | SchemaDivider)[] = [
-  { schemaType: `page`, title: 'Pages', icon: File },
-  'divider',
-  { schemaType: `person`, title: 'People', icon: User },
-  { schemaType: `company`, title: 'Companies', icon: Building },
-  { schemaType: `quote`, title: 'Quotes', icon: Quote },
-  'divider',
-  { schemaType: `settings`, title: 'Settings', icon: Cog },
+export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
+  { kind: 'list', schemaType: `page`, title: 'Pages', icon: File },
+  { kind: 'divider' },
+  { kind: 'list', schemaType: `person`, title: 'People', icon: User },
+  { kind: 'list', schemaType: `company`, title: 'Companies', icon: Building },
+  { kind: 'list', schemaType: `quote`, title: 'Quotes', icon: Quote },
+  { kind: 'divider' },
+  { kind: 'singleton', schemaType: `settings`, title: 'Settings', icon: Cog },
 ]

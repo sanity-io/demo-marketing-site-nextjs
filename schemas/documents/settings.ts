@@ -18,9 +18,7 @@ export default defineType({
     defineField({
       name: 'title',
       description: 'This field is the title of your site.',
-      type: 'string',
-      initialValue: 'Marketing Site.',
-      validation: (rule) => rule.required(),
+      type: 'internationalizedArrayString',
     }),
   ],
 })

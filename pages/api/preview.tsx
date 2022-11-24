@@ -11,19 +11,17 @@ function redirectToPreview(res: NextApiResponse, Location: string, data = {}) {
   res.end()
 }
 
+type PreviewData = {
+  date?: string
+  audience?: 0 | 1
+}
+
 // In this preview route we direct to a full-path URL
 // This is so market and language-specific routes work from a single endpoint
 export default async function preview(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const queryDate = Array.isArray(req.query.date)
-    ? req.query.date[0]
-    : req.query.date
-  const audience = !['string', 'boolean'].includes(typeof req.previewData)
-    ? req.query.audience
-    : null
-
   // Check the secret if it's provided, enables running preview mode locally before the env var is setup
   // Skip if preview is already enabled (TODO: check if this is okay)
   const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
@@ -31,18 +29,34 @@ export default async function preview(
     return res.status(401).json({ message: 'Invalid secret' })
   }
 
+  // Get existing previewData values
+  const existingPreviewData = req.previewData as PreviewData
+
+  // Find any query params passed-in to setup or overwrite preview data
+  const queryDate = Array.isArray(req.query.date)
+    ? req.query.date[0]
+    : req.query.date
+  const queryAudience = !['string', 'boolean'].includes(typeof req.previewData)
+    ? Number(req.query.audience)
+    : null
+  console.log(`original preview data`, req.previewData)
+  console.log(`original query`, req.query)
+
   // Control some of the query parameters in Preview mode
   // These should typically be set by a cookie or session
   const previewData = {
     // Either use the date passed-in or reset to null
     date: req.query.date ? new Date(queryDate).toISOString() : null,
     // Use the existing audience or create a new one
-    audience: audience ?? Math.round(Math.random()),
+    audience: [0, 1].includes(existingPreviewData.audience)
+      ? existingPreviewData.audience
+      : Math.round(Math.random()),
   }
 
   // Overwrite audience to whatever was passed-in as a query param, if valid
-  if (req.query.audience && [0, 1].includes(Number(req.query.audience))) {
-    previewData.audience = Number(req.query.audience)
+  if ([0, 1].includes(queryAudience)) {
+    console.log(`Changing audience to ${queryAudience}`)
+    previewData.audience = Number(queryAudience)
   }
 
   // If no slug is provided open preview mode on the frontpage

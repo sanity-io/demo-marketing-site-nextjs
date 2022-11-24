@@ -6,7 +6,9 @@ const pageFields = groq`
   "slug": slug.current,
 `
 
-export const settingsQuery = groq`*[_type == "settings" && market == $market][0]{title}`
+export const settingsQuery = groq`*[_type == "settings" && _id == $id][0]{
+  "title": title[_key == $language][0].value,
+}`
 
 export const indexQuery = groq`
 *[
