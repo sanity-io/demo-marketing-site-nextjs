@@ -89,16 +89,18 @@ export default async function (req: NextRequest) {
               justifyContent: 'flex-end',
             }}
           >
-            <div style={{
-              backgroundColor: 'goldenrod',
-              position: 'absolute',
-              width: 120,
-              height: 80,
-              top: `45%`,
-              left: 50,
-              borderRadius: 20,
-              opacity: .75
-            }} />
+            <div
+              style={{
+                backgroundColor: 'goldenrod',
+                position: 'absolute',
+                width: 120,
+                height: 80,
+                top: `45%`,
+                left: 50,
+                borderRadius: 20,
+                opacity: 0.75,
+              }}
+            />
             <div
               style={{
                 fontSize: 64,

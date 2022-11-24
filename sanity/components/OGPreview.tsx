@@ -24,7 +24,9 @@ export default function OGPreview(props) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imageUrl} alt="" width={1200} height={630} />
           <Stack space={4} padding={4}>
-            <Text size={3} weight="bold">{document?.seo?.title ?? document?.title}</Text>
+            <Text size={3} weight="bold">
+              {document?.seo?.title ?? document?.title}
+            </Text>
             <Text muted>{document?.seo?.description}</Text>
           </Stack>
         </Card>

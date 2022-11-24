@@ -17,7 +17,7 @@ export default function Alert(props: AlertProps) {
     return null
   }
 
-  console.log(`in alert.tsx`, queryParams.audience);
+  console.log(`in alert.tsx`, queryParams.audience)
 
   const toggleAudienceUrl = new URLSearchParams()
   toggleAudienceUrl.set('slug', String(queryParams.slug))

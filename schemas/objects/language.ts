@@ -11,8 +11,7 @@ export default defineField({
     const market = MARKETS.find((m) => m.name === document?.market)
 
     // Hide on singleton documents
-    const schemaIsSingleton =
-    SCHEMA_ITEMS.find(
+    const schemaIsSingleton = SCHEMA_ITEMS.find(
       (s) => s.kind === 'singleton' && s.schemaType === document._type
     )
 
@@ -36,10 +35,9 @@ export default defineField({
       const market = MARKETS.find((m) => m.name === document?.market)
 
       // Not required on singleton documents
-      const schemaIsSingleton =
-        SCHEMA_ITEMS.find(
-          (s) => s.kind === 'singleton' && s.schemaType === document._type
-        )
+      const schemaIsSingleton = SCHEMA_ITEMS.find(
+        (s) => s.kind === 'singleton' && s.schemaType === document._type
+      )
 
       if (!schemaIsSingleton && market && market.languages.length > 1) {
         return `Documents in the "${market.title}" Market require a language field`

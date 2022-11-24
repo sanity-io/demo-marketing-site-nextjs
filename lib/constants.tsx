@@ -24,14 +24,14 @@ export const MARKETS: Market[] = markets
 export const UNIQUE_LANGUAGES = uniqueLanguages
 
 export type SchemaItem = {
-  kind: 'list',
+  kind: 'list'
   schemaType: string
   title: string
   icon: (props) => JSX.Element
 }
 
 export type SchemaSingleton = {
-  kind: 'singleton',
+  kind: 'singleton'
   schemaType: string
   title: string
   icon: (props) => JSX.Element
@@ -46,10 +46,10 @@ export type SchemaDivider = {
 // With the helper functions defined in lib/structure.tsx
 export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
   { kind: 'list', schemaType: `page`, title: 'Pages', icon: File },
-  { kind: 'divider'},
+  { kind: 'divider' },
   { kind: 'list', schemaType: `person`, title: 'People', icon: User },
   { kind: 'list', schemaType: `company`, title: 'Companies', icon: Building },
   { kind: 'list', schemaType: `quote`, title: 'Quotes', icon: Quote },
-  { kind: 'divider'},
+  { kind: 'divider' },
   { kind: 'singleton', schemaType: `settings`, title: 'Settings', icon: Cog },
 ]
