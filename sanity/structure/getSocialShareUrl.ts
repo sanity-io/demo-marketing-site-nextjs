@@ -26,7 +26,7 @@ export async function getSocialShareUrl(
     }`,
     {
       id: document?.person?._ref ?? ``,
-      market: document?.market ?? ``
+      market: document?.market ?? ``,
     }
   )
 
