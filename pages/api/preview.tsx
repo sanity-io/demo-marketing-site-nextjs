@@ -39,8 +39,6 @@ export default async function preview(
   const queryAudience = !['string', 'boolean'].includes(typeof req.previewData)
     ? Number(req.query.audience)
     : null
-  console.log(`original preview data`, req.previewData)
-  console.log(`original query`, req.query)
 
   // Control some of the query parameters in Preview mode
   // These should typically be set by a cookie or session
@@ -55,7 +53,6 @@ export default async function preview(
 
   // Overwrite audience to whatever was passed-in as a query param, if valid
   if ([0, 1].includes(queryAudience)) {
-    console.log(`Changing audience to ${queryAudience}`)
     previewData.audience = Number(queryAudience)
   }
 
