@@ -2,11 +2,9 @@ import { ConfigContext } from 'sanity'
 import {
   DefaultDocumentNodeResolver,
   StructureBuilder,
-  StructureResolver,
 } from 'sanity/desk'
 import Iframe from 'sanity-plugin-iframe-pane'
 
-//   import Flag from './components/Flag'
 import {
   Language,
   Market,
@@ -18,8 +16,10 @@ import {
 } from '../../lib/constants'
 import Icon from '../components/Icon'
 import OGPreview from '../components/OGPreview'
+import SocialSharePreview from '../components/SocialSharePreview'
 import { getOgUrl } from './getOgUrl'
 import { getPreviewUrl } from './getPreviewUrl'
+import { getSocialShareUrl } from './getSocialShareUrl'
 
 // Create Items for all Markets
 const createAllMarketItems = (S: StructureBuilder, config: ConfigContext) =>
@@ -197,8 +197,10 @@ export const structure = (
 // https://www.sanity.io/docs/structure-builder-reference
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
-  { schemaType }
+  { schemaType, getClient }
 ) => {
+  const client = getClient({apiVersion: `2022-11-24`})
+
   switch (schemaType) {
     case `page`:
       return S.document().views([
@@ -216,6 +218,16 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
             url: (doc) => getOgUrl(doc),
           })
           .title('Open Graph'),
+      ])
+    case `quote`:
+      return S.document().views([
+        S.view.form(),
+        S.view
+          .component(SocialSharePreview)
+          .options({
+            url: (doc) => getSocialShareUrl(doc, client),
+          })
+          .title('Social Share'),
       ])
     default:
       return S.document().views([S.view.form()])

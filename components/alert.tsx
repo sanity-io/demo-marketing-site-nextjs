@@ -24,7 +24,7 @@ export default function Alert(props: AlertProps) {
   const [targetDate, setTargetDate] = React.useState(
     queryParams.date ?? new Date().toISOString()
   )
-  const [labelDate, setLabelDate] = React.useState(`Now`);
+  const [labelDate, setLabelDate] = React.useState(`Now`)
   const handleDateChange = React.useCallback(
     (e) => {
       setTargetDate(
