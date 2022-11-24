@@ -11,6 +11,9 @@ export const config = {
 const WIDTH = 1200
 const HEIGHT = 630
 
+const CREDIT_CARD_WIDTH = 856
+const CREDIT_CARD_HEIGHT = 539.8
+
 // Make sure the font exists in the specified path:
 const font = fetch(
   new URL('../../assets/Inter-Bold.woff', import.meta.url)
@@ -53,59 +56,81 @@ export default async function (req: NextRequest) {
         />
         <div
           style={{
-            backgroundImage:
-              'linear-gradient(-45deg, rgba(0,0,0,1), rgba(0,0,0,0.5) )',
             position: 'absolute',
             zIndex: `2`,
-            top: 50,
-            left: 50,
+            top: 0,
             right: 50,
-            bottom: 50,
+            bottom: 0,
+            left: 50,
             color: 'white',
             width: WIDTH - 100,
-            height: HEIGHT - 100,
-            borderRadius: 40,
-            padding: 50,
-            paddingLeft: 150,
+            height: HEIGHT,
             display: 'flex',
             flexDirection: 'column',
-            textAlign: 'right',
+            justifyContent: 'center',
             alignItems: 'flex-end',
-            justifyContent: 'flex-end',
+            textAlign: 'right',
             gap: 20,
           }}
         >
           <div
             style={{
-              fontSize: 64,
-              color: 'cyan',
-              fontWeight: 700,
-              fontFamily: `Inter`,
-              letterSpacing: `-0.04em`,
-              lineHeight: 1,
+              backgroundImage:
+                'linear-gradient(-45deg, rgba(0,0,0,1), rgba(0,0,0,0.5) )',
+              transform: `rotate(2deg)`,
+              display: 'flex',
+              width: CREDIT_CARD_WIDTH,
+              height: CREDIT_CARD_HEIGHT,
+              padding: 40,
+              borderRadius: 40,
+              flexDirection: 'column',
+              textAlign: 'right',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
             }}
           >
-            {siteTitle}
-          </div>
-          <div
-            style={{
-              border: `1px solid white`,
-              marginTop: 20,
-              marginBottom: 20,
-              height: 1,
-              width: `50%`,
-            }}
-          />
-          <div
-            style={{
-              fontSize: 128,
-              fontWeight: 700,
-              fontFamily: `Inter`,
-              letterSpacing: `-0.04em`,
-              lineHeight: 1,
-            }}
-          >
-            {title}
+            <div style={{
+              backgroundColor: 'goldenrod',
+              position: 'absolute',
+              width: 120,
+              height: 80,
+              top: `45%`,
+              left: 50,
+              borderRadius: 20,
+              opacity: .75
+            }} />
+            <div
+              style={{
+                fontSize: 64,
+                color: 'cyan',
+                fontWeight: 700,
+                fontFamily: `Inter`,
+                letterSpacing: `-0.04em`,
+                lineHeight: 1,
+              }}
+            >
+              {siteTitle}
+            </div>
+            <div
+              style={{
+                border: `1px solid white`,
+                marginTop: 20,
+                marginBottom: 20,
+                height: 1,
+                width: `50%`,
+              }}
+            />
+            <div
+              style={{
+                fontSize: 128,
+                fontWeight: 700,
+                fontFamily: `Inter`,
+                letterSpacing: `-0.04em`,
+                lineHeight: 1,
+              }}
+            >
+              {title}
+            </div>
           </div>
         </div>
       </div>

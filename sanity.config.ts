@@ -7,9 +7,12 @@ import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+import { internationalizedArray } from 'sanity-plugin-internationalized-array'
+import { media } from 'sanity-plugin-media'
 
 import { MARKETS, SCHEMA_ITEMS } from './lib/constants'
 import { marketBadge } from './sanity/badges/market-badge'
+import CustomToolMenu from './sanity/components/CustomToolMenu'
 import Icon from './sanity/components/Icon'
 import { schemaTemplates } from './sanity/schemaTemplates'
 import { defaultDocumentNode, structure } from './sanity/structure'
@@ -20,25 +23,32 @@ import settingsType from './schemas/documents/settings'
 const BASE_PATH = '/studio'
 
 const pluginsBase = (marketName?: string) => {
+  const market = MARKETS.find((m) => m.name === marketName)
+
+  // Shared plugins across all "market" configs
   const base = [
     deskTool({
       structure: (S, context) => structure(S, context, marketName),
       defaultDocumentNode,
     }),
     unsplashImageAsset(),
-    visionTool({
-      defaultApiVersion: '2022-08-08',
+    visionTool({ defaultApiVersion: '2022-08-08' }),
+    media(),
+    // Used for field-level translation in some schemas
+    internationalizedArray({
+      languages: market ? market.languages : [],
+      fieldTypes: ['string'],
     }),
   ]
 
-  const market = MARKETS.find((m) => m.name === marketName)
-
   if (market && market.languages.length > 1) {
+    // Used for document-level translation on some schema types
+    // If there is more than 1 language
     base.push(
       documentInternationalization({
         supportedLanguages: market.languages,
-        schemaTypes: SCHEMA_ITEMS.map(
-          (item) => typeof item !== 'string' && item.schemaType
+        schemaTypes: SCHEMA_ITEMS.map((item) =>
+          item.kind === 'list' ? item.schemaType : null
         ).filter(Boolean),
       })
     )
@@ -47,16 +57,17 @@ const pluginsBase = (marketName?: string) => {
   return base
 }
 
+// Shared config across all "market" configs
+// Some elements are overwritten in the market-specific configs
 const configBase = {
   basePath: BASE_PATH + `/global`,
   name: 'global',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Global // Marketing.',
+  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Marketing.',
   icon: Icon,
   schema: {
     types: schemaTypes,
-    // TODO: Get initial templates working
     templates: (prev) => schemaTemplates(prev),
   },
   plugins: pluginsBase(),
@@ -76,6 +87,11 @@ const configBase = {
       return prev
     },
   },
+  studio: {
+    components: {
+      toolMenu: CustomToolMenu,
+    },
+  },
 }
 
 export default defineConfig([
@@ -83,7 +99,7 @@ export default defineConfig([
     ...configBase,
     basePath: BASE_PATH + `/` + market.name.toLowerCase(),
     name: market.name,
-    title: market.title,
+    title: [configBase.title, market.title].join(` `),
     plugins: pluginsBase(market.name),
     icon: () => Icon(market),
   })),

@@ -4,9 +4,11 @@ import React from 'react'
 import { useCopyToClipboard } from 'usehooks-ts'
 
 export default function OGPreview(props) {
+  const document = props.document.displayed
+
   const imageUrl = React.useMemo(
-    () => props.options.url(props.document?.displayed),
-    [props.document?.displayed, props.options]
+    () => props.options.url(document),
+    [document, props.options]
   )
 
   const [, setCopiedText] = useCopyToClipboard()
@@ -21,6 +23,10 @@ export default function OGPreview(props) {
         <Card shadow={3}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imageUrl} alt="" width={1200} height={630} />
+          <Stack space={4} padding={4}>
+            <Text size={3} weight="bold">{document?.seo?.title ?? document?.title}</Text>
+            <Text muted>{document?.seo?.description}</Text>
+          </Stack>
         </Card>
         <Card radius={2} border>
           <Flex gap={3} align="center" padding={3}>

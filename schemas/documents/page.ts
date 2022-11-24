@@ -8,7 +8,7 @@ export default defineType({
   icon: File,
   type: 'document',
   groups: [
-    { name: 'content', title: 'Content', icon: ComposeIcon },
+    { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
     { name: 'seo', title: 'SEO', icon: SearchIcon },
     { name: 'options', title: 'Options', icon: CogIcon },
   ],

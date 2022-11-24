@@ -14,6 +14,7 @@ import {
   SCHEMA_ITEMS,
   SchemaDivider,
   SchemaItem,
+  SchemaSingleton,
 } from '../../lib/constants'
 import Icon from '../components/Icon'
 import OGPreview from '../components/OGPreview'
@@ -50,20 +51,32 @@ const createAllSchemaItems = (
 // Create a schema item for this market for this schema type
 const createSchemaItem = (
   S: StructureBuilder,
-  schemaItem: SchemaItem | SchemaDivider,
+  schemaItem: SchemaItem | SchemaSingleton | SchemaDivider,
   market: Market
 ) => {
-  return schemaItem === 'divider'
-    ? S.divider()
-    : S.listItem()
+  switch (schemaItem.kind) {
+    case 'divider':
+      return S.divider()
+    case 'list':
+      return S.listItem()
         .id(
-          `${market.name.toLowerCase()}-${schemaItem.title
-            .toLowerCase()
-            .replaceAll(` `, `-`)}`
+          [
+            market.name.toLowerCase(),
+            schemaItem.title.toLowerCase().replaceAll(` `, `-`),
+          ].join(`-`)
         )
         .title(schemaItem.title)
         .icon(schemaItem.icon)
         .child(createSchemaItemChildren(S, schemaItem, market))
+    case 'singleton':
+      return S.documentListItem()
+        .schemaType(schemaItem.schemaType)
+        .icon(schemaItem.icon)
+        .id([market.name.toLowerCase(), schemaItem.schemaType].join(`-`))
+        .title([market.name, schemaItem.title].join(` `))
+    default:
+      return null
+  }
 }
 
 const createSchemaItemChildren = (
@@ -106,9 +119,8 @@ const createSchemaItemChild = (
     languageQuery = ``
   }
 
-  return S.documentList()
+  return S.documentTypeList(schemaItem.schemaType)
     .title(itemTitle)
-    .schemaType(schemaItem.schemaType)
     .filter(
       [
         `_type == $schemaType`,
@@ -126,7 +138,7 @@ const createSchemaItemChild = (
       language: language?.id ?? null,
     })
     .initialValueTemplates([
-      S.initialValueTemplateItem(schemaItem.schemaType, {
+      S.initialValueTemplateItem([schemaItem.schemaType, `market`].join(`-`), {
         market: market.name,
       }),
     ])
