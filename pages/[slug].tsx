@@ -134,7 +134,6 @@ export async function getStaticProps({
     // Do not pass a dynamic value like `new Date()` as it will uniquely cache every request!
     date: preview && previewData?.date ? previewData.date : null,
   }
-  console.log(`in getStaticProps`, previewData?.audience)
 
   const page = await getClient(preview).fetch(pageQuery, queryParams)
   const websiteSettings = await getClient(preview).fetch(settingsQuery, {

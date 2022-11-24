@@ -8,7 +8,7 @@ export default defineField({
   description:
     'Used to colocate documents to only those in the same "Market", not to be confused with "Language".',
   type: 'string',
-  hidden: ({ value }) => value,
+  hidden: ({ value }) => Boolean(value),
   validation: (Rule) => Rule.required(),
   options: {
     list: MARKETS.map((market) => ({

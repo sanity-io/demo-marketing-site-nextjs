@@ -37,13 +37,11 @@ export default async function (req: NextRequest) {
     (
       <div
         style={{
-          background: 'linear-gradient(-45deg, cyan, black)',
+          background: 'white',
           width: WIDTH,
           height: HEIGHT,
           position: 'relative',
           display: 'flex',
-          // alignItems: 'center',
-          // justifyContent: 'center',
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
