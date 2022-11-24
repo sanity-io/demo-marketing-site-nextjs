@@ -1,6 +1,6 @@
 import { SCHEMA_ITEMS, SchemaItem } from '../lib/constants'
 
-const onlySchemaItems = SCHEMA_ITEMS.filter((item) => item !== 'divider')
+const onlySchemaItems = SCHEMA_ITEMS.filter((item) => item.kind !== 'divider')
 
 export const schemaTemplates = (prev) => [
   ...prev,
