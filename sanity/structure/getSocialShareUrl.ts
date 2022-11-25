@@ -36,8 +36,6 @@ export async function getSocialShareUrl(
     return url.toString()
   }
 
-  console.log(result)
-
   url.searchParams.set('name', result.name)
   url.searchParams.set('title', result.title)
   url.searchParams.set('picture', JSON.stringify(result.picture))

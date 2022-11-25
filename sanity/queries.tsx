@@ -7,7 +7,8 @@ const pageFields = groq`
 `
 
 export const settingsQuery = groq`*[_type == "settings" && _id == $id][0]{
-  "title": title[_key == $language][0].value,
+  // Get the first item if no language was specified
+  "title": select($language == null => title[0].value, title[_key == $language][0].value),
 }`
 
 export const indexQuery = groq`

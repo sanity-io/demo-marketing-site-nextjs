@@ -11,6 +11,7 @@ import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 import { media } from 'sanity-plugin-media'
 
 import { MARKETS, SCHEMA_ITEMS } from './lib/constants'
+import { markets } from './lib/markets'
 import { marketBadge } from './sanity/badges/market-badge'
 import CustomToolMenu from './sanity/components/CustomToolMenu'
 import Icon from './sanity/components/Icon'
@@ -41,15 +42,32 @@ const pluginsBase = (marketName?: string) => {
     }),
   ]
 
+  const i18nSchemaTypes = SCHEMA_ITEMS.map((item) =>
+    item.kind === 'list' ? item.schemaType : null
+  ).filter(Boolean)
+
   if (market && market.languages.length > 1) {
     // Used for document-level translation on some schema types
     // If there is more than 1 language
     base.push(
       documentInternationalization({
         supportedLanguages: market.languages,
-        schemaTypes: SCHEMA_ITEMS.map((item) =>
-          item.kind === 'list' ? item.schemaType : null
-        ).filter(Boolean),
+        schemaTypes: i18nSchemaTypes,
+      })
+    )
+  } else if (!market) {
+    const uniqueLanguages = MARKETS.reduce((acc, cur) => {
+      const newLanguages = cur.languages.filter(
+        (lang) => !acc.find((a) => a.id === lang.id)
+      )
+
+      return [...acc, ...newLanguages]
+    }, [])
+
+    base.push(
+      documentInternationalization({
+        supportedLanguages: uniqueLanguages,
+        schemaTypes: i18nSchemaTypes,
       })
     )
   }
