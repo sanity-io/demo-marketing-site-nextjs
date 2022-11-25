@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-anonymous-default-export */
 import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
@@ -102,6 +103,7 @@ export default async function (req: NextRequest) {
           >
             <img
               src={pictureUrl}
+              alt=""
               style={{
                 width: 200,
                 height: 200,
@@ -159,6 +161,7 @@ export default async function (req: NextRequest) {
           </div>
           <div style={{ display: 'flex' }}>
             <img
+              alt=""
               src={logoUrl}
               style={{
                 width: 200,

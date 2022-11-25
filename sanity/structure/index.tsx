@@ -1,8 +1,5 @@
 import { ConfigContext } from 'sanity'
-import {
-  DefaultDocumentNodeResolver,
-  StructureBuilder,
-} from 'sanity/desk'
+import { DefaultDocumentNodeResolver, StructureBuilder } from 'sanity/desk'
 import Iframe from 'sanity-plugin-iframe-pane'
 
 import {
@@ -199,7 +196,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
   { schemaType, getClient }
 ) => {
-  const client = getClient({apiVersion: `2022-11-24`})
+  const client = getClient({ apiVersion: `2022-11-24` })
 
   switch (schemaType) {
     case `page`:

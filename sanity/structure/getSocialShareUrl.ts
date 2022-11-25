@@ -26,7 +26,7 @@ export async function getSocialShareUrl(
     }`,
     {
       id: document?.person?._ref ?? ``,
-      market: document?.market ?? ``
+      market: document?.market ?? ``,
     }
   )
 
@@ -35,8 +35,6 @@ export async function getSocialShareUrl(
   if (!result) {
     return url.toString()
   }
-
-  console.log(result)
 
   url.searchParams.set('name', result.name)
   url.searchParams.set('title', result.title)

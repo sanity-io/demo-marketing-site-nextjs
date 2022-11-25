@@ -39,7 +39,12 @@ export default defineField({
         (s) => s.kind === 'singleton' && s.schemaType === document._type
       )
 
-      if (!schemaIsSingleton && market && market.languages.length > 1) {
+      if (
+        !value &&
+        !schemaIsSingleton &&
+        market &&
+        market.languages.length > 1
+      ) {
         return `Documents in the "${market.title}" Market require a language field`
       }
 
