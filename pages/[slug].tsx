@@ -41,13 +41,13 @@ export default function Slug(props: Props) {
       <Head>
         <title>{`${data.title} | ${title}`}</title>
       </Head>
-      <Container>
-        {router.isFallback ? (
+      {router.isFallback ? (
+        <Container>
           <PostTitle>Loading…</PostTitle>
-        ) : (
-          <Page {...data} />
-        )}
-      </Container>
+        </Container>
+      ) : (
+        <Page {...data} />
+      )}
     </Layout>
   )
 }

@@ -1,31 +1,44 @@
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-import { Link as ButtonProps } from '../types'
+import { Link as LinkProps } from '../types'
 
-const buttonClasses = `bg-black inline-flex gap-2 items-center text-white px-5 py-3 leading-none rounded-sm`
+type ButtonMode = 'default' | 'ghost' | 'bleed'
+type ButtonProps = LinkProps & {
+  mode?: ButtonMode
+  icon?: boolean
+}
+
+const buttonClasses = {
+  base: `inline-flex gap-2 items-center border px-5 py-3 leading-none rounded transition-colors duration-75 ease-in-out`,
+  default: `bg-black text-white border-black hover:bg-cyan hover:text-black hover:border-cyan`,
+  ghost: `bg-transparent text-black border-black hover:bg-cyan hover:text-black hover:border-cyan`,
+  bleed: `border-transparent text-gray-500 hover:text-black`,
+}
 
 export default function Button(props: ButtonProps) {
-  const { text, url, reference } = props
+  const { text, url, reference, mode = `default`, icon = false } = props
+  const classNames = [buttonClasses.base, buttonClasses[mode]].join(` `)
 
   if (reference.slug && (reference.title || text)) {
     return (
-      <Link className={buttonClasses} href={reference.slug}>
+      <Link className={classNames} href={reference.slug}>
         <span>{text ?? reference.title}</span>
-        <ArrowRight className="w-5" />
+        {icon ? <ArrowRight className="w-5" /> : null}
       </Link>
     )
   } else if (url && text) {
     return (
-      <a className={buttonClasses} href={url}>
+      <a className={classNames} href={url}>
         <span>{text}</span>
-        <ArrowRight className="w-5" />
+        {icon ? <ArrowRight className="w-5" /> : null}
       </a>
     )
   } else if (text) {
     return (
-      <span className={buttonClasses}>
-        <span>{text}</span> <ArrowRight className="w-5" />
+      <span className={classNames}>
+        <span>{text}</span>
+        {icon ? <ArrowRight className="w-5" /> : null}
       </span>
     )
   }

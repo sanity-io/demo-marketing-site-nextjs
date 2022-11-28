@@ -14,6 +14,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "@portabletext/react": "^2.0.0",
     "@sanity/document-internationalization": "^2.0.0-studio-v3-plugin-v2.2",
     "@sanity/image-url": "^1.0.1",

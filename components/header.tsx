@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import link from '../schemas/objects/link'
 import { GlobalDataProps } from '../types'
+import Button from './button'
 import Container from './container'
 
 type HeaderProps = {
@@ -33,19 +34,10 @@ export default function Header(props: HeaderProps) {
             {title}
           </Link>
           {headerPrimary && headerPrimary?.length > 0 ? (
-            <ul className="flex items-center justify-start gap-5">
+            <ul className="flex items-center justify-start">
               {headerPrimary.map((item) => (
                 <li key={item._key} className="font-medium text-gray-500">
-                  {/* TODO: These links could include the `locale` */}
-                  {item?.link?.reference?.title &&
-                  item?.link?.reference?.slug ? (
-                    <Link href={`/${item.link.reference.slug}`}>
-                      {item.link.text ?? item.link.reference.title}
-                    </Link>
-                  ) : null}
-                  {item?.link?.url && item?.link?.text ? (
-                    <Link href={item.link.url}>{item.link.text}</Link>
-                  ) : null}
+                  <Button mode="bleed" {...item.link} />
                 </li>
               ))}
             </ul>

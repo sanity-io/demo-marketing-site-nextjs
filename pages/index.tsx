@@ -39,13 +39,13 @@ export default function Home(props: Props) {
       <Head>
         <title>{`${data.title} | ${title}`}</title>
       </Head>
-      <Container>
-        {router.isFallback ? (
+      {router.isFallback ? (
+        <Container>
           <PostTitle>Loading…</PostTitle>
-        ) : (
-          <Page {...data} />
-        )}
-      </Container>
+        </Container>
+      ) : (
+        <Page {...data} />
+      )}
     </Layout>
   )
 }
@@ -62,7 +62,7 @@ export function getLanguageFromNextLocale(locale: string) {
 
 export async function getStaticProps({ locale, preview = false, previewData }) {
   /* check if the project id has been defined by fetching the vercel envs */
-  
+
   // TODO: Don't repeat this here and in [slug].tst
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     // These query params are used to power this preview
@@ -101,8 +101,6 @@ export async function getStaticProps({ locale, preview = false, previewData }) {
       menuId: `${queryParams.market}-menu`.toLowerCase(),
       language: queryParams.language,
     })
-
-    console.log(homeQueryParams)
 
     return {
       props: {

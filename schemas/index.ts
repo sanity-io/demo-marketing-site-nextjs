@@ -12,6 +12,7 @@ import pageBuilder from './objects/pageBuilder'
 import rowOptions from './objects/rowOptions'
 import seo from './objects/seo'
 import pageBuilderExperimentRow from './rows/pageBuilderExperimentRow'
+import pageBuilderFeatureRow from './rows/pageBuilderFeatureRow'
 import pageBuilderHero from './rows/pageBuilderHero'
 import pageBuilderHeroRow from './rows/pageBuilderHeroRow'
 import pageBuilderLogosRow from './rows/pageBuilderLogosRow'
@@ -34,6 +35,7 @@ export const schemaTypes = [
   pageBuilderExperimentRow,
   pageBuilderLogosRow,
   pageBuilderQuoteRow,
+  pageBuilderFeatureRow,
   rowOptions,
   link,
 ]
