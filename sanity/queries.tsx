@@ -6,10 +6,7 @@ export const globalDataQuery = groq`{
     "title": select($language == null => title[0].value, title[_key == $language][0].value),
   },
   "menus": *[_id == $menuId][0]{
-    "headerPrimary": headerPrimary[
-      // Filter items to only those that will produce valid links
-      (defined(link.text) && defined(link.url)) || defined(link.reference)
-    ]{
+    "headerPrimary": headerPrimary[(defined(link.text) && defined(link.url)) || defined(link.reference)]{
       _key,
       "link": link{
         url,
@@ -48,8 +45,21 @@ const pageFields = groq`
       ...(hero->{
         title,
         subtitle,
-        links,
-        image
+        image,
+        // "links": links[(defined(link.text) && defined(link.url)) || defined(link.reference._ref)]{
+          // _key,
+          // ...
+        // }
+        links[]{
+          ...,
+          _key,
+          url,
+          text,
+          reference->{
+            title,
+            "slug": slug.current
+          }
+        }
       })
     },
     _type == "quote" => {
@@ -79,7 +89,7 @@ export const pageQuery = groq`
 }`
 
 export const pageSlugsQuery = groq`
-*[_type == "page" && defined(slug.current)][].slug.current
+*[_type == "page" && defined(slug.current) && defined(market)].slug.current
 `
 
 export const pageBySlugQuery = groq`

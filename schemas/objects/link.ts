@@ -12,7 +12,7 @@ export default defineType({
       description: `If this link has a reference and a URL, the reference will be used`,
       to: [{ type: 'page' }],
       // Read-only if a URL is used
-      readOnly: ({ parent }) => Boolean(parent?.url),
+      readOnly: ({ value, parent }) => !value && Boolean(parent?.url),
       options: {
         filter: ({ document }) => {
           // Filter to the same market
@@ -45,7 +45,7 @@ export default defineType({
       title: 'URL',
       type: `url`,
       // Read-only if a reference is used
-      readOnly: ({ parent }) => Boolean(parent?.reference),
+      readOnly: ({ value, parent }) => !value && Boolean(parent?.reference),
       validation: (Rule) =>
         Rule.uri({
           scheme: ['https', 'mailto', 'tel'],

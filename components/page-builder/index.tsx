@@ -7,7 +7,8 @@ type PageBuilderProps = {
 
 const ROWS = {
   hero: React.lazy(() => import('./hero')),
-  experiment: React.lazy(() => import('./experiment')),
+  experiment: React.lazy(() => import('./hero')),
+  // experiment: React.lazy(() => import('./experiment')),
   logos: React.lazy(() => import('./logos')),
   quote: React.lazy(() => import('./quote')),
 }

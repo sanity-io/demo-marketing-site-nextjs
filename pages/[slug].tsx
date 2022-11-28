@@ -43,7 +43,7 @@ export default function Page(props: Props) {
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
-            <article className="flex flex-col gap-6 py-12 md:gap-12 md:py-24">
+            <article className="flex flex-col">
               <Head>
                 <title>{`${data.title} | ${title}`}</title>
                 {/* {post.coverImage?.asset?._ref && (
