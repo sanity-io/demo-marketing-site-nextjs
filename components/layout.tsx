@@ -20,7 +20,7 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
     <>
       <Meta />
       <div className="min-h-screen">
-        <Header title={settings?.title} headerPrimary={menus.headerPrimary} />
+        <Header title={settings?.title} headerPrimary={menus?.headerPrimary} />
         {preview && queryParams?.slug ? (
           <Alert preview={preview} queryParams={queryParams} />
         ) : null}

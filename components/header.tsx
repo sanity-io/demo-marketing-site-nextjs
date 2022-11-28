@@ -7,7 +7,7 @@ import Container from './container'
 
 type HeaderProps = {
   title: string
-  headerPrimary: GlobalDataProps['menus']['headerPrimary']
+  headerPrimary?: GlobalDataProps['menus']['headerPrimary']
 }
 
 export default function Header(props: HeaderProps) {
