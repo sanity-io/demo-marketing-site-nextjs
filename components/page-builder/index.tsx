@@ -6,12 +6,14 @@ type PageBuilderProps = {
 }
 
 const ROWS = {
+  // Normal rows
   hero: React.lazy(() => import('./hero')),
-  experiment: React.lazy(() => import('./hero')),
-  // experiment: React.lazy(() => import('./experiment')),
   logos: React.lazy(() => import('./logos')),
   quote: React.lazy(() => import('./quote')),
-  feature: React.lazy(() => import('./feature')),
+  // Experiment block displays whichever hero was loaded
+  experiment: React.lazy(() => import('./hero')),
+  // Promotion row is a grouped set of contiguous `promotion` rows
+  promotion: React.lazy(() => import('./promotion')),
 }
 
 export default function PageBuilder(props: PageBuilderProps) {
@@ -22,28 +24,31 @@ export default function PageBuilder(props: PageBuilderProps) {
   const rowsGrouped = React.useMemo(
     () =>
       rows.reduce((acc, cur) => {
-        if (cur._type !== 'feature') {
+        if (cur._type !== `promotion`) {
           return [...acc, cur]
         }
 
         const prev = acc[acc.length - 1]
 
-        // Start a new `features` array
-        if (!prev || prev._type !== `feature`) {
-          return [...acc, {
-            _key: cur._key,
-            _type: cur._type,
-            features: [cur]
-          }]
+        // Start a new `promotions` array
+        if (!prev || prev._type !== `promotion`) {
+          return [
+            ...acc,
+            {
+              _key: cur._key,
+              _type: cur._type,
+              promotions: [cur],
+            },
+          ]
         }
 
-        // Add to the existing `features` array
+        // Add to the existing `promotions` array
         return [
           ...acc.slice(0, -1),
           {
             ...prev,
-            features: [...prev.features, cur]
-          }
+            promotions: [...prev.promotions, cur],
+          },
         ]
       }, []),
     [rows]

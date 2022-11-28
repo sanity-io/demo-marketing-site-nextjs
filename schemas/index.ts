@@ -2,6 +2,7 @@ import company from './documents/company'
 import menu from './documents/menu'
 import page from './documents/page'
 import person from './documents/person'
+import promotion from './documents/promotion'
 import quote from './documents/quote'
 import redirect from './documents/redirect'
 import settings from './documents/settings'
@@ -38,4 +39,5 @@ export const schemaTypes = [
   pageBuilderFeatureRow,
   rowOptions,
   link,
+  promotion,
 ]

@@ -1,3 +1,4 @@
+import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -5,6 +6,7 @@ import link from '../schemas/objects/link'
 import { GlobalDataProps } from '../types'
 import Button from './button'
 import Container from './container'
+import Logo from './logo'
 
 type HeaderProps = {
   title: string
@@ -24,24 +26,19 @@ export default function Header(props: HeaderProps) {
     <div className="border-b border-gray-100 py-5">
       <Container>
         <div className="flex items-center gap-5">
-          {/* TODO: use href from domainLocale */}
-          <Link
-            href="/"
-            className="text-lg font-bold leading-tight tracking-tight md:text-xl md:tracking-tighter"
-          >
-            {/* {domainMarket}
-            {`//`} */}
-            {title}
-          </Link>
+          <Logo>{title}</Logo>
           {headerPrimary && headerPrimary?.length > 0 ? (
-            <ul className="flex items-center justify-start">
+            <ul className="hidden items-center justify-start md:flex">
               {headerPrimary.map((item) => (
-                <li key={item._key} className="font-medium text-gray-500">
+                <li key={item._key}>
                   <Button mode="bleed" {...item.link} />
                 </li>
               ))}
             </ul>
           ) : null}
+          <div className="ml-auto flex items-center gap-5 md:hidden">
+            <Menu />
+          </div>
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (
             <div className="ml-auto flex items-center gap-5 text-sm font-bold uppercase">
               {domainLocale.locales.map((language) => (

@@ -7,23 +7,41 @@ type ButtonMode = 'default' | 'ghost' | 'bleed'
 type ButtonProps = LinkProps & {
   mode?: ButtonMode
   icon?: boolean
+  locale?: string
+  href?: string
 }
 
 const buttonClasses = {
   base: `inline-flex gap-2 items-center border px-5 py-3 leading-none rounded transition-colors duration-75 ease-in-out`,
   default: `bg-black text-white border-black hover:bg-cyan hover:text-black hover:border-cyan`,
   ghost: `bg-transparent text-black border-black hover:bg-cyan hover:text-black hover:border-cyan`,
-  bleed: `border-transparent text-gray-500 hover:text-black`,
+  bleed: `border-transparent text-gray-600 hover:text-black`,
 }
 
 export default function Button(props: ButtonProps) {
-  const { text, url, reference, mode = `default`, icon = false } = props
+  const {
+    text,
+    url,
+    reference,
+    mode = `default`,
+    icon = false,
+    locale,
+    href,
+  } = props
   const classNames = [buttonClasses.base, buttonClasses[mode]].join(` `)
 
-  if (reference.slug && (reference.title || text)) {
+  if (locale && href) {
+    return (
+      <Link className={classNames} href={href}>
+        <span>{text ?? reference?.title}</span>
+        {icon ? <ArrowRight className="w-5" /> : null}
+      </Link>
+    )
+  }
+  if (reference?.slug && (reference?.title || text)) {
     return (
       <Link className={classNames} href={reference.slug}>
-        <span>{text ?? reference.title}</span>
+        <span>{text ?? reference?.title}</span>
         {icon ? <ArrowRight className="w-5" /> : null}
       </Link>
     )

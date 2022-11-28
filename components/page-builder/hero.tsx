@@ -26,7 +26,7 @@ export default function PageBuilderHero(props: HeroProps) {
           </h2>
         ) : null}
         {subtitle ? (
-          <p className="w-2/3 text-lg text-gray-500 md:w-full md:text-4xl">
+          <p className="w-2/3 text-lg text-gray-600 md:w-full md:text-4xl">
             {subtitle}
           </p>
         ) : null}

@@ -65,10 +65,12 @@ const pageFields = groq`
     _type == "quote" => {
       ...(quote->{quote})
     },
-    _type == "feature" => {
-      title,
-      subtitle,
-      image
+    _type == "promotion" => {
+      ...(@->{
+        title,
+        subtitle,
+        image
+      })
     },
     _type == "experiment" => {
       ...(experiments[$audience]->{

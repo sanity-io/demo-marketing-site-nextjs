@@ -5,59 +5,61 @@ import { KeyedObject, TypedObject } from 'sanity'
 
 import Container from '../container'
 
-type FeatureProps = KeyedObject &
+type PromotionProps = KeyedObject &
   TypedObject & {
-    features: {
+    promotions: {
       _key: string
-      _type: 'feature'
+      _type: 'promotion'
       title?: string
       subtitle?: string
       image?: SanityImageSource
     }[]
   }
 
-export default function PageBuilderFeature(props: FeatureProps) {
-  const { _type, features } = props
+export default function PageBuilderPromotion(props: PromotionProps) {
+  const { _type, promotions } = props
 
-  if (!features?.length) {
+  if (!promotions?.length) {
     return null
-  } else if (features.length === 1) {
-    const feature = features[0]
+  } else if (promotions.length === 1) {
+    const promotion = promotions[0]
     return (
       <div className="border-t border-b border-gray-200">
         <Container>
-          <div className="py-24 flex flex-col gap-5 items-center justify-center">
+          <div className="flex flex-col items-center justify-center gap-5 py-24">
             <h2 className="text-center text-5xl font-bold leading-tight tracking-tighter">
-              {feature.title}
+              {promotion.title}
             </h2>
-            <p className="max-w-xl text-center text-2xl text-gray-500">{feature.subtitle}</p>
+            <p className="max-w-xl text-center text-2xl text-gray-600">
+              {promotion.subtitle}
+            </p>
           </div>
         </Container>
       </div>
     )
-  } else if (features.length === 2 || features.length === 4) {
+  } else if (promotions.length === 2 || promotions.length === 4) {
     return (
       <div className="border-t border-b border-gray-200">
         <Container className="flex flex-col md:flex-row md:flex-wrap">
-          {features.map((feature, featureIndex) => (
+          {promotions.map((promotion, promotionIndex) => (
             <div
-              key={feature._key}
+              key={promotion._key}
               className={`flex flex-col gap-5 border-gray-200 py-24 md:w-1/2 ${
-                featureIndex > 1 ? `border-t` : ``
+                promotionIndex > 1 ? `border-t` : ``
               }`}
             >
               <Star />
               <h2 className="text-xl font-bold leading-tight tracking-tighter">
-                {feature.title}
+                {promotion.title}
               </h2>
-              <p className="pr-12 text-gray-500">{feature.subtitle}</p>
+              <p className="pr-12 text-gray-600">{promotion.subtitle}</p>
             </div>
           ))}
         </Container>
       </div>
     )
-  } else if (features.length === 3) {
-    const [first, ...rest] = features
+  } else if (promotions.length === 3) {
+    const [first, ...rest] = promotions
 
     return (
       <div className="border-t border-b border-gray-200">
@@ -67,21 +69,21 @@ export default function PageBuilderFeature(props: FeatureProps) {
             <h2 className="text-2xl font-bold leading-tight tracking-tighter">
               {first.title}
             </h2>
-            <p className="pr-12 text-gray-500">{first.subtitle}</p>
+            <p className="pr-12 text-gray-600">{first.subtitle}</p>
           </div>
           <div>
-            {rest.map((feature, featureIndex) => (
+            {rest.map((promotion, promotionIndex) => (
               <div
-                key={feature._key}
+                key={promotion._key}
                 className={`flex flex-col gap-5 py-24 px-10 text-left ${
-                  featureIndex > 0 ? `border-t` : ``
+                  promotionIndex > 0 ? `border-t` : ``
                 }`}
               >
                 <Star />
                 <h2 className="text-xl font-bold leading-tight tracking-tighter">
-                  {feature.title}
+                  {promotion.title}
                 </h2>
-                <p className="pr-12 text-gray-500">{feature.subtitle}</p>
+                <p className="pr-12 text-gray-600">{promotion.subtitle}</p>
               </div>
             ))}
           </div>
@@ -92,14 +94,17 @@ export default function PageBuilderFeature(props: FeatureProps) {
 
   return (
     <div className="border-t border-b border-gray-200 py-24">
-      <Container className="grid grid-cols-1 gap-y-24 md:grid-cols-3 lg:grid-cols-5 text-center">
-        {features.map((feature) => (
-          <div key={feature._key} className="flex flex-col items-center gap-5">
+      <Container className="grid grid-cols-1 gap-y-24 text-center md:grid-cols-3 lg:grid-cols-5">
+        {promotions.map((promotion) => (
+          <div
+            key={promotion._key}
+            className="flex flex-col items-center gap-5"
+          >
             <Star />
             <h2 className="px-5 text-xl font-bold leading-tight tracking-tighter">
-              {feature.title}
+              {promotion.title}
             </h2>
-            <p className="px-10 text-xs text-gray-500">{feature.subtitle}</p>
+            <p className="px-10 text-xs text-gray-600">{promotion.subtitle}</p>
           </div>
         ))}
       </Container>
