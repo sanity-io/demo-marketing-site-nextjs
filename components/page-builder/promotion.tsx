@@ -22,15 +22,16 @@ export default function PageBuilderPromotion(props: PromotionProps) {
   if (!promotions?.length) {
     return null
   } else if (promotions.length === 1) {
-    const promotion = promotions[0]
+    const [promotion] = promotions
+
     return (
       <div className="border-t border-b border-gray-200">
         <Container>
-          <div className="flex flex-col items-center justify-center gap-5 py-24">
-            <h2 className="text-center text-5xl font-bold leading-tight tracking-tighter">
+          <div className="flex flex-col items-center gap-5 py-24 md:justify-center">
+            <h2 className="text-5xl font-bold leading-tight tracking-tighter md:text-center md:text-7xl">
               {promotion.title}
             </h2>
-            <p className="max-w-xl text-center text-2xl text-gray-600">
+            <p className="max-w-xl text-2xl text-gray-600 md:text-center">
               {promotion.subtitle}
             </p>
           </div>
@@ -44,15 +45,17 @@ export default function PageBuilderPromotion(props: PromotionProps) {
           {promotions.map((promotion, promotionIndex) => (
             <div
               key={promotion._key}
-              className={`flex flex-col gap-5 border-gray-200 py-24 md:w-1/2 ${
+              className={`flex gap-5 py-12 text-left md:w-1/2 md:flex-col md:py-24 md:px-10 ${
                 promotionIndex > 1 ? `border-t` : ``
               }`}
             >
-              <Star />
-              <h2 className="text-xl font-bold leading-tight tracking-tighter">
-                {promotion.title}
-              </h2>
-              <p className="pr-12 text-gray-600">{promotion.subtitle}</p>
+              <Star className="h-8 w-8 flex-shrink-0" />
+              <div className="flex flex-col gap-5">
+                <h2 className="text-xl font-bold leading-tight tracking-tighter">
+                  {promotion.title}
+                </h2>
+                <p className="text-gray-600 md:pr-12">{promotion.subtitle}</p>
+              </div>
             </div>
           ))}
         </Container>
@@ -64,26 +67,32 @@ export default function PageBuilderPromotion(props: PromotionProps) {
     return (
       <div className="border-t border-b border-gray-200">
         <Container className="grid md:grid-cols-2">
-          <div className="flex flex-col justify-center gap-5 bg-gray-100 p-10">
-            <Star />
-            <h2 className="text-2xl font-bold leading-tight tracking-tighter">
-              {first.title}
-            </h2>
-            <p className="pr-12 text-gray-600">{first.subtitle}</p>
+          <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-10">
+            <Star className="h-8 w-8 flex-shrink-0" />
+            <div className="flex flex-col gap-5">
+              <h2 className="text-xl font-bold leading-tight tracking-tighter md:text-3xl">
+                {first.title}
+              </h2>
+              <p className="text-gray-600 md:pr-12 md:text-xl">
+                {first.subtitle}
+              </p>
+            </div>
           </div>
           <div>
             {rest.map((promotion, promotionIndex) => (
               <div
                 key={promotion._key}
-                className={`flex flex-col gap-5 py-24 px-10 text-left ${
+                className={`flex gap-5 py-12 text-left md:flex-col md:py-24 md:px-10 ${
                   promotionIndex > 0 ? `border-t` : ``
                 }`}
               >
-                <Star />
-                <h2 className="text-xl font-bold leading-tight tracking-tighter">
-                  {promotion.title}
-                </h2>
-                <p className="pr-12 text-gray-600">{promotion.subtitle}</p>
+                <Star className="h-8 w-8 flex-shrink-0" />
+                <div className="flex flex-col gap-5">
+                  <h2 className="text-xl font-bold leading-tight tracking-tighter">
+                    {promotion.title}
+                  </h2>
+                  <p className="text-gray-600 md:pr-12">{promotion.subtitle}</p>
+                </div>
               </div>
             ))}
           </div>

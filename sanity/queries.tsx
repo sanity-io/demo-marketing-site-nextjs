@@ -63,7 +63,18 @@ const pageFields = groq`
       })
     },
     _type == "quote" => {
-      ...(quote->{quote})
+      ...(quote->{
+        quote,
+        person->{
+          name,
+          title,
+          picture,
+          company->{
+            name,
+            logo
+          }
+        }
+      })
     },
     _type == "promotion" => {
       ...(@->{

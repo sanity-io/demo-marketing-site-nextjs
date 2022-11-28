@@ -54,12 +54,14 @@ export default function PageBuilder(props: PageBuilderProps) {
     [rows]
   )
 
-  if (!rows?.length) {
+  if (!rows?.length || !rowsGrouped.length) {
     return null
   }
 
+  console.log(rowsGrouped)
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col">
       {rowsGrouped.map((row) =>
         row._type && ROWS[row._type] ? (
           React.createElement(ROWS[row._type], {
