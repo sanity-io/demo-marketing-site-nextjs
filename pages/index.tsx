@@ -1,11 +1,10 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
-import PageBuilder from '../components/page-builder'
+import Page from '../components/page'
 import PostTitle from '../components/post-title'
 import { globalDataQuery, homeQuery } from '../sanity/queries'
 import { usePreviewSubscription } from '../sanity/sanity'
@@ -20,7 +19,7 @@ interface Props {
   globalData: GlobalDataProps
 }
 
-export default function Index(props: Props) {
+export default function Home(props: Props) {
   const { data: initialData, preview, query, queryParams, globalData } = props
   const router = useRouter()
 
@@ -36,69 +35,18 @@ export default function Index(props: Props) {
   }
 
   return (
-    <>
-      <Layout
-        preview={preview}
-        queryParams={queryParams}
-        globalData={globalData}
-      >
-        <Head>
-          <title>{title}</title>
-        </Head>
-        <Container>
-          {router.isFallback ? (
-            <PostTitle>Loading…</PostTitle>
-          ) : (
-            <>
-              <article className="flex flex-col gap-6 py-12 md:gap-12 md:py-24">
-                <Head>
-                  <title>{`${data.title} | ${title}`}</title>
-                  {/* {post.coverImage?.asset?._ref && (
-                  <meta
-                    key="ogImage"
-                    property="og:image"
-                    content={urlForImage(post.coverImage)
-                      .width(1200)
-                      .height(627)
-                      .fit('crop')
-                      .url()}
-                  />
-                )} */}
-                </Head>
-                {/* {data?.title ? <PostHeader title={data.title} /> : null} */}
-                {data.translations.length > 0 ? (
-                  <ul className="flex items-center gap-4">
-                    {data.translations.map((translation) => (
-                      <li
-                        key={translation.slug}
-                        className={
-                          translation.slug === data.slug
-                            ? `opacity-50`
-                            : undefined
-                        }
-                      >
-                        <Link
-                          href={`/${translation.slug}`}
-                          locale={[translation.language, data.market].join(`-`)}
-                        >
-                          {translation.title}{' '}
-                          <span className="inline-block -translate-y-0.5 text-xs font-bold tracking-tight">
-                            ({translation.language.toUpperCase()})
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-                {data.content && data.content.length > 0 ? (
-                  <PageBuilder rows={data?.content} />
-                ) : null}
-              </article>
-            </>
-          )}
-        </Container>
-      </Layout>
-    </>
+    <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
+      <Head>
+        <title>{`${data.title} | ${title}`}</title>
+      </Head>
+      <Container>
+        {router.isFallback ? (
+          <PostTitle>Loading…</PostTitle>
+        ) : (
+          <Page {...data} />
+        )}
+      </Container>
+    </Layout>
   )
 }
 
@@ -114,6 +62,8 @@ export function getLanguageFromNextLocale(locale: string) {
 
 export async function getStaticProps({ locale, preview = false, previewData }) {
   /* check if the project id has been defined by fetching the vercel envs */
+  
+  // TODO: Don't repeat this here and in [slug].tst
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     // These query params are used to power this preview
     // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
