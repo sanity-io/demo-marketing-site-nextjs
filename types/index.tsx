@@ -32,8 +32,26 @@ export interface PageProps {
   }[]
 }
 
-export interface WebsiteSettingsProps {
-  title: string
+
+export type Link = {
+  text?: string
+  url?: string
+  reference?: {
+    slug?: string
+    title?: string
+  }
+}
+export interface GlobalDataProps {
+  settings: {
+    title: string
+  },
+  menus: {
+    headerPrimary: {
+      _key: string,
+      link: Link,
+      children: Link[]
+    }[]
+  }
 }
 
 export type PageQueryParams = {

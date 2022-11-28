@@ -11,6 +11,12 @@ export default defineType({
   },
   fields: [
     defineField({
+      name: 'noIndex',
+      description: `Hide this page from search engines and the sitemap`,
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: `title`,
       type: `string`,
       description: `Override the page title`,

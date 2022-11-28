@@ -122,8 +122,8 @@ const createSchemaItemChild = (
       [
         `_type == $schemaType`,
         // TODO: Replace when market is added by initial value template
-        // `market == $market`,
-        `(!defined(market) || market == $market)`,
+        `market == $market`,
+        // `(!defined(market) || market == $market)`,
         languageQuery,
       ]
         .filter(Boolean)

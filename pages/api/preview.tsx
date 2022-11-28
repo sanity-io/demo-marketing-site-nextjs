@@ -12,7 +12,7 @@ function redirectToPreview(res: NextApiResponse, Location: string, data = {}) {
 }
 
 type PreviewData = {
-  date?: string
+  date?: string | null
   audience?: 0 | 1
 }
 
@@ -62,16 +62,16 @@ export default async function preview(
   }
 
   // Check if the post with the given `slug` exists
-  const post = await getClient(true).fetch(pageBySlugQuery, {
+  const pageSlug = await getClient(true).fetch(pageBySlugQuery, {
     slug: req.query.slug,
   })
 
   // If the slug doesn't exist prevent preview mode from being enabled
-  if (!post) {
+  if (!pageSlug) {
     return res.status(401).json({ message: 'Invalid slug' })
   }
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, `/${post.slug}`, previewData)
+  redirectToPreview(res, `/${pageSlug}`, previewData)
 }

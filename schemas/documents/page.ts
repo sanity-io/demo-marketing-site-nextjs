@@ -64,9 +64,9 @@ export default defineType({
       language: 'language',
     },
     prepare: ({ title, market, language }) => {
-      const subtitle = [language?.toUpperCase(), market?.toUpperCase()]
+      const subtitle = [language?.toLowerCase(), market?.toUpperCase()]
         .filter(Boolean)
-        .join(' - ')
+        .join('-')
 
       return {
         title,

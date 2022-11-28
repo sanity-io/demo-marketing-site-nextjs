@@ -1,9 +1,14 @@
+
+
 import company from './documents/company'
+import menu from './documents/menu'
 import page from './documents/page'
 import person from './documents/person'
 import quote from './documents/quote'
+import redirect from './documents/redirect'
 import settings from './documents/settings'
 import language from './objects/language'
+import link from './objects/link'
 import market from './objects/market'
 import pageBuilder from './objects/pageBuilder'
 import rowOptions from './objects/rowOptions'
@@ -19,6 +24,8 @@ export const schemaTypes = [
   person,
   company,
   settings,
+  redirect,
+  menu,
   quote,
   market,
   language,
@@ -30,4 +37,5 @@ export const schemaTypes = [
   pageBuilderLogosRow,
   pageBuilderQuoteRow,
   rowOptions,
+  link
 ]
