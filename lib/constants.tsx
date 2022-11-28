@@ -1,4 +1,4 @@
-import { Building, ChevronRight,Cog, File, Menu, Quote, User } from 'lucide-react'
+import { Building, ChevronRight,Cog, File, Home, Menu, Quote, Type, User } from 'lucide-react'
 
 import { markets, uniqueLanguages } from './markets'
 
@@ -45,8 +45,10 @@ export type SchemaDivider = {
 // As they're used to dynamically generate per-market schema items
 // With the helper functions defined in lib/structure.tsx
 export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
+  { kind: 'singleton', schemaType: `page`, title: 'Home', icon: Home },
   { kind: 'list', schemaType: `page`, title: 'Pages', icon: File },
   { kind: 'divider' },
+  { kind: 'list', schemaType: `pageBuilderHero`, title: 'Heroes', icon: Type },
   { kind: 'list', schemaType: `person`, title: 'People', icon: User },
   { kind: 'list', schemaType: `company`, title: 'Companies', icon: Building },
   { kind: 'list', schemaType: `quote`, title: 'Quotes', icon: Quote },

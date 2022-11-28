@@ -33,7 +33,7 @@ export interface PageProps {
 }
 
 
-type Link = {
+export type Link = {
   text?: string
   url?: string
   reference?: {

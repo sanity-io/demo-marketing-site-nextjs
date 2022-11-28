@@ -3,6 +3,7 @@ import type { PropsWithChildren } from 'react'
 import { GlobalDataProps, PageQueryParams } from '../types'
 import Alert from './alert'
 import Footer from './footer'
+import Grid from './grid'
 import Header from './header'
 import Meta from './meta'
 
@@ -19,6 +20,7 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
   return (
     <>
       <Meta />
+      <Grid/>
       <div className="min-h-screen">
         <Header title={settings?.title} headerPrimary={menus?.headerPrimary} />
         {preview && queryParams?.slug ? (

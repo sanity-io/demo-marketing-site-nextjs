@@ -1,11 +1,5 @@
 import groq from 'groq'
 
-const pageFields = groq`
-  _id,
-  title,
-  "slug": slug.current,
-`
-
 export const globalDataQuery = groq`{
   "settings": *[_id == $settingsId][0]{
     // Get the first item if no language was specified
@@ -30,21 +24,7 @@ export const globalDataQuery = groq`{
   }
 }`
 
-export const indexQuery = groq`
-*[
-  _type == "page" 
-  // Only include pages with slugs
-  && defined(slug.current) 
-  // Filter pages by market
-  && upper(market) == upper($market)
-  // If $language is true, don't filter. If $language is provided, filter by it.
-  && select($language == null => true, upper(language) == upper($language))
-] | order(date desc, _updatedAt desc) {
-  ${pageFields}
-}`
-
-export const pageQuery = groq`
-*[_type == "page" && slug.current == $slug && upper(market) == upper($market)] | order(_updatedAt desc) [0] {
+const pageFields = groq`
   title,
   "slug": slug.current,
   market,
@@ -65,7 +45,12 @@ export const pageQuery = groq`
     _key,
     _type,
     _type == "hero" => {
-      ...(hero->{title})
+      ...(hero->{
+        title,
+        subtitle,
+        links,
+        image
+      })
     },
     _type == "quote" => {
       ...(quote->{quote})
@@ -81,6 +66,16 @@ export const pageQuery = groq`
     "slug": slug.current,
     language
   },
+`
+
+export const homeQuery = groq`
+*[_id == $homeId][0]{
+  ${pageFields}
+}`
+
+export const pageQuery = groq`
+*[_type == "page" && slug.current == $slug && upper(market) == upper($market)] | order(_updatedAt desc) [0] {
+  ${pageFields}
 }`
 
 export const pageSlugsQuery = groq`
@@ -88,7 +83,5 @@ export const pageSlugsQuery = groq`
 `
 
 export const pageBySlugQuery = groq`
-*[_type == "page" && slug.current == $slug][0] {
-  ${pageFields}
-}
+*[_type == "page" && slug.current == $slug][0].slug.current
 `

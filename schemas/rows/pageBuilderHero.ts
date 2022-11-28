@@ -12,8 +12,27 @@ export default defineType({
       type: 'market',
     }),
     defineField({
+      name: 'language',
+      type: 'language',
+    }),
+    defineField({
       name: 'title',
       type: 'string',
+    }),
+    defineField({
+      name: 'subtitle',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'links',
+      type: 'array',
+      of: [
+        defineField({
+          name: 'link',
+          type: 'link',
+        }),
+      ],
     }),
     defineField({
       name: 'image',

@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import Container from '../components/container'
 import Layout from '../components/layout'
 import PageBuilder from '../components/page-builder'
-import PostHeader from '../components/post-header'
 import PostTitle from '../components/post-title'
 import { globalDataQuery,pageQuery, pageSlugsQuery } from '../sanity/queries'
 import { usePreviewSubscription } from '../sanity/sanity'
@@ -69,7 +68,7 @@ export default function Page(props: Props) {
                   />
                 )} */}
               </Head>
-              {data?.title ? <PostHeader title={data.title} /> : null}
+              {/* {data?.title ? <PostHeader title={data.title} /> : null} */}
               {data.translations.length > 0 ? (
                 <ul className="flex items-center gap-4">
                   {data.translations.map((translation) => (
