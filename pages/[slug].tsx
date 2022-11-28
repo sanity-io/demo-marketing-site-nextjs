@@ -8,10 +8,10 @@ import Layout from '../components/layout'
 import PageBuilder from '../components/page-builder'
 import PostHeader from '../components/post-header'
 import PostTitle from '../components/post-title'
-import { pageQuery, pageSlugsQuery, settingsQuery } from '../sanity/queries'
+import { globalDataQuery,pageQuery, pageSlugsQuery } from '../sanity/queries'
 import { usePreviewSubscription } from '../sanity/sanity'
 import { getClient } from '../sanity/sanity.server'
-import { PageProps, PageQueryParams, WebsiteSettingsProps } from '../types'
+import { GlobalDataProps, PageProps, PageQueryParams } from '../types'
 import { getLanguageFromNextLocale, getMarketFromNextLocale } from '.'
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
   preview: boolean
   query: string | null
   queryParams: PageQueryParams
-  websiteSettings: WebsiteSettingsProps
+  globalData: GlobalDataProps
 }
 
 export default function Page(props: Props) {
@@ -28,7 +28,7 @@ export default function Page(props: Props) {
     preview,
     query,
     queryParams,
-    websiteSettings,
+    globalData,
   } = props
   const router = useRouter()
 
@@ -37,7 +37,7 @@ export default function Page(props: Props) {
     initialData: initialData,
     enabled: preview,
   })
-  const { title = 'Marketing.' } = websiteSettings || {}
+  const { title = 'Marketing.' } = globalData?.settings || {}
 
   if (!router.isFallback && !data) {
     return <ErrorPage statusCode={404} />
@@ -47,7 +47,7 @@ export default function Page(props: Props) {
     <Layout
       preview={preview}
       queryParams={queryParams}
-      websiteSettings={websiteSettings}
+      globalData={globalData}
     >
       <Container>
         {router.isFallback ? (
@@ -136,8 +136,9 @@ export async function getStaticProps({
   }
 
   const page = await getClient(preview).fetch(pageQuery, queryParams)
-  const websiteSettings = await getClient(preview).fetch(settingsQuery, {
-    id: `${queryParams.market}-settings`.toLowerCase(),
+  const globalData = await getClient(preview).fetch(globalDataQuery, {
+    settingsId: `${queryParams.market}-settings`.toLowerCase(),
+    menuId: `${queryParams.market}-menu`.toLowerCase(),
     language: queryParams.language,
   })
 
@@ -147,7 +148,7 @@ export async function getStaticProps({
       data: page,
       query: preview ? pageQuery : null,
       queryParams: preview ? queryParams : null,
-      websiteSettings,
+      globalData,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
     revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,

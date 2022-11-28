@@ -6,9 +6,28 @@ const pageFields = groq`
   "slug": slug.current,
 `
 
-export const settingsQuery = groq`*[_type == "settings" && _id == $id][0]{
-  // Get the first item if no language was specified
-  "title": select($language == null => title[0].value, title[_key == $language][0].value),
+export const globalDataQuery = groq`{
+  "settings": *[_id == $settingsId][0]{
+    // Get the first item if no language was specified
+    "title": select($language == null => title[0].value, title[_key == $language][0].value),
+  },
+  "menus": *[_id == $menuId][0]{
+    "headerPrimary": headerPrimary[
+      // Filter items to only those that will produce valid links
+      (defined(link.text) && defined(link.url)) || defined(link.reference)
+    ]{
+      _key,
+      "link": link{
+        url,
+        text,
+        reference->{
+          title,
+          "slug": slug.current
+        }
+      },
+      children
+    }
+  }
 }`
 
 export const indexQuery = groq`

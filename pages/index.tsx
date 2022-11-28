@@ -6,17 +6,17 @@ import Layout from '../components/layout'
 import PostHeader from '../components/post-header'
 import Title from '../components/title'
 import { MARKETS } from '../lib/constants'
-import { indexQuery, settingsQuery } from '../sanity/queries'
+import { globalDataQuery, indexQuery } from '../sanity/queries'
 import { usePreviewSubscription } from '../sanity/sanity'
 import { getClient } from '../sanity/sanity.server'
-import { PageQueryParams, PageStubProps, WebsiteSettingsProps } from '../types'
+import { GlobalDataProps, PageQueryParams, PageStubProps } from '../types'
 
 interface Props {
   data: PageStubProps[]
   preview: boolean
   query: string | null
   queryParams: PageQueryParams
-  websiteSettings: WebsiteSettingsProps
+  globalData: GlobalDataProps
 }
 
 export default function Index(props: Props) {
@@ -25,21 +25,21 @@ export default function Index(props: Props) {
     preview,
     query,
     queryParams,
-    websiteSettings,
+    globalData,
   } = props
   const { data: allPages } = usePreviewSubscription(query, {
     initialData: initialData,
     enabled: preview,
     params: queryParams,
   })
-  const { title = 'Marketing Site.' } = websiteSettings || {}
+  const { title = 'Marketing Site.' } = globalData?.settings || {}
 
   return (
     <>
       <Layout
         preview={preview}
         queryParams={queryParams}
-        websiteSettings={websiteSettings}
+        globalData={globalData}
       >
         <Head>
           <title>{title}</title>
@@ -92,9 +92,10 @@ export async function getStaticProps(context) {
 
     const queryParams = { market, language }
     const allPages = await getClient(preview).fetch(indexQuery, queryParams)
-    const websiteSettings = await getClient(preview).fetch(settingsQuery, {
-      id: `${market}-settings`.toLowerCase(),
-      language,
+    const globalData = await getClient(preview).fetch(globalDataQuery, {
+      settingsId: `${queryParams.market}-settings`.toLowerCase(),
+      menuId: `${queryParams.market}-menu`.toLowerCase(),
+      language: queryParams.language,
     })
 
     return {
@@ -103,7 +104,7 @@ export async function getStaticProps(context) {
         data: allPages,
         query: preview ? indexQuery : null,
         queryParams: preview ? queryParams : null,
-        websiteSettings,
+        globalData,
       },
       // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
       revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,

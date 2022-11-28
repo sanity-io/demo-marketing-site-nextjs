@@ -1,5 +1,5 @@
 import { Menu } from 'lucide-react'
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, stringToPath } from 'sanity'
 
 export default defineType({
   name: 'menu',
@@ -13,9 +13,10 @@ export default defineType({
     }),
     defineField({
       name: 'headerPrimary',
+      description: '"Mega menu" items with child links',
       type: 'array',
       of: [
-        {
+        defineField({
           name: 'link',
           type: 'object',
           fields: [
@@ -34,7 +35,7 @@ export default defineType({
                   preview: {
                     select: {
                       title: 'link.text',
-                      url: 'link.link',
+                      url: 'link.url',
                       ref: 'link.reference.slug.current',
                     },
                     prepare({ title, url, ref }) {
@@ -51,25 +52,33 @@ export default defineType({
           preview: {
             select: {
               children: 'children',
+              refSlug: 'link.reference.slug.current',
+              refTitle: 'link.reference.title',
               text: 'link.text',
-              url: 'link.link',
-              ref: 'link.reference.slug.current',
+              url: 'link.url',
             },
             prepare(selection) {
-              const { children, text, url, ref } = selection
+              const { children, refSlug, refTitle, text, url } = selection
 
-              return {
-                title: text,
-                // eslint-disable-next-line no-nested-ternary
-                subtitle: children
-                  ? children.length === 1
+              let subtitle
+              if (children) {
+                subtitle =
+                  children.length === 1
                     ? `${children.length} Child Link`
                     : `${children.length} Child Links`
-                  : ref ?? url,
+              } else if (refSlug) {
+                subtitle = refSlug
+              } else if (url) {
+                subtitle = url
+              }
+
+              return {
+                title: !text && !refTitle ? `Empty Text` : text ?? refTitle,
+                subtitle: String(subtitle),
               }
             },
           },
-        },
+        }),
       ],
     }),
     defineField({
