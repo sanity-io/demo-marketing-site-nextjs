@@ -16,7 +16,7 @@ interface Props {
   data: PageProps
   preview: boolean
   query: string | null
-  queryParams: PageQueryParams & {homeId: string}
+  queryParams: PageQueryParams & { homeId: string }
   globalData: GlobalDataProps
 }
 
@@ -112,11 +112,7 @@ export function getLanguageFromNextLocale(locale: string) {
   return locale.split(`-`).shift()
 }
 
-export async function getStaticProps({
-  locale,
-  preview = false,
-  previewData,
-}) {
+export async function getStaticProps({ locale, preview = false, previewData }) {
   /* check if the project id has been defined by fetching the vercel envs */
   if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     // These query params are used to power this preview
@@ -146,7 +142,7 @@ export async function getStaticProps({
     const homeQueryParams = {
       ...queryParams,
       homeId: `${queryParams.market}-page`.toLowerCase(),
-      date: `hello`
+      date: `hello`,
     }
 
     const page = await getClient(preview).fetch(homeQuery, homeQueryParams)
@@ -156,7 +152,7 @@ export async function getStaticProps({
       language: queryParams.language,
     })
 
-    console.log(homeQueryParams);
+    console.log(homeQueryParams)
 
     return {
       props: {

@@ -1,5 +1,3 @@
-
-
 import company from './documents/company'
 import menu from './documents/menu'
 import page from './documents/page'
@@ -37,5 +35,5 @@ export const schemaTypes = [
   pageBuilderLogosRow,
   pageBuilderQuoteRow,
   rowOptions,
-  link
+  link,
 ]

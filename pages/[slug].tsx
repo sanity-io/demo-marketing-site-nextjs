@@ -7,7 +7,7 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import PageBuilder from '../components/page-builder'
 import PostTitle from '../components/post-title'
-import { globalDataQuery,pageQuery, pageSlugsQuery } from '../sanity/queries'
+import { globalDataQuery, pageQuery, pageSlugsQuery } from '../sanity/queries'
 import { usePreviewSubscription } from '../sanity/sanity'
 import { getClient } from '../sanity/sanity.server'
 import { GlobalDataProps, PageProps, PageQueryParams } from '../types'
@@ -22,13 +22,7 @@ interface Props {
 }
 
 export default function Page(props: Props) {
-  const {
-    data: initialData,
-    preview,
-    query,
-    queryParams,
-    globalData,
-  } = props
+  const { data: initialData, preview, query, queryParams, globalData } = props
   const router = useRouter()
 
   const { data } = usePreviewSubscription(query, {
@@ -43,11 +37,7 @@ export default function Page(props: Props) {
   }
 
   return (
-    <Layout
-      preview={preview}
-      queryParams={queryParams}
-      globalData={globalData}
-    >
+    <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
       <Container>
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>

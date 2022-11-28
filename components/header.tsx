@@ -37,8 +37,11 @@ export default function Header(props: HeaderProps) {
               {headerPrimary.map((item) => (
                 <li key={item._key} className="font-medium text-gray-500">
                   {/* TODO: These links could include the `locale` */}
-                  {item?.link?.reference?.title && item?.link?.reference?.slug ? (
-                    <Link href={`/${item.link.reference.slug}`}>{item.link.text ?? item.link.reference.title}</Link>
+                  {item?.link?.reference?.title &&
+                  item?.link?.reference?.slug ? (
+                    <Link href={`/${item.link.reference.slug}`}>
+                      {item.link.text ?? item.link.reference.title}
+                    </Link>
                   ) : null}
                   {item?.link?.url && item?.link?.text ? (
                     <Link href={item.link.url}>{item.link.text}</Link>

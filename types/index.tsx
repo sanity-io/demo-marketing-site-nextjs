@@ -32,7 +32,6 @@ export interface PageProps {
   }[]
 }
 
-
 export type Link = {
   text?: string
   url?: string
@@ -44,11 +43,11 @@ export type Link = {
 export interface GlobalDataProps {
   settings: {
     title: string
-  },
+  }
   menus: {
     headerPrimary: {
-      _key: string,
-      link: Link,
+      _key: string
+      link: Link
       children: Link[]
     }[]
   }

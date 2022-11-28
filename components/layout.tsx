@@ -15,12 +15,12 @@ export type LayoutProps = {
 
 export default function Layout(props: PropsWithChildren<LayoutProps>) {
   const { preview, queryParams, children } = props
-  const {settings, menus} = props.globalData || {}
+  const { settings, menus } = props.globalData || {}
 
   return (
     <>
       <Meta />
-      <Grid/>
+      <Grid />
       <div className="min-h-screen">
         <Header title={settings?.title} headerPrimary={menus?.headerPrimary} />
         {preview && queryParams?.slug ? (

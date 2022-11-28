@@ -1,4 +1,14 @@
-import { Building, ChevronRight,Cog, File, Home, Menu, Quote, Type, User } from 'lucide-react'
+import {
+  Building,
+  ChevronRight,
+  Cog,
+  File,
+  Home,
+  Menu,
+  Quote,
+  Type,
+  User,
+} from 'lucide-react'
 
 import { markets, uniqueLanguages } from './markets'
 
@@ -55,5 +65,10 @@ export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
   { kind: 'divider' },
   { kind: 'singleton', schemaType: `settings`, title: 'Settings', icon: Cog },
   { kind: 'singleton', schemaType: `menu`, title: 'Menus', icon: Menu },
-  { kind: 'list', schemaType: `redirect`, title: 'Redirects', icon: ChevronRight },
+  {
+    kind: 'list',
+    schemaType: `redirect`,
+    title: 'Redirects',
+    icon: ChevronRight,
+  },
 ]
