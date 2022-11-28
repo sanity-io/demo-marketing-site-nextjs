@@ -46,6 +46,10 @@ export default defineType({
       options: { hotspot: true },
       validation: (rule) =>
         rule.custom((value) => {
+          if (!value?.asset?._ref) {
+            return true
+          }
+
           const filetype = getExtension(value.asset._ref)
 
           if (filetype !== 'jpg' && filetype !== 'png') {

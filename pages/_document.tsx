@@ -6,7 +6,7 @@ export default class Document extends ServerStyleSheetDocument {
     return (
       <Html lang="en">
         <Head />
-        <body className="bg-white text-black">
+        <body className="bg-white text-black selection:bg-cyan selection:text-black">
           <Main />
           <NextScript />
         </body>
