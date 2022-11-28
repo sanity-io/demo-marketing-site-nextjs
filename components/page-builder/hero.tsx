@@ -17,7 +17,7 @@ export default function PageBuilderHero(props: HeroProps) {
   const { title, subtitle, links } = props
 
   return (
-    <div className="flex flex-col gap-3 pr-10 lg:w-1/2 lg:gap-5 py-10 md:py-20">
+    <div className="flex flex-col gap-3 py-10 pr-10 md:py-20 lg:w-1/2 lg:gap-5">
       {title ? (
         <h2 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-6xl xl:text-7xl">
           {title}
