@@ -58,16 +58,20 @@ export default function PageBuilder(props: PageBuilderProps) {
     return null
   }
 
-  return rowsGrouped.map((row) =>
-    row._type && ROWS[row._type] ? (
-      React.createElement(ROWS[row._type], {
-        ...row,
-        key: row._key,
-      })
-    ) : (
-      <p>
-        No component found for <code>{row._type}</code>
-      </p>
-    )
+  return (
+    <>
+      {rowsGrouped.map((row) =>
+        row._type && ROWS[row._type] ? (
+          React.createElement(ROWS[row._type], {
+            ...row,
+            key: row._key,
+          })
+        ) : (
+          <p>
+            No component found for <code>{row._type}</code>
+          </p>
+        )
+      )}
+    </>
   )
 }

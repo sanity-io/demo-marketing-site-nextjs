@@ -8,7 +8,7 @@ export default function PageBuilderLogos(props: KeyedObject & TypedObject) {
   const logos = [289, 284, 259, 236, 219]
 
   return (
-    <Container className="flex flex-wrap items-center justify-center gap-10 my-10 py-10 md:py-20 bg-cyan">
+    <Container className="my-10 flex flex-wrap items-center justify-center gap-10 bg-cyan py-10 md:py-20">
       {logos.map((logo) => (
         <div key={logo}>
           <Image

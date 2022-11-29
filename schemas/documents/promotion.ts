@@ -5,46 +5,44 @@ export default defineType({
   name: 'promotion',
   type: 'document',
   icon: Star,
-  fieldsets: [
-    {name: 'display', title: 'Display', options: { columns: 2 }}
-  ],
+  fieldsets: [{ name: 'display', title: 'Display', options: { columns: 2 } }],
   groups: [
-    {name: 'content', title: 'Content', default: true},
-    {name: 'links', title: 'Links'},
-    {name: 'visibility', title: 'Visibility'},
+    { name: 'content', title: 'Content', default: true },
+    { name: 'links', title: 'Links' },
+    { name: 'visibility', title: 'Visibility' },
   ],
   fields: [
     defineField({
       name: 'market',
       type: 'market',
-      group: ['content']
+      group: ['content'],
     }),
     defineField({
       name: 'title',
       type: 'string',
-      group: ['content']
+      group: ['content'],
     }),
     defineField({
       name: 'subtitle',
       type: 'string',
-      group: ['content']
+      group: ['content'],
     }),
     defineField({
       name: 'content',
       type: 'text',
       rows: 3,
-      group: ['content']
+      group: ['content'],
     }),
     defineField({
       name: 'image',
       type: 'image',
-      group: ['content']
+      group: ['content'],
     }),
     defineField({
       name: 'links',
       type: 'array',
       of: [{ type: 'link' }],
-      group: ['links']
+      group: ['links'],
     }),
     defineField({
       name: 'displayFrom',

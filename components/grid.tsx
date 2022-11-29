@@ -4,7 +4,7 @@ export default function Grid() {
   const [display, setDisplay] = React.useState(true)
   React.useEffect(() => {
     function toggleDisplay() {
-      setDisplay(display => !display)
+      setDisplay((display) => !display)
     }
 
     document.addEventListener('keydown', (event) => {
@@ -16,7 +16,7 @@ export default function Grid() {
     return () => {
       document.removeEventListener('keydown', toggleDisplay)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!display) {

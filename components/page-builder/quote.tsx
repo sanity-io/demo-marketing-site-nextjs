@@ -68,7 +68,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
         </div>
       </div>
       <div className="my-12 flex-1 flex-shrink-0 md:w-1/2 md:py-10">
-        <div className="flex aspect-video w-full items-center justify-center bg-orange-100 rotate-3 rounded">
+        <div className="flex aspect-video w-full rotate-3 items-center justify-center rounded bg-orange-100">
           {person?.company?.logo ? (
             <Image
               className="flex-shrink-0 rounded bg-gray-200"

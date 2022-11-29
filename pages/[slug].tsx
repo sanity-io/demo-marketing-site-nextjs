@@ -38,15 +38,17 @@ export default function Slug(props: Props) {
 
   return (
     <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
-      <Head>
-        <title>{`${data.title} | ${title}`}</title>
-      </Head>
       {router.isFallback ? (
         <Container>
           <PostTitle>Loading…</PostTitle>
         </Container>
       ) : (
-        <Page {...data} />
+        <>
+          <Head>
+            <title>{`${data.title} | ${title}`}</title>
+          </Head>
+          <Page {...data} />
+        </>
       )}
     </Layout>
   )
