@@ -40,6 +40,7 @@ module.exports = {
     remotePatterns: [
       { hostname: 'cdn.sanity.io' },
       { hostname: 'source.unsplash.com' },
+      { hostname: 'img.logoipsum.com' },
     ],
   },
   i18n,

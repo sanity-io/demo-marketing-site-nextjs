@@ -12,12 +12,13 @@ type PromotionProps = KeyedObject &
       _type: 'promotion'
       title?: string
       subtitle?: string
+      content?: string
       image?: SanityImageSource
     }[]
   }
 
 export default function PageBuilderPromotion(props: PromotionProps) {
-  const { _type, promotions } = props
+  const { promotions } = props
 
   if (!promotions?.length) {
     return null
@@ -28,11 +29,14 @@ export default function PageBuilderPromotion(props: PromotionProps) {
       <div className="border-t border-b border-gray-200">
         <Container>
           <div className="flex flex-col items-center gap-5 py-24 md:justify-center">
+            <p className="bg-cyan text-black rounded-full px-5 py-2 max-w-xl text-2xl md:text-center">
+              {promotion.subtitle}
+            </p>
             <h2 className="text-5xl font-bold leading-tight tracking-tighter md:text-center md:text-7xl">
               {promotion.title}
             </h2>
             <p className="max-w-xl text-2xl text-gray-600 md:text-center">
-              {promotion.subtitle}
+              {promotion.content}
             </p>
           </div>
         </Container>

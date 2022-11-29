@@ -4,7 +4,6 @@ export default defineType({
   name: 'link',
   title: 'Link',
   type: 'object',
-
   fields: [
     {
       name: `reference`,

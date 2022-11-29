@@ -10,9 +10,9 @@ const ROWS = {
   hero: React.lazy(() => import('./hero')),
   logos: React.lazy(() => import('./logos')),
   quote: React.lazy(() => import('./quote')),
-  // Experiment block displays whichever hero was loaded
+  // Experiment block displays whichever hero was returned in the query
   experiment: React.lazy(() => import('./hero')),
-  // Promotion row is a grouped set of contiguous `promotion` rows
+  // Promotion component takes a grouped set of contiguous `promotion` rows
   promotion: React.lazy(() => import('./promotion')),
 }
 
@@ -58,22 +58,16 @@ export default function PageBuilder(props: PageBuilderProps) {
     return null
   }
 
-  console.log(rowsGrouped)
-
-  return (
-    <div className="flex flex-col">
-      {rowsGrouped.map((row) =>
-        row._type && ROWS[row._type] ? (
-          React.createElement(ROWS[row._type], {
-            ...row,
-            key: row._key,
-          })
-        ) : (
-          <p>
-            No component found for <code>{row._type}</code>
-          </p>
-        )
-      )}
-    </div>
+  return rowsGrouped.map((row) =>
+    row._type && ROWS[row._type] ? (
+      React.createElement(ROWS[row._type], {
+        ...row,
+        key: row._key,
+      })
+    ) : (
+      <p>
+        No component found for <code>{row._type}</code>
+      </p>
+    )
   )
 }

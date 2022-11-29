@@ -80,6 +80,7 @@ const pageFields = groq`
       ...(@->{
         title,
         subtitle,
+        content,
         image
       })
     },

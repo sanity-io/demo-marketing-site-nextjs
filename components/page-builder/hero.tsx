@@ -19,14 +19,14 @@ export default function PageBuilderHero(props: HeroProps) {
 
   return (
     <Container>
-      <div className="flex flex-col gap-3 py-10 pr-10 md:py-20 lg:w-1/2 lg:gap-5">
+      <div className="flex flex-col gap-3 py-10 md:py-20 pr-10 lg:w-1/2 lg:gap-5">
         {title ? (
-          <h2 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-6xl xl:text-7xl">
+          <h2 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-6xl">
             {title}
           </h2>
         ) : null}
         {subtitle ? (
-          <p className="w-2/3 text-lg text-gray-600 md:w-full md:text-4xl">
+          <p className="text-lg text-gray-600 md:w-full md:text-2xl md:pr-20">
             {subtitle}
           </p>
         ) : null}

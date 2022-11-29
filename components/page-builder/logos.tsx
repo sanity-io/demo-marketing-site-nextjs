@@ -1,12 +1,25 @@
+import Image from 'next/image'
 import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
+import Container from '../container'
+
 export default function PageBuilderLogos(props: KeyedObject & TypedObject) {
-  const { _type } = props
+  const logos = [289, 284, 259, 236, 219]
 
   return (
-    <div className="flex flex-col gap-2 bg-black p-4 text-white">
-      <span className="font-mono">{_type}</span>
-    </div>
+    <Container className="flex flex-wrap items-center justify-center gap-10 my-10 py-10 md:py-20 bg-cyan">
+      {logos.map((logo) => (
+        <div key={logo}>
+          <Image
+            alt=""
+            src={`https://img.logoipsum.com/${logo}.png`}
+            width={200}
+            height={80}
+            className="h-10 w-auto"
+          />
+        </div>
+      ))}
+    </Container>
   )
 }
