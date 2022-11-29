@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
-import PageBuilder from '../components/page-builder'
+import Page from '../components/page'
 import PostTitle from '../components/post-title'
 import { globalDataQuery, pageQuery, pageSlugsQuery } from '../sanity/queries'
 import { usePreviewSubscription } from '../sanity/sanity'
@@ -21,7 +21,7 @@ interface Props {
   globalData: GlobalDataProps
 }
 
-export default function Page(props: Props) {
+export default function Slug(props: Props) {
   const { data: initialData, preview, query, queryParams, globalData } = props
   const router = useRouter()
 
@@ -38,58 +38,18 @@ export default function Page(props: Props) {
 
   return (
     <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
-      <Container>
-        {router.isFallback ? (
+      {router.isFallback ? (
+        <Container>
           <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article className="flex flex-col">
-              <Head>
-                <title>{`${data.title} | ${title}`}</title>
-                {/* {post.coverImage?.asset?._ref && (
-                  <meta
-                    key="ogImage"
-                    property="og:image"
-                    content={urlForImage(post.coverImage)
-                      .width(1200)
-                      .height(627)
-                      .fit('crop')
-                      .url()}
-                  />
-                )} */}
-              </Head>
-              {/* {data?.title ? <PostHeader title={data.title} /> : null} */}
-              {data.translations.length > 0 ? (
-                <ul className="flex items-center gap-4">
-                  {data.translations.map((translation) => (
-                    <li
-                      key={translation.slug}
-                      className={
-                        translation.slug === data.slug
-                          ? `opacity-50`
-                          : undefined
-                      }
-                    >
-                      <Link
-                        href={`/${translation.slug}`}
-                        locale={[translation.language, data.market].join(`-`)}
-                      >
-                        {translation.title}{' '}
-                        <span className="inline-block -translate-y-0.5 text-xs font-bold tracking-tight">
-                          ({translation.language.toUpperCase()})
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-              {data.content && data.content.length > 0 ? (
-                <PageBuilder rows={data?.content} />
-              ) : null}
-            </article>
-          </>
-        )}
-      </Container>
+        </Container>
+      ) : (
+        <>
+          <Head>
+            <title>{`${data.title} | ${title}`}</title>
+          </Head>
+          <Page {...data} />
+        </>
+      )}
     </Layout>
   )
 }

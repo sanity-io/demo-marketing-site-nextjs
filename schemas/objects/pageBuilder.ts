@@ -1,15 +1,10 @@
 import { defineField, defineType } from 'sanity'
 
-// import ArrayAutocompleteAddItem from '../../sanity/components/ArrayAutocompleteAddItem'
-
 export default defineType(
   {
     name: 'pageBuilder',
     title: 'Page Builder',
     type: 'array',
-    // components: {
-    //   input: ArrayAutocompleteAddItem,
-    // },
     of: [
       defineField({
         name: 'hero',
@@ -26,6 +21,12 @@ export default defineType(
       defineField({
         name: 'quote',
         type: 'pageBuilderQuoteRow',
+      }),
+      defineField({
+        name: 'promotion',
+        title: 'Promotion',
+        type: 'reference',
+        to: [{ type: 'promotion' }],
       }),
     ],
   },

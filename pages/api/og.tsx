@@ -37,7 +37,7 @@ export default async function (req: NextRequest) {
     (
       <div
         style={{
-          background: 'white',
+          backgroundColor: '#79FFE1',
           width: WIDTH,
           height: HEIGHT,
           position: 'relative',

@@ -27,7 +27,9 @@ export default function OGPreview(props) {
             <Text size={3} weight="bold">
               {document?.seo?.title ?? document?.title}
             </Text>
-            <Text muted>{document?.seo?.description}</Text>
+            {document?.seo?.description ? (
+              <Text muted>{document?.seo?.description}</Text>
+            ) : null}
           </Stack>
         </Card>
         <Card radius={2} border>
