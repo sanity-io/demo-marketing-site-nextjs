@@ -35,5 +35,5 @@ export const schemaTypes = [
   seo,
   settings,
   visibility,
-  portableText
+  portableText,
 ]

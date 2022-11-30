@@ -35,7 +35,9 @@ export default function Button(props: ButtonProps) {
     buttonClasses.base,
     buttonClasses[mode],
     ...(disabled ? [buttonClasses.disabled] : []),
-  ].filter(Boolean).join(` `)
+  ]
+    .filter(Boolean)
+    .join(` `)
 
   if (locale && href) {
     return (

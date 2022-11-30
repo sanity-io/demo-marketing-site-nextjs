@@ -182,4 +182,3 @@ export const structure = (
     .title('Markets')
     .items(createAllMarketItems(S, context))
 }
-

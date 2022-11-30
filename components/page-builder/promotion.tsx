@@ -28,7 +28,7 @@ export default function PageBuilderPromotion(props: PromotionProps) {
     return (
       <div className="border-t border-b border-gray-200">
         <Container>
-          <div className="flex flex-col md:items-center gap-5 py-24 md:justify-center">
+          <div className="flex flex-col gap-5 py-24 md:items-center md:justify-center">
             {promotion.subtitle ? (
               <p className="max-w-xl rounded-full bg-cyan px-5 py-2 text-2xl text-black md:text-center">
                 {promotion.subtitle}

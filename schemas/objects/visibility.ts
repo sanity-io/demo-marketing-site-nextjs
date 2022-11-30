@@ -9,7 +9,8 @@ export type Visibility = {
 export default defineField({
   name: 'visibility',
   title: 'Visibility',
-  description: 'This document may be displayed as a Cell in a page, you can control when it is displayed here.',
+  description:
+    'This document may be displayed as a Cell in a page, you can control when it is displayed here.',
   type: 'object',
   options: { columns: 2 },
   fields: [

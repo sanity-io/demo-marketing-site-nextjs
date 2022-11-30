@@ -57,7 +57,7 @@ export default defineType({
       title: 'title',
       image: 'image',
       visibility: 'visibility',
-      media: 'image'
+      media: 'image',
     },
     // Using prepare will override the custom preview component
     // prepare({ title, image }) {
@@ -67,5 +67,5 @@ export default defineType({
     //     media: image ?? Type
     //   }
     // }
-  }
+  },
 })
