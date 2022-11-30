@@ -55,9 +55,7 @@ export default function RowDisplay(props: PreviewProps) {
     status = now < to ? 'CURRENT' : 'EXPIRED'
   }
 
-  const RenderStatus = renderStatus(status)
-
-  if (RenderStatus) {
+  if (status) {
     return (
       <Flex align="center" gap={2}>
         <Box flex={1}>
@@ -68,7 +66,7 @@ export default function RowDisplay(props: PreviewProps) {
             media: props.image ?? props.schemaType.icon,
           })}
         </Box>
-        {RenderStatus}
+        {renderStatus(status)}
       </Flex>
     )
   }

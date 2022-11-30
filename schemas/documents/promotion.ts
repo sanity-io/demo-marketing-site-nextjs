@@ -1,15 +1,21 @@
+import { CalendarIcon, ComposeIcon, LinkIcon } from '@sanity/icons'
 import { Star } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
+
+import RowDisplay from '../components/RowDisplay'
 
 export default defineType({
   name: 'promotion',
   type: 'document',
   icon: Star,
+  components: {
+    preview: RowDisplay,
+  },
   fieldsets: [{ name: 'display', title: 'Display', options: { columns: 2 } }],
   groups: [
-    { name: 'content', title: 'Content', default: true },
-    { name: 'links', title: 'Links' },
-    { name: 'visibility', title: 'Visibility' },
+    { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
+    { name: 'links', title: 'Links', icon: LinkIcon },
+    { name: 'visibility', title: 'Visibility', icon: CalendarIcon },
   ],
   fields: [
     defineField({
@@ -53,11 +59,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
+      visibility: 'visibility',
     },
-    prepare: ({ title }) => ({
-      title,
-      subtitle: 'Promotion',
-      icon: Star,
-    }),
+    // prepare: ({ title }) => ({
+    //   title,
+    //   subtitle: 'Promotion',
+    //   icon: Star,
+    // }),
   },
 })

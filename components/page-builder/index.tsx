@@ -66,14 +66,15 @@ export default function PageBuilder(props: PageBuilderProps) {
 
   return (
     <>
-      {rowsGrouped.map((row) =>
+      {rowsGrouped.map((row, rowIndex) =>
         row._type && ROWS[row._type] ? (
           React.createElement(ROWS[row._type], {
             ...row,
+            index: rowIndex,
             key: row._key,
           })
         ) : (
-          <p>
+          <p key={row._key}>
             No component found for <code>{row._type}</code>
           </p>
         )
