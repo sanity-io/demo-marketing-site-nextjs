@@ -6,7 +6,7 @@ export default function Container(props: ContainerProps) {
   const { className, children } = props
 
   return (
-    <div className={`container mx-auto px-7 ${className ?? ``}`}>
+    <div className={`container mx-auto px-4 md:px-7 ${className ?? ``}`}>
       {children}
     </div>
   )

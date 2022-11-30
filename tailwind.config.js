@@ -11,10 +11,13 @@ module.exports = {
     extend: {
       ...theme.extend,
       colors: {
-        theme: '#ace975',
+        theme: '#F060B9',
         ...theme.extend.colors,
       },
     },
   },
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: [
+    require('prettier-plugin-tailwindcss'),
+    require('@tailwindcss/typography')
+  ],
 }

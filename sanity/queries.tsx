@@ -33,6 +33,7 @@ const pageFields = groq`
         title,
         subtitle,
         image,
+        content,
         links[]{
           _key,
           url,
