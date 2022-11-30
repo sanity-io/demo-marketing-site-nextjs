@@ -17,6 +17,14 @@ type HeroProps = KeyedObject & {
 export default function PageBuilderHero(props: HeroProps) {
   const { title, subtitle, links } = props
 
+  // TODO: Adapt layout:
+  // 1. If this is the first item in the index, render a <h1>
+  // 1.1 If it has an image, align left with image right
+  // 1.2 If it has no image, align center
+  // 2. If this is not the first item in the index, render a <h2>
+  // 2.1 If it has an image, align left with image right
+  // 2.2 If it has no image, align center
+
   return (
     <Container>
       <div className="flex flex-col gap-3 py-10 pr-10 md:py-20 lg:w-1/2 lg:gap-5">

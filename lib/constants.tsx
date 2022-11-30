@@ -59,7 +59,7 @@ export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
   { kind: 'singleton', schemaType: `page`, title: 'Home', icon: Home },
   { kind: 'list', schemaType: `page`, title: 'Pages', icon: File },
   { kind: 'divider' },
-  { kind: 'list', schemaType: `pageBuilderHero`, title: 'Heroes', icon: Type },
+  { kind: 'list', schemaType: `hero`, title: 'Heroes', icon: Type },
   { kind: 'list', schemaType: `promotion`, title: 'Promotions', icon: Star },
   { kind: 'divider' },
   { kind: 'list', schemaType: `person`, title: 'People', icon: User },

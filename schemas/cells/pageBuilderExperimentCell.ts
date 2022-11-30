@@ -1,26 +1,27 @@
-import { Building } from 'lucide-react'
+import { Wand2 } from 'lucide-react'
 import { defineField } from 'sanity'
 
 import RowDisplay from '../components/RowDisplay'
 
 export default defineField({
-  name: 'pageBuilderLogosRow',
-  title: 'Logos',
+  name: 'pageBuilderExperimentCell',
+  title: 'Experiment',
   type: 'object',
-  icon: Building,
+  icon: Wand2,
   // @ts-ignore
   components: {
     preview: RowDisplay,
   },
   fields: [
     defineField({
-      name: 'logos',
+      name: 'experiments',
+      description: 'Choose 1-2 blocks to be split between A/B audiences',
       type: 'array',
       of: [
         defineField({
-          name: 'logo',
+          name: 'experiment',
           type: 'reference',
-          to: [{ type: 'company' }],
+          to: [{ type: 'hero' }],
           options: {
             // Scope references to only those in the same Market
             filter: ({ document }) => {
@@ -38,25 +39,28 @@ export default defineField({
           },
         }),
       ],
+      validation: (rule) => rule.max(2).required(),
     }),
     defineField({
-      name: 'rowOptions',
-      type: 'rowOptions',
+      name: 'visibility',
+      type: 'visibility',
     }),
   ],
   preview: {
     select: {
-      logos: 'logos',
-      rowOptions: 'rowOptions',
+      title0: 'experiments.0.title',
+      title1: 'experiments.1.title',
     },
-    prepare: ({ logos }) => ({
-      title: logos.length
-        ? logos.length === 1
-          ? `1 Logo`
-          : `${logos.length} Logos`
-        : 'No logos selected',
-      subtitle: 'Logos',
-      media: Building,
+    prepare: ({ title0, title1 }) => ({
+      title:
+        title0 || title1
+          ? [title0, title1]
+              .filter(Boolean)
+              .map((title) => `"${title}"`)
+              .join(` vs `)
+          : `No "Heroes" selected`,
+      subtitle: 'Experiment',
+      media: Wand2,
     }),
   },
 })

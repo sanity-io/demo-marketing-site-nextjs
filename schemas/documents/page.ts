@@ -10,7 +10,7 @@ export default defineType({
   groups: [
     { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
     { name: 'seo', title: 'SEO', icon: SearchIcon },
-    { name: 'options', title: 'Options', icon: CogIcon },
+    // { name: 'options', title: 'Options', icon: CogIcon },
   ],
   fields: [
     defineField({
@@ -42,14 +42,6 @@ export default defineType({
       title: 'SEO',
       type: 'seo',
       group: 'seo',
-    }),
-    defineField({
-      name: 'dateSpecificRows',
-      description:
-        'When enabled, allows you to specify a date range to display each Row in the Page Builder',
-      type: 'boolean',
-      initialValue: false,
-      group: 'options',
     }),
     defineField({
       name: 'content',
