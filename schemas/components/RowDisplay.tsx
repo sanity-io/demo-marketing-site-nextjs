@@ -37,6 +37,10 @@ function renderStatus(status: Status) {
 }
 
 export default function RowDisplay(props: PreviewProps) {
+if (props.schemaType.name === 'quote') {
+  console.log(props);
+}
+
   // TODO: Why does this component receive the document value
   // When the type disagrees?
   // @ts-ignore
@@ -55,9 +59,7 @@ export default function RowDisplay(props: PreviewProps) {
     status = now < to ? 'CURRENT' : 'EXPIRED'
   }
 
-  const RenderStatus = renderStatus(status)
-
-  if (RenderStatus) {
+  if (status) {
     return (
       <Flex align="center" gap={2}>
         <Box flex={1}>
@@ -68,7 +70,7 @@ export default function RowDisplay(props: PreviewProps) {
             media: props.image ?? props.schemaType.icon,
           })}
         </Box>
-        {RenderStatus}
+        {renderStatus(status)}
       </Flex>
     )
   }

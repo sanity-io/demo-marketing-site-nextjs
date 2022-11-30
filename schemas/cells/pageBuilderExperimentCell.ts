@@ -8,10 +8,6 @@ export default defineField({
   title: 'Experiment',
   type: 'object',
   icon: Wand2,
-  // @ts-ignore
-  components: {
-    preview: RowDisplay,
-  },
   fields: [
     defineField({
       name: 'experiments',
@@ -40,10 +36,6 @@ export default defineField({
         }),
       ],
       validation: (rule) => rule.max(2).required(),
-    }),
-    defineField({
-      name: 'visibility',
-      type: 'visibility',
     }),
   ],
   preview: {

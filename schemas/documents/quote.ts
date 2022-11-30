@@ -1,11 +1,16 @@
 import { Quote } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
+import RowDisplay from '../components/RowDisplay'
+
 export default defineType({
   name: 'quote',
   title: 'Quote',
   icon: Quote,
   type: 'document',
+  components: {
+    preview: RowDisplay,
+  },
   fields: [
     defineField({
       name: 'market',
@@ -43,15 +48,16 @@ export default defineType({
   ],
   preview: {
     select: {
-      quote: 'quote',
+      title: 'quote',
       person: 'person.name',
       company: 'person.company.name',
       media: 'person.picture',
+      visibility: 'visibility',
     },
-    prepare: ({ quote, person, company, media }) => ({
-      title: quote,
-      subtitle: person ? `— ${person} at ${company}` : `Unknown`,
-      media: media ?? Quote,
-    }),
+    // prepare: ({ quote, person, company, media }) => ({
+    //   title: quote,
+    //   subtitle: person ? `— ${person} at ${company}` : `Unknown`,
+    //   media: media ?? Quote,
+    // }),
   },
 })
