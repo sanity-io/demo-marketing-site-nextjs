@@ -36,6 +36,10 @@ export default defineType({
         },
       },
     }),
+    defineField({
+      name: 'visibility',
+      type: 'visibility',
+    }),
   ],
   preview: {
     select: {

@@ -9,6 +9,7 @@ type ButtonProps = LinkProps & {
   icon?: boolean
   locale?: string
   href?: string
+  disabled?: boolean
 }
 
 const buttonClasses = {
@@ -16,6 +17,7 @@ const buttonClasses = {
   default: `bg-black text-white border-black hover:bg-cyan hover:text-black hover:border-cyan`,
   ghost: `bg-transparent text-black border-black hover:bg-cyan hover:text-black hover:border-cyan`,
   bleed: `border-transparent text-gray-600 hover:text-black`,
+  disabled: `opacity-50 pointer-events-none`,
 }
 
 export default function Button(props: ButtonProps) {
@@ -27,8 +29,13 @@ export default function Button(props: ButtonProps) {
     icon = false,
     locale,
     href,
+    disabled = false,
   } = props
-  const classNames = [buttonClasses.base, buttonClasses[mode]].join(` `)
+  const classNames = [
+    buttonClasses.base,
+    buttonClasses[mode],
+    ...(disabled ? [buttonClasses.disabled] : []),
+  ].filter(Boolean).join(` `)
 
   if (locale && href) {
     return (

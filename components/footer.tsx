@@ -1,11 +1,10 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 import { getMarketFromNextLocale } from '../pages'
 import Button from './button'
 import Container from './container'
 import Logo from './logo'
+
 type FooterProps = {
   title: string
 }
@@ -25,7 +24,12 @@ export default function Footer(props: FooterProps) {
               {domainLocales.map((domainLocale) => (
                 <Button
                   key={domainLocale.domain}
-                  href="/"
+                  disabled={domainLocale.defaultLocale === locale}
+                  href={
+                    domainLocale.defaultLocale === `en-US`
+                      ? `/`
+                      : `/${domainLocale.defaultLocale}`
+                  }
                   locale={domainLocale.defaultLocale}
                   text={getMarketFromNextLocale(domainLocale.defaultLocale)}
                   mode="ghost"

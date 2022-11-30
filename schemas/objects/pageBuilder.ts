@@ -1,5 +1,7 @@
 import { defineField, defineType } from 'sanity'
 
+import RowDisplay from '../components/RowDisplay'
+
 export default defineType(
   {
     name: 'pageBuilder',
@@ -8,25 +10,73 @@ export default defineType(
     of: [
       defineField({
         name: 'hero',
-        type: 'pageBuilderHeroRow',
+        title: 'Hero',
+        type: 'reference',
+        to: [{ type: 'hero' }],
+        options: {
+          filter: ({ document }) => {
+            if (!document.market) {
+              return {
+                filter: '!defined(market)',
+              }
+            }
+
+            return {
+              filter: `market == $market`,
+              params: { market: document.market },
+            }
+          },
+        },
       }),
       defineField({
         name: 'experiment',
-        type: 'pageBuilderExperimentRow',
+        title: 'Experiment',
+        type: 'pageBuilderExperimentCell',
       }),
       defineField({
         name: 'logos',
-        type: 'pageBuilderLogosRow',
+        title: 'Logos',
+        type: 'pageBuilderLogosCell',
       }),
       defineField({
         name: 'quote',
-        type: 'pageBuilderQuoteRow',
+        title: 'Quote',
+        type: 'reference',
+        to: [{ type: 'quote' }],
+        options: {
+          filter: ({ document }) => {
+            if (!document.market) {
+              return {
+                filter: '!defined(market)',
+              }
+            }
+
+            return {
+              filter: `market == $market`,
+              params: { market: document.market },
+            }
+          },
+        },
       }),
       defineField({
         name: 'promotion',
         title: 'Promotion',
         type: 'reference',
         to: [{ type: 'promotion' }],
+        options: {
+          filter: ({ document }) => {
+            if (!document.market) {
+              return {
+                filter: '!defined(market)',
+              }
+            }
+
+            return {
+              filter: `market == $market`,
+              params: { market: document.market },
+            }
+          },
+        },
       }),
     ],
   },

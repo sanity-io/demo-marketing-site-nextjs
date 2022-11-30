@@ -45,36 +45,9 @@ export default defineType({
       group: ['links'],
     }),
     defineField({
-      name: 'displayFrom',
-      type: 'datetime',
-      fieldset: 'display',
+      name: 'visibility',
+      type: 'visibility',
       group: ['visibility'],
-      validation: (rule) =>
-        rule.custom((value, { document }) => {
-          const { displayTo } = document
-          return value &&
-            displayTo &&
-            typeof displayTo === 'string' &&
-            new Date(value) > new Date(displayTo)
-            ? `"Display from" must be before "display to"`
-            : true
-        }),
-    }),
-    defineField({
-      name: 'displayTo',
-      type: 'datetime',
-      fieldset: 'display',
-      group: ['visibility'],
-      validation: (rule) =>
-        rule.custom((value, { document }) => {
-          const { displayFrom } = document
-          return value &&
-            displayFrom &&
-            typeof displayFrom === 'string' &&
-            new Date(value) < new Date(displayFrom)
-            ? `"Display to" must be after "display from"`
-            : true
-        }),
     }),
   ],
   preview: {

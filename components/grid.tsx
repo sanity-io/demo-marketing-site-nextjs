@@ -34,10 +34,9 @@ export default function Grid() {
         {/* 5-column grid with w-10 outer borders */}
         <div className="w-5 border-r border-red-500/50 md:w-10 md:border-l" />
         <div className="flex flex-1">
-          <div className="w-1/5 border-r border-blue-500/50" />
-          <div className="w-1/5 border-r border-blue-500/50" />
-          <div className="w-1/5 border-r border-blue-500/50" />
-          <div className="w-1/5 border-r border-blue-500/50" />
+          <div className="w-1/4 border-r border-blue-500/50" />
+          <div className="w-1/4 border-r border-blue-500/50" />
+          <div className="w-1/4 border-r border-blue-500/50" />
         </div>
         <div className="w-5 border-l border-red-500/50 md:w-10 md:border-r" />
       </div>

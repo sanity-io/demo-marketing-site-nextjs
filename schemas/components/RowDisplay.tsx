@@ -2,8 +2,8 @@ import { Badge, Box, Flex } from '@sanity/ui'
 import React from 'react'
 import { PreviewProps } from 'sanity'
 
-type RowValue = {
-  rowOptions: {
+type CellValue = {
+  visibility: {
     displayFrom?: string
     displayTo?: string
   }
@@ -36,8 +36,11 @@ function renderStatus(status: Status) {
   }
 }
 
-export default function RowDisplay(props: PreviewProps & { value: RowValue }) {
-  const { displayFrom, displayTo } = props?.value?.rowOptions || {}
+export default function RowDisplay(props: PreviewProps) {
+  // TODO: Why does this component receive the document value
+  // When the type disagrees?
+  // @ts-ignore
+  const { displayFrom, displayTo } = props?.visibility || {}
   let status
   const now = new Date()
   const from = new Date(displayFrom)
@@ -52,12 +55,28 @@ export default function RowDisplay(props: PreviewProps & { value: RowValue }) {
     status = now < to ? 'CURRENT' : 'EXPIRED'
   }
 
-  return (
-    <Flex align="center" gap={2}>
-      <Box flex={1}>
-        {props.renderDefault({ ...props, subtitle: props.schemaType.title })}
-      </Box>
-      {renderStatus(status)}
-    </Flex>
-  )
+  const RenderStatus = renderStatus(status)
+
+  if (RenderStatus) {
+    return (
+      <Flex align="center" gap={2}>
+        <Box flex={1}>
+          {props.renderDefault({
+            ...props,
+            subtitle: props.schemaType.title,
+            // @ts-ignore
+            media: props.image ?? props.schemaType.icon,
+          })}
+        </Box>
+        {RenderStatus}
+      </Flex>
+    )
+  }
+
+  return props.renderDefault({
+    ...props,
+    subtitle: props.schemaType.title,
+    // @ts-ignore
+    media: props.image ?? props.schemaType.icon,
+  })
 }

@@ -1,4 +1,7 @@
+import pageBuilderExperimentCell from './cells/pageBuilderExperimentCell'
+import pageBuilderLogosCell from './cells/pageBuilderLogosCell'
 import company from './documents/company'
+import hero from './documents/hero'
 import menu from './documents/menu'
 import page from './documents/page'
 import person from './documents/person'
@@ -10,32 +13,27 @@ import language from './objects/language'
 import link from './objects/link'
 import market from './objects/market'
 import pageBuilder from './objects/pageBuilder'
-import rowOptions from './objects/rowOptions'
+import portableText from './objects/portableText'
 import seo from './objects/seo'
-import pageBuilderExperimentRow from './rows/pageBuilderExperimentRow'
-import pageBuilderHero from './rows/pageBuilderHero'
-import pageBuilderHeroRow from './rows/pageBuilderHeroRow'
-import pageBuilderLogosRow from './rows/pageBuilderLogosRow'
-import pageBuilderQuoteRow from './rows/pageBuilderQuoteRow'
+import visibility from './objects/visibility'
 
 export const schemaTypes = [
-  page,
-  person,
   company,
-  settings,
-  redirect,
-  menu,
-  quote,
-  market,
+  hero,
   language,
-  seo,
-  pageBuilder,
-  pageBuilderHero,
-  pageBuilderHeroRow,
-  pageBuilderExperimentRow,
-  pageBuilderLogosRow,
-  pageBuilderQuoteRow,
-  rowOptions,
   link,
+  market,
+  menu,
+  page,
+  pageBuilder,
+  pageBuilderExperimentCell,
+  pageBuilderLogosCell,
+  person,
   promotion,
+  quote,
+  redirect,
+  seo,
+  settings,
+  visibility,
+  portableText
 ]

@@ -1,11 +1,16 @@
 import { Type } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
+import RowDisplay from '../components/RowDisplay'
+
 export default defineType({
-  name: 'pageBuilderHero',
+  name: 'hero',
   title: 'Hero',
   type: 'document',
   icon: Type,
+  components: {
+    preview: RowDisplay,
+  },
   fields: [
     defineField({
       name: 'market',
@@ -21,8 +26,11 @@ export default defineType({
     }),
     defineField({
       name: 'subtitle',
-      type: 'text',
-      rows: 3,
+      type: 'string',
+    }),
+    defineField({
+      name: 'content',
+      type: 'portableText',
     }),
     defineField({
       name: 'links',
@@ -39,5 +47,25 @@ export default defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    defineField({
+      name: 'visibility',
+      type: 'visibility',
+    }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      image: 'image',
+      visibility: 'visibility',
+      media: 'image'
+    },
+    // Using prepare will override the custom preview component
+    // prepare({ title, image }) {
+    //   return {
+    //     title,
+    //     subtitle: 'Hero',
+    //     media: image ?? Type
+    //   }
+    // }
+  }
 })

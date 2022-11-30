@@ -25,33 +25,15 @@ const pageFields = groq`
   title,
   "slug": slug.current,
   market,
-  content[
-    // Neither start or end dates are set
-    (!defined(rowOptions.displayTo) && !defined(rowOptions.displayFrom))
-    // Only the end is set, check if it has expired
-    || (!defined(rowOptions.displayTo) && dateTime(rowOptions.displayFrom) < dateTime(coalesce($date, now())))
-    // Only the start is set, check if it has begun
-    || (dateTime(rowOptions.displayTo) > dateTime(coalesce($date, now())) && !defined(rowOptions.displayFrom))
-    // Both end and start are set, check if the current time is between them
-    // || (dateTime(coalesce($date, now())) in dateTime(rowOptions.displayFrom) .. dateTime(rowOptions.displayTo))
-    || (
-        dateTime(rowOptions.displayTo) > dateTime(coalesce($date, now())) 
-        && dateTime(rowOptions.displayFrom) < dateTime(coalesce($date, now()))
-      )
-  ]{
+  content[]{
     _key,
     _type,
     _type == "hero" => {
-      ...(hero->{
+      ...(@->{
         title,
         subtitle,
         image,
-        // "links": links[(defined(link.text) && defined(link.url)) || defined(link.reference._ref)]{
-          // _key,
-          // ...
-        // }
         links[]{
-          ...,
           _key,
           url,
           text,
@@ -59,11 +41,12 @@ const pageFields = groq`
             title,
             "slug": slug.current
           }
-        }
+        },
+        visibility
       })
     },
     _type == "quote" => {
-      ...(quote->{
+      ...(@->{
         quote,
         person->{
           name,
@@ -73,7 +56,8 @@ const pageFields = groq`
             name,
             logo
           }
-        }
+        },
+        visibility
       })
     },
     _type == "promotion" => {
@@ -81,15 +65,31 @@ const pageFields = groq`
         title,
         subtitle,
         content,
-        image
+        image,
+        visibility
       })
     },
     _type == "experiment" => {
       ...(experiments[$audience]->{
-        title
+        title,
+        visibility
       })
     }
-  },
+  }[
+    // Filter out elements where "visibility" is not valid:
+    // Neither start or end dates are set
+    (!defined(visibility.displayTo) && !defined(visibility.displayFrom))
+    // Only the end is set, check if it has expired
+    || (!defined(visibility.displayTo) && dateTime(visibility.displayFrom) < dateTime(coalesce($date, now())))
+    // Only the start is set, check if it has begun
+    || (dateTime(visibility.displayTo) > dateTime(coalesce($date, now())) && !defined(visibility.displayFrom))
+    // Both end and start are set, check if the current time is between them
+    || (dateTime(coalesce($date, now())) in dateTime(visibility.displayFrom) .. dateTime(visibility.displayTo))
+    || (
+        dateTime(visibility.displayTo) > dateTime(coalesce($date, now())) 
+        && dateTime(visibility.displayFrom) < dateTime(coalesce($date, now()))
+      )
+  ],
   "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
     title,
     "slug": slug.current,

@@ -31,7 +31,9 @@ export default function PageBuilder(props: PageBuilderProps) {
         const prev = acc[acc.length - 1]
 
         // Start a new `promotions` array
-        if (!prev || prev._type !== `promotion`) {
+        // If the previous row was not a `promotion` row
+        // Or if the previous row was a `promotion` row but it was full
+        if (!prev || prev._type !== `promotion` || prev.promotions.length === 4) {
           return [
             ...acc,
             {
