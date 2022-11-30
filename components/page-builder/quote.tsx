@@ -28,8 +28,8 @@ export default function PageBuilderQuote(props: QuoteProps) {
   return (
     <Container className="flex flex-col lg:flex-row lg:items-center">
       <div className="flex flex-col gap-5 py-10 lg:w-1/2 lg:flex-row lg:px-10">
-        <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full border border-gray-200">
-          <Quote className="h-8 w-8 flex-shrink-0" />
+        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200">
+          <Quote className="h-5 w-5 flex-shrink-0" />
         </div>
         <div className="flex flex-col gap-5">
           <h2 className="text-2xl font-bold italic leading-tight tracking-tighter lg:text-3xl">

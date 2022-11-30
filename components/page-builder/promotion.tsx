@@ -30,7 +30,7 @@ export default function PageBuilderPromotion(props: PromotionProps) {
         <Container>
           <div className="flex flex-col gap-5 py-24 md:items-center md:justify-center">
             {promotion.subtitle ? (
-              <p className="max-w-xl rounded-full bg-cyan px-5 py-2 text-2xl text-black md:text-center">
+              <p className="max-w-xl rounded-full bg-theme px-5 py-2 text-2xl text-black md:text-center">
                 {promotion.subtitle}
               </p>
             ) : null}
@@ -51,11 +51,11 @@ export default function PageBuilderPromotion(props: PromotionProps) {
           {promotions.map((promotion, promotionIndex) => (
             <div
               key={promotion._key}
-              className={`flex gap-5 py-12 text-left md:w-1/2 md:flex-col md:py-24 md:px-10 ${
+              className={`flex gap-5 py-12 text-left md:w-1/2 md:flex-col md:py-24 md:px-5 ${
                 promotionIndex > 1 ? `border-t` : ``
               }`}
             >
-              <Star className="h-8 w-8 flex-shrink-0" />
+              <Star className="w-5 h-5 flex-shrink-0" />
               <div className="flex flex-col gap-5">
                 <h2 className="text-xl font-bold leading-tight tracking-tighter">
                   {promotion.title}
@@ -73,8 +73,8 @@ export default function PageBuilderPromotion(props: PromotionProps) {
     return (
       <div className="border-t border-b border-gray-200">
         <Container className="grid md:grid-cols-2">
-          <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-10">
-            <Star className="h-8 w-8 flex-shrink-0" />
+          <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-5">
+            <Star className="w-5 h-5 flex-shrink-0" />
             <div className="flex flex-col gap-5">
               <h2 className="text-xl font-bold leading-tight tracking-tighter md:text-3xl">
                 {first.title}
@@ -88,11 +88,11 @@ export default function PageBuilderPromotion(props: PromotionProps) {
             {rest.map((promotion, promotionIndex) => (
               <div
                 key={promotion._key}
-                className={`flex gap-5 py-12 text-left md:flex-col md:py-24 md:px-10 ${
+                className={`flex gap-5 py-12 text-left md:flex-col md:py-24 md:px-5 ${
                   promotionIndex > 0 ? `border-t` : ``
                 }`}
               >
-                <Star className="h-8 w-8 flex-shrink-0" />
+                <Star className="w-5 h-5 flex-shrink-0" />
                 <div className="flex flex-col gap-5">
                   <h2 className="text-xl font-bold leading-tight tracking-tighter">
                     {promotion.title}
