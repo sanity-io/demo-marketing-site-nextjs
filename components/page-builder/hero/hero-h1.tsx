@@ -11,17 +11,15 @@ export default function HeroH1(props: HeroProps) {
   return (
     <Container className="flex flex-col items-center gap-4 py-5 text-center md:py-8">
       {subtitle ? (
-        <p className="text-lg text-theme md:w-full md:text-2xl">
-          {subtitle}
-        </p>
+        <p className="text-lg text-theme md:w-full md:text-2xl">{subtitle}</p>
       ) : null}
       {title ? (
-        <h2 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
+        <h1 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
           {title}
-        </h2>
+        </h1>
       ) : null}
       {content?.length > 0 ? (
-        <div className="text-2xl max-w-xl">
+        <div className="max-w-xl text-2xl">
           <PortableText value={content} />
         </div>
       ) : null}

@@ -55,7 +55,7 @@ export default function PageBuilderPromotion(props: PromotionProps) {
                 promotionIndex > 1 ? `border-t` : ``
               }`}
             >
-              <Star className="w-5 h-5 flex-shrink-0" />
+              <Star className="h-5 w-5 flex-shrink-0" />
               <div className="flex flex-col gap-5">
                 <h2 className="text-xl font-bold leading-tight tracking-tighter">
                   {promotion.title}
@@ -74,7 +74,7 @@ export default function PageBuilderPromotion(props: PromotionProps) {
       <div className="border-t border-b border-gray-200">
         <Container className="grid md:grid-cols-2">
           <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-5">
-            <Star className="w-5 h-5 flex-shrink-0" />
+            <Star className="h-5 w-5 flex-shrink-0" />
             <div className="flex flex-col gap-5">
               <h2 className="text-xl font-bold leading-tight tracking-tighter md:text-3xl">
                 {first.title}
@@ -92,7 +92,7 @@ export default function PageBuilderPromotion(props: PromotionProps) {
                   promotionIndex > 0 ? `border-t` : ``
                 }`}
               >
-                <Star className="w-5 h-5 flex-shrink-0" />
+                <Star className="h-5 w-5 flex-shrink-0" />
                 <div className="flex flex-col gap-5">
                   <h2 className="text-xl font-bold leading-tight tracking-tighter">
                     {promotion.title}

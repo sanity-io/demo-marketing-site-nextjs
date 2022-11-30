@@ -37,10 +37,6 @@ function renderStatus(status: Status) {
 }
 
 export default function RowDisplay(props: PreviewProps) {
-if (props.schemaType.name === 'quote') {
-  console.log(props);
-}
-
   // TODO: Why does this component receive the document value
   // When the type disagrees?
   // @ts-ignore

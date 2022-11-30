@@ -27,7 +27,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
 
   return (
     <Container className="flex flex-col lg:flex-row lg:items-center">
-      <div className="flex flex-col gap-5 py-10 lg:w-1/2 lg:flex-row lg:px-10">
+      <div className="flex flex-col gap-5 px-5 lg:w-1/2 lg:flex-row">
         <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200">
           <Quote className="h-5 w-5 flex-shrink-0" />
         </div>
@@ -67,20 +67,19 @@ export default function PageBuilderQuote(props: QuoteProps) {
           </div>
         </div>
       </div>
-      <div className="my-12 flex-1 flex-shrink-0 lg:w-1/2 lg:py-10">
+      <div className="my-12 flex-1 flex-shrink-0 px-5 lg:w-1/2">
         <div className="mx-auto flex aspect-video w-full max-w-lg rotate-3 items-center justify-center rounded bg-orange-100">
           {person?.company?.logo ? (
             <Image
-              className="flex-shrink-0 rounded bg-gray-200"
+              className="w-4/5 flex-shrink-0 rounded bg-gray-200 mix-blend-color-burn"
               src={urlForImage(person.company.logo)
-                .width(256)
-                .height(256)
+                .width(512)
                 .dpr(2)
                 .auto('format')
                 .url()}
               alt={person?.name}
-              width={256}
-              height={256}
+              width={512}
+              height={512}
             />
           ) : null}
         </div>

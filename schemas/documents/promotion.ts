@@ -1,4 +1,4 @@
-import { CalendarIcon,ComposeIcon, LinkIcon } from '@sanity/icons'
+import { CalendarIcon, ComposeIcon, LinkIcon } from '@sanity/icons'
 import { Star } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
@@ -59,7 +59,7 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      visibility: 'visibility'
+      visibility: 'visibility',
     },
     // prepare: ({ title }) => ({
     //   title,
