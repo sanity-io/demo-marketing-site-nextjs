@@ -57,8 +57,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
           })
           .title('Social Share'),
       ])
-    case `promotion`:
-    case `hero`:
+    case `article`:
       return S.document().views([S.view.form(), pagesUsed(S)])
     default:
       return S.document().views([S.view.form()])

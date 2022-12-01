@@ -14,7 +14,7 @@ export default function Links(props: LinksProps) {
   if (!links?.length) return null
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-2">
       {links.map((link, linkIndex) => (
         <Button
           key={link._key}

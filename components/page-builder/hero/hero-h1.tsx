@@ -1,5 +1,4 @@
 import { PortableText } from '@portabletext/react'
-import React from 'react'
 
 import Container from '../../container'
 import Links from '../../links'
@@ -14,7 +13,7 @@ export default function HeroH1(props: HeroProps) {
         <p className="text-lg text-theme md:w-full md:text-2xl">{subtitle}</p>
       ) : null}
       {title ? (
-        <h1 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
+        <h1 className="text-5xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
           {title}
         </h1>
       ) : null}

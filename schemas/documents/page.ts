@@ -16,10 +16,12 @@ export default defineType({
     defineField({
       name: 'market',
       type: 'market',
+      group: 'content',
     }),
     defineField({
       name: 'language',
       type: 'language',
+      group: 'content',
     }),
     defineField({
       name: 'title',
