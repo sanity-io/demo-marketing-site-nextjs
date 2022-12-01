@@ -20,7 +20,7 @@ export default function HeroH1WithImage(props: HeroProps) {
             </p>
           ) : null}
           {title ? (
-            <h1 className="text-5xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
+            <h1 className="text-5xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl">
               {title}
             </h1>
           ) : null}

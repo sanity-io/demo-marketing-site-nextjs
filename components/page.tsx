@@ -20,7 +20,7 @@ export default function Page(props: PageProps) {
                 locale={[translation.language, market].join(`-`)}
               >
                 {translation.title}{' '}
-                <span className="inline-block -translate-y-0.5 text-xs font-bold tracking-tight">
+                <span className="inline-block -translate-y-0.5 text-xs tracking-tight">
                   ({translation.language.toUpperCase()})
                 </span>
               </Link>
