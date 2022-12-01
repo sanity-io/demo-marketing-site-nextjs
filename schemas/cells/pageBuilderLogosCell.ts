@@ -15,6 +15,7 @@ export default defineField({
   fields: [
     defineField({
       name: 'logos',
+      description: 'If no logos are selected, the logos of all companies in this Market will be displayed',
       type: 'array',
       of: [
         defineField({
@@ -50,11 +51,11 @@ export default defineField({
       visibility: 'visibility',
     },
     prepare: ({ logos }) => ({
-      title: logos.length
+      title: logos?.length
         ? logos.length === 1
           ? `1 Logo`
           : `${logos.length} Logos`
-        : 'No logos selected',
+        : 'All Logos',
       subtitle: 'Logos',
       media: Building,
     }),

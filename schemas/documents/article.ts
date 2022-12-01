@@ -26,12 +26,6 @@ export default defineType({
       group: ['content'],
     }),
     defineField({
-      name: 'icon',
-      description: 'Displays when Articles are grouped into columns on Pages',
-      type: 'icon',
-      group: ['content'],
-    }),
-    defineField({
       name: 'language',
       type: 'language',
       group: ['content'],
@@ -89,6 +83,12 @@ export default defineType({
       name: 'image',
       type: 'image',
       options: { hotspot: true },
+      group: ['content'],
+    }),
+    defineField({
+      name: 'icon',
+      description: 'Displays when Articles are grouped into columns on Pages',
+      type: 'icon',
       group: ['content'],
     }),
     defineField({

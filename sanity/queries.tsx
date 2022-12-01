@@ -79,6 +79,16 @@ const pageFields = groq`
         },
         visibility
       })
+    },
+    _type == "logos" => {
+      "logos": select(
+        count(logos) > 0 => logos[]->,
+        *[_type == "company" && market == $market]{
+          _id,
+          name,
+          logo
+        }
+      )
     }
   }[
     // Filter out elements where "visibility" is not valid:

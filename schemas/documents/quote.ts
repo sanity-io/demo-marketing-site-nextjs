@@ -1,3 +1,4 @@
+import { CalendarIcon, ComposeIcon, LinkIcon, SearchIcon } from '@sanity/icons'
 import { Quote } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
@@ -11,20 +12,27 @@ export default defineType({
   components: {
     preview: RowDisplay,
   },
+  groups: [
+    { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
+    { name: 'visibility', title: 'Visibility', icon: CalendarIcon },
+  ],
   fields: [
     defineField({
       name: 'market',
       type: 'market',
+      group: ['content'],
     }),
     defineField({
       name: 'quote',
       type: 'text',
       validation: (Rule) => Rule.required(),
+      group: ['content'],
     }),
     defineField({
       name: 'person',
       type: 'reference',
       to: [{ type: 'person' }],
+      group: ['content'],
       options: {
         // Scope references to only those in the same Market
         filter: ({ document }) => {
@@ -44,6 +52,7 @@ export default defineType({
     defineField({
       name: 'visibility',
       type: 'visibility',
+      group: ['visibility'],
     }),
   ],
   preview: {
