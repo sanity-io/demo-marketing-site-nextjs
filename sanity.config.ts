@@ -21,7 +21,6 @@ import { defaultDocumentNode } from './sanity/structure/defaultDocumentNode'
 import { schemaTypes } from './schemas'
 import settingsType from './schemas/documents/settings'
 
-// @TODO: update next-sanity/studio to automatically set this when needed
 const BASE_PATH = '/studio'
 
 const pluginsBase = (marketName?: string) => {

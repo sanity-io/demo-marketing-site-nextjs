@@ -1,15 +1,18 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { PreviewSuspense } from 'next-sanity/preview'
+import { lazy } from 'react'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
 import Page from '../components/page'
 import PostTitle from '../components/post-title'
 import { globalDataQuery, homeQuery } from '../sanity/queries'
-import { usePreviewSubscription } from '../sanity/sanity'
 import { getClient } from '../sanity/sanity.server'
 import { GlobalDataProps, PageProps, PageQueryParams } from '../types'
+
+const PreviewPage = lazy(() => import('../components/preview-page'))
 
 interface Props {
   data: PageProps
@@ -20,14 +23,28 @@ interface Props {
 }
 
 export default function Home(props: Props) {
-  const { data: initialData, preview, query, queryParams, globalData } = props
+  const { data, preview, query, queryParams, globalData } = props
   const router = useRouter()
 
-  const { data } = usePreviewSubscription(query, {
-    params: queryParams,
-    initialData: initialData,
-    enabled: preview,
-  })
+  if (preview) {
+    return (
+      <PreviewSuspense
+        fallback={
+          <Container>
+            <PostTitle>Loading…</PostTitle>
+          </Container>
+        }
+      >
+        <PreviewPage
+          data={data}
+          globalData={globalData}
+          query={query}
+          queryParams={queryParams}
+        />
+      </PreviewSuspense>
+    )
+  }
+
   const { title = 'Marketing.' } = globalData?.settings || {}
 
   if (!router.isFallback && !data) {
