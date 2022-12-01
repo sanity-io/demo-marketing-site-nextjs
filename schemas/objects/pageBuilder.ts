@@ -9,10 +9,10 @@ export default defineType(
     type: 'array',
     of: [
       defineField({
-        name: 'hero',
-        title: 'Hero',
+        name: 'article',
+        title: 'Article',
         type: 'reference',
-        to: [{ type: 'hero' }],
+        to: [{ type: 'article' }],
         options: {
           filter: ({ document }) => {
             if (!document.market) {
@@ -43,26 +43,6 @@ export default defineType(
         title: 'Quote',
         type: 'reference',
         to: [{ type: 'quote' }],
-        options: {
-          filter: ({ document }) => {
-            if (!document.market) {
-              return {
-                filter: '!defined(market)',
-              }
-            }
-
-            return {
-              filter: `market == $market`,
-              params: { market: document.market },
-            }
-          },
-        },
-      }),
-      defineField({
-        name: 'promotion',
-        title: 'Promotion',
-        type: 'reference',
-        to: [{ type: 'promotion' }],
         options: {
           filter: ({ document }) => {
             if (!document.market) {

@@ -5,9 +5,8 @@ import {
   File,
   Home,
   Menu,
+  Puzzle,
   Quote,
-  Star,
-  Type,
   User,
 } from 'lucide-react'
 
@@ -59,8 +58,7 @@ export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
   { kind: 'singleton', schemaType: `page`, title: 'Home', icon: Home },
   { kind: 'list', schemaType: `page`, title: 'Pages', icon: File },
   { kind: 'divider' },
-  { kind: 'list', schemaType: `hero`, title: 'Heroes', icon: Type },
-  { kind: 'list', schemaType: `promotion`, title: 'Promotions', icon: Star },
+  { kind: 'list', schemaType: `article`, title: 'Articles', icon: Puzzle },
   { kind: 'divider' },
   { kind: 'list', schemaType: `person`, title: 'People', icon: User },
   { kind: 'list', schemaType: `company`, title: 'Companies', icon: Building },

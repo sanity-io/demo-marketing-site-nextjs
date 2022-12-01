@@ -1,5 +1,4 @@
 import { PortableText } from '@portabletext/react'
-import React from 'react'
 
 import Container from '../../container'
 import Links from '../../links'

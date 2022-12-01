@@ -5,14 +5,19 @@ export interface AuthorProps {
   picture: any
 }
 
-export type PageBuilderHero = KeyedObject & {
-  _type: 'hero'
+export type PageBuilderArticle = KeyedObject & {
+  _type: 'article'
   title: string
 }
 
 export type PageBuilderExperiment = KeyedObject & {
   _type: 'experiment'
   title: string
+}
+
+export type PageBuilderQuote = KeyedObject & {
+  _type: 'quote'
+  quote: string
 }
 
 export interface PageStubProps {
@@ -24,7 +29,7 @@ export interface PageProps {
   title: string
   market?: string
   slug?: string
-  content?: (PageBuilderHero | PageBuilderExperiment)[]
+  content?: (PageBuilderArticle | PageBuilderExperiment | PageBuilderQuote)[]
   translations?: {
     title: string
     slug: string

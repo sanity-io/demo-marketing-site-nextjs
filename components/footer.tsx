@@ -19,7 +19,7 @@ export default function Footer(props: FooterProps) {
         <div className="flex items-center gap-5">
           <Logo>{title}</Logo>
           {domainLocales && domainLocales.length > 0 ? (
-            <div className="ml-auto flex items-center gap-5">
+            <div className="ml-auto flex items-center gap-2">
               <span>Global sites</span>
               {domainLocales.map((domainLocale) => (
                 <Button

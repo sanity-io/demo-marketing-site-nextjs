@@ -1,10 +1,7 @@
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
-import React from 'react'
 import { Block, KeyedObject } from 'sanity'
 
 import { Link } from '../../../types'
-import Button from '../../button'
-import Container from '../../container'
 import HeroH1 from './hero-h1'
 import HeroH1WithImage from './hero-h1-with-image'
 import HeroH2 from './hero-h2'

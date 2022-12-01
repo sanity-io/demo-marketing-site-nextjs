@@ -17,7 +17,7 @@ export default defineField({
         defineField({
           name: 'experiment',
           type: 'reference',
-          to: [{ type: 'hero' }],
+          to: [{ type: 'article' }],
           options: {
             // Scope references to only those in the same Market
             filter: ({ document }) => {
@@ -50,7 +50,7 @@ export default defineField({
               .filter(Boolean)
               .map((title) => `"${title}"`)
               .join(` vs `)
-          : `No "Heroes" selected`,
+          : `No "Articles" selected`,
       subtitle: 'Experiment',
       media: Wand2,
     }),

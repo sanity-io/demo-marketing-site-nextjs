@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
 type PageBuilderProps = {
@@ -7,13 +7,12 @@ type PageBuilderProps = {
 
 const ROWS = {
   // Normal rows
-  hero: React.lazy(() => import('./hero')),
   logos: React.lazy(() => import('./logos')),
   quote: React.lazy(() => import('./quote')),
   // Experiment block displays whichever hero was returned in the query
   experiment: React.lazy(() => import('./hero')),
   // Promotion component takes a grouped set of contiguous `promotion` rows
-  promotion: React.lazy(() => import('./promotion')),
+  article: React.lazy(() => import('./article')),
 }
 
 export default function PageBuilder(props: PageBuilderProps) {
@@ -23,37 +22,46 @@ export default function PageBuilder(props: PageBuilderProps) {
   // This creates ✨magic✨ layout opportunities
   const rowsGrouped = React.useMemo(
     () =>
-      rows.reduce((acc, cur) => {
-        if (cur._type !== `promotion`) {
+      rows.reduce((acc, cur, curIndex) => {
+        if (cur._type !== `article`) {
           return [...acc, cur]
+        }
+
+        if (curIndex === 0) {
+          return [
+            ...acc,
+            { _key: cur._key, _type: cur._type, isHero: true, articles: [cur] },
+          ]
         }
 
         const prev = acc[acc.length - 1]
 
-        // Start a new `promotions` array
-        // If the previous row was not a `promotion` row
-        // Or if the previous row was a `promotion` row but it was full
         if (
+          // Start a new `articles` array
           !prev ||
-          prev._type !== `promotion` ||
-          prev.promotions.length === 4
+          // If the previous group was not a `article` group
+          prev._type !== `article` ||
+          // Or if the previous `article` group is full
+          prev.articles.length === 4 ||
+          // Or if the previous `article` group is a hero
+          prev.isHero
         ) {
           return [
             ...acc,
             {
               _key: cur._key,
               _type: cur._type,
-              promotions: [cur],
+              articles: [cur],
             },
           ]
         }
 
-        // Add to the existing `promotions` array
+        // Add to the existing `articles` array
         return [
           ...acc.slice(0, -1),
           {
             ...prev,
-            promotions: [...prev.promotions, cur],
+            articles: [...prev.articles, cur],
           },
         ]
       }, []),
@@ -63,6 +71,8 @@ export default function PageBuilder(props: PageBuilderProps) {
   if (!rows?.length || !rowsGrouped.length) {
     return null
   }
+
+  console.log(rowsGrouped)
 
   return (
     <>

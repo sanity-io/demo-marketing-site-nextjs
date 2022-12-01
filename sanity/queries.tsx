@@ -28,12 +28,12 @@ const pageFields = groq`
   content[]{
     _key,
     _type,
-    _type == "hero" => {
+    _type == "article" => {
       ...(@->{
         title,
         subtitle,
         image,
-        content,
+        summary,
         links[]{
           _key,
           url,
@@ -61,18 +61,21 @@ const pageFields = groq`
         visibility
       })
     },
-    _type == "promotion" => {
-      ...(@->{
-        title,
-        subtitle,
-        content,
-        image,
-        visibility
-      })
-    },
     _type == "experiment" => {
       ...(experiments[$audience]->{
         title,
+        subtitle,
+        image,
+        summary,
+        links[]{
+          _key,
+          url,
+          text,
+          reference->{
+            title,
+            "slug": slug.current
+          }
+        },
         visibility
       })
     }
