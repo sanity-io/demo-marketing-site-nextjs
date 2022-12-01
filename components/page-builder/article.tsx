@@ -1,5 +1,5 @@
 import { PortableText } from '@portabletext/react'
-import { Star } from 'lucide-react'
+import { Icon, IconSymbol } from '@sanity/icons'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { ArticleStub } from '../../types'
@@ -53,12 +53,18 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
           {articles.map((article, articleIndex) => (
             <div
               key={article._key}
-              className={`flex gap-5 py-12 text-left md:w-1/2 md:flex-col md:py-24 md:px-5 ${
-                articleIndex > 1 ? `border-t` : ``
+              className={`flex gap-3 py-12 text-left md:w-1/2 md:flex-col md:py-24 md:px-5 ${
+                articleIndex > 1
+                  ? `border-t border-gray-200 dark:border-gray-800`
+                  : ``
               }`}
             >
-              <Star className="h-5 w-5 flex-shrink-0" />
-              <div className="flex flex-col gap-5">
+              {article?.icon ? (
+                <div className="text-4xl">
+                  <Icon symbol={article.icon as IconSymbol} />
+                </div>
+              ) : null}
+              <div className="flex flex-col gap-3">
                 <h2 className="text-xl font-extrabold leading-tight tracking-tight">
                   {article.title}
                 </h2>
@@ -75,8 +81,12 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     return (
       <div className="border-t border-b border-gray-200 dark:border-gray-900">
         <Container className="grid md:grid-cols-2">
-          <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-5">
-            <Star className="h-5 w-5 flex-shrink-0" />
+          <div className="-mx-5 flex gap-3 bg-gray-100 py-12 px-5 text-left dark:bg-gray-900 md:mx-0 md:flex-col md:justify-center md:py-24 md:px-5">
+            {first?.icon ? (
+              <div className="text-4xl">
+                <Icon symbol={first.icon as IconSymbol} />
+              </div>
+            ) : null}
             <div className="flex flex-col gap-5">
               <h2 className="text-xl font-extrabold leading-tight tracking-tight md:text-3xl">
                 {first.title}
@@ -90,11 +100,15 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
             {rest.map((article, articleIndex) => (
               <div
                 key={article._key}
-                className={`flex gap-5 py-12 text-left md:flex-col md:py-24 md:px-5 ${
+                className={`flex gap-3 py-12 text-left md:flex-col md:py-24 md:px-5 ${
                   articleIndex > 0 ? `border-t` : ``
                 }`}
               >
-                <Star className="h-5 w-5 flex-shrink-0" />
+                {article?.icon ? (
+                  <div className="text-4xl">
+                    <Icon symbol={article.icon as IconSymbol} />
+                  </div>
+                ) : null}
                 <div className="flex flex-col gap-5">
                   <h2 className="text-xl font-extrabold leading-tight tracking-tight">
                     {article.title}
@@ -110,11 +124,15 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
   }
 
   return (
-    <div className="border-t border-b border-gray-200 py-24">
+    <div className="border-t border-b border-gray-200 py-24 dark:border-gray-800">
       <Container className="grid grid-cols-1 gap-y-24 text-center md:grid-cols-3 lg:grid-cols-5">
         {articles.map((article) => (
           <div key={article._key} className="flex flex-col items-center gap-5">
-            <Star />
+            {article?.icon ? (
+              <div className="text-4xl">
+                <Icon symbol={article.icon as IconSymbol} />
+              </div>
+            ) : null}
             <h2 className="px-5 text-xl font-extrabold leading-tight tracking-tight">
               {article.title}
             </h2>
