@@ -1,7 +1,8 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { lazy, Suspense } from 'react'
+import { PreviewSuspense } from 'next-sanity/preview'
+import { lazy } from 'react'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
@@ -28,7 +29,7 @@ export default function Slug(props: Props) {
 
   if (preview) {
     return (
-      <Suspense
+      <PreviewSuspense
         fallback={
           <Container>
             <PostTitle>Loading…</PostTitle>
@@ -41,7 +42,7 @@ export default function Slug(props: Props) {
           query={query}
           queryParams={queryParams}
         />
-      </Suspense>
+      </PreviewSuspense>
     )
   }
 
