@@ -14,7 +14,9 @@ export default function HeroH2WithImage(props: HeroProps) {
     <Container className="flex items-center gap-8 outline outline-green-500">
       <div className="flex flex-col items-start gap-4 py-5 outline outline-red-500 md:px-5 md:py-8">
         {subtitle ? (
-          <p className="text-lg text-theme md:w-full md:text-2xl">{subtitle}</p>
+          <p className="text-lg text-magenta-500 dark:text-magenta-400 md:w-full md:text-2xl">
+            {subtitle}
+          </p>
         ) : null}
         {title ? (
           <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-7xl">

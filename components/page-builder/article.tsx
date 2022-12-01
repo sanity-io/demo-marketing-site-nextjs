@@ -4,6 +4,7 @@ import { KeyedObject, TypedObject } from 'sanity'
 
 import { ArticleStub } from '../../types'
 import Container from '../container'
+import { DebugGrid } from '../debug/grid'
 import Hero from './hero'
 
 type PageBuilderArticleProps = KeyedObject &
@@ -24,11 +25,11 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     const [article] = articles
 
     return (
-      <div className="border-t border-b border-gray-200 dark:border-gray-900">
+      <div className="border-t border-b border-gray-200 dark:border-gray-800">
         <Container>
           <div className="flex flex-col items-start gap-5 py-24 md:items-center md:justify-center">
             {article.subtitle ? (
-              <p className="max-w-xl rounded-full bg-theme px-5 py-2 text-2xl text-black md:text-center">
+              <p className="max-w-xl rounded-full bg-magenta-400 px-5 py-2 text-2xl text-black md:text-center">
                 {article.subtitle}
               </p>
             ) : null}
@@ -38,7 +39,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
               </h2>
             ) : null}
             {article?.summary?.length > 0 ? (
-              <div className="max-w-xl text-2xl text-gray-600 md:text-center">
+              <div className="max-w-xl text-2xl text-gray-600 dark:text-gray-200 md:text-center">
                 <PortableText value={article.summary} />
               </div>
             ) : null}
@@ -48,98 +49,123 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     )
   } else if (articles.length === 2 || articles.length === 4) {
     return (
-      <div className="border-t border-b border-gray-200 dark:border-gray-900">
-        <Container className="flex flex-col md:flex-row md:flex-wrap">
+      <div className="border-b border-gray-200 dark:border-gray-800">
+        <div className="flex flex-col md:flex-row md:flex-wrap">
           {articles.map((article, articleIndex) => (
             <div
               key={article._key}
-              className={`flex gap-3 py-12 text-left md:w-1/2 md:flex-col md:py-24 md:px-5 ${
-                articleIndex > 1
-                  ? `border-t border-gray-200 dark:border-gray-800`
-                  : ``
+              className={`border-t border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${
+                articleIndex % 2 ? 'md:border-l' : ''
               }`}
             >
-              {article?.icon ? (
-                <div className="text-4xl">
-                  <Icon symbol={article.icon as IconSymbol} />
+              <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
+                <DebugGrid />
+
+                {article?.icon ? (
+                  <div className="text-4xl">
+                    <Icon symbol={article.icon as IconSymbol} />
+                  </div>
+                ) : null}
+
+                <div className="flex flex-col gap-3">
+                  <h2 className="text-xl font-extrabold leading-tight tracking-tight">
+                    {article.title}
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-200 md:pr-12">
+                    {article.subtitle}
+                  </p>
                 </div>
-              ) : null}
-              <div className="flex flex-col gap-3">
-                <h2 className="text-xl font-extrabold leading-tight tracking-tight">
-                  {article.title}
-                </h2>
-                <p className="text-gray-600 md:pr-12">{article.subtitle}</p>
-              </div>
+              </Container>
             </div>
           ))}
-        </Container>
+        </div>
       </div>
     )
   } else if (articles.length === 3) {
     const [first, ...rest] = articles
 
     return (
-      <div className="border-t border-b border-gray-200 dark:border-gray-900">
-        <Container className="grid md:grid-cols-2">
-          <div className="-mx-5 flex gap-3 bg-gray-100 py-12 px-5 text-left dark:bg-gray-900 md:mx-0 md:flex-col md:justify-center md:py-24 md:px-5">
-            {first?.icon ? (
-              <div className="text-4xl">
-                <Icon symbol={first.icon as IconSymbol} />
+      <div className="border-t border-b border-gray-200 dark:border-gray-800">
+        <div className="grid divide-y divide-gray-200 dark:divide-gray-800 md:grid-cols-2 md:divide-x md:divide-y-0">
+          <Container className="relative">
+            <DebugGrid />
+
+            <div className="flex flex-col gap-3 py-12 text-left md:justify-center md:py-24">
+              {first?.icon ? (
+                <div className="text-4xl">
+                  <Icon symbol={first.icon as IconSymbol} />
+                </div>
+              ) : null}
+
+              <div className="flex flex-col gap-5">
+                <h2 className="text-2xl font-extrabold font-extrabold leading-tight tracking-tight lg:text-3xl xl:text-5xl">
+                  {first.title}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-200 md:pr-12 md:text-xl">
+                  {first.subtitle}
+                </p>
               </div>
-            ) : null}
-            <div className="flex flex-col gap-5">
-              <h2 className="text-xl font-extrabold leading-tight tracking-tight md:text-3xl">
-                {first.title}
-              </h2>
-              <p className="text-gray-600 md:pr-12 md:text-xl">
-                {first.subtitle}
-              </p>
             </div>
-          </div>
+          </Container>
+
           <div>
             {rest.map((article, articleIndex) => (
               <div
                 key={article._key}
-                className={`flex gap-3 py-12 text-left md:flex-col md:py-24 md:px-5 ${
-                  articleIndex > 0 ? `border-t` : ``
+                className={`text-left md:flex-col ${
+                  articleIndex > 0
+                    ? `border-t border-gray-200 dark:border-gray-800`
+                    : ``
                 }`}
               >
-                {article?.icon ? (
-                  <div className="text-4xl">
-                    <Icon symbol={article.icon as IconSymbol} />
+                <Container className="relative">
+                  <DebugGrid />
+
+                  <div className="flex flex-col gap-3 py-12 md:py-24">
+                    {article?.icon ? (
+                      <div className="text-4xl">
+                        <Icon symbol={article.icon as IconSymbol} />
+                      </div>
+                    ) : null}
+
+                    <div className="flex flex-col gap-5">
+                      <h2 className="text-2xl font-extrabold leading-tight tracking-tight lg:text-3xl xl:text-5xl">
+                        {article.title}
+                      </h2>
+
+                      <p className="text-gray-600 dark:text-gray-200 md:pr-12 md:text-xl">
+                        {article.subtitle}
+                      </p>
+                    </div>
                   </div>
-                ) : null}
-                <div className="flex flex-col gap-5">
-                  <h2 className="text-xl font-extrabold leading-tight tracking-tight">
-                    {article.title}
-                  </h2>
-                  <p className="text-gray-600 md:pr-12">{article.subtitle}</p>
-                </div>
+                </Container>
               </div>
             ))}
           </div>
-        </Container>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="border-t border-b border-gray-200 py-24 dark:border-gray-800">
-      <Container className="grid grid-cols-1 gap-y-24 text-center md:grid-cols-3 lg:grid-cols-5">
-        {articles.map((article) => (
-          <div key={article._key} className="flex flex-col items-center gap-5">
-            {article?.icon ? (
-              <div className="text-4xl">
-                <Icon symbol={article.icon as IconSymbol} />
-              </div>
-            ) : null}
-            <h2 className="px-5 text-xl font-extrabold leading-tight tracking-tight">
-              {article.title}
-            </h2>
-            <p className="px-10 text-xs text-gray-600">{article.subtitle}</p>
-          </div>
-        ))}
-      </Container>
+      {/* <Container className="grid grid-cols-1 gap-y-24 text-center md:grid-cols-3 lg:grid-cols-5"> */}
+      {articles.map((article) => (
+        <div key={article._key} className="flex flex-col items-center gap-5">
+          {article?.icon ? (
+            <div className="text-4xl">
+              <Icon symbol={article.icon as IconSymbol} />
+            </div>
+          ) : null}
+          <h2 className="px-5 text-xl font-extrabold leading-tight tracking-tight">
+            {article.title}
+          </h2>
+          <p className="px-10 text-xs text-gray-600 dark:text-gray-200">
+            {article.subtitle}
+          </p>
+        </div>
+      ))}
+      {/* </Container> */}
     </div>
   )
 }

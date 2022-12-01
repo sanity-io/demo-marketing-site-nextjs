@@ -8,7 +8,7 @@ export default function Logo(props: PropsWithChildren) {
       href="/"
       className="flex items-center gap-1 text-lg font-extrabold leading-tight tracking-tight md:text-xl"
     >
-      <div className="h-4 w-4 rounded-full bg-theme" />
+      <div className="dark-magenta-400 h-4 w-4 rounded-full bg-magenta-400" />
       {props.children}
     </Link>
   )
