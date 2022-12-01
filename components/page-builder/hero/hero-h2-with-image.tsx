@@ -17,7 +17,7 @@ export default function HeroH2WithImage(props: HeroProps) {
           <p className="text-lg text-theme md:w-full md:text-2xl">{subtitle}</p>
         ) : null}
         {title ? (
-          <h2 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-7xl">
+          <h2 className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-7xl">
             {title}
           </h2>
         ) : null}

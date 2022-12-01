@@ -33,7 +33,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
               </p>
             ) : null}
             {article?.title ? (
-              <h2 className="text-5xl font-bold leading-tight tracking-tighter md:text-center md:text-7xl">
+              <h2 className="text-5xl font-extrabold leading-tight tracking-tight md:text-center md:text-7xl">
                 {article.title}
               </h2>
             ) : null}
@@ -59,7 +59,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
             >
               <Star className="h-5 w-5 flex-shrink-0" />
               <div className="flex flex-col gap-5">
-                <h2 className="text-xl font-bold leading-tight tracking-tighter">
+                <h2 className="text-xl font-extrabold leading-tight tracking-tight">
                   {article.title}
                 </h2>
                 <p className="text-gray-600 md:pr-12">{article.subtitle}</p>
@@ -78,7 +78,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
           <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-5">
             <Star className="h-5 w-5 flex-shrink-0" />
             <div className="flex flex-col gap-5">
-              <h2 className="text-xl font-bold leading-tight tracking-tighter md:text-3xl">
+              <h2 className="text-xl font-extrabold leading-tight tracking-tight md:text-3xl">
                 {first.title}
               </h2>
               <p className="text-gray-600 md:pr-12 md:text-xl">
@@ -96,7 +96,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
               >
                 <Star className="h-5 w-5 flex-shrink-0" />
                 <div className="flex flex-col gap-5">
-                  <h2 className="text-xl font-bold leading-tight tracking-tighter">
+                  <h2 className="text-xl font-extrabold leading-tight tracking-tight">
                     {article.title}
                   </h2>
                   <p className="text-gray-600 md:pr-12">{article.subtitle}</p>
@@ -115,7 +115,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
         {articles.map((article) => (
           <div key={article._key} className="flex flex-col items-center gap-5">
             <Star />
-            <h2 className="px-5 text-xl font-bold leading-tight tracking-tighter">
+            <h2 className="px-5 text-xl font-extrabold leading-tight tracking-tight">
               {article.title}
             </h2>
             <p className="px-10 text-xs text-gray-600">{article.subtitle}</p>

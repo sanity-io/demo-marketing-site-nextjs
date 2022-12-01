@@ -40,7 +40,7 @@ export default function Header(props: HeaderProps) {
             <Menu />
           </div>
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (
-            <div className="ml-auto flex items-center gap-5 text-sm font-bold uppercase">
+            <div className="ml-auto flex items-center gap-5 text-sm uppercase">
               {domainLocale.locales.map((language) => (
                 <Link
                   key={language}

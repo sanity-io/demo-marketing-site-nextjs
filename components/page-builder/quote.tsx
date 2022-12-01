@@ -36,7 +36,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
           <Quote className="h-5 w-5 flex-shrink-0" />
         </div>
         <div className="flex flex-col gap-5">
-          <h2 className="text-2xl font-bold italic leading-tight tracking-tighter lg:text-3xl">
+          <h2 className="text-2xl font-extrabold italic leading-tight tracking-tight lg:text-3xl">
             {quote}
           </h2>
           <div className="flex items-center gap-5">
@@ -56,7 +56,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
             ) : null}
             <div>
               {person?.name ? (
-                <p className="text-xl font-bold">{person.name}</p>
+                <p className="text-xl font-extrabold">{person.name}</p>
               ) : null}
               <p className="text-gray-600">
                 {person.title}
