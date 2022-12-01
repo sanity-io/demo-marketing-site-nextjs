@@ -23,7 +23,7 @@ export default function Header(props: HeaderProps) {
   // const domainMarket = domainLocale.locales[0].split(`-`)[1]
 
   return (
-    <div className="border-b border-gray-100 py-4 md:py-5">
+    <div className="border-b border-gray-100 py-4 dark:border-gray-900 md:py-5">
       <Container>
         <div className="flex items-center gap-5">
           <Logo>{title}</Logo>

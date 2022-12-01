@@ -24,7 +24,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     const [article] = articles
 
     return (
-      <div className="border-t border-b border-gray-200">
+      <div className="border-t border-b border-gray-200 dark:border-gray-900">
         <Container>
           <div className="flex flex-col items-start gap-5 py-24 md:items-center md:justify-center">
             {article.subtitle ? (
@@ -48,7 +48,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     )
   } else if (articles.length === 2 || articles.length === 4) {
     return (
-      <div className="border-t border-b border-gray-200">
+      <div className="border-t border-b border-gray-200 dark:border-gray-900">
         <Container className="flex flex-col md:flex-row md:flex-wrap">
           {articles.map((article, articleIndex) => (
             <div
@@ -73,7 +73,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     const [first, ...rest] = articles
 
     return (
-      <div className="border-t border-b border-gray-200">
+      <div className="border-t border-b border-gray-200 dark:border-gray-900">
         <Container className="grid md:grid-cols-2">
           <div className="-mx-5 flex justify-center gap-5 bg-gray-100 py-12 px-5 text-left md:mx-0 md:flex-col md:py-24 md:px-5">
             <Star className="h-5 w-5 flex-shrink-0" />
