@@ -45,7 +45,7 @@ export type ArticleStub = {
   content?: Block[]
   summary?: Block[]
   image?: SanityImageSource
-  links?: Link[]
+  links?: (KeyedObject & Link)[]
 }
 
 export type Link = {

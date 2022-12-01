@@ -12,10 +12,10 @@ export default function HeroH1WithImage(props: HeroProps) {
 
   return (
     <Container>
-      <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between pt-4 md:py-5 md:gap-0">
-        <div className="flex w-full md:w-3/4 flex-col gap-4 px-4 md:px-5 py-6 md:py-8 relative">
+      <div className="flex flex-col-reverse items-start justify-between pt-4 md:flex-row md:items-center md:gap-0 md:py-5">
+        <div className="relative flex w-full flex-col gap-4 px-4 py-6 md:w-3/4 md:px-5 md:py-8">
           {subtitle ? (
-            <p className="block text-base md:text-theme md:bg-transparent md:p-0 md:static md:w-full md:text-2xl absolute md:-mt-0 md:translate-y-0 bg-theme text-white p-2 px-4 right-4 rounded-full -translate-y-1/2 -mt-6">
+            <p className="absolute right-4 -mt-6 block -translate-y-1/2 rounded-full bg-theme p-2 px-4 text-base text-white md:static md:-mt-0 md:w-full md:translate-y-0 md:bg-transparent md:p-0 md:text-2xl md:text-theme">
               {subtitle}
             </p>
           ) : null}
@@ -37,7 +37,7 @@ export default function HeroH1WithImage(props: HeroProps) {
             width={496}
             height={372}
             alt={title ?? ``}
-            className="rounded-lg object-cover w-full h-auto aspect-video"
+            className="aspect-video h-auto w-full rounded-lg object-cover"
           />
         </div>
       </div>

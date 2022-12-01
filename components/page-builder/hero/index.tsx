@@ -1,4 +1,4 @@
-import { ArticleStub } from '../article'
+import { ArticleStub } from '../../../types'
 import HeroH1 from './hero-h1'
 import HeroH1WithImage from './hero-h1-with-image'
 import HeroH2 from './hero-h2'

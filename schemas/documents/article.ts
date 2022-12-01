@@ -1,4 +1,5 @@
-import { CalendarIcon, ComposeIcon, LinkIcon,SearchIcon } from '@sanity/icons'
+import { CalendarIcon, ComposeIcon, LinkIcon, SearchIcon } from '@sanity/icons'
+import delve from 'dlv'
 import { Puzzle } from 'lucide-react'
 import { defineField, defineType } from 'sanity'
 
@@ -46,24 +47,25 @@ export default defineType({
     }),
     defineField({
       name: 'slug',
-      description: 'If given, this article will become a standalone page at /articles/{slug}',
+      description:
+        'If given, this article will become a standalone page at /articles/{slug}',
       type: 'slug',
       group: ['seo'],
       options: {
         source: 'title',
-      }
+      },
     }),
     defineField({
       name: 'seo',
       type: 'seo',
-      hidden: ({ document }) => !document?.slug?.current,
+      hidden: ({ document }) => Boolean(delve(document, 'slug.current')),
       group: ['seo'],
     }),
     defineField({
       name: 'content',
       description: 'Used if this Article is a standalone page',
       type: 'portableText',
-      hidden: ({ document }) => !document?.slug?.current,
+      hidden: ({ document }) => Boolean(delve(document, 'slug.current')),
       group: ['content'],
     }),
     defineField({
