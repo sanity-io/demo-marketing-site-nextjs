@@ -30,6 +30,7 @@ const pageFields = groq`
     _type,
     _type == "article" => {
       ...(@->{
+        icon,
         title,
         subtitle,
         image,

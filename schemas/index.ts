@@ -8,6 +8,7 @@ import person from './documents/person'
 import quote from './documents/quote'
 import redirect from './documents/redirect'
 import settings from './documents/settings'
+import icon from './objects/icon'
 import language from './objects/language'
 import link from './objects/link'
 import market from './objects/market'
@@ -36,4 +37,5 @@ export const schemaTypes = [
   visibility,
   portableText,
   portableTextSimple,
+  icon
 ]
