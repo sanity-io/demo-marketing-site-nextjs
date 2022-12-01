@@ -25,9 +25,13 @@ type QuoteProps = KeyedObject &
 export default function PageBuilderQuote(props: QuoteProps) {
   const { quote, person } = props
 
+  if (!person) {
+    return null
+  }
+
   return (
-    <Container className="flex flex-col lg:flex-row lg:items-center">
-      <div className="flex flex-col gap-5 px-5 lg:w-1/2 lg:flex-row">
+    <Container className="flex flex-col-reverse lg:flex-row lg:items-center">
+      <div className="flex flex-col gap-5 md:px-5 lg:w-1/2 lg:flex-row -mt-5 md:mt-0">
         <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200">
           <Quote className="h-5 w-5 flex-shrink-0" />
         </div>

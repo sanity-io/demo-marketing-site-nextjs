@@ -22,11 +22,13 @@ export default function PageBuilder(props: PageBuilderProps) {
   // This creates ✨magic✨ layout opportunities
   const rowsGrouped = React.useMemo(
     () =>
-      rows.reduce((acc, cur, curIndex) => {
+      rows.reduce((acc, cur, curIndex, initial) => {
         if (cur._type !== `article`) {
           return [...acc, cur]
         }
 
+        // Is this the first _type of `article`?
+        // TODO: This needs to be smarter, an article might not be the first block
         if (curIndex === 0) {
           return [
             ...acc,
@@ -71,8 +73,6 @@ export default function PageBuilder(props: PageBuilderProps) {
   if (!rows?.length || !rowsGrouped.length) {
     return null
   }
-
-  console.log(rowsGrouped)
 
   return (
     <>

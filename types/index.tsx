@@ -1,4 +1,5 @@
-import { KeyedObject } from 'sanity'
+import { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import { Block, KeyedObject } from 'sanity'
 
 export interface AuthorProps {
   name: string
@@ -35,6 +36,16 @@ export interface PageProps {
     slug: string
     language: string
   }[]
+}
+
+export type ArticleStub = {
+  _type: 'article'
+  title?: string
+  subtitle?: string
+  content?: Block[]
+  summary?: Block[]
+  image?: SanityImageSource
+  links?: Link[]
 }
 
 export type Link = {

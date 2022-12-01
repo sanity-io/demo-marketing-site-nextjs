@@ -14,7 +14,7 @@ export default function Footer(props: FooterProps) {
   const { domainLocales, locale } = useRouter()
 
   return (
-    <div className="border-t border-gray-100 py-5">
+    <div className="border-t border-gray-100 py-4 md:py-5">
       <Container>
         <div className="flex items-center gap-5">
           <Logo>{title}</Logo>

@@ -1,23 +1,14 @@
 import { PortableText } from '@portabletext/react'
-import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { Star } from 'lucide-react'
-import React from 'react'
-import { Block, KeyedObject, TypedObject } from 'sanity'
+import { KeyedObject, TypedObject } from 'sanity'
 
+import { ArticleStub } from '../../types'
 import Container from '../container'
 import Hero from './hero'
 
 type PageBuilderArticleProps = KeyedObject &
   TypedObject & {
-    articles: {
-      _key: string
-      _type: 'article'
-      title?: string
-      subtitle?: string
-      content?: Block[]
-      summary?: Block[]
-      image?: SanityImageSource
-    }[]
+    articles: (KeyedObject & ArticleStub)[]
   }
 
 export default function PageBuilderArticle(props: PageBuilderArticleProps) {

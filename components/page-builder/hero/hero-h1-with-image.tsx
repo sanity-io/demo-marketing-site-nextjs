@@ -8,35 +8,36 @@ import Links from '../../links'
 import { HeroProps } from '.'
 
 export default function HeroH1WithImage(props: HeroProps) {
-  const { title, subtitle, content, image, links } = props
+  const { title, subtitle, summary, image, links } = props
 
   return (
     <Container>
-      <div className="flex items-center justify-between py-5 md:py-8">
-        <div className="flex w-3/4 flex-col gap-4 md:px-5">
+      <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between pt-4 md:py-5 md:gap-0">
+        <div className="flex w-full md:w-3/4 flex-col gap-4 px-4 md:px-5 py-6 md:py-8 relative">
           {subtitle ? (
-            <p className="text-lg text-theme md:w-full md:text-2xl">
+            <p className="block text-base md:text-theme md:bg-transparent md:p-0 md:static md:w-full md:text-2xl absolute md:-mt-0 md:translate-y-0 bg-theme text-white p-2 px-4 right-4 rounded-full -translate-y-1/2 -mt-6">
               {subtitle}
             </p>
           ) : null}
           {title ? (
-            <h1 className="text-4xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
+            <h1 className="text-5xl font-bold leading-none tracking-tighter md:text-5xl lg:text-8xl">
               {title}
             </h1>
           ) : null}
-          {content?.length > 0 ? (
-            <div className="max-w-xl text-2xl">
-              <PortableText value={content} />
+          {summary?.length > 0 ? (
+            <div className="max-w-xl text-xl md:text-2xl">
+              <PortableText value={summary} />
             </div>
           ) : null}
           {links ? <Links links={links} /> : null}
         </div>
-        <div className="w-1/4">
+        <div className="w-full md:w-1/4">
           <Image
             src={urlForImage(image).width(496).height(372).url()}
             width={496}
             height={372}
             alt={title ?? ``}
+            className="rounded-lg object-cover w-full h-auto aspect-video"
           />
         </div>
       </div>
