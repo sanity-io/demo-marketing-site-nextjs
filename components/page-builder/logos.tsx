@@ -4,6 +4,8 @@ import delve from 'dlv'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
+import Container from '../container'
+import { DebugGrid } from '../debug/grid'
 
 type PageBuilderLogosProps = KeyedObject &
   TypedObject & {
@@ -24,30 +26,40 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
   }
 
   return (
-    <div className="my-3 flex flex-wrap items-center justify-center gap-5 bg-theme px-3 py-5 md:my-5 md:gap-5 md:p-5">
-      {logos.map((company) => {
-        const ref = delve(company, 'logo.asset._ref')
+    <div className="border-t border-gray-200 dark:border-gray-800">
+      <Container className="relative w-full py-5 sm:py-6 md:py-7">
+        <DebugGrid />
 
-        if (!ref) {
-          return null
-        }
+        <div className="mb-4 text-center text-gray-700 dark:text-gray-200 sm:mb-5">
+          Trusted by millions of teams
+        </div>
 
-        // TODO: adjust width/height based on vertical/landscape logos
-        const { width, height } = getImageDimensions(ref)
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
+          {logos.map((company) => {
+            const ref = delve(company, 'logo.asset._ref')
 
-        return (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={company._id}
-            className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
-            // TODO: Adjust if the file is not an SVG
-            src={urlForImage(company.logo).url()}
-            alt={company?.name}
-            width={width}
-            height={height}
-          />
-        )
-      })}
+            if (!ref) {
+              return null
+            }
+
+            // TODO: adjust width/height based on vertical/landscape logos
+            const { width, height } = getImageDimensions(ref)
+
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={company._id}
+                className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
+                // TODO: Adjust if the file is not an SVG
+                src={urlForImage(company.logo).url()}
+                alt={company?.name}
+                width={width}
+                height={height}
+              />
+            )
+          })}
+        </div>
+      </Container>
     </div>
   )
 }

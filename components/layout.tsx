@@ -2,8 +2,8 @@ import type { PropsWithChildren } from 'react'
 
 import { GlobalDataProps, PageQueryParams } from '../types'
 import Alert from './alert'
+import { DebugProvider } from './debug/debug-provider'
 import Footer from './footer'
-import Grid from './grid'
 import Header from './header'
 import Meta from './meta'
 
@@ -18,9 +18,8 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
   const { settings, menus } = props.globalData || {}
 
   return (
-    <>
+    <DebugProvider>
       <Meta />
-      <Grid />
       <div className="min-h-screen">
         <Header title={settings?.title} headerPrimary={menus?.headerPrimary} />
         {preview && queryParams?.slug ? (
@@ -29,6 +28,6 @@ export default function Layout(props: PropsWithChildren<LayoutProps>) {
         <main>{children}</main>
         <Footer title={settings?.title} />
       </div>
-    </>
+    </DebugProvider>
   )
 }

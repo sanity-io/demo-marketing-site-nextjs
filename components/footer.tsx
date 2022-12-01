@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { getMarketFromNextLocale } from '../pages'
 import Button from './button'
 import Container from './container'
+import { DebugGrid } from './debug/grid'
 import Logo from './logo'
 
 type FooterProps = {
@@ -14,10 +15,13 @@ export default function Footer(props: FooterProps) {
   const { domainLocales, locale } = useRouter()
 
   return (
-    <div className="border-t border-gray-100 py-4 dark:border-gray-900 md:py-5">
-      <Container>
-        <div className="flex items-center gap-5">
+    <div className="border-t border-gray-200 dark:border-gray-800">
+      <Container className="relative">
+        <DebugGrid />
+
+        <div className="flex items-center gap-5 py-4 md:py-5">
           <Logo>{title}</Logo>
+
           {domainLocales && domainLocales.length > 0 ? (
             <div className="ml-auto flex items-center gap-2">
               <span>Global sites</span>

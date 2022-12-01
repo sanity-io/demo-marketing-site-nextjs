@@ -14,10 +14,10 @@ type ButtonProps = LinkProps & {
 
 const buttonClasses = {
   base: `inline-flex gap-2 items-center border px-3 py-2 leading-none rounded transition-colors duration-200 ease-in-out`,
-  default: `bg-black text-white border-black hover:bg-theme hover:text-black hover:border-theme`,
-  ghost: `bg-transparent text-black dark:text-gray-200 border-black dark:border-gray-200 hover:bg-theme hover:text-black hover:border-theme`,
-  bleed: `border-transparent text-gray-600 dark:text-gray-200 hover:text-black hover:bg-theme`,
-  disabled: `opacity-50 pointer-events-none`,
+  default: `border-black bg-black text-white hover:border-magenta-400 hover:bg-magenta-400 hover:text-black dark:bg-white dark:text-black dark:text-white`,
+  ghost: `border-gray-200 bg-transparent text-black hover:border-magenta-400 hover:bg-magenta-400 hover:text-black dark:border-gray-800 dark:text-gray-200`,
+  bleed: `border-transparent text-gray-700 hover:bg-magenta-400 hover:text-black dark:text-gray-200`,
+  disabled: `pointer-events-none opacity-40`,
 }
 
 export default function Button(props: ButtonProps) {
