@@ -58,14 +58,14 @@ export default defineType({
     defineField({
       name: 'seo',
       type: 'seo',
-      hidden: ({ document }) => Boolean(delve(document, 'slug.current')),
+      hidden: ({ document }) => !delve(document, 'slug.current'),
       group: ['seo'],
     }),
     defineField({
       name: 'content',
       description: 'Used if this Article is a standalone page',
       type: 'portableText',
-      hidden: ({ document }) => Boolean(delve(document, 'slug.current')),
+      hidden: ({ document }) => !delve(document, 'slug.current'),
       group: ['content'],
     }),
     defineField({
