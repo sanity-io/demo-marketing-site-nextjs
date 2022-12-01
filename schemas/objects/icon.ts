@@ -6,5 +6,5 @@ export default defineType({
   name: 'icon',
   title: 'Icon',
   type: 'string',
-  components: {input: IconSelector},
+  components: { input: IconSelector },
 })

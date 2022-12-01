@@ -37,5 +37,5 @@ export const schemaTypes = [
   visibility,
   portableText,
   portableTextSimple,
-  icon
+  icon,
 ]
