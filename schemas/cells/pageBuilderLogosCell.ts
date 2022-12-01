@@ -15,7 +15,8 @@ export default defineField({
   fields: [
     defineField({
       name: 'logos',
-      description: 'If no logos are selected, the logos of all companies in this Market will be displayed',
+      description:
+        'If no logos are selected, the logos of all companies in this Market will be displayed',
       type: 'array',
       of: [
         defineField({
