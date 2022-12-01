@@ -5,3 +5,7 @@
 /* * {
   outline: 1px solid red;
 } */
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
