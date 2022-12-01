@@ -15,8 +15,8 @@ type ButtonProps = LinkProps & {
 const buttonClasses = {
   base: `inline-flex gap-2 items-center border px-3 py-2 leading-none rounded transition-colors duration-200 ease-in-out`,
   default: `bg-black text-white border-black hover:bg-theme hover:text-black hover:border-theme`,
-  ghost: `bg-transparent text-black border-black hover:bg-theme hover:text-black hover:border-theme`,
-  bleed: `border-transparent text-gray-600 hover:text-black hover:bg-theme`,
+  ghost: `bg-transparent text-black dark:text-gray-200 border-black dark:border-gray-200 hover:bg-theme hover:text-black hover:border-theme`,
+  bleed: `border-transparent text-gray-600 dark:text-gray-200 hover:text-black hover:bg-theme`,
   disabled: `opacity-50 pointer-events-none`,
 }
 
