@@ -7,7 +7,9 @@
  * https://github.com/sanity-io/next-sanity
  */
 
+import Head from 'next/head'
 import { NextStudio } from 'next-sanity/studio'
+import { NextStudioHead } from 'next-sanity/studio/head'
 import React from 'react'
 
 import config from '../../sanity.config'
@@ -15,5 +17,12 @@ import config from '../../sanity.config'
 // TODO: Re-route to root domain if accessed from subdomain
 // Not that it doesn't work, it's just likely to cause other bugs/confusion
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return (
+    <>
+      <Head>
+        <NextStudioHead />
+      </Head>
+      <NextStudio config={config} />
+    </>
+  )
 }
