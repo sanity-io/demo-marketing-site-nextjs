@@ -3,6 +3,8 @@ import { Icon, IconSymbol } from '@sanity/icons'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { ArticleStub } from '../../types'
+import { AnimeScroll } from '../animation/AnimeScroll'
+import { enterSoftBottom, popin } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
 import Hero from './hero'
@@ -29,9 +31,15 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
         <Container>
           <div className="flex flex-col items-start gap-5 py-24 md:items-center md:justify-center">
             {article.subtitle ? (
-              <p className="max-w-xl rounded-full bg-magenta-400 px-5 py-2 text-2xl text-black md:text-center">
-                {article.subtitle}
-              </p>
+              <AnimeScroll
+                params={popin}
+                startProgress={0.2}
+                stopProgress={0.5}
+              >
+                <p className="max-w-xl rounded-full bg-magenta-400 px-5 py-2 text-2xl text-black md:text-center">
+                  {article.subtitle}
+                </p>
+              </AnimeScroll>
             ) : null}
             {article?.title ? (
               <h2 className="text-5xl font-extrabold leading-tight tracking-tight md:text-center md:text-7xl">
@@ -52,31 +60,35 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
       <div className="border-b border-gray-200 dark:border-gray-800">
         <div className="flex flex-col md:flex-row md:flex-wrap">
           {articles.map((article, articleIndex) => (
-            <div
+            <AnimeScroll
               key={article._key}
-              className={`border-t border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${
-                articleIndex % 2 ? 'md:border-l' : ''
-              }`}
+              params={enterSoftBottom}
+              startProgress={0.3 + (articleIndex / articles.length) * 0.3}
+              stopProgress={0.5 + (articleIndex / articles.length) * 0.3}
             >
-              <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
-                <DebugGrid />
-
-                {article?.icon ? (
-                  <div className="text-4xl">
-                    <Icon symbol={article.icon as IconSymbol} />
+              <div
+                className={`border-t border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${
+                  articleIndex % 2 ? 'md:border-l' : ''
+                }`}
+              >
+                <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
+                  <DebugGrid />
+                  {article?.icon ? (
+                    <div className="text-4xl">
+                      <Icon symbol={article.icon as IconSymbol} />
+                    </div>
+                  ) : null}
+                  <div className="flex flex-col gap-3">
+                    <h2 className="text-xl font-extrabold leading-tight tracking-tight">
+                      {article.title}
+                    </h2>
+                    <p className="text-gray-600 dark:text-gray-200 md:pr-12">
+                      {article.subtitle}
+                    </p>
                   </div>
-                ) : null}
-
-                <div className="flex flex-col gap-3">
-                  <h2 className="text-xl font-extrabold leading-tight tracking-tight">
-                    {article.title}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-200 md:pr-12">
-                    {article.subtitle}
-                  </p>
-                </div>
-              </Container>
-            </div>
+                </Container>
+              </div>
+            </AnimeScroll>
           ))}
         </div>
       </div>

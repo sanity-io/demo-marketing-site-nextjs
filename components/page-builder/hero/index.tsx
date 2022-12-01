@@ -1,4 +1,6 @@
 import { ArticleStub } from '../../../types'
+import { Anime } from '../../animation/Anime'
+import { float } from '../../animation/scrollAnimations'
 import HeroH1 from './hero-h1'
 import HeroH1WithImage from './hero-h1-with-image'
 import HeroH2 from './hero-h2'

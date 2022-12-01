@@ -4,6 +4,8 @@ import delve from 'dlv'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
+import { AnimeScroll } from '../animation/AnimeScroll'
+import { enterElasticBottom } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
 
@@ -35,7 +37,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-          {logos.map((company) => {
+          {logos.map((company, i) => {
             const ref = delve(company, 'logo.asset._ref')
 
             if (!ref) {
@@ -46,16 +48,32 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             const { width, height } = getImageDimensions(ref)
 
             return (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <AnimeScroll
                 key={company._id}
-                className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
-                // TODO: Adjust if the file is not an SVG
-                src={urlForImage(company.logo).url()}
-                alt={company?.name}
-                width={width}
-                height={height}
-              />
+                params={enterElasticBottom}
+                startProgress={0.1 + (i / logos.length) * 0.05}
+                stopProgress={0.3 + (i / logos.length) * 0.05}
+              >
+                {/* <img
+              className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
+              // TODO: Adjust if the file is not an SVG
+              src={urlForImage(company.logo).url()}
+              alt={company?.name}
+              width={width}
+              height={height}
+            /> */}
+
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  key={company._id}
+                  className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
+                  // TODO: Adjust if the file is not an SVG
+                  src={urlForImage(company.logo).url()}
+                  alt={company?.name}
+                  width={width}
+                  height={height}
+                />
+              </AnimeScroll>
             )
           })}
         </div>

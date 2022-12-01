@@ -1,5 +1,7 @@
 import { PortableText } from '@portabletext/react'
 
+import { Anime } from '../../animation/Anime'
+import { float } from '../../animation/scrollAnimations'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
 import Links from '../../links'
@@ -19,9 +21,11 @@ export default function HeroH1(props: HeroProps) {
       ) : null}
 
       {title ? (
-        <h1 className="text-5xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl">
-          {title}
-        </h1>
+        <Anime params={float} autoplay>
+          <h1 className="text-5xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl">
+            {title}
+          </h1>
+        </Anime>
       ) : null}
 
       {content?.length > 0 ? (

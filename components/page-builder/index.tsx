@@ -1,6 +1,8 @@
 import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
+import { ScrollProgressContainer } from '../animation/ScrollProgressContainer'
+
 type PageBuilderProps = {
   rows: (KeyedObject & TypedObject)[]
 }
@@ -17,7 +19,6 @@ const ROWS = {
 
 export default function PageBuilder(props: PageBuilderProps) {
   const { rows } = props
-
   // We scoop all `feature` type blocks into a single block
   // This creates ✨magic✨ layout opportunities
   const rowsGrouped = React.useMemo(
@@ -79,7 +80,11 @@ export default function PageBuilder(props: PageBuilderProps) {
       {rowsGrouped.map((row, rowIndex) => {
         if (row._type && ROWS[row._type]) {
           const Row = ROWS[row._type]
-          return <Row key={row._key} index={rowIndex} {...row} />
+          return (
+            <ScrollProgressContainer key={row._key}>
+              <Row index={rowIndex} {...row} />
+            </ScrollProgressContainer>
+          )
         }
         return (
           <p key={row._key}>
