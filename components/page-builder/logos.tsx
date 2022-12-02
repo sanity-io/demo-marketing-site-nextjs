@@ -51,8 +51,8 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
               <AnimeScroll
                 key={company._id}
                 params={enterElasticBottom}
-                startProgress={0.4 + (i / logos.length) * 0.05}
-                stopProgress={0.5 + (i / logos.length) * 0.05}
+                startProgress={0.2 + (i / logos.length) * 0.05}
+                stopProgress={0.4 + (i / logos.length) * 0.05}
               >
                 {/* <img
               className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"

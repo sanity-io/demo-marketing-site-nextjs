@@ -1,7 +1,8 @@
 import { PortableText } from '@portabletext/react'
 
 import { Anime } from '../../animation/Anime'
-import { float } from '../../animation/scrollAnimations'
+import { AnimeScroll } from '../../animation/AnimeScroll'
+import { enterSoftBottom, float } from '../../animation/scrollAnimations'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
 import Links from '../../links'
@@ -21,11 +22,19 @@ export default function HeroH1(props: HeroProps) {
       ) : null}
 
       {title ? (
-        <Anime params={float} autoplay>
-          <h1 className="text-5xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl">
-            {title}
-          </h1>
-        </Anime>
+        <div className={'h-30 overflow-hidden'}>
+          <AnimeScroll
+            params={enterSoftBottom}
+            startProgress={0.95}
+            stopProgress={1}
+          >
+            <Anime params={float} autoplay>
+              <h1 className="text-5xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl">
+                {title}
+              </h1>
+            </Anime>
+          </AnimeScroll>
+        </div>
       ) : null}
 
       {content?.length > 0 ? (
