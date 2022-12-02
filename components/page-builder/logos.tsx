@@ -47,6 +47,18 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             // TODO: adjust width/height based on vertical/landscape logos
             const { width, height } = getImageDimensions(ref)
 
+            const img = (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={company._id}
+                className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
+                // TODO: Adjust if the file is not an SVG
+                src={urlForImage(company.logo).url()}
+                alt={company?.name}
+                width={width}
+                height={height}
+              />
+            )
             return (
               <AnimeScroll
                 key={company._id}
@@ -54,25 +66,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
                 startProgress={0.2 + (i / logos.length) * 0.05}
                 stopProgress={0.4 + (i / logos.length) * 0.05}
               >
-                {/* <img
-              className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
-              // TODO: Adjust if the file is not an SVG
-              src={urlForImage(company.logo).url()}
-              alt={company?.name}
-              width={width}
-              height={height}
-            /> */}
-
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  key={company._id}
-                  className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
-                  // TODO: Adjust if the file is not an SVG
-                  src={urlForImage(company.logo).url()}
-                  alt={company?.name}
-                  width={width}
-                  height={height}
-                />
+                {img}
               </AnimeScroll>
             )
           })}
