@@ -3,6 +3,8 @@ import { Fragment, memo } from 'react'
 import { Image, KeyedObject, TypedObject } from 'sanity'
 
 import { AnimateScrollIn } from '../animation/AnimateScrollIn'
+import { AnimateScrollOut } from '../animation/AnimateScrollOut'
+import { fakeBrighten, fakeDarken } from '../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../animation/ScrollProgressContainer'
 import Container from '../container'
 import { BgVideo } from '../video/bg-video'
@@ -56,20 +58,33 @@ const Intermission = memo(function Intermission(
         <Container>
           <div className="relative text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
             {statements.map((statement) => (
-              <span
-                className="text-gray-300 hover:text-black dark:text-gray-600 hover:dark:text-white"
-                key={statement._key}
-              >
-                {statement.children.map((n) => {
-                  let node = <>{n}</>
+              <ScrollProgressContainer>
+                <AnimateScrollIn
+                  params={fakeBrighten}
+                  startProgress={0.4}
+                  stopProgress={0.5}
+                >
+                  <AnimateScrollOut
+                    params={fakeDarken}
+                    startProgress={0.4}
+                    stopProgress={0.5}
+                  >
+                    <span className=" text-white">
+                      {statement.children.map((n) => {
+                        let node = <>{n}</>
 
-                  if (n.marks.includes('strong')) {
-                    node = <strong className="font-extrabold">{node}</strong>
-                  }
+                        if (n.marks.includes('strong')) {
+                          node = (
+                            <strong className="font-extrabold">{node}</strong>
+                          )
+                        }
 
-                  return <Fragment key={n._key}>{n.text}</Fragment>
-                })}{' '}
-              </span>
+                        return <Fragment key={n._key}>{n.text}</Fragment>
+                      })}{' '}
+                    </span>
+                  </AnimateScrollOut>
+                </AnimateScrollIn>
+              </ScrollProgressContainer>
             ))}
           </div>
         </Container>

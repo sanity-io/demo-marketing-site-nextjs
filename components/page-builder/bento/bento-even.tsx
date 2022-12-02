@@ -5,7 +5,7 @@ import { KeyedObject } from 'sanity'
 import { ArticleStub } from '../../../types'
 import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
 // import { AnimateScrollOut } from '../../animation/AnimateScrollOut'
-import { enterSoftBottom } from '../../animation/scrollAnimations'
+import { inSoftBottom } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
@@ -32,7 +32,7 @@ export default function BentoEven(props: {
           >
             <ScrollProgressContainer>
               <AnimateScrollIn
-                params={enterSoftBottom}
+                params={inSoftBottom}
                 startProgress={0.3 + (articleIndex / articles.length) * 0.3}
                 stopProgress={0.5 + (articleIndex / articles.length) * 0.3}
               >

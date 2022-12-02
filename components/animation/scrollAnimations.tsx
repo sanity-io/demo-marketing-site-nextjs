@@ -1,18 +1,29 @@
 import { AnimeParams } from 'animejs'
 
-export const fadeIn: AnimeParams = {
+export const inFade: AnimeParams = {
   opacity: [0, 1],
   easing: 'linear',
 }
 
-export const enterElasticLeft: AnimeParams = {
+export const outFade: AnimeParams = {
+  opacity: [1, 0],
+  easing: 'linear',
+}
+
+export const inElasticLeft: AnimeParams = {
   translateX: [300, 0],
   easing: 'easeInBounce',
 }
 
-export const enterSoftBottom: AnimeParams = {
+export const inSoftBottom: AnimeParams = {
   translateY: [105, 0],
   opacity: [0, 1],
+  easing: 'easeOutCubic',
+}
+
+export const outSofTop: AnimeParams = {
+  translateY: [0, -20],
+  opacity: [1, 0],
   easing: 'easeOutCubic',
 }
 
@@ -23,20 +34,51 @@ export const popin: AnimeParams = {
   easing: 'easeOutElastic',
 }
 
-export const enterElasticBottom: AnimeParams = {
+export const inElasticBottom: AnimeParams = {
   translateY: [105, 0],
   opacity: [0, 1],
   easing: 'easeOutElastic',
 }
 
-export const enterLeft: AnimeParams = {
+export const inHardTop: AnimeParams = {
+  translateY: [-400, 0],
+  easing: 'easeOutCubic',
+}
+
+export const inHardBottom: AnimeParams = {
+  translateY: [150, 0],
+  easing: 'easeOutCubic',
+}
+
+export const inLeft: AnimeParams = {
   translateX: [-200, 0],
   opacity: [0, 1],
   easing: 'easeOutCubic',
 }
 
-export const float: AnimeParams = {
-  translateY: [-4, 4],
+export const fakeBrighten: AnimeParams = {
+  opacity: [0.5, 1],
+  easing: 'easeOutQuad',
+}
+
+export const fakeDarken: AnimeParams = {
+  opacity: [1, 0.5],
+  easing: 'easeOutQuad',
+}
+
+export const colorGrey: AnimeParams = {
+  color: ['white', 'gray'],
+  easing: 'easeOutCubic',
+}
+
+export const outright: AnimeParams = {
+  translateX: [0, 20],
+  opacity: [1, 0],
+  easing: 'easeOutCubic',
+}
+
+export const floatLoop: AnimeParams = {
+  translateY: [-40, 40],
   duration: 4000,
   direction: 'alternate',
   loop: true,

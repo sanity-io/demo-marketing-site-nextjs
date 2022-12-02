@@ -5,7 +5,7 @@ import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
 import { AnimateScrollIn } from '../animation/AnimateScrollIn'
-import { enterElasticBottom } from '../animation/scrollAnimations'
+import { inElasticBottom } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
 
@@ -62,9 +62,9 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             return (
               <AnimateScrollIn
                 key={company._id}
-                params={enterElasticBottom}
-                startProgress={0.2 + (i / logos.length) * 0.05}
-                stopProgress={0.4 + (i / logos.length) * 0.05}
+                params={inElasticBottom}
+                startProgress={0.35 + (i / logos.length) * 0.05}
+                stopProgress={0.6 + (i / logos.length) * 0.05}
               >
                 {img}
               </AnimateScrollIn>

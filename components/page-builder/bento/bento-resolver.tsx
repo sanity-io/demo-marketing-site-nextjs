@@ -3,7 +3,7 @@ import { KeyedObject } from 'sanity'
 
 import { ArticleStub } from '../../../types'
 import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
-import { enterSoftBottom, popin } from '../../animation/scrollAnimations'
+import { inSoftBottom, popin } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'

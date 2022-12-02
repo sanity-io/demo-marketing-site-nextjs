@@ -3,7 +3,7 @@ import { KeyedObject } from 'sanity'
 
 import { ArticleStub } from '../../../types'
 import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
-import { enterSoftBottom } from '../../animation/scrollAnimations'
+import { inSoftBottom } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
@@ -19,7 +19,7 @@ export default function Bento3(props: {
       <div className="grid divide-y divide-gray-200 dark:divide-gray-800 md:grid-cols-2 md:divide-x md:divide-y-0">
         <ScrollProgressContainer>
           <AnimateScrollIn
-            params={enterSoftBottom}
+            params={inSoftBottom}
             startProgress={0.3 + (0 / articles.length) * 0.3}
             stopProgress={0.5 + (0 / articles.length) * 0.3}
           >
@@ -58,7 +58,7 @@ export default function Bento3(props: {
             >
               <ScrollProgressContainer>
                 <AnimateScrollIn
-                  params={enterSoftBottom}
+                  params={inSoftBottom}
                   startProgress={
                     0.3 + ((articleIndex + 1) / articles.length) * 0.3
                   }

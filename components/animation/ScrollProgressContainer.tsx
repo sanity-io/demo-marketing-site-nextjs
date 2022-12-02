@@ -108,7 +108,7 @@ export function ScrollProgressContainer({
             <div className="flex flex-col bg-white text-sm dark:bg-black">
               <code>progress.in: {progress.in.toFixed(2)}</code>
               <code>progress.out: {progress.out.toFixed(2)}</code>
-              <code>scrollY: {scrollY.toFixed(2)}</code>
+              {/* <code>scrollY: {scrollY.toFixed(2)}</code>
               <code>height: {debugRef.current.height.toFixed(2)}</code>
               <code>topY: {debugRef.current.topY}</code>
               <code>bottomY: {debugRef.current.bottomY}</code>
@@ -117,7 +117,7 @@ export function ScrollProgressContainer({
               <code>offset: {debugRef.current.offset.toFixed(2)}</code>
               <code>
                 scrollHeight: {debugRef.current.scrollWindow.toFixed(2)}
-              </code>
+              </code>*/}
             </div>
           </div>
         </div>

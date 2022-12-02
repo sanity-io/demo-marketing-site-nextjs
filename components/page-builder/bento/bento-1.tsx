@@ -15,8 +15,8 @@ export default function Bento1(props: { article: ArticleStub }) {
           {article.subtitle ? (
             <AnimateScrollIn
               params={popin}
-              startProgress={0.2}
-              stopProgress={0.5}
+              startProgress={0.6}
+              stopProgress={0.9}
             >
               <p className="max-w-xl rounded-full bg-magenta-400 px-5 py-2 text-2xl text-black md:text-center">
                 {article.subtitle}

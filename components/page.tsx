@@ -42,6 +42,8 @@ export default function Page(props: PageProps) {
               <PageBuilder rows={content} />
             ) : null}
           </article>
+          {/* scrollgutter */}
+          <div className="h-80" />
           {/* </ScrollContainer> */}
         </ResizeProvider>
       </ScrollYProvider>
