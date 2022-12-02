@@ -74,9 +74,6 @@ export function ScrollProgressContainer({
     const topY = rectY - scrollY
     const bottomY = topY + rectHeight
 
-    console.log('topY', topY)
-    console.log('bottomY', bottomY)
-
     // `in` progress
     let inProgress = 1 - topY / scrollWindow
     inProgress = Math.max(Math.min(inProgress, 1), 0)
