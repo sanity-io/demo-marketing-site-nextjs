@@ -2,7 +2,7 @@ import { Icon, IconSymbol } from '@sanity/icons'
 import { KeyedObject } from 'sanity'
 
 import { ArticleStub } from '../../../types'
-import { AnimeScroll } from '../../animation/AnimeScroll'
+import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
 import { enterSoftBottom, popin } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'

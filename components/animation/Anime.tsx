@@ -1,9 +1,8 @@
 import anime, { AnimeInstance, AnimeParams } from 'animejs'
 import {
-  CSSProperties,
   ForwardedRef,
   forwardRef,
-  PropsWithChildren,
+  HTMLProps,
   useCallback,
   useEffect,
   useRef,
@@ -15,14 +14,13 @@ export type AnimeProps = {
   params: AnimeParams | AnimeParams[]
   progress?: number /* 0-1*/
   autoplay?: boolean /* default false */
-  style?: CSSProperties
 }
 
 export const Anime = forwardRef(function Anime(
-  props: PropsWithChildren<AnimeProps>,
+  props: AnimeProps & HTMLProps<HTMLDivElement>,
   forwardRef: ForwardedRef<HTMLDivElement>
 ) {
-  const { children, style, params, progress, autoplay = false } = props
+  const { children, params, progress, autoplay = false, ...restProps } = props
   const ref = useRef<HTMLDivElement>()
   const animation = useRef<AnimeInstance>()
 
@@ -77,11 +75,11 @@ export const Anime = forwardRef(function Anime(
   }, [progress])
 
   if (!animationEnabled) {
-    return <>{children}</>
+    return <div {...restProps}>{children}</div>
   }
 
   return (
-    <div ref={refUpdate} style={{ position: 'relative', ...style }}>
+    <div ref={refUpdate} {...restProps}>
       {children}
     </div>
   )

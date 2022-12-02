@@ -5,7 +5,7 @@ import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
-import { AnimeScroll } from '../animation/AnimeScroll'
+import { AnimateScrollIn } from '../animation/AnimateScrollIn'
 import { enterLeft } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
@@ -39,7 +39,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
         <DebugGrid columns={4} />
 
         <div className="-mt-5 flex flex-col gap-5 md:mt-0 md:px-5 lg:w-1/2 lg:flex-row">
-          <AnimeScroll
+          <AnimateScrollIn
             params={enterLeft}
             startProgress={start + 0.05}
             stopProgress={end + 0.05}
@@ -47,9 +47,9 @@ export default function PageBuilderQuote(props: QuoteProps) {
             <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800">
               <Quote className="h-5 w-5 flex-shrink-0" />
             </div>
-          </AnimeScroll>
+          </AnimateScrollIn>
 
-          <AnimeScroll
+          <AnimateScrollIn
             params={enterLeft}
             startProgress={start + 0.1}
             stopProgress={end + 0.1}
@@ -89,7 +89,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
                 </div>
               </div>
             </div>
-          </AnimeScroll>
+          </AnimateScrollIn>
         </div>
 
         <div className="my-12 flex-1 flex-shrink-0 px-5 lg:w-1/2">

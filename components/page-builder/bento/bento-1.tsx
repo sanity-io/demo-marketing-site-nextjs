@@ -1,7 +1,7 @@
 import { PortableText } from '@portabletext/react'
 
 import { ArticleStub } from '../../../types'
-import { AnimeScroll } from '../../animation/AnimeScroll'
+import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
 import { popin } from '../../animation/scrollAnimations'
 import Container from '../../container'
 
@@ -13,11 +13,15 @@ export default function Bento1(props: { article: ArticleStub }) {
       <Container>
         <div className="flex flex-col items-start gap-5 py-24 md:items-center md:justify-center">
           {article.subtitle ? (
-            <AnimeScroll params={popin} startProgress={0.2} stopProgress={0.5}>
+            <AnimateScrollIn
+              params={popin}
+              startProgress={0.2}
+              stopProgress={0.5}
+            >
               <p className="max-w-xl rounded-full bg-magenta-400 px-5 py-2 text-2xl text-black md:text-center">
                 {article.subtitle}
               </p>
-            </AnimeScroll>
+            </AnimateScrollIn>
           ) : null}
 
           {article?.title ? (

@@ -1,10 +1,24 @@
 import { PropsWithChildren, useEffect, useRef, useState } from 'react'
 
+import { useElementRect } from '../../lib/utils/useElementRect'
+import { useScrollY } from '../../lib/utils/useScrollY'
+import { useViewport } from '../../lib/utils/useViewport'
 import { DEBUG_ANIMATION } from './debug'
-import { useScrollContext } from './ScrollContext'
-import { ScrollProgressProvider } from './ScrollProgressContext'
+import { ScrollProgress, ScrollProgressProvider } from './ScrollProgressContext'
+
+// export interface ScrollProgress {
+//   progress: number
+//   height: number
+//   y: number
+//   start: number
+//   stop: number
+//   offset: number
+//   scrollWindow: number
+// }
 
 export type ScrollProgressContainerProps = PropsWithChildren<{
+  className?: string
+
   /**
    When scrollWindowSize = 1
    Progress = 0 when the top of the container element is at the bottom of the viewport
@@ -20,66 +34,102 @@ export type ScrollProgressContainerProps = PropsWithChildren<{
 export function ScrollProgressContainer({
   scrollWindowSize = 1,
   children,
+  className,
 }: ScrollProgressContainerProps) {
-  const ref = useRef<HTMLDivElement>()
-  const scrollContext = useScrollContext()
-  const [progress, setProgress] = useState(() => ({
-    progress: 1,
-    height: 0,
-    y: 0,
-    start: 0,
-    stop: 0,
-    offset: 0,
-    scrollWindow: 0,
-  }))
+  const [element, setElement] = useState<HTMLDivElement>(null)
+
+  const viewport = useViewport()
+  const rect = useElementRect(element)
+  const rectHeight = rect?.height
+  const rectY = rect?.y
+  const scrollY = useScrollY()
+
+  // const [progress, setProgress] = useState<ScrollProgress>(() => ({
+  //   progress: 1,
+  //   height: 0,
+  //   y: 0,
+  //   start: 0,
+  //   stop: 0,
+  //   offset: 0,
+  //   scrollWindow: 0,
+  // }))
+
+  const [progress, setProgress] = useState<ScrollProgress>({ in: 0, out: 0 })
+
+  const debugRef = useRef({ topY: 0, bottomY: 0 })
+
   useEffect(() => {
-    if (!scrollContext.height || !ref.current) {
-      return
-    }
-    const rect = ref.current?.getBoundingClientRect()
+    if (rectHeight === undefined || rectY === undefined) return
 
-    const y = rect?.y
+    if (!viewport.height) return
 
-    let scrollWindow = scrollContext.height * scrollWindowSize
-    const offset = (scrollContext.height - scrollWindow) / 2
-    const start = scrollContext.height - offset
+    let scrollWindow = viewport.height * scrollWindowSize
+
+    const offset = (viewport.height - scrollWindow) / 2
+    const start = viewport.height - offset
     const stop = offset
+
     scrollWindow = start - stop
 
-    let p = 1 - y / scrollWindow
-    p = Math.max(Math.min(p, 1), 0)
-    setProgress({
-      progress: p,
-      height: rect.height,
-      y,
-      start,
-      stop,
-      offset,
-      scrollWindow,
-    })
-  }, [scrollContext, scrollWindowSize])
+    const topY = rectY - scrollY
+    const bottomY = topY + rectHeight
+
+    console.log('topY', topY)
+    console.log('bottomY', bottomY)
+
+    // `in` progress
+    let inProgress = 1 - topY / scrollWindow
+    inProgress = Math.max(Math.min(inProgress, 1), 0)
+
+    // `out` progress
+    let outProgress = 1 - bottomY / scrollWindow
+    outProgress = Math.max(Math.min(outProgress, 1), 0)
+
+    debugRef.current = { topY, bottomY }
+
+    // const nextProgress: ScrollProgress = {
+    //   progress: p,
+    //   height: rectHeight,
+    //   y,
+    //   start,
+    //   stop,
+    //   offset,
+    //   scrollWindow,
+    // }
+
+    setProgress({ in: inProgress, out: outProgress })
+  }, [viewport.height, scrollWindowSize, rectY, rectHeight, scrollY])
 
   return (
     <div
-      ref={ref}
+      ref={setElement}
       className={
         DEBUG_ANIMATION
-          ? 'relative border-2 border-dotted border-white'
-          : undefined
+          ? `${className ?? ''} relative border-2 border-dotted border-red-500`
+          : `${className ?? ''} relative`
       }
     >
       {DEBUG_ANIMATION && (
-        <div className="z-100 absolute top-1 right-1 flex flex-col gap-1 bg-black p-2">
-          <div>Progress: {progress.progress.toFixed(2)}</div>
-          <div>Height: {progress.height.toFixed(2)}</div>
-          <div>Y: {progress.y.toFixed(2)}</div>
-          <div>StartY: {progress.start.toFixed(2)}</div>
-          <div>StopY: {progress.stop.toFixed(2)}</div>
-          <div>Offset: {progress.offset.toFixed(2)}</div>
-          <div>ScrollWindow height: {progress.scrollWindow.toFixed(2)}</div>
+        <div className="z-100 absolute top-0 right-0 bottom-0">
+          <div className="sticky top-0 p-7">
+            <div className="bg-black">
+              {/* <div>Progress: {progress.progress.toFixed(2)}</div>
+              <div>Height: {progress.height.toFixed(2)}</div>
+              <div>Y: {progress.y.toFixed(2)}</div>
+              <div>StartY: {progress.start.toFixed(2)}</div>
+              <div>StopY: {progress.stop.toFixed(2)}</div>
+              <div>Offset: {progress.offset.toFixed(2)}</div>
+              <div>ScrollWindow height: {progress.scrollWindow.toFixed(2)}</div> */}
+              <div>progress.in: {progress.in.toFixed(2)}</div>
+              <div>progress.out: {progress.out.toFixed(2)}</div>
+              <div>topY: {debugRef.current.topY}</div>
+              <div>bottomY: {debugRef.current.bottomY}</div>
+            </div>
+          </div>
         </div>
       )}
-      <ScrollProgressProvider value={progress.progress}>
+
+      <ScrollProgressProvider value={progress}>
         {children}
       </ScrollProgressProvider>
     </div>

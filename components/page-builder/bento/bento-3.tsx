@@ -2,7 +2,7 @@ import { Icon, IconSymbol } from '@sanity/icons'
 import { KeyedObject } from 'sanity'
 
 import { ArticleStub } from '../../../types'
-import { AnimeScroll } from '../../animation/AnimeScroll'
+import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
 import { enterSoftBottom } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
@@ -18,7 +18,7 @@ export default function Bento3(props: {
     <div className="border-t border-b border-gray-200 dark:border-gray-800">
       <div className="grid divide-y divide-gray-200 dark:divide-gray-800 md:grid-cols-2 md:divide-x md:divide-y-0">
         <ScrollProgressContainer>
-          <AnimeScroll
+          <AnimateScrollIn
             params={enterSoftBottom}
             startProgress={0.3 + (0 / articles.length) * 0.3}
             stopProgress={0.5 + (0 / articles.length) * 0.3}
@@ -43,7 +43,7 @@ export default function Bento3(props: {
                 </div>
               </div>
             </Container>
-          </AnimeScroll>
+          </AnimateScrollIn>
         </ScrollProgressContainer>
 
         <div>
@@ -57,7 +57,7 @@ export default function Bento3(props: {
               }`}
             >
               <ScrollProgressContainer>
-                <AnimeScroll
+                <AnimateScrollIn
                   params={enterSoftBottom}
                   startProgress={
                     0.3 + ((articleIndex + 1) / articles.length) * 0.3
@@ -87,7 +87,7 @@ export default function Bento3(props: {
                       </div>
                     </div>
                   </Container>
-                </AnimeScroll>
+                </AnimateScrollIn>
               </ScrollProgressContainer>
             </div>
           ))}

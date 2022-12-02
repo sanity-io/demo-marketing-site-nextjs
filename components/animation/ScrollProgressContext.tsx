@@ -1,8 +1,13 @@
 import { createContext, useContext } from 'react'
 
-const ScrollProgressContext = createContext(0)
+export interface ScrollProgress {
+  in: number
+  out: number
+}
+
+const ScrollProgressContext = createContext<ScrollProgress>({ in: 0, out: 0 })
 export const ScrollProgressProvider = ScrollProgressContext.Provider
 
-export function useScrollProgress(): number {
+export function useScrollProgress(): ScrollProgress {
   return useContext(ScrollProgressContext)
 }

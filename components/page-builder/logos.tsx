@@ -4,7 +4,7 @@ import delve from 'dlv'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
-import { AnimeScroll } from '../animation/AnimeScroll'
+import { AnimateScrollIn } from '../animation/AnimateScrollIn'
 import { enterElasticBottom } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
@@ -60,14 +60,14 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
               />
             )
             return (
-              <AnimeScroll
+              <AnimateScrollIn
                 key={company._id}
                 params={enterElasticBottom}
                 startProgress={0.2 + (i / logos.length) * 0.05}
                 stopProgress={0.4 + (i / logos.length) * 0.05}
               >
                 {img}
-              </AnimeScroll>
+              </AnimateScrollIn>
             )
           })}
         </div>
