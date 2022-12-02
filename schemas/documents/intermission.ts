@@ -29,6 +29,40 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      type: 'object',
+      name: 'background',
+      title: 'Background',
+      fields: [
+        defineField({
+          type: 'string',
+          name: 'mediaType',
+          title: 'Media type',
+          options: {
+            layout: 'radio',
+            list: [
+              { title: 'Image', value: 'image' },
+              { title: 'Video', value: 'video' },
+              { title: 'None', value: undefined },
+            ],
+          },
+        }),
+        defineField({
+          type: 'mux.video',
+          name: 'video',
+          title: 'Video',
+          hidden: ({ document }: any) =>
+            document.background?.mediaType !== 'video',
+        }),
+        defineField({
+          type: 'image',
+          name: 'image',
+          title: 'Image',
+          hidden: ({ document }: any) =>
+            document.background?.mediaType !== 'image',
+        }),
+      ],
+    }),
   ],
   preview: {
     select: { title: 'title' },

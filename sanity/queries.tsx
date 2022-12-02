@@ -49,7 +49,18 @@ const pageFields = groq`
     },
     _type == "intermission" => {
       ...(@->{
-        statements
+        statements,
+        background{
+          mediaType == "image" => {
+            ...image
+          },
+          mediaType == "video" => {
+            ...video{
+              _type,
+              asset->
+            }
+          }
+        }
       })
     },
     _type == "quote" => {
