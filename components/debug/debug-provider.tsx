@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 
-const DebugContext = createContext({ grid: true })
+const DebugContext = createContext({ animation: false, grid: false })
 
 export function useDebug() {
   return useContext(DebugContext)
@@ -15,14 +15,19 @@ export function useDebug() {
 
 export function DebugProvider(props: { children?: ReactNode }) {
   const { children } = props
+  const [animation, setAnimation] = useState(false)
   const [grid, setGrid] = useState(false)
 
-  const debug = useMemo(() => ({ grid }), [grid])
+  const debug = useMemo(() => ({ animation, grid }), [animation, grid])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'a') {
+        setAnimation((flag) => !flag)
+      }
+
       if (event.key === 'g') {
-        setGrid((grid) => !grid)
+        setGrid((flag) => !flag)
       }
     }
 
