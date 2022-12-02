@@ -8,7 +8,7 @@ export function ScrollYProvider(props: { children?: ReactNode }) {
 
   useEffect(() => {
     function handleScroll() {
-      setScrollTop(window.pageYOffset)
+      setScrollTop(window.scrollY)
     }
 
     window.addEventListener('scroll', handleScroll)

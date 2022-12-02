@@ -41,9 +41,6 @@ export function ScrollProgressContainer({
 
   const { animation: DEBUG_ANIMATION } = useDebug()
   const viewport = useViewport()
-  const rect = useElementRect(element)
-  const rectHeight = rect?.height
-  const rectY = rect?.y
   const scrollY = useScrollY()
 
   const [progress, setProgress] = useState<ScrollProgress>({ in: 0, out: 0 })
@@ -59,8 +56,8 @@ export function ScrollProgressContainer({
   })
 
   useEffect(() => {
-    if (rectHeight === undefined || rectY === undefined) return
-
+    const rect = element?.getBoundingClientRect()
+    if (!rect) return
     if (!viewport.height) return
 
     let scrollWindow = viewport.height * scrollWindowSize
@@ -71,7 +68,8 @@ export function ScrollProgressContainer({
 
     scrollWindow = start - stop
 
-    const topY = rectY - scrollY
+    const rectHeight = rect.height
+    const topY = rect.y
     const bottomY = topY + rectHeight
 
     // `in` progress
@@ -96,7 +94,7 @@ export function ScrollProgressContainer({
       in: inProgress,
       out: outProgress,
     })
-  }, [viewport.height, scrollWindowSize, rectY, rectHeight, scrollY])
+  }, [viewport.height, scrollWindowSize, element, scrollY])
 
   return (
     <div
@@ -106,8 +104,11 @@ export function ScrollProgressContainer({
     >
       {DEBUG_ANIMATION && (
         <div className="z-100 absolute top-0 right-0 bottom-0">
-          <div className="sticky top-0 p-7">
+          <div className="sticky top-1 right-0 p-7">
             <div className="flex flex-col bg-white text-sm dark:bg-black">
+              <code>progress.in: {progress.in.toFixed(2)}</code>
+              <code>progress.out: {progress.out.toFixed(2)}</code>
+              <code>scrollY: {scrollY.toFixed(2)}</code>
               <code>height: {debugRef.current.height.toFixed(2)}</code>
               <code>topY: {debugRef.current.topY}</code>
               <code>bottomY: {debugRef.current.bottomY}</code>
@@ -117,8 +118,6 @@ export function ScrollProgressContainer({
               <code>
                 scrollHeight: {debugRef.current.scrollWindow.toFixed(2)}
               </code>
-              <code>progress.in: {progress.in.toFixed(2)}</code>
-              <code>progress.out: {progress.out.toFixed(2)}</code>
             </div>
           </div>
         </div>
