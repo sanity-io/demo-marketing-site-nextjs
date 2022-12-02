@@ -1,20 +1,16 @@
-import { PropsWithChildren, useEffect, useRef, useState } from 'react'
+import {
+  CSSProperties,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 import { useElementRect } from '../../lib/utils/useElementRect'
 import { useScrollY } from '../../lib/utils/useScrollY'
 import { useViewport } from '../../lib/utils/useViewport'
-import { DEBUG_ANIMATION } from './debug'
+import { useDebug } from '../debug/debug-provider'
 import { ScrollProgress, ScrollProgressProvider } from './ScrollProgressContext'
-
-// export interface ScrollProgress {
-//   progress: number
-//   height: number
-//   y: number
-//   start: number
-//   stop: number
-//   offset: number
-//   scrollWindow: number
-// }
 
 export type ScrollProgressContainerProps = PropsWithChildren<{
   className?: string
@@ -31,6 +27,11 @@ export type ScrollProgressContainerProps = PropsWithChildren<{
   scrollWindowSize?: number
 }>
 
+const DEBUG_STYLE: CSSProperties = {
+  outline: `4px dotted green`,
+  outlineOffset: '-2px',
+}
+
 export function ScrollProgressContainer({
   scrollWindowSize = 1,
   children,
@@ -38,25 +39,24 @@ export function ScrollProgressContainer({
 }: ScrollProgressContainerProps) {
   const [element, setElement] = useState<HTMLDivElement>(null)
 
+  const { animation: DEBUG_ANIMATION } = useDebug()
   const viewport = useViewport()
   const rect = useElementRect(element)
   const rectHeight = rect?.height
   const rectY = rect?.y
   const scrollY = useScrollY()
 
-  // const [progress, setProgress] = useState<ScrollProgress>(() => ({
-  //   progress: 1,
-  //   height: 0,
-  //   y: 0,
-  //   start: 0,
-  //   stop: 0,
-  //   offset: 0,
-  //   scrollWindow: 0,
-  // }))
-
   const [progress, setProgress] = useState<ScrollProgress>({ in: 0, out: 0 })
 
-  const debugRef = useRef({ topY: 0, bottomY: 0 })
+  const debugRef = useRef({
+    topY: 0,
+    bottomY: 0,
+    height: 0,
+    start: 0,
+    stop: 0,
+    offset: 0,
+    scrollWindow: 0,
+  })
 
   useEffect(() => {
     if (rectHeight === undefined || rectY === undefined) return
@@ -85,45 +85,43 @@ export function ScrollProgressContainer({
     let outProgress = 1 - bottomY / scrollWindow
     outProgress = Math.max(Math.min(outProgress, 1), 0)
 
-    debugRef.current = { topY, bottomY }
+    debugRef.current = {
+      topY,
+      bottomY,
+      height: rectHeight,
+      start,
+      stop,
+      offset,
+      scrollWindow,
+    }
 
-    // const nextProgress: ScrollProgress = {
-    //   progress: p,
-    //   height: rectHeight,
-    //   y,
-    //   start,
-    //   stop,
-    //   offset,
-    //   scrollWindow,
-    // }
-
-    setProgress({ in: inProgress, out: outProgress })
+    setProgress({
+      in: inProgress,
+      out: outProgress,
+    })
   }, [viewport.height, scrollWindowSize, rectY, rectHeight, scrollY])
 
   return (
     <div
       ref={setElement}
-      className={
-        DEBUG_ANIMATION
-          ? `${className ?? ''} relative border-2 border-dotted border-red-500`
-          : `${className ?? ''} relative`
-      }
+      className={`${className ?? ''} relative`}
+      style={DEBUG_ANIMATION ? DEBUG_STYLE : undefined}
     >
       {DEBUG_ANIMATION && (
         <div className="z-100 absolute top-0 right-0 bottom-0">
           <div className="sticky top-0 p-7">
-            <div className="bg-black">
-              {/* <div>Progress: {progress.progress.toFixed(2)}</div>
-              <div>Height: {progress.height.toFixed(2)}</div>
-              <div>Y: {progress.y.toFixed(2)}</div>
-              <div>StartY: {progress.start.toFixed(2)}</div>
-              <div>StopY: {progress.stop.toFixed(2)}</div>
-              <div>Offset: {progress.offset.toFixed(2)}</div>
-              <div>ScrollWindow height: {progress.scrollWindow.toFixed(2)}</div> */}
-              <div>progress.in: {progress.in.toFixed(2)}</div>
-              <div>progress.out: {progress.out.toFixed(2)}</div>
-              <div>topY: {debugRef.current.topY}</div>
-              <div>bottomY: {debugRef.current.bottomY}</div>
+            <div className="flex flex-col bg-white text-sm dark:bg-black">
+              <code>height: {debugRef.current.height.toFixed(2)}</code>
+              <code>topY: {debugRef.current.topY}</code>
+              <code>bottomY: {debugRef.current.bottomY}</code>
+              <code>startY: {debugRef.current.start.toFixed(2)}</code>
+              <code>stopY: {debugRef.current.stop.toFixed(2)}</code>
+              <code>offset: {debugRef.current.offset.toFixed(2)}</code>
+              <code>
+                scrollHeight: {debugRef.current.scrollWindow.toFixed(2)}
+              </code>
+              <code>progress.in: {progress.in.toFixed(2)}</code>
+              <code>progress.out: {progress.out.toFixed(2)}</code>
             </div>
           </div>
         </div>
