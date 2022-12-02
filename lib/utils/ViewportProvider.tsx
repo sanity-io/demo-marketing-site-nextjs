@@ -6,6 +6,8 @@ export function ViewportProvider(props: { children?: ReactNode }) {
   const { children } = props
 
   const [viewport, setViewport] = useState(() => {
+    if (typeof window === 'undefined') return { width: 320, height: 667 } // iphone 5/SE
+
     return { width: window.innerWidth, height: window.innerHeight }
   })
 
