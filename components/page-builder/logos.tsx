@@ -4,6 +4,8 @@ import delve from 'dlv'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
+import { AnimeScroll } from '../animation/AnimeScroll'
+import { enterElasticBottom } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
 
@@ -35,7 +37,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-          {logos.map((company) => {
+          {logos.map((company, i) => {
             const ref = delve(company, 'logo.asset._ref')
 
             if (!ref) {
@@ -45,7 +47,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             // TODO: adjust width/height based on vertical/landscape logos
             const { width, height } = getImageDimensions(ref)
 
-            return (
+            const img = (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={company._id}
@@ -56,6 +58,16 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
                 width={width}
                 height={height}
               />
+            )
+            return (
+              <AnimeScroll
+                key={company._id}
+                params={enterElasticBottom}
+                startProgress={0.2 + (i / logos.length) * 0.05}
+                stopProgress={0.4 + (i / logos.length) * 0.05}
+              >
+                {img}
+              </AnimeScroll>
             )
           })}
         </div>

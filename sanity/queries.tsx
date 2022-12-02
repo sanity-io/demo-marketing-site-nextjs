@@ -101,7 +101,7 @@ const pageFields = groq`
     // Both end and start are set, check if the current time is between them
     || (dateTime(coalesce($date, now())) in dateTime(visibility.displayFrom) .. dateTime(visibility.displayTo))
     || (
-        dateTime(visibility.displayTo) > dateTime(coalesce($date, now())) 
+        dateTime(visibility.displayTo) > dateTime(coalesce($date, now()))
         && dateTime(visibility.displayFrom) < dateTime(coalesce($date, now()))
       )
   ],

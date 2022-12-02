@@ -42,3 +42,7 @@ studio/.env.development
 
 .yalc
 yalc.lock
+
+#Intellij
+.idea
+*.iml
