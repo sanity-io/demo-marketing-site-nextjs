@@ -61,16 +61,17 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
       <div className="border-b border-gray-200 dark:border-gray-800">
         <div className="flex flex-col md:flex-row md:flex-wrap">
           {articles.map((article, articleIndex) => (
-            <ScrollProgressContainer key={article._key}>
-              <AnimeScroll
-                params={enterSoftBottom}
-                startProgress={0.3 + (articleIndex / articles.length) * 0.3}
-                stopProgress={0.5 + (articleIndex / articles.length) * 0.3}
-              >
-                <div
-                  className={`border-t border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${
-                    articleIndex % 2 ? 'md:border-l' : ''
-                  }`}
+            <div
+              key={article._key}
+              className={`border-t border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${
+                articleIndex % 2 ? 'md:border-l' : ''
+              }`}
+            >
+              <ScrollProgressContainer>
+                <AnimeScroll
+                  params={enterSoftBottom}
+                  startProgress={0.3 + (articleIndex / articles.length) * 0.3}
+                  stopProgress={0.5 + (articleIndex / articles.length) * 0.3}
                 >
                   <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
                     <DebugGrid />
@@ -88,9 +89,9 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
                       </p>
                     </div>
                   </Container>
-                </div>
-              </AnimeScroll>
-            </ScrollProgressContainer>
+                </AnimeScroll>
+              </ScrollProgressContainer>
+            </div>
           ))}
         </div>
       </div>
