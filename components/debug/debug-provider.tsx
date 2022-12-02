@@ -15,7 +15,7 @@ export function useDebug() {
 
 export function DebugProvider(props: { children?: ReactNode }) {
   const { children } = props
-  const [grid, setGrid] = useState(true)
+  const [grid, setGrid] = useState(false)
 
   const debug = useMemo(() => ({ grid }), [grid])
 
