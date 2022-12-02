@@ -2,6 +2,7 @@ import pageBuilderExperimentCell from './cells/pageBuilderExperimentCell'
 import pageBuilderLogosCell from './cells/pageBuilderLogosCell'
 import article from './documents/article'
 import company from './documents/company'
+import intermission from './documents/intermission'
 import menu from './documents/menu'
 import page from './documents/page'
 import person from './documents/person'
@@ -21,6 +22,7 @@ import visibility from './objects/visibility'
 export const schemaTypes = [
   company,
   article,
+  intermission,
   language,
   link,
   market,

@@ -47,6 +47,11 @@ const pageFields = groq`
         visibility
       })
     },
+    _type == "intermission" => {
+      ...(@->{
+        statements
+      })
+    },
     _type == "quote" => {
       ...(@->{
         quote,

@@ -34,6 +34,12 @@ export default defineType(
         type: 'pageBuilderExperimentCell',
       }),
       defineField({
+        name: 'intermission',
+        title: 'Intermission',
+        type: 'reference',
+        to: [{ type: 'intermission' }],
+      }),
+      defineField({
         name: 'logos',
         title: 'Logos',
         type: 'pageBuilderLogosCell',

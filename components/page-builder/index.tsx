@@ -15,6 +15,7 @@ const ROWS = {
   experiment: React.lazy(() => import('./hero')),
   // Promotion component takes a grouped set of contiguous `promotion` rows
   article: React.lazy(() => import('./article')),
+  intermission: React.lazy(() => import('./intermission')),
 }
 
 export default function PageBuilder(props: PageBuilderProps) {
