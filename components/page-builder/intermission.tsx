@@ -20,8 +20,6 @@ type PageBuilderIntermissionProps = KeyedObject &
   }
 
 export default function Intermission(props: PageBuilderIntermissionProps) {
-  console.log('props', props)
-
   const { statements = [] } = props
 
   return (
