@@ -1,9 +1,12 @@
 import { Icon, IconSymbol } from '@sanity/icons'
+import Image from 'next/image'
+import React from 'react'
 import { KeyedObject } from 'sanity'
 
+import { urlForImage } from '../../../sanity/sanity'
 import { ArticleStub } from '../../../types'
 import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
-import { inSoftBottom } from '../../animation/scrollAnimations'
+import { inSoftBottom, inSoftScale } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
@@ -31,6 +34,27 @@ export default function Bento3(props: {
                   <div className="text-4xl">
                     <Icon symbol={first.icon as IconSymbol} />
                   </div>
+                ) : null}
+
+                {first?.image ? (
+                  <AnimateScrollIn
+                    params={inSoftScale}
+                    startProgress={0.4}
+                    stopProgress={0.7}
+                  >
+                    <div className="w-full">
+                      <Image
+                        src={urlForImage(first?.image)
+                          .width(300)
+                          .height(600)
+                          .url()}
+                        width={200}
+                        height={600}
+                        alt={first.title ?? ``}
+                        className="h-auto w-full rounded-lg object-cover"
+                      />
+                    </div>
+                  </AnimateScrollIn>
                 ) : null}
 
                 <div className="flex flex-col gap-5">
@@ -70,6 +94,21 @@ export default function Bento3(props: {
                     <DebugGrid />
 
                     <div className="flex flex-col gap-3 py-12 md:py-24">
+                      {article?.image ? (
+                        <div className="w-full">
+                          <Image
+                            src={urlForImage(article?.image)
+                              .width(496)
+                              .height(372)
+                              .url()}
+                            width={496}
+                            height={372}
+                            alt={article.title ?? ``}
+                            className="aspect-video h-auto w-full rounded-lg object-cover"
+                          />
+                        </div>
+                      ) : null}
+
                       {article?.icon ? (
                         <div className="text-4xl">
                           <Icon symbol={article.icon as IconSymbol} />

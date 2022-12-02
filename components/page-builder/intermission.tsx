@@ -45,7 +45,7 @@ const Intermission = memo(function Intermission(
     <ScrollProgressContainer className="relative">
       <div
         className="border-t border-gray-200 py-5 dark:border-gray-800 sm:py-6 md:py-7"
-        style={{ height: '150vh', padding: '25vh 0' }}
+        style={{ height: '200vh', padding: '25vh 0' }}
       >
         <AnimateScrollIn className="absolute inset-0" params={fadeInParams}>
           <div className="sticky top-0 h-screen">
@@ -58,7 +58,7 @@ const Intermission = memo(function Intermission(
         <Container>
           <div className="relative text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
             {statements.map((statement) => (
-              <ScrollProgressContainer>
+              <ScrollProgressContainer key={statement._key}>
                 <AnimateScrollIn
                   params={fakeBrighten}
                   startProgress={0.4}

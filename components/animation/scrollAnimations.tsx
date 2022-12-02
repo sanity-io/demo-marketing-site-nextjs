@@ -34,6 +34,13 @@ export const popin: AnimeParams = {
   easing: 'easeOutElastic',
 }
 
+export const inSoftScale: AnimeParams = {
+  scaleX: [0.8, 1],
+  scaleY: [0.8, 1],
+  opacity: [0, 1],
+  easing: 'easeOutCubic',
+}
+
 export const inElasticBottom: AnimeParams = {
   translateY: [105, 0],
   opacity: [0, 1],
@@ -42,6 +49,7 @@ export const inElasticBottom: AnimeParams = {
 
 export const inHardTop: AnimeParams = {
   translateY: [-400, 0],
+  opacity: [0, 1],
   easing: 'easeOutCubic',
 }
 
@@ -51,7 +59,12 @@ export const inHardBottom: AnimeParams = {
 }
 
 export const inLeft: AnimeParams = {
-  translateX: [-200, 0],
+  translateX: [-50, 0],
+  opacity: [0, 1],
+  easing: 'easeOutCubic',
+}
+export const inRight: AnimeParams = {
+  translateX: [50, 0],
   opacity: [0, 1],
   easing: 'easeOutCubic',
 }

@@ -7,9 +7,11 @@ import { KeyedObject, TypedObject } from 'sanity'
 import { urlForImage } from '../../sanity/sanity'
 import { AnimateScrollIn } from '../animation/AnimateScrollIn'
 import {
+  inFade,
   inHardBottom,
   inHardTop,
   inLeft,
+  inRight,
   inSoftBottom,
 } from '../animation/scrollAnimations'
 import Container from '../container'
@@ -17,6 +19,7 @@ import { DebugGrid } from '../debug/grid'
 
 type QuoteProps = KeyedObject &
   TypedObject & {
+    index: number
     quote?: string
     person?: {
       name?: string
@@ -30,23 +33,31 @@ type QuoteProps = KeyedObject &
   }
 
 export default function PageBuilderQuote(props: QuoteProps) {
-  const { quote, person } = props
+  const { quote, person, index } = props
+  const even = index % 2 === 0
 
   if (!person) {
     return null
   }
 
-  const start = 0.45
-  const end = 0.7
+  const start = 0.55
+  const end = 0.8
   console.log(person)
   return (
     <div className="border-t border-gray-200 dark:border-gray-800">
-      <Container className="relative flex flex-col-reverse lg:flex-row lg:items-center">
+      <Container
+        className={
+          'relative flex lg:items-center ' +
+          (even
+            ? 'flex-col-reverse lg:flex-row'
+            : 'flex-col lg:flex-row-reverse')
+        }
+      >
         <DebugGrid columns={4} />
 
         <div className="-mt-5 flex flex-col gap-5 md:mt-0 md:px-5 lg:w-1/2 lg:flex-row">
           <AnimateScrollIn
-            params={inLeft}
+            params={even ? inLeft : inRight}
             startProgress={start + 0.2}
             stopProgress={end + 0.2}
           >
@@ -57,7 +68,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
 
           <div className="flex flex-col gap-5">
             <AnimateScrollIn
-              params={inLeft}
+              params={even ? inLeft : inRight}
               startProgress={start + 0.16}
               stopProgress={end + 0.16}
             >
@@ -69,8 +80,8 @@ export default function PageBuilderQuote(props: QuoteProps) {
             <div className="h-25 overflow-hidden">
               <AnimateScrollIn
                 params={inHardBottom}
-                startProgress={0.65}
-                stopProgress={0.75}
+                startProgress={0.85}
+                stopProgress={0.95}
               >
                 <div className="flex items-center gap-5">
                   {person?.picture ? (
@@ -109,7 +120,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
 
         <div className="my-12 flex-1 flex-shrink-0 overflow-hidden px-5 lg:w-1/2">
           <AnimateScrollIn
-            params={inHardTop}
+            params={even ? inHardTop : inRight}
             startProgress={0.45}
             stopProgress={0.7}
           >
