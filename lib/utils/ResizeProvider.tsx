@@ -25,6 +25,8 @@ export function ResizeProvider(props: {
     if (!rootElement) return
 
     mo.current = new MutationObserver(() => {
+      console.log('mutate')
+
       for (const element of elements.current) {
         const subscriber = subscriberMap.current.get(element)
         if (subscriber) subscriber()
@@ -32,7 +34,8 @@ export function ResizeProvider(props: {
     })
 
     mo.current.observe(rootElement, {
-      attributes: true,
+      // NOTE: `attributes` is required for `style` changes but will trigger on every animation frame.
+      // attributes: true,
       characterData: true,
       childList: true,
       subtree: true,
