@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useState } from 'react'
 
 import PageBuilder from '../components/page-builder'
 import { ResizeProvider } from '../lib/utils/ResizeProvider'
@@ -8,12 +9,13 @@ import { PageProps } from '../types'
 
 export default function Page(props: PageProps) {
   const { slug, market, translations, content } = props
+  const [element, setElement] = useState<HTMLElement | null>(null)
 
   return (
     <ViewportProvider>
       <ScrollYProvider>
-        <ResizeProvider>
-          <article className="flex flex-col">
+        <ResizeProvider rootElement={element}>
+          <article className="flex flex-col" ref={setElement}>
             {translations.length > 0 ? (
               <ul className="flex items-center gap-4">
                 {translations.map((translation) => (
