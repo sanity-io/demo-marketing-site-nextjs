@@ -45,9 +45,13 @@ const Intermission = memo(function Intermission(
     <ScrollProgressContainer className="relative">
       <div
         className="border-t border-gray-200 py-5 dark:border-gray-800 sm:py-6 md:py-7"
-        style={{ height: '200vh', padding: '25vh 0' }}
+        style={{ minHeight: '150vh', padding: '25vh 0' }}
       >
-        <AnimateScrollIn className="absolute inset-0" params={fadeInParams}>
+        <AnimateScrollIn
+          className="absolute inset-0"
+          params={fadeInParams}
+          startProgress={0.5}
+        >
           <div className="sticky top-0 h-screen">
             {background?._type === 'mux.video' && background.asset && (
               <BgVideo asset={background.asset} />
