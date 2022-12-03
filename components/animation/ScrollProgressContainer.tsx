@@ -16,13 +16,13 @@ export type ScrollProgressContainerProps = PropsWithChildren<{
   className?: string
 
   /**
-   When scrollWindowSize = 1
-   Progress = 0 when the top of the container element is at the bottom of the viewport
-   Progress = 1 when the top of the container element is at the top of the viewport
-
-   When scrollWindowSize = 0.5
-   Progress = 0 when the top of the container element is at 25% over the bottom of the viewport
-   Progress = 1 when the top of the container element is 25% away from the top of the viewport
+   * When scrollWindowSize = 1
+   * Progress = 0 when the top of the container element is at the bottom of the viewport
+   * Progress = 1 when the top of the container element is at the top of the viewport
+   *
+   * When scrollWindowSize = 0.5
+   * Progress = 0 when the top of the container element is at 25% over the bottom of the viewport
+   * Progress = 1 when the top of the container element is 25% away from the top of the viewport
    */
   scrollWindowSize?: number
 }>
@@ -41,6 +41,9 @@ export function ScrollProgressContainer({
 
   const { animation: DEBUG_ANIMATION } = useDebug()
   const viewport = useViewport()
+  const rect = useElementRect(element)
+  const rectH = rect?.height
+  const rectY = rect?.y
   const scrollY = useScrollY()
 
   const [progress, setProgress] = useState<ScrollProgress>({ in: 0, out: 0 })
@@ -56,8 +59,8 @@ export function ScrollProgressContainer({
   })
 
   useEffect(() => {
-    const rect = element?.getBoundingClientRect()
-    if (!rect) return
+    if (rectH === undefined) return
+    if (rectY === undefined) return
     if (!viewport.height) return
 
     let scrollWindow = viewport.height * scrollWindowSize
@@ -68,9 +71,8 @@ export function ScrollProgressContainer({
 
     scrollWindow = start - stop
 
-    const rectHeight = rect.height
-    const topY = rect.y
-    const bottomY = topY + rectHeight
+    const topY = rectY - scrollY
+    const bottomY = topY + rectH
 
     // `in` progress
     let inProgress = 1 - topY / scrollWindow
@@ -83,7 +85,7 @@ export function ScrollProgressContainer({
     debugRef.current = {
       topY,
       bottomY,
-      height: rectHeight,
+      height: rectH,
       start,
       stop,
       offset,
@@ -94,7 +96,7 @@ export function ScrollProgressContainer({
       in: inProgress,
       out: outProgress,
     })
-  }, [viewport.height, scrollWindowSize, element, scrollY])
+  }, [element, rectH, rectY, scrollWindowSize, scrollY, viewport.height])
 
   return (
     <div
