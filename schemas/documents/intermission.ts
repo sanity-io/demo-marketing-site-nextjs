@@ -52,14 +52,14 @@ export default defineType({
           name: 'video',
           title: 'Video',
           hidden: ({ document }: any) =>
-            document.background?.mediaType !== 'video',
+            document?.background?.mediaType !== 'video',
         }),
         defineField({
           type: 'image',
           name: 'image',
           title: 'Image',
           hidden: ({ document }: any) =>
-            document.background?.mediaType !== 'image',
+            document?.background?.mediaType !== 'image',
         }),
       ],
     }),
