@@ -5,7 +5,6 @@ import { ResizeProvider } from '../lib/utils/ResizeProvider'
 import { ScrollYProvider } from '../lib/utils/ScrollYProvider'
 import { ViewportProvider } from '../lib/utils/ViewportProvider'
 import { PageProps } from '../types'
-// import { ScrollContainer } from './animation/ScrollContainer'
 
 export default function Page(props: PageProps) {
   const { slug, market, translations, content } = props
@@ -14,7 +13,6 @@ export default function Page(props: PageProps) {
     <ViewportProvider>
       <ScrollYProvider>
         <ResizeProvider>
-          {/* <ScrollContainer> */}
           <article className="flex flex-col">
             {translations.length > 0 ? (
               <ul className="flex items-center gap-4">
@@ -42,9 +40,9 @@ export default function Page(props: PageProps) {
               <PageBuilder rows={content} />
             ) : null}
           </article>
+
           {/* scrollgutter */}
           <div className="h-80" />
-          {/* </ScrollContainer> */}
         </ResizeProvider>
       </ScrollYProvider>
     </ViewportProvider>
