@@ -42,7 +42,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
 
   const start = 0.55
   const end = 0.8
-  console.log(person)
+
   return (
     <div className="border-t border-gray-200 dark:border-gray-800">
       <Container
