@@ -8,12 +8,14 @@ import {
   useRef,
 } from 'react'
 
-const animationEnabled = !reducedMotion()
+import { usePrefersReducedMotion } from '../../lib/utils/usePrefersReducedMotion'
 
-export type AnimeProps = {
+export interface AnimeProps {
   params: AnimeParams | AnimeParams[]
-  progress?: number /* 0-1*/
-  autoplay?: boolean /* default false */
+  /** 0-1 */
+  progress?: number
+  /** default `false` */
+  autoplay?: boolean
 }
 
 export const Anime = forwardRef(function Anime(
@@ -23,71 +25,59 @@ export const Anime = forwardRef(function Anime(
   const { children, params, progress, autoplay = false, ...restProps } = props
   const ref = useRef<HTMLDivElement>()
   const animation = useRef<AnimeInstance>()
+  const animationEnabled = !usePrefersReducedMotion()
 
-  const refUpdate = useCallback(
-    (e: HTMLDivElement) => {
-      ref.current = e
-      if (forwardRef) {
-        if (typeof forwardRef === 'function') {
-          forwardRef(e)
-        } else {
-          forwardRef.current = e
-        }
+  const setReference = useCallback(
+    (element: HTMLDivElement) => {
+      ref.current = element
+
+      if (typeof forwardRef === 'function') {
+        forwardRef(element)
+      } else if (forwardRef) {
+        forwardRef.current = element
       }
     },
     [forwardRef]
   )
 
+  // Set up animation
   useEffect(() => {
-    if (!ref.current || !animationEnabled) {
-      return
-    }
-    const target = ref.current
+    if (!ref.current) return
+    if (!animationEnabled) return
+
+    // Animation targets this element
+    const targets = ref.current
+
     if (Array.isArray(params)) {
+      // Create new timeline instance
       animation.current = anime.timeline(
-        params.map((p) => ({
-          ...p,
-          targets: target,
-          autoplay,
-        }))
+        params.map((p) => ({ ...p, targets, autoplay }))
       )
     } else {
-      animation.current = anime({
-        ...params,
-        targets: target,
-        autoplay,
-      })
+      // Create new animation instance
+      animation.current = anime({ ...params, targets, autoplay })
     }
 
     return () => {
       animation.current.restart()
       animation.current?.pause()
-      ;(animation.current as any)?.remove(target)
+      ;(animation.current as any)?.remove(targets)
     }
-  }, [params, autoplay])
+  }, [animationEnabled, autoplay, params])
 
+  // Update progress
   useEffect(() => {
     let instance = animation.current
-    if (!instance && progress !== undefined) {
-      return
-    }
-    instance?.seek(instance.duration * progress)
+
+    if (!instance) return
+    if (progress === undefined) return
+
+    instance.seek(instance.duration * progress)
   }, [progress])
 
-  if (!animationEnabled) {
-    return <div {...restProps}>{children}</div>
-  }
-
   return (
-    <div ref={refUpdate} {...restProps}>
+    <div ref={setReference} {...restProps}>
       {children}
     </div>
   )
 })
-
-function reducedMotion() {
-  const mediaQuery =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)')
-  return !mediaQuery || mediaQuery.matches
-}
