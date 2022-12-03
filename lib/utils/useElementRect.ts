@@ -13,12 +13,6 @@ export interface ElementRect {
 export function useElementRect(element: Element | null): ElementRect | null {
   const resize = useResize()
   const [rect, setRect] = useState<ElementRect | null>(null)
-  const scrollY = useScrollY()
-  const scrollYRef = useRef(scrollY)
-
-  useEffect(() => {
-    scrollYRef.current = scrollY
-  }, [scrollY])
 
   useEffect(() => {
     if (!element) return
@@ -28,7 +22,7 @@ export function useElementRect(element: Element | null): ElementRect | null {
     const sub = rect$.subscribe(() => {
       const r = element.getBoundingClientRect()
       const x = r.left
-      const y = r.top + scrollYRef.current
+      const y = r.top + window.scrollY
 
       setRect({
         x,
