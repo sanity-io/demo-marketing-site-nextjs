@@ -7,7 +7,6 @@ import {
 } from 'react'
 
 import { useElementRect } from '../../lib/utils/useElementRect'
-import { useScrollY } from '../../lib/utils/useScrollY'
 import { useViewport } from '../../lib/utils/useViewport'
 import { useDebug } from '../debug/debug-provider'
 import { ScrollProgress, ScrollProgressProvider } from './ScrollProgressContext'
@@ -44,7 +43,6 @@ export function ScrollProgressContainer({
   const rect = useElementRect(element)
   const rectH = rect?.height
   const rectY = rect?.y
-  const scrollY = useScrollY()
 
   const [progress, setProgress] = useState<ScrollProgress>({ in: 0, out: 0 })
 
@@ -71,7 +69,7 @@ export function ScrollProgressContainer({
 
     scrollWindow = start - stop
 
-    const topY = rectY - scrollY
+    const topY = rectY - window.scrollY
     const bottomY = topY + rectH
 
     // `in` progress
@@ -96,7 +94,7 @@ export function ScrollProgressContainer({
       in: inProgress,
       out: outProgress,
     })
-  }, [element, rectH, rectY, scrollWindowSize, scrollY, viewport.height])
+  }, [element, rectH, rectY, scrollWindowSize, viewport.height])
 
   return (
     <div
