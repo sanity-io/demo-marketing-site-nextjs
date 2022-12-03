@@ -5,7 +5,7 @@ export interface ResizeSubscription {
 }
 
 export interface ResizeSubscriber {
-  (entry: ResizeObserverEntry): void
+  (entry?: ResizeObserverEntry): void
 }
 
 export interface ResizeObservable {

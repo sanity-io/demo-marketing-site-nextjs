@@ -6,15 +6,45 @@ import {
   ResizeSubscriber,
 } from './ResizeContext'
 
-export function ResizeProvider(props: { children?: ReactNode }) {
-  const { children } = props
+// TODO: rename to `ElementRectObserverProvider`?
+export function ResizeProvider(props: {
+  children?: ReactNode
+  rootElement?: HTMLElement | null
+}) {
+  const { children, rootElement = null } = props
 
+  const mo = useRef<MutationObserver>()
   const ro = useRef<ResizeObserver>()
   const elements = useRef<Element[]>([])
   const subscriberMap = useRef<WeakMap<Element, ResizeSubscriber>>(
     new WeakMap()
   )
 
+  // Set up the mutation observer
+  useEffect(() => {
+    if (!rootElement) return
+
+    mo.current = new MutationObserver(() => {
+      for (const element of elements.current) {
+        const subscriber = subscriberMap.current.get(element)
+        if (subscriber) subscriber()
+      }
+    })
+
+    mo.current.observe(rootElement, {
+      attributes: true,
+      characterData: true,
+      childList: true,
+      subtree: true,
+    })
+
+    return () => {
+      ro.current.disconnect()
+      ro.current = undefined
+    }
+  }, [rootElement])
+
+  // Set up the resize observer
   useEffect(() => {
     ro.current = new ResizeObserver((entries) => {
       for (const entry of entries) {
@@ -28,6 +58,7 @@ export function ResizeProvider(props: { children?: ReactNode }) {
 
     return () => {
       ro.current.disconnect()
+      ro.current = undefined
     }
   }, [])
 

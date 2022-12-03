@@ -27,10 +27,12 @@ export function useElementRect(element: Element | null): ElementRect | null {
 
     const sub = rect$.subscribe(() => {
       const r = element.getBoundingClientRect()
+      const x = r.left
+      const y = r.top + scrollYRef.current
 
       setRect({
-        x: r.left,
-        y: r.top - scrollYRef.current,
+        x,
+        y,
         width: r.width,
         height: r.height,
       })
