@@ -20,8 +20,8 @@ export default function HeroH1WithImage(props: HeroProps) {
       <AnimateScrollOut params={outFade} startProgress={0.3} stopProgress={0.8}>
         <DebugGrid columns={5} />
 
-        <div className="flex flex-col-reverse py-4 sm:py-5 md:flex-row md:items-center md:py-5">
-          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8">
+        <div className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5">
+          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
             {subtitle ? (
               <ScrollProgressContainer scrollWindowSize={0.2}>
                 <AnimateScrollIn
@@ -51,13 +51,13 @@ export default function HeroH1WithImage(props: HeroProps) {
             {links ? <Links links={links} /> : null}
           </div>
 
-          <div className="w-full md:w-2/5">
+          <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
             <Image
               src={urlForImage(image).width(496).height(372).url()}
               width={496}
               height={372}
               alt={title ?? ``}
-              className="aspect-video h-auto w-full rounded-lg object-cover"
+              className="h-full w-full rounded-lg object-cover"
             />
           </div>
         </div>
