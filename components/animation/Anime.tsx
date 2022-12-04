@@ -58,10 +58,11 @@ export const Anime = forwardRef(function Anime(
       animation.current = anime({ ...params, targets, autoplay })
     }
 
+    const instance = animation.current
     return () => {
-      animation.current.restart()
-      animation.current?.pause()
-      ;(animation.current as any)?.remove(targets)
+      instance.restart()
+      instance?.pause()
+      ;(instance as any)?.remove(targets)
     }
   }, [animationEnabled, autoplay, params])
 

@@ -1,8 +1,8 @@
-import { PortableText } from '@portabletext/react'
 import React from 'react'
 
 import Container from '../../container'
 import Links from '../../links'
+import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { HeroProps } from '.'
 
 export default function HeroH2(props: HeroProps) {
@@ -25,7 +25,7 @@ export default function HeroH2(props: HeroProps) {
 
         {content?.length > 0 ? (
           <div className="text-2xl">
-            <PortableText value={content} />
+            <StyledPortableText value={content} />
           </div>
         ) : null}
         {links ? <Links links={links} /> : null}

@@ -1,4 +1,3 @@
-import { PortableText } from '@portabletext/react'
 import { AnimeParams } from 'animejs'
 
 import { AnimateScrollOut } from '../../animation/AnimateScrollOut'
@@ -6,6 +5,7 @@ import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
 import Links from '../../links'
+import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { HeroProps } from '.'
 
 export const fadeOutParams: AnimeParams = {
@@ -48,7 +48,7 @@ export default function HeroH1(props: HeroProps) {
 
           {content?.length > 0 ? (
             <div className="max-w-xl text-2xl">
-              <PortableText value={content} />
+              <StyledPortableText value={content} />
             </div>
           ) : null}
 

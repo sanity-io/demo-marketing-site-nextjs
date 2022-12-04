@@ -13,17 +13,18 @@ import BentoEven from './bento-even'
 
 export interface BentoBoxProps {
   articles: (KeyedObject & ArticleStub)[]
+  index: number
 }
 
 export default function BentoResolver(props: BentoBoxProps) {
-  const { articles } = props
+  const { articles, index } = props
 
   if (articles.length === 1) {
-    return <Bento1 article={articles[0]} />
+    return <Bento1 article={articles[0]} index={index} />
   } else if (articles.length === 2 || articles.length === 4) {
     return <BentoEven articles={articles} />
   } else if (articles.length === 3) {
-    return <Bento3 articles={articles} />
+    return <Bento3 articles={articles} index={index} />
   }
 
   return (

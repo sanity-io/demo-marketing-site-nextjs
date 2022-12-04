@@ -7,10 +7,11 @@ import Hero from './hero'
 type PageBuilderArticleProps = KeyedObject &
   TypedObject & {
     articles: (KeyedObject & ArticleStub)[]
+    index: number
   }
 
 export default function PageBuilderArticle(props: PageBuilderArticleProps) {
-  const { isHero, articles } = props
+  const { isHero, articles, index } = props
 
   if (!articles?.length) {
     return null
@@ -22,5 +23,5 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
     return <Hero {...article} index={0} />
   }
 
-  return <BentoResolver articles={articles} />
+  return <BentoResolver articles={articles} index={index} />
 }

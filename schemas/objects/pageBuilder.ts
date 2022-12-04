@@ -1,6 +1,6 @@
-import { defineField, defineType } from 'sanity'
-
-import RowDisplay from '../components/RowDisplay'
+import { InfoFilledIcon, InfoOutlineIcon } from '@sanity/icons'
+import { Building } from 'lucide-react'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType(
   {
@@ -8,7 +8,7 @@ export default defineType(
     title: 'Page Builder',
     type: 'array',
     of: [
-      defineField({
+      defineArrayMember({
         name: 'article',
         title: 'Article',
         type: 'reference',
@@ -28,23 +28,23 @@ export default defineType(
           },
         },
       }),
-      defineField({
+      defineArrayMember({
         name: 'experiment',
         title: 'Experiment',
         type: 'pageBuilderExperimentCell',
       }),
-      defineField({
+      defineArrayMember({
         name: 'intermission',
         title: 'Intermission',
         type: 'reference',
         to: [{ type: 'intermission' }],
       }),
-      defineField({
+      defineArrayMember({
         name: 'logos',
         title: 'Logos',
         type: 'pageBuilderLogosCell',
       }),
-      defineField({
+      defineArrayMember({
         name: 'quote',
         title: 'Quote',
         type: 'reference',
@@ -60,6 +60,32 @@ export default defineType(
             return {
               filter: `market == $market`,
               params: { market: document.market },
+            }
+          },
+        },
+      }),
+      defineArrayMember({
+        name: 'infoBreak',
+        title: 'Info break',
+        icon: InfoOutlineIcon,
+        description: 'Added to make it easier to test bento groups',
+        type: 'object',
+        fields: [
+          defineField({
+            type: 'text',
+            name: 'text',
+          }),
+        ],
+        preview: {
+          select: {
+            title: 'text',
+          },
+          prepare({ title }) {
+            return {
+              title,
+              subtitle:
+                '---------------------------------------------------------',
+              media: InfoOutlineIcon,
             }
           },
         },

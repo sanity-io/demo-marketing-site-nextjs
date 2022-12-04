@@ -1,10 +1,10 @@
-import { PortableText } from '@portabletext/react'
 import Image from 'next/image'
 import React from 'react'
 
 import { urlForImage } from '../../../sanity/sanity'
 import Container from '../../container'
 import Links from '../../links'
+import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { HeroProps } from '.'
 
 export default function HeroH2WithImage(props: HeroProps) {
@@ -25,7 +25,7 @@ export default function HeroH2WithImage(props: HeroProps) {
         ) : null}
         {content?.length > 0 ? (
           <div className="text-2xl">
-            <PortableText value={content} />
+            <StyledPortableText value={content} />
           </div>
         ) : null}
         {links ? <Links links={links} /> : null}

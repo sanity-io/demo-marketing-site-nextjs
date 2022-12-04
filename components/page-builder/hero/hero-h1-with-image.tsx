@@ -1,15 +1,15 @@
-import { PortableText } from '@portabletext/react'
 import Image from 'next/image'
 import React from 'react'
 
 import { urlForImage } from '../../../sanity/sanity'
 import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
 import { AnimateScrollOut } from '../../animation/AnimateScrollOut'
-import { outFade, outright, outSofTop } from '../../animation/scrollAnimations'
+import { outFade, outSofTop } from '../../animation/scrollAnimations'
 import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
 import Links from '../../links'
+import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { HeroProps } from '.'
 
 export default function HeroH1WithImage(props: HeroProps) {
@@ -44,7 +44,7 @@ export default function HeroH1WithImage(props: HeroProps) {
 
             {summary?.length > 0 ? (
               <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
-                <PortableText value={summary} />
+                <StyledPortableText value={summary} />
               </div>
             ) : null}
 

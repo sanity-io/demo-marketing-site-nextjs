@@ -35,10 +35,10 @@ export const popin: AnimeParams = {
 }
 
 export const inSoftScale: AnimeParams = {
-  scaleX: [0.8, 1],
-  scaleY: [0.8, 1],
+  scaleX: [0.9, 1],
+  scaleY: [0.9, 1],
   opacity: [0, 1],
-  easing: 'easeOutCubic',
+  easing: 'linear',
 }
 
 export const inElasticBottom: AnimeParams = {
