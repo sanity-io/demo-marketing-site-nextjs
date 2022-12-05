@@ -58,7 +58,17 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
           .title('Social Share'),
       ])
     case `article`:
-      return S.document().views([S.view.form(), pagesUsed(S)])
+      return S.document().views([
+        S.view.form(),
+        pagesUsed(S),
+        S.view
+          .component(Iframe)
+          .options({
+            url: (doc) => getPreviewUrl(doc),
+            reload: { button: true },
+          })
+          .title('Preview'),
+      ])
     default:
       return S.document().views([S.view.form()])
   }

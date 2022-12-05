@@ -138,10 +138,17 @@ export const pageQuery = groq`
   ${pageFields}
 }`
 
+export const articleQuery = groq`
+*[_type == "article" && slug.current == $slug && upper(market) == upper($market)] | order(_updatedAt desc) [0]`
+
 export const pageSlugsQuery = groq`
 *[_type == "page" && defined(slug.current) && defined(market)].slug.current
 `
 
-export const pageBySlugQuery = groq`
-*[_type == "page" && slug.current == $slug][0].slug.current
+export const articleSlugsQuery = groq`
+*[_type == "article" && defined(slug.current) && defined(market)].slug.current
+`
+
+export const previewBySlugQuery = groq`
+*[_type in ["page", "article"] && slug.current == $slug][0].slug.current
 `

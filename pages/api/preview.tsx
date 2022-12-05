@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { pageBySlugQuery } from '../../sanity/queries'
+import { previewBySlugQuery } from '../../sanity/queries'
 import { getClient } from '../../sanity/sanity.server'
 
 function redirectToPreview(res: NextApiResponse, Location: string, data = {}) {
@@ -62,7 +62,7 @@ export default async function preview(
   }
 
   // Check if the post with the given `slug` exists
-  const pageSlug = await getClient(true).fetch(pageBySlugQuery, {
+  const pageSlug = await getClient(true).fetch(previewBySlugQuery, {
     slug: req.query.slug,
   })
 
@@ -73,5 +73,14 @@ export default async function preview(
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
-  redirectToPreview(res, `/${pageSlug}`, previewData)
+  switch (req.query.type) {
+    case 'page':
+      redirectToPreview(res, `/${pageSlug}`, previewData)
+      break
+    case 'article':
+      redirectToPreview(res, `/articles/${pageSlug}`, previewData)
+      break
+    default:
+      redirectToPreview(res, `/${pageSlug}`, previewData)
+  }
 }

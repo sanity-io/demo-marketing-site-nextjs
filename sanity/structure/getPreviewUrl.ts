@@ -1,5 +1,6 @@
 import { Slug } from 'sanity'
 
+import articleType from '../../schemas/documents/article'
 import pageType from '../../schemas/documents/page'
 
 export async function getPreviewUrl(document) {
@@ -27,9 +28,14 @@ export async function getPreviewUrl(document) {
     url.searchParams.set('secret', secret)
   }
 
+  url.searchParams.set('type', document._type)
+
   try {
     switch (document._type) {
       case pageType.name:
+        url.searchParams.set('slug', (document.slug as Slug).current!)
+        break
+      case articleType.name:
         url.searchParams.set('slug', (document.slug as Slug).current!)
         break
       default:
