@@ -4,6 +4,7 @@ import { KeyedObject } from 'sanity'
 import { ArticleStub } from '../../../types'
 import Bento1 from './bento-1'
 import Bento3 from './bento-3'
+import Bento3Wide from './bento-3-wide'
 import BentoEven from './bento-even'
 
 export interface BentoBoxProps {
@@ -19,7 +20,11 @@ export default function BentoResolver(props: BentoBoxProps) {
   } else if (articles.length === 2 || articles.length === 4) {
     return <BentoEven articles={articles} />
   } else if (articles.length === 3) {
-    return <Bento3 articles={articles} index={index} />
+    return index % 2 === 0 ? (
+      <Bento3 articles={articles} index={index} />
+    ) : (
+      <Bento3Wide articles={articles} index={index} />
+    )
   }
 
   return (

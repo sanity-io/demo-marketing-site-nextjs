@@ -22,7 +22,7 @@ export default function Bento3(props: {
 }) {
   const { articles, index } = props
   const [first, ...rest] = articles
-  const even = index % 2 == 0
+  const reverse = index % 4 == 0
   const high = <High first={first} articles={articles} />
   const cells = (
     <div className="flex flex-col">
@@ -32,11 +32,13 @@ export default function Bento3(props: {
           : Small
         return (
           <CellWrapper key={article._key} articleIndex={articleIndex}>
-            <Component
-              article={article}
-              articleIndex={articleIndex}
-              articles={articles}
-            />
+            <Container>
+              <Component
+                article={article}
+                articleIndex={articleIndex}
+                articles={articles}
+              />
+            </Container>
           </CellWrapper>
         )
       })}
@@ -45,8 +47,8 @@ export default function Bento3(props: {
   return (
     <div>
       <div className="max-h-xl grid divide-y divide-gray-200 dark:divide-gray-800 md:grid-cols-2 md:divide-x md:divide-y-0">
-        {even ? high : cells}
-        {even ? cells : high}
+        {reverse ? high : cells}
+        {reverse ? cells : high}
       </div>
     </div>
   )
@@ -70,7 +72,7 @@ function CellWrapper({
   )
 }
 
-function Small({
+export function Small({
   article,
 }: {
   article: ArticleStub
@@ -83,7 +85,7 @@ function Small({
   return (
     <>
       {image && !hasText ? (
-        <Container className="relative h-full w-full">
+        <div className="relative h-full w-full">
           <DebugGrid />
           <Image
             src={urlForImage(image).width(276).height(227).url()}
@@ -92,9 +94,9 @@ function Small({
             alt={article.title ?? ``}
             className="rounded-lg object-cover"
           />
-        </Container>
+        </div>
       ) : (
-        <Container className="relative">
+        <div className="relative">
           <DebugGrid />
           <div className="flex flex-col gap-3 py-12 ">
             <div className="flex flex-col gap-5">
@@ -107,7 +109,7 @@ function Small({
               ) : null}
             </div>
           </div>
-        </Container>
+        </div>
       )}
     </>
   )
