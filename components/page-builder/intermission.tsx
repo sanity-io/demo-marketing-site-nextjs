@@ -1,7 +1,9 @@
 import { m, useScroll, useTransform } from 'framer-motion'
-import { Fragment, memo, useRef } from 'react'
+import NextImage from 'next/image'
+import React, { Fragment, memo, useRef } from 'react'
 import { Image, KeyedObject, TypedObject } from 'sanity'
 
+import { urlForImage } from '../../sanity/sanity'
 import Container from '../container'
 import { BgVideo } from '../video/bg-video'
 import { SanityMuxVideo } from '../video/types'
@@ -53,6 +55,15 @@ const Intermission = memo(function Intermission(
           {background?._type === 'mux.video' && background.asset && (
             <BgVideo asset={background.asset} />
           )}
+          {background?._type === 'image' && (
+            <NextImage
+              src={urlForImage(background).width(2048).height(2048).url()}
+              width={2048}
+              height={2048}
+              alt={''}
+              className="h-full w-full object-cover"
+            />
+          )}
         </div>
       </m.div>
 
@@ -77,7 +88,7 @@ function Statement({ statement }: { statement: TextStatement }) {
   })
   const opacity = useTransform(
     scrollYProgress,
-    [0.35, 0.45, 0.55, 0.65],
+    [0.38, 0.45, 0.55, 0.62],
     [0.1, 1, 1, 0.1]
   )
 
