@@ -1,19 +1,20 @@
-import { m, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import React from 'react'
+import React, { PropsWithChildren, useRef } from 'react'
 import { KeyedObject } from 'sanity'
 
 import { urlForImage } from '../../../sanity/sanity'
 import { ArticleStub } from '../../../types'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
-import {
-  ElementScrollStyle,
-  useElementScroll,
-} from '../../framer-motion/useElementScroll'
+import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
 import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { BentoSubtitle } from './bento-1/BentoSubtitle'
 import { BentoTitle } from './bento-1/BentoTitle'
+import {
+  BentoNumberCallout,
+  isBentoNumberCallout,
+} from './bento-number-callout'
 
 export default function Bento3(props: {
   articles: (KeyedObject & ArticleStub)[]
@@ -25,14 +26,20 @@ export default function Bento3(props: {
   const high = <High first={first} articles={articles} />
   const cells = (
     <div className="flex flex-col">
-      {rest.map((article, articleIndex) => (
-        <Small
-          key={article._key}
-          article={article}
-          articleIndex={articleIndex}
-          articles={articles}
-        />
-      ))}
+      {rest.map((article, articleIndex) => {
+        const Component = isBentoNumberCallout(article)
+          ? BentoNumberCallout
+          : Small
+        return (
+          <CellWrapper key={article._key} articleIndex={articleIndex}>
+            <Component
+              article={article}
+              articleIndex={articleIndex}
+              articles={articles}
+            />
+          </CellWrapper>
+        )
+      })}
     </div>
   )
   return (
@@ -45,10 +52,26 @@ export default function Bento3(props: {
   )
 }
 
+function CellWrapper({
+  articleIndex,
+  children,
+}: PropsWithChildren<{ articleIndex: number }>) {
+  const { ref, style } = useStyle(0)
+  return (
+    <div
+      className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
+        articleIndex > 0 ? `border-t border-gray-200 dark:border-gray-800` : ``
+      }`}
+    >
+      <m.div ref={ref} style={style}>
+        {children}
+      </m.div>
+    </div>
+  )
+}
+
 function Small({
   article,
-  articleIndex,
-  articles,
 }: {
   article: ArticleStub
   articleIndex: number
@@ -57,53 +80,40 @@ function Small({
   const image = article.image
   const hasText =
     article.title || article.subtitle || article?.summary?.length > 0
-  const { ref, style } = useStyle((2 / articles.length) * 0.3)
   return (
-    <div
-      className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
-        articleIndex > 0 ? `border-t border-gray-200 dark:border-gray-800` : ``
-      }`}
-    >
-      <m.div ref={ref} style={style}>
-        {image && !hasText ? (
-          <Container className="relative h-full w-full">
-            <DebugGrid />
-            <Image
-              src={urlForImage(image).width(276).height(227).url()}
-              width={276}
-              height={227}
-              alt={article.title ?? ``}
-              className="rounded-lg object-cover"
-            />
-          </Container>
-        ) : (
-          <Container className="relative">
-            <DebugGrid />
-            <div className="flex flex-col gap-3 py-12 ">
-              <div className="flex flex-col gap-5">
-                <BentoSubtitle subtitle={article.subtitle} />
-                <BentoTitle title={article.title} />
-                {article?.summary?.length > 0 ? (
-                  <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
-                    <StyledPortableText value={article?.summary} />
-                  </div>
-                ) : null}
-              </div>
+    <>
+      {image && !hasText ? (
+        <Container className="relative h-full w-full">
+          <DebugGrid />
+          <Image
+            src={urlForImage(image).width(276).height(227).url()}
+            width={276}
+            height={227}
+            alt={article.title ?? ``}
+            className="rounded-lg object-cover"
+          />
+        </Container>
+      ) : (
+        <Container className="relative">
+          <DebugGrid />
+          <div className="flex flex-col gap-3 py-12 ">
+            <div className="flex flex-col gap-5">
+              <BentoSubtitle subtitle={article.subtitle} />
+              <BentoTitle title={article.title} />
+              {article?.summary?.length > 0 ? (
+                <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
+                  <StyledPortableText value={article?.summary} />
+                </div>
+              ) : null}
             </div>
-          </Container>
-        )}
-      </m.div>
-    </div>
+          </div>
+        </Container>
+      )}
+    </>
   )
 }
 
-function High({
-  first,
-  articles,
-}: {
-  first: ArticleStub
-  articles: ArticleStub[]
-}) {
+function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
   const { ref, style } = useStyle(0.2)
   return (
@@ -162,12 +172,13 @@ function High({
   )
 }
 function useStyle(offset: number): ElementScrollStyle {
-  const {
-    ref,
-    scroll: { scrollYProgress },
-  } = useElementScroll()
-  const scrollRange = [0, 0.2].map((r) => r + offset)
-  const scale = useTransform(scrollYProgress, scrollRange, [0.9, 1])
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'start start'],
+  })
+  const scrollRange = [0, 0.6].map((r) => r + offset)
+  const scale = useTransform(scrollYProgress, scrollRange, [0.7, 1])
   const opacity = useTransform(scrollYProgress, scrollRange, [0, 1])
   return {
     ref,

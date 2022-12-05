@@ -13,7 +13,7 @@ export function useElementScroll() {
   const ref = useRef(null)
   const scroll = useScroll({
     target: ref,
-    offset: ['end end', 'start start'],
+    offset: ['start start', 'end end'],
   })
   return {
     ref,

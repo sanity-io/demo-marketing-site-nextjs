@@ -4,9 +4,11 @@ import React from 'react'
 export function BentoSubtitle({
   subtitle,
   type = 'plain',
+  className,
 }: {
   subtitle?: string
   type?: 'pill' | 'plain'
+  className?: string
 }) {
   if (!subtitle) {
     return null
@@ -14,7 +16,7 @@ export function BentoSubtitle({
 
   const Component = type === 'plain' ? Plain : Pill
   return (
-    <div className="py-2">
+    <div className={className ?? 'py-2'}>
       <Component subtitle={subtitle} />
     </div>
   )

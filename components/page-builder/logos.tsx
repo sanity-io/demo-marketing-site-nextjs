@@ -61,7 +61,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             return (
               <m.div
                 key={company._id}
-                initial={{ translateY: 100 }}
+                initial={{ translateY: 70 }}
                 whileInView={{ translateY: 0 }}
                 viewport={{
                   amount: 'all',
@@ -70,8 +70,9 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
                 }}
                 transition={{
                   type: 'spring',
-                  delay: 0.6 * (i / logos.length),
-                  velocity: 60,
+                  delay: 0.4 * (i / logos.length),
+                  velocity: 80,
+                  damping: 8,
                 }}
               >
                 <m.div
@@ -82,7 +83,10 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
                     margin: '100px',
                     root: ref,
                   }}
-                  transition={{ delay: 0.6 * (i / logos.length) }}
+                  transition={{
+                    delay: 0.4 * (i / logos.length),
+                    duration: 0.8,
+                  }}
                 >
                   {img}
                 </m.div>
