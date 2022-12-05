@@ -57,7 +57,7 @@ const Intermission = memo(function Intermission(
       </m.div>
 
       <Container>
-        <div className="relative text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
+        <div className="relative mx-auto max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">
           {statements.map((statement) => (
             <Fragment key={statement._key}>
               <Statement statement={statement} />{' '}
