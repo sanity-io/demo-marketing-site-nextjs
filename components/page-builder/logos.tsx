@@ -1,11 +1,11 @@
 import { getImageDimensions } from '@sanity/asset-utils'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import delve from 'dlv'
+import { m } from 'framer-motion'
+import { useRef } from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
-import { AnimateScrollIn } from '../animation/AnimateScrollIn'
-import { inElasticBottom } from '../animation/scrollAnimations'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
 
@@ -22,18 +22,18 @@ type PageBuilderLogosProps = KeyedObject &
 
 export default function PageBuilderLogos(props: PageBuilderLogosProps) {
   const { logos } = props
-
+  const ref = useRef()
   if (!logos?.length) {
     return null
   }
 
   return (
-    <div className="border-t border-gray-200 dark:border-gray-800">
+    <div className="border-t border-gray-200 dark:border-gray-800" ref={ref}>
       <Container className="relative w-full py-5 sm:py-6 md:py-7">
         <DebugGrid />
 
         <div className="mb-4 text-center text-gray-700 dark:text-gray-200 sm:mb-5">
-          Trusted by millions of teams
+          Trusted by industry leaders
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
@@ -50,7 +50,6 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             const img = (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                key={company._id}
                 className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
                 // TODO: Adjust if the file is not an SVG
                 src={urlForImage(company.logo).url()}
@@ -60,14 +59,34 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
               />
             )
             return (
-              <AnimateScrollIn
+              <m.div
                 key={company._id}
-                params={inElasticBottom}
-                startProgress={0.35 + (i / logos.length) * 0.05}
-                stopProgress={0.6 + (i / logos.length) * 0.05}
+                initial={{ translateY: 100 }}
+                whileInView={{ translateY: 0 }}
+                viewport={{
+                  amount: 'all',
+                  margin: '100px',
+                  root: ref,
+                }}
+                transition={{
+                  type: 'spring',
+                  delay: 0.6 * (i / logos.length),
+                  velocity: 60,
+                }}
               >
-                {img}
-              </AnimateScrollIn>
+                <m.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{
+                    amount: 'all',
+                    margin: '100px',
+                    root: ref,
+                  }}
+                  transition={{ delay: 0.6 * (i / logos.length) }}
+                >
+                  {img}
+                </m.div>
+              </m.div>
             )
           })}
         </div>
