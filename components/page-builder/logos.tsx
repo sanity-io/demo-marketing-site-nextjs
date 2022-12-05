@@ -33,7 +33,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
         <DebugGrid />
 
         <div className="mb-4 text-center text-gray-700 dark:text-gray-200 sm:mb-5">
-          Trusted by millions of teams
+          Trusted by industry leaders
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
