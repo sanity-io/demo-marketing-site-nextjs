@@ -12,6 +12,7 @@ import { DebugGrid } from '../debug/grid'
 type PageBuilderLogosProps = KeyedObject &
   TypedObject & {
     logos?: {
+      _key: string
       _id: string
       name?: string
       logo?: {
@@ -60,7 +61,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
             )
             return (
               <m.div
-                key={company._id}
+                key={company._key}
                 initial={{ translateY: 70 }}
                 whileInView={{ translateY: 0 }}
                 viewport={{

@@ -1,6 +1,8 @@
+import { getEasingFunction } from '@motionone/animation'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { m, MotionStyle, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
+import { easeInOut, easeOut } from 'polished'
 import React, { useRef } from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
@@ -34,7 +36,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
   }
 
   return (
-    <div ref={quoteRef}>
+    <div>
       <Container
         className={
           'relative flex lg:items-center ' +
@@ -46,11 +48,16 @@ export default function PageBuilderQuote(props: QuoteProps) {
         <DebugGrid columns={4} />
 
         <m.div
-          className="-mt-5 flex flex-col gap-5 md:mt-0 md:px-5 lg:w-1/2 lg:flex-row"
-          ref={quoteRef}
+          className={
+            'mt-5 flex flex-row gap-5 md:px-5 lg:mb-0 lg:w-1/2 ' +
+            (even ? 'mb-6' : '')
+          }
           style={quoteStyle}
         >
-          <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800">
+          <div
+            className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800"
+            ref={quoteRef}
+          >
             <span
               className="font-serif text-6xl"
               style={{ transform: 'translate3d(3%, 20%, 0)' }}
@@ -134,9 +141,10 @@ function useQuoteStyle(index: number) {
   const outputRange = [300, 300, 0].map((v) => v * (even ? -1 : 1))
   const quoteStyle: MotionStyle = {
     opacity: useTransform(scrollYProgress, [0, 0.1, 0.4], [0, 0, 1]),
-    translateX: useTransform(scrollYProgress, [0, 0.15, 0.45], outputRange),
+    translateX: useTransform(scrollYProgress, [0, 0.15, 0.45], outputRange, {
+      ease: easeOutQuad,
+    }),
   }
-
   return {
     quoteRef,
     quoteStyle,
@@ -157,7 +165,9 @@ function useLogoStyle(index: number) {
     translateX: useTransform(
       scrollYProgress,
       [0, 0.1, 0.4],
-      [300, 300, 0].map((v) => v * (even ? 1 : -1))
+      [300, 300, 0].map((v) => v * (even ? 1 : -1), {
+        ease: easeOutQuad,
+      })
     ),
   }
 
@@ -165,4 +175,8 @@ function useLogoStyle(index: number) {
     logoRef,
     logoStyle,
   }
+}
+
+function easeOutQuad(x: number): number {
+  return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
 }
