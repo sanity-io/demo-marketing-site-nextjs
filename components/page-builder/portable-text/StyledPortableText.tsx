@@ -6,6 +6,10 @@ import {
 import { PortableTextBlock, TypedObject } from '@portabletext/types'
 
 const components: Partial<PortableTextReactComponents> = {
+  block: {
+    normal: ({ children }) => <p className="my-3">{children}</p>,
+  },
+
   marks: {
     strong: ({ children }) => (
       <strong className="text-magenta-500 dark:text-magenta-400">

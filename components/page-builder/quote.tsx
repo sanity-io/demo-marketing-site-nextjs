@@ -6,6 +6,7 @@ import { KeyedObject, TypedObject } from 'sanity'
 
 import { urlForImage } from '../../sanity/sanity'
 import Container from '../container'
+import DebugLabel from '../debug/debug-label'
 import { DebugGrid } from '../debug/grid'
 
 type QuoteProps = KeyedObject &
@@ -34,43 +35,37 @@ export default function PageBuilderQuote(props: QuoteProps) {
   }
 
   return (
-    <div ref={ref}>
-      <Container
-        className={
-          'relative flex lg:items-center ' +
-          (even
-            ? 'flex-col-reverse lg:flex-row'
-            : 'flex-col lg:flex-row-reverse')
-        }
-      >
-        <DebugGrid columns={4} />
+    <div className="relative" ref={ref}>
+      <DebugLabel>quote</DebugLabel>
 
-        <div className="-mt-5 flex flex-col gap-5 md:mt-0 md:px-5 lg:w-1/2 lg:flex-row">
+      <Container
+        className={'relative flex flex-col md:flex-row md:items-center ' + ''}
+      >
+        <DebugGrid columns={5} />
+
+        <div className="flex p-4 sm:p-5 md:w-[40%] md:py-6 lg:py-7 xl:py-8">
           <m.div
-            className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800"
+            className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800"
             style={quoteMarkStyle}
           >
             <span
-              className="font-serif text-6xl"
+              className="font-serif text-4xl"
               style={{ transform: 'translate3d(3%, 20%, 0)' }}
             >
               &rdquo;
             </span>
           </m.div>
 
-          <div className="flex flex-col gap-5">
+          <div className="ml-3 flex flex-col outline">
             <m.h2
-              className="text-2xl font-extrabold leading-tight tracking-tight lg:text-3xl"
+              className="text-xl font-extrabold leading-tight tracking-tight lg:text-2xl"
               style={quoteTextStyle}
             >
               {quote}
             </m.h2>
 
-            <div className="h-25">
-              <m.div
-                className="flex items-center gap-5"
-                style={quotePersonStyle}
-              >
+            <div className="mt-5">
+              <m.div className="flex items-center" style={quotePersonStyle}>
                 {person?.picture ? (
                   <Image
                     className="h-16 w-16 flex-shrink-0 rounded bg-gray-200"
@@ -85,16 +80,18 @@ export default function PageBuilderQuote(props: QuoteProps) {
                     height={64}
                   />
                 ) : null}
-                <div>
+
+                <div className="ml-3">
                   {person?.name ? (
                     <p className="text-xl font-extrabold">{person.name}</p>
                   ) : null}
+
                   <p className="text-gray-600 dark:text-gray-400">
                     {person.title}
                     {person?.company?.name ? (
                       <>
-                        <br />
-                        <em>{person.company.name}</em>
+                        {' '}
+                        at <em>{person.company.name}</em>
                       </>
                     ) : null}
                   </p>
@@ -104,19 +101,18 @@ export default function PageBuilderQuote(props: QuoteProps) {
           </div>
         </div>
 
-        <div className="my-12 flex-1 flex-shrink-0 px-5 lg:w-1/2">
+        <div className="p-2 md:w-[60%]">
           <m.div
-            className="mx-auto flex aspect-video w-full max-w-lg items-center justify-center rounded bg-orange-100 dark:bg-magenta-900"
+            className="flex items-center justify-center rounded bg-gray-50 dark:bg-gray-950"
             style={logoStyle}
           >
             {person?.company?.logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                className="w-4/5 flex-shrink-0 rounded bg-gray-200"
                 src={urlForImage(person.company.logo).url()}
                 alt={person?.name}
-                width={512}
-                height={512}
+                width={320}
+                height={320}
               />
             ) : null}
           </m.div>

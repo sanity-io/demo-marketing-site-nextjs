@@ -3,6 +3,7 @@ import { Fragment, memo, useRef } from 'react'
 import { Image, KeyedObject, TypedObject } from 'sanity'
 
 import Container from '../container'
+import { DebugGrid } from '../debug/grid'
 import { BgVideo } from '../video/bg-video'
 import { SanityMuxVideo } from '../video/types'
 
@@ -44,12 +45,9 @@ const Intermission = memo(function Intermission(
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
   return (
-    <div
-      className="relative py-5 sm:py-6 md:py-7"
-      style={{ minHeight: '150vh', padding: '25vh 0' }}
-    >
-      <m.div className="absolute inset-0" ref={ref} style={{ opacity }}>
-        <div className="sticky top-0 h-screen">
+    <div className="relative" style={{ minHeight: '150vh', padding: '25vh 0' }}>
+      <m.div className="absolute inset-0 h-full" ref={ref} style={{ opacity }}>
+        <div className="sticky top-0 h-full">
           {background?._type === 'mux.video' && background.asset && (
             <BgVideo asset={background.asset} />
           )}
@@ -57,7 +55,9 @@ const Intermission = memo(function Intermission(
       </m.div>
 
       <Container>
-        <div className="relative mx-auto max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">
+        <div className="relative mx-auto max-w-3xl p-4 text-4xl font-extrabold tracking-tight sm:p-5 md:text-6xl">
+          <DebugGrid />
+
           {statements.map((statement) => (
             <Fragment key={statement._key}>
               <Statement statement={statement} />{' '}

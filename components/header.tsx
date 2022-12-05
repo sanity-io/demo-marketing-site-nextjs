@@ -28,7 +28,7 @@ export default function Header(props: HeaderProps) {
       <Container className="relative">
         <DebugGrid />
 
-        <div className="flex items-center gap-5 py-4 sm:py-5">
+        <div className="flex items-center gap-5 p-4 sm:p-5">
           <Logo>{title}</Logo>
           {headerPrimary && headerPrimary?.length > 0 ? (
             <ul className="hidden items-center justify-start md:flex md:gap-2">
