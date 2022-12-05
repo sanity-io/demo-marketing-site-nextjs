@@ -36,7 +36,7 @@ export default function Bento3(props: {
     </div>
   )
   return (
-    <div className="border-t border-b border-gray-200 dark:border-gray-800">
+    <div>
       <div className="max-h-xl grid divide-y divide-gray-200 dark:divide-gray-800 md:grid-cols-2 md:divide-x md:divide-y-0">
         {even ? high : cells}
         {even ? cells : high}

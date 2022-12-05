@@ -9,27 +9,29 @@ export default function HeroH2(props: HeroProps) {
   const { title, subtitle, content, links } = props
 
   return (
-    <Container>
-      <div className="flex flex-col items-start gap-4 py-5 md:py-8 md:px-8">
-        {subtitle ? (
-          <p className="text-lg text-magenta-500 dark:text-magenta-400 md:w-full md:text-2xl">
-            {subtitle}
-          </p>
-        ) : null}
+    <div>
+      <Container>
+        <div className="flex flex-col items-start gap-4 py-5 md:py-8 md:px-8">
+          {subtitle ? (
+            <p className="text-lg text-magenta-500 dark:text-magenta-400 md:w-full md:text-2xl">
+              {subtitle}
+            </p>
+          ) : null}
 
-        {title ? (
-          <h2 className="text-4xl font-extrabold leading-none tracking-tight md:pr-9 md:text-5xl lg:text-7xl">
-            {title}
-          </h2>
-        ) : null}
+          {title ? (
+            <h2 className="text-4xl font-extrabold leading-none tracking-tight md:pr-9 md:text-5xl lg:text-7xl">
+              {title}
+            </h2>
+          ) : null}
 
-        {content?.length > 0 ? (
-          <div className="text-2xl">
-            <StyledPortableText value={content} />
-          </div>
-        ) : null}
-        {links ? <Links links={links} /> : null}
-      </div>
-    </Container>
+          {content?.length > 0 ? (
+            <div className="text-2xl">
+              <StyledPortableText value={content} />
+            </div>
+          ) : null}
+          {links ? <Links links={links} /> : null}
+        </div>
+      </Container>
+    </div>
   )
 }

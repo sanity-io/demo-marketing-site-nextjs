@@ -16,32 +16,34 @@ export default function HeroH1WithImage(props: HeroProps) {
   const { title, subtitle, summary, image, links } = props
   const { ref, style } = useStyle()
   return (
-    <Container className="relative">
-      <DebugGrid columns={5} />
+    <div>
+      <Container className="relative">
+        <DebugGrid columns={5} />
 
-      <m.div
-        ref={ref}
-        style={style}
-        className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5"
-      >
-        <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
-          <HeroSubtitle subtitle={subtitle} />
-          <HeroTitle title={title} />
-          <HeroSummary summary={summary} />
-          <Links links={links} />
-        </div>
+        <m.div
+          ref={ref}
+          style={style}
+          className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5"
+        >
+          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
+            <HeroSubtitle subtitle={subtitle} />
+            <HeroTitle title={title} />
+            <HeroSummary summary={summary} />
+            <Links links={links} />
+          </div>
 
-        <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
-          <Image
-            src={urlForImage(image).width(496).height(372).url()}
-            width={496}
-            height={372}
-            alt={title ?? ``}
-            className="h-full w-full rounded-lg object-cover"
-          />
-        </div>
-      </m.div>
-    </Container>
+          <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
+            <Image
+              src={urlForImage(image).width(496).height(372).url()}
+              width={496}
+              height={372}
+              alt={title ?? ``}
+              className="h-full w-full rounded-lg object-cover"
+            />
+          </div>
+        </m.div>
+      </Container>
+    </div>
   )
 }
 

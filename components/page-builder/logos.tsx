@@ -28,7 +28,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
   }
 
   return (
-    <div className="border-t border-gray-200 dark:border-gray-800" ref={ref}>
+    <div ref={ref}>
       <Container className="relative w-full py-5 sm:py-6 md:py-7">
         <DebugGrid />
 
