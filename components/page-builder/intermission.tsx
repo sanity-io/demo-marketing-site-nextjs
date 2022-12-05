@@ -1,4 +1,4 @@
-import { m, useScroll, useTransform } from 'framer-motion'
+import { m, MotionValue, useScroll, useTransform } from 'framer-motion'
 import NextImage from 'next/image'
 import React, { Fragment, memo, useRef } from 'react'
 import { Image, KeyedObject, TypedObject } from 'sanity'
@@ -61,35 +61,75 @@ const Intermission = memo(function Intermission(
               width={2048}
               height={2048}
               alt={''}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover opacity-50"
             />
           )}
         </div>
       </m.div>
 
       <Container>
-        <div className="relative mx-auto max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">
-          {statements.map((statement) => (
-            <Fragment key={statement._key}>
-              <Statement statement={statement} />{' '}
-            </Fragment>
-          ))}
-        </div>
+        <Statements statements={statements} />
       </Container>
     </div>
   )
 })
 
-function Statement({ statement }: { statement: TextStatement }) {
+function Statements({ statements }: { statements: TextStatement[] }) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'start start'],
+    offset: ['start end', 'end start'],
   })
+
+  return (
+    <div
+      className="relative mx-auto max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl"
+      ref={ref}
+    >
+      {statements.map((statement, i) => (
+        <Fragment key={statement._key}>
+          <Statement
+            statement={statement}
+            scrollYProgress={scrollYProgress}
+            statements={statements.length}
+            index={i}
+          />
+          {/* intentional space */}{' '}
+        </Fragment>
+      ))}
+    </div>
+  )
+}
+
+function Statement({
+  statement,
+  index,
+  statements,
+  scrollYProgress,
+}: {
+  statement: TextStatement
+  index: number
+  statements: number
+  scrollYProgress: MotionValue<number>
+}) {
+  const ref = useRef(null)
+  const range = 0.5
+  const highlightRange = range / statements
+  const fadeRange = 0.01
+  const highlightStart = 0.3
+  const highlightEnd = highlightStart + highlightRange
+  const offset = (index / statements) * range
   const opacity = useTransform(
     scrollYProgress,
-    [0.38, 0.45, 0.55, 0.62],
-    [0.1, 1, 1, 0.1]
+    [
+      highlightStart - fadeRange * 2,
+      highlightStart,
+      highlightStart + fadeRange,
+      highlightEnd - fadeRange,
+      highlightEnd,
+      highlightEnd + fadeRange * 2,
+    ].map((v) => v + offset),
+    [0.15, 0.5, 1, 1, 0.5, 0.15]
   )
 
   return (
