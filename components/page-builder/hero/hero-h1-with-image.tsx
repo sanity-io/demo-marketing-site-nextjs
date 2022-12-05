@@ -1,67 +1,62 @@
+import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import React from 'react'
+import React, { useRef } from 'react'
 
 import { urlForImage } from '../../../sanity/sanity'
-import { AnimateScrollIn } from '../../animation/AnimateScrollIn'
-import { AnimateScrollOut } from '../../animation/AnimateScrollOut'
-import { outFade, outSofTop } from '../../animation/scrollAnimations'
-import { ScrollProgressContainer } from '../../animation/ScrollProgressContainer'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
+import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
 import Links from '../../links'
-import { StyledPortableText } from '../portable-text/StyledPortableText'
+import { HeroSubtitle } from '../components/HeroSubtitle'
+import { HeroSummary } from '../components/HeroSummary'
+import { HeroTitle } from '../components/HeroTitle'
 import { HeroProps } from '.'
 
 export default function HeroH1WithImage(props: HeroProps) {
   const { title, subtitle, summary, image, links } = props
-
+  const { ref, style } = useStyle()
   return (
     <Container className="relative">
-      <AnimateScrollOut params={outFade} startProgress={0.3} stopProgress={0.8}>
-        <DebugGrid columns={5} />
+      <DebugGrid columns={5} />
 
-        <div className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5">
-          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
-            {subtitle ? (
-              <ScrollProgressContainer scrollWindowSize={0.2}>
-                <AnimateScrollIn
-                  params={outSofTop}
-                  startProgress={0.7}
-                  stopProgress={0.9}
-                >
-                  <p className="text-base text-white text-magenta-500 dark:text-magenta-400 md:static md:-mt-0 md:w-full md:translate-y-0 md:text-2xl">
-                    {subtitle}
-                  </p>
-                </AnimateScrollIn>
-              </ScrollProgressContainer>
-            ) : null}
-
-            {title ? (
-              <h1 className="text-5xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-8xl">
-                {title}
-              </h1>
-            ) : null}
-
-            {summary?.length > 0 ? (
-              <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
-                <StyledPortableText value={summary} />
-              </div>
-            ) : null}
-
-            {links ? <Links links={links} /> : null}
-          </div>
-
-          <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
-            <Image
-              src={urlForImage(image).width(496).height(372).url()}
-              width={496}
-              height={372}
-              alt={title ?? ``}
-              className="h-full w-full rounded-lg object-cover"
-            />
-          </div>
+      <m.div
+        ref={ref}
+        style={style}
+        className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5"
+      >
+        <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
+          <HeroSubtitle subtitle={subtitle} />
+          <HeroTitle title={title} />
+          <HeroSummary summary={summary} />
+          <Links links={links} />
         </div>
-      </AnimateScrollOut>
+
+        <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
+          <Image
+            src={urlForImage(image).width(496).height(372).url()}
+            width={496}
+            height={372}
+            alt={title ?? ``}
+            className="h-full w-full rounded-lg object-cover"
+          />
+        </div>
+      </m.div>
     </Container>
   )
+}
+
+function useStyle(): ElementScrollStyle {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['end end', '0.8 start'],
+  })
+
+  const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0])
+  return {
+    ref,
+    style: {
+      opacity,
+    },
+  }
 }

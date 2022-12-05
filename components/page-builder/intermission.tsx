@@ -1,11 +1,7 @@
-import { AnimeParams } from 'animejs'
-import { Fragment, memo } from 'react'
+import { m, useScroll, useTransform } from 'framer-motion'
+import { Fragment, memo, useRef } from 'react'
 import { Image, KeyedObject, TypedObject } from 'sanity'
 
-import { AnimateScrollIn } from '../animation/AnimateScrollIn'
-import { AnimateScrollOut } from '../animation/AnimateScrollOut'
-import { fakeBrighten, fakeDarken } from '../animation/scrollAnimations'
-import { ScrollProgressContainer } from '../animation/ScrollProgressContainer'
 import Container from '../container'
 import { BgVideo } from '../video/bg-video'
 import { SanityMuxVideo } from '../video/types'
@@ -14,87 +10,100 @@ interface SanityImage extends Image {
   _type: 'image'
 }
 
+interface TextSpan {
+  _key: string
+  _type: 'span'
+  text?: string
+  marks?: Array<'strong'>
+}
+
+interface TextStatement {
+  _key: string
+  _type: 'block'
+  children: TextSpan[]
+}
+
 type PageBuilderIntermissionProps = KeyedObject &
   TypedObject & {
     _id: string
     title?: string
-    statements?: {
-      _key: string
-      _type: 'block'
-      children: {
-        _key: string
-        _type: 'span'
-        text?: string
-        marks?: Array<'strong'>
-      }[]
-    }[]
+    statements?: TextStatement[]
     background?: SanityMuxVideo | SanityImage
   }
-
-export const fadeInParams: AnimeParams = {
-  opacity: [0, 0.25],
-  easing: 'easeOutSine',
-}
 
 const Intermission = memo(function Intermission(
   props: PageBuilderIntermissionProps
 ) {
   const { background, statements = [] } = props
 
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+
   return (
-    <ScrollProgressContainer className="relative">
-      <div
-        className="border-t border-gray-200 py-5 dark:border-gray-800 sm:py-6 md:py-7"
-        style={{ minHeight: '150vh', padding: '25vh 0' }}
-      >
-        <AnimateScrollIn
-          className="absolute inset-0"
-          params={fadeInParams}
-          startProgress={0.5}
-        >
-          <div className="sticky top-0 h-screen">
-            {background?._type === 'mux.video' && background.asset && (
-              <BgVideo asset={background.asset} />
-            )}
-          </div>
-        </AnimateScrollIn>
+    <div
+      className="relative border-t border-gray-200 py-5 dark:border-gray-800 sm:py-6 md:py-7"
+      style={{ minHeight: '150vh', padding: '25vh 0' }}
+    >
+      <m.div className="absolute inset-0" ref={ref} style={{ opacity }}>
+        <div className="sticky top-0 h-screen">
+          {background?._type === 'mux.video' && background.asset && (
+            <BgVideo asset={background.asset} />
+          )}
+        </div>
+      </m.div>
 
-        <Container>
-          <div className="relative text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
-            {statements.map((statement) => (
-              <ScrollProgressContainer key={statement._key}>
-                <AnimateScrollIn
-                  params={fakeBrighten}
-                  startProgress={0.4}
-                  stopProgress={0.5}
-                >
-                  <AnimateScrollOut
-                    params={fakeDarken}
-                    startProgress={0.4}
-                    stopProgress={0.5}
-                  >
-                    <span className=" text-white">
-                      {statement.children.map((n) => {
-                        let node = <>{n}</>
-
-                        if (n.marks.includes('strong')) {
-                          node = (
-                            <strong className="font-extrabold">{node}</strong>
-                          )
-                        }
-
-                        return <Fragment key={n._key}>{n.text}</Fragment>
-                      })}{' '}
-                    </span>
-                  </AnimateScrollOut>
-                </AnimateScrollIn>
-              </ScrollProgressContainer>
-            ))}
-          </div>
-        </Container>
-      </div>
-    </ScrollProgressContainer>
+      <Container>
+        <div className="relative text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
+          {statements.map((statement) => (
+            <Fragment key={statement._key}>
+              <Statement statement={statement} />{' '}
+            </Fragment>
+          ))}
+        </div>
+      </Container>
+    </div>
   )
 })
+
+function Statement({ statement }: { statement: TextStatement }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'start start'],
+  })
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.35, 0.45, 0.55, 0.65],
+    [0.1, 1, 1, 0.1]
+  )
+
+  return (
+    <m.span
+      className="text-white"
+      key={statement._key}
+      style={{ opacity }}
+      ref={ref}
+    >
+      {statement.children.map((n) => {
+        return <Span key={n._key} span={n} />
+      })}
+    </m.span>
+  )
+}
+
+function Span({ span }: { span: TextSpan }) {
+  if (span.marks.includes('strong')) {
+    return (
+      <strong className="font-extrabold text-magenta-500 dark:text-magenta-400">
+        {span.text}
+      </strong>
+    )
+  }
+  return <Fragment>{span.text}</Fragment>
+}
 
 export default Intermission
