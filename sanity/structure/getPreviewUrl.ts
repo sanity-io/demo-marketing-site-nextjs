@@ -27,7 +27,7 @@ export async function getPreviewUrl(document) {
   if (secret) {
     url.searchParams.set('secret', secret)
   }
-  
+
   url.searchParams.set('type', document._type)
 
   try {

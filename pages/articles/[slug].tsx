@@ -54,10 +54,10 @@ export default function Slug(props: Props) {
           </Head>
           <div className="relative">
             {data.image ? (
-              <div className="absolute top-0 left-0 aspect-video w-screen max-h-[400px]">
+              <div className="absolute top-0 left-0 aspect-video max-h-[400px] w-screen">
                 <div className="absolute inset-0 z-10 h-full w-screen bg-gradient-to-b from-black/0 to-black/100" />
                 <Image
-                  className="absolute inset-0 h-full object-cover w-screen opacity-75"
+                  className="absolute inset-0 h-full w-screen object-cover opacity-75"
                   src={urlForImage(data.image)
                     .width(1080)
                     .height(720)
