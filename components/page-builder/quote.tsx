@@ -1,6 +1,5 @@
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { m, MotionStyle, useScroll, useTransform } from 'framer-motion'
-import { Quote } from 'lucide-react'
 import Image from 'next/image'
 import React, { useRef } from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
@@ -51,7 +50,12 @@ export default function PageBuilderQuote(props: QuoteProps) {
             className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800"
             style={quoteMarkStyle}
           >
-            <Quote className="h-5 w-5 flex-shrink-0" />
+            <span
+              className="font-serif text-6xl"
+              style={{ transform: 'translate3d(3%, 20%, 0)' }}
+            >
+              &rdquo;
+            </span>
           </m.div>
 
           <div className="flex flex-col gap-5">
