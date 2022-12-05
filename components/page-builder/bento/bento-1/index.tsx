@@ -14,7 +14,7 @@ export default function Index(props: { article: ArticleStub; index: number }) {
   const hasText = !!(article.title || article.subtitle || article.summary)
   const even = index % 2 === 0
   return (
-    <div className="border-t border-b border-gray-200 dark:border-gray-800">
+    <div>
       <Container>
         <div
           className={

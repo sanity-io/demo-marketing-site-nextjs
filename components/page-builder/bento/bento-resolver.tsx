@@ -23,7 +23,7 @@ export default function BentoResolver(props: BentoBoxProps) {
   }
 
   return (
-    <div className="border-t border-b border-gray-200 py-24 dark:border-gray-800">
+    <div className="py-24">
       {/* <Container className="grid grid-cols-1 gap-y-24 text-center md:grid-cols-3 lg:grid-cols-5"> */}
       {articles.map((article) => (
         <div key={article._key} className="flex flex-col items-center gap-5">

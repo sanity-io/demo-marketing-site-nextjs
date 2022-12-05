@@ -35,7 +35,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
   }
 
   return (
-    <div className="border-t border-gray-200 dark:border-gray-800" ref={ref}>
+    <div ref={ref}>
       <Container
         className={
           'relative flex lg:items-center ' +

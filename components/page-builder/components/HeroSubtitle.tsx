@@ -15,7 +15,7 @@ export function HeroSubtitle({ subtitle }: { subtitle?: string }) {
     <m.div
       ref={ref}
       style={style}
-      className="text-base text-white text-magenta-500 dark:text-magenta-400 md:static md:-mt-0 md:w-full md:translate-y-0 md:text-2xl"
+      className="text-base text-magenta-500 dark:text-magenta-400 md:static md:-mt-0 md:w-full md:translate-y-0 md:text-2xl"
     >
       {subtitle}
     </m.div>

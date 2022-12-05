@@ -1,6 +1,8 @@
 import React from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
+import Container from '../container'
+
 type PageBuilderProps = {
   rows: (KeyedObject & TypedObject)[]
 }
@@ -14,7 +16,6 @@ const ROWS = {
   // Promotion component takes a grouped set of contiguous `promotion` rows
   article: React.lazy(() => import('./article')),
   intermission: React.lazy(() => import('./intermission')),
-  infoBreak: React.lazy(() => import('./break')),
 }
 
 export default function PageBuilder(props: PageBuilderProps) {
@@ -24,6 +25,17 @@ export default function PageBuilder(props: PageBuilderProps) {
   const rowsGrouped = React.useMemo(
     () =>
       rows.reduce((acc, cur, curIndex, initial) => {
+        const prev = acc[acc.length - 1]
+
+        if (cur._type === 'infoBreak') {
+          if (prev) {
+            prev.breakAfter = true
+          }
+
+          // We don't want to render the info break
+          return acc
+        }
+
         if (cur._type !== `article`) {
           return [...acc, cur]
         }
@@ -37,11 +49,11 @@ export default function PageBuilder(props: PageBuilderProps) {
           ]
         }
 
-        const prev = acc[acc.length - 1]
-
         if (
           // Start a new `articles` array
           !prev ||
+          // If the previous block was followed by a `infoBreak` block
+          prev.breakAfter ||
           // If the previous group was not a `article` group
           prev._type !== `article` ||
           // Or if the previous `article` group is full
@@ -76,18 +88,22 @@ export default function PageBuilder(props: PageBuilderProps) {
   }
 
   return (
-    <>
+    <div className="divide-y divide-gray-200 dark:divide-gray-800">
       {rowsGrouped.map((row, rowIndex) => {
         if (row._type && ROWS[row._type]) {
           const Row = ROWS[row._type]
           return <Row key={row._key} index={rowIndex} {...row} />
         }
         return (
-          <p key={row._key}>
-            No component found for <code>{row._type}</code>
-          </p>
+          <div key={row._key}>
+            <Container className="py-5">
+              <p className="text-center text-red-500">
+                No component found for <code>{row._type}</code>
+              </p>
+            </Container>
+          </div>
         )
       })}
-    </>
+    </div>
   )
 }

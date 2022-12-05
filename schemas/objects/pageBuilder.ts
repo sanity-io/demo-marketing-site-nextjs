@@ -1,4 +1,4 @@
-import { InfoFilledIcon, InfoOutlineIcon } from '@sanity/icons'
+import { RemoveIcon } from '@sanity/icons'
 import { Building } from 'lucide-react'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
@@ -67,7 +67,7 @@ export default defineType(
       defineArrayMember({
         name: 'infoBreak',
         title: 'Info break',
-        icon: InfoOutlineIcon,
+        icon: RemoveIcon,
         description: 'Added to make it easier to test bento groups',
         type: 'object',
         fields: [
@@ -82,10 +82,8 @@ export default defineType(
           },
           prepare({ title }) {
             return {
-              title,
-              subtitle:
-                '---------------------------------------------------------',
-              media: InfoOutlineIcon,
+              title: title || 'Break',
+              media: RemoveIcon,
             }
           },
         },

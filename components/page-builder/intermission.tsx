@@ -45,7 +45,7 @@ const Intermission = memo(function Intermission(
 
   return (
     <div
-      className="relative border-t border-gray-200 py-5 dark:border-gray-800 sm:py-6 md:py-7"
+      className="relative py-5 sm:py-6 md:py-7"
       style={{ minHeight: '150vh', padding: '25vh 0' }}
     >
       <m.div className="absolute inset-0" ref={ref} style={{ opacity }}>

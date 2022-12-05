@@ -1,5 +1,4 @@
 import { Icon, IconSymbol } from '@sanity/icons'
-import { AnimeParams } from 'animejs'
 import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import React, { useRef } from 'react'
@@ -11,19 +10,14 @@ import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
 import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
 
-export const fadeOutParams: AnimeParams = {
-  opacity: [1, 0],
-  easing: 'easeOutSine',
-}
-
 export default function BentoEven(props: {
   articles: (KeyedObject & ArticleStub)[]
 }) {
   const { articles } = props
 
   return (
-    <div className="border-b border-gray-200 dark:border-gray-800">
-      <div className="flex flex-col md:flex-row md:flex-wrap">
+    <div>
+      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap">
         {articles.map((article, articleIndex) => (
           <ArticleEven
             key={article._key}
@@ -50,9 +44,10 @@ function ArticleEven(props: {
   return (
     <div
       ref={ref}
-      className={`border-t border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${
-        articleIndex % 2 ? 'md:border-l' : ''
-      }`}
+      className={
+        // prettier-ignore
+        `border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col ${articleIndex !== 0 ? 'border-t' : ''} ${articleIndex % 2 ? 'md:border-l' : ''} ${articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'}`
+      }
     >
       <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
         <m.div ref={ref} style={style}>
