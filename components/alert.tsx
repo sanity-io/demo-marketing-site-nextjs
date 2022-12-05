@@ -59,7 +59,7 @@ export default function Alert(props: AlertProps) {
             href="/api/exit-preview"
             className="py-2 px-4 transition-colors duration-200 hover:bg-purple-500 hover:text-black"
           >
-            Preview: <strong>Enabled</strong>
+            <strong>Preview</strong>
           </Link>
           <Link
             href={`/api/preview?${toggleAudienceUrl.toString()}`}
