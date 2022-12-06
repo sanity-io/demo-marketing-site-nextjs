@@ -111,9 +111,7 @@ export async function getStaticProps({ locale, preview = false, previewData }) {
     const homeQueryParams = {
       ...queryParams,
       homeId: `${queryParams.market}-page`.toLowerCase(),
-      date: `hello`,
     }
-
     const page = await getClient(preview).fetch(homeQuery, homeQueryParams)
     const globalData = await getClient(preview).fetch(globalDataQuery, {
       settingsId: `${queryParams.market}-settings`.toLowerCase(),
