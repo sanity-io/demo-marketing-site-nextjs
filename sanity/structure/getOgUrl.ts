@@ -3,7 +3,7 @@ export function getOgUrl(document) {
   url.searchParams.set('title', document?.seo?.title ?? document?.title)
   url.searchParams.set('image', JSON.stringify(document?.seo?.image))
   // TODO: Get from 'settings' document
-  url.searchParams.set('siteTitle', `Enigma.`)
+  url.searchParams.set('siteTitle', `Enigma`)
 
   return url.toString()
 }
