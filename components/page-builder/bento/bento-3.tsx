@@ -6,12 +6,12 @@ import { ArticleStub } from '../../../types'
 import Container from '../../container'
 import { DebugGrid } from '../../debug/grid'
 import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
+import BentoArticleSmall from './article/small'
+import BentoArticleTall from './article/tall'
 import {
   BentoNumberCallout,
   isBentoNumberCallout,
 } from './bento-number-callout'
-import BentoArticleSmall from './article/small'
-import BentoArticleTall from './article/tall'
 
 export default function Bento3(props: {
   articles: (KeyedObject & ArticleStub)[]
@@ -21,7 +21,7 @@ export default function Bento3(props: {
   const [firstArticle, ...restArticles] = articles
   const reverse = index % 4 === 0
 
-  const high = <Tall article={firstArticle} articles={articles} />
+  const high = <Tall article={firstArticle} />
 
   const cells = (
     <div className="flex flex-col">
@@ -74,8 +74,7 @@ function CellWrapper({
 
 export function Small({
   article,
-                        articleIndex,
-                        articles,
+  articleIndex,
 }: {
   article: ArticleStub & KeyedObject
   articleIndex: number

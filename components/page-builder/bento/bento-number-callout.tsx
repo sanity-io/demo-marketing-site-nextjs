@@ -27,7 +27,7 @@ export function BentoNumberCallout(props: {
     <Container className="relative flex items-center justify-center gap-3 py-6 md:py-12 md:px-5">
       <DebugGrid />
       <div className="flex flex-col items-center justify-center gap-3">
-        <BentoSubtitle subtitle={article.subtitle} className={''} />
+        <BentoSubtitle subtitle={article.subtitle} />
         <BentoTitle title={article.title} />
         <BentoSummary summary={article.summary} />
       </div>

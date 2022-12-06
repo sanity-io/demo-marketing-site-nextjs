@@ -26,7 +26,7 @@ type QuoteProps = KeyedObject &
 
 export default function PageBuilderQuote(props: QuoteProps) {
   const { quote, person, index } = props
-  const even = index % 2 === 0
+  //const even = index % 2 === 0
   const { logoRef, logoStyle } = useLogoStyle(index)
   const { quoteRef, quoteStyle } = useQuoteStyle(index)
 
@@ -43,7 +43,10 @@ export default function PageBuilderQuote(props: QuoteProps) {
       >
         <DebugGrid columns={5} />
 
-        <m.div className="flex p-4 sm:p-5 md:w-[40%] md:py-6 lg:py-7 xl:py-8"  style={quoteStyle}>
+        <m.div
+          className="flex p-4 sm:p-5 md:w-[40%] md:py-6 lg:py-7 xl:py-8"
+          style={quoteStyle}
+        >
           <div
             className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800"
             ref={quoteRef}
@@ -57,9 +60,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
           </div>
 
           <div className="ml-3 flex flex-col outline">
-            <h2
-              className="text-xl font-extrabold leading-tight tracking-tight lg:text-2xl"
-            >
+            <h2 className="text-xl font-extrabold leading-tight tracking-tight lg:text-2xl">
               {quote}
             </h2>
 
@@ -100,13 +101,8 @@ export default function PageBuilderQuote(props: QuoteProps) {
           </div>
         </m.div>
 
-        <m.div className="p-2 md:w-[60%]"
-               ref={logoRef}
-               style={logoStyle}>
-          <div
-            className="flex items-center justify-center rounded bg-gray-50 dark:bg-gray-950"
-            style={logoStyle}
-          >
+        <m.div className="p-2 md:w-[60%]" ref={logoRef} style={logoStyle}>
+          <div className="flex items-center justify-center rounded bg-gray-50 dark:bg-gray-950">
             {person?.company?.logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
