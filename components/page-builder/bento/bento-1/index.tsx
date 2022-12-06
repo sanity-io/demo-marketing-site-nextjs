@@ -40,7 +40,7 @@ export default function Index(props: { article: ArticleStub; index: number }) {
       <Container>
         <div
           className={
-            'flex flex-col-reverse items-stretch justify-items-stretch gap-4 py-4 sm:py-5 md:items-center md:py-5 ' +
+            'flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5 ' +
             (image ? (even ? 'md:flex-row' : 'md:flex-row-reverse') : '')
           }
         >

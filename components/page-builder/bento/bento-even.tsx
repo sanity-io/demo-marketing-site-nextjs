@@ -21,7 +21,7 @@ export default function BentoEven(props: {
 
   return (
     <div>
-      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap">
+      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap ">
         {articles.map((article, articleIndex) => {
           const Component = isBentoNumberCallout(article)
             ? BentoNumberCallout
@@ -56,7 +56,7 @@ function CellWrapper({
       ref={ref}
       className={
         // prettier-ignore
-        `border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col
+        `border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col py-4 sm:py-5
         ${articles.length === 4 ? 'xl:w-1/4' : ''}
         ${articleIndex !== 0 ? 'border-t' : ''}
         ${articleIndex % 4 != 0 ? 'md:border-l' : ''}
