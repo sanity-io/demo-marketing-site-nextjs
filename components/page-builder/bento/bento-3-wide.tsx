@@ -76,15 +76,15 @@ function Wide({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
   const { ref, style } = useStyle(0)
   return (
-    <Container className="relative flex">
+    <Container className="relative flex py-4">
       <m.div
         layout
         className="stretch-self flex w-full items-center"
         style={style}
       >
-        <div className="flex w-full flex-col gap-3 py-12 text-left" ref={ref}>
+        <div className="flex w-full flex-col gap-5 py-12 text-left" ref={ref}>
           {hasText ? (
-            <div className={'w-full'}>
+            <div className={'flex w-full flex-col gap-5'}>
               <BentoSubtitle subtitle={first.subtitle} />
               <BentoTitle title={first.title} />
 

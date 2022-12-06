@@ -121,7 +121,7 @@ function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
   return (
     <Container className="relative flex content-center justify-center">
       <m.div layout className="flex items-center justify-center" style={style}>
-        <div className="flex w-full flex-col gap-3 py-12 text-left md:flex-row md:justify-center md:py-24">
+        <div className="flex w-full flex-col gap-5 py-12 text-left md:flex-row md:justify-center md:py-24">
           {first?.image ? (
             <div
               ref={ref}
@@ -158,14 +158,6 @@ function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
                   </div>
                 </div>
               ) : null}
-              {/*  <div className="flex flex-col gap-5">
-                    <h2 className="text-2xl font-extrabold font-extrabold leading-tight tracking-tight lg:text-3xl xl:text-5xl">
-                      {first.title}
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-200 md:pr-12 md:text-xl">
-                      {first.subtitle}
-                    </p>
-                  </div>*/}
             </div>
           ) : null}
         </div>
