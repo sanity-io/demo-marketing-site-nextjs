@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Container from '../../container'
+import DebugLabel from '../../debug/debug-label'
 import Links from '../../links'
 import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { HeroProps } from '.'
@@ -9,7 +10,9 @@ export default function HeroH2(props: HeroProps) {
   const { title, subtitle, content, links } = props
 
   return (
-    <div>
+    <div className="relative">
+      <DebugLabel>hero-h2</DebugLabel>
+
       <Container>
         <div className="flex flex-col items-start gap-4 py-5 md:py-8 md:px-8">
           {subtitle ? (

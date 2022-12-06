@@ -1,3 +1,4 @@
+import { IconSymbol } from '@sanity/icons'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { Block, KeyedObject } from 'sanity'
 
@@ -40,6 +41,7 @@ export interface PageProps {
 
 export type ArticleStub = {
   _type: 'article'
+  icon?: IconSymbol
   title?: string
   subtitle?: string
   content?: Block[]

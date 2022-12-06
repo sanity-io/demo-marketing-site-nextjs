@@ -3,6 +3,7 @@ import React from 'react'
 
 import { urlForImage } from '../../../sanity/sanity'
 import Container from '../../container'
+import DebugLabel from '../../debug/debug-label'
 import Links from '../../links'
 import { StyledPortableText } from '../portable-text/StyledPortableText'
 import { HeroProps } from '.'
@@ -11,7 +12,9 @@ export default function HeroH2WithImage(props: HeroProps) {
   const { title, subtitle, content, links, image } = props
 
   return (
-    <div>
+    <div className="relative">
+      <DebugLabel>hero-h2-with-image</DebugLabel>
+
       <Container className="flex items-center gap-8">
         <div className="flex flex-col items-start gap-4 py-5 md:px-5 md:py-8">
           {subtitle ? (

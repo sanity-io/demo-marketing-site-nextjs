@@ -11,7 +11,7 @@ export default function Container(props: HTMLProps<HTMLDivElement>) {
       {...restProps}
       className={
         // prettier-ignore
-        `${className ?? ``} w-full mx-auto max-w-7xl px-4 sm:px-5 md:px-6 lg:px-7 ${grid ? `bg-purple-50 dark:bg-purple-950` : ``}`
+        `${className ?? ``} w-full mx-auto max-w-7xl sm:px-3 md:px-5 lg:px-7 ${grid ? `bg-purple-50 dark:bg-purple-950` : ``}`
       }
     >
       {children}

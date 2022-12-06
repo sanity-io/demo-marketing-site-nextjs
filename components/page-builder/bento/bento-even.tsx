@@ -1,18 +1,17 @@
-import { Icon, IconSymbol } from '@sanity/icons'
 import { m, useScroll, useTransform } from 'framer-motion'
-import Image from 'next/image'
 import React, { PropsWithChildren, useRef } from 'react'
 import { KeyedObject } from 'sanity'
 
-import { urlForImage } from '../../../sanity/sanity'
 import { ArticleStub } from '../../../types'
 import Container from '../../container'
+import DebugLabel from '../../debug/debug-label'
 import { DebugGrid } from '../../debug/grid'
 import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
 import {
   BentoNumberCallout,
   isBentoNumberCallout,
 } from './bento-number-callout'
+import BentoArticleSmall from './article/small'
 
 export default function BentoEven(props: {
   articles: (KeyedObject & ArticleStub)[]
@@ -21,7 +20,7 @@ export default function BentoEven(props: {
 
   return (
     <div>
-      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap">
+      <div className="flex flex-col dark:divide-gray-900 md:flex-row md:flex-wrap">
         {articles.map((article, articleIndex) => {
           const Component = isBentoNumberCallout(article)
             ? BentoNumberCallout
@@ -56,7 +55,7 @@ function CellWrapper({
       ref={ref}
       className={
         // prettier-ignore
-        `border-gray-200 text-left dark:border-gray-800 md:w-1/2 ${articles.length === 4 ? 'lg:w-1/4' : ''} md:flex-col ${articleIndex !== 0 ? 'border-t' : ''} ${articleIndex % 4 != 0 ? 'md:border-l' : ''} ${articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'}`
+        `relative border-gray-200 text-left dark:border-gray-800 md:w-1/2 ${articles.length === 4 ? 'lg:w-1/4' : ''} md:flex-col ${articleIndex !== 0 ? 'border-t' : ''} ${articleIndex % 4 != 0 ? 'md:border-l' : ''} ${articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'}`
       }
     >
       <m.div style={style}>{children}</m.div>
@@ -70,49 +69,17 @@ function ArticleEven(props: {
   articles: ArticleStub[]
 }) {
   const { article } = props
-  const hasText = !!(article.title || article.subtitle)
 
   return (
-    <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
-      <DebugGrid />
-      {hasText ? (
-        <div>
-          {article?.icon ? (
-            <div className="text-4xl">
-              <Icon symbol={article.icon as IconSymbol} />
-            </div>
-          ) : null}
-          <div className="flex flex-col gap-3">
-            <h2 className="text-xl font-extrabold leading-tight tracking-tight">
-              {article.title}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-200 md:pr-12">
-              {article.subtitle}
-            </p>
-          </div>
-        </div>
-      ) : null}
-      {article.image && !hasText ? (
-        <div
-          className={
-            'flex w-full items-stretch justify-items-stretch self-stretch'
-          }
-        >
-          <div
-            className="m-auto flex items-stretch justify-items-stretch self-stretch"
-            style={{ height: 276 }}
-          >
-            <Image
-              src={urlForImage(article.image).width(276).height(227).url()}
-              width={276}
-              height={227}
-              alt={article.title ?? ``}
-              className="h-full w-full rounded-lg object-cover"
-            />
-          </div>
-        </div>
-      ) : null}
-    </Container>
+    <>
+      <DebugLabel>bento-even</DebugLabel>
+
+      <Container className="relative h-full">
+        <DebugGrid columns={2} />
+
+          <BentoArticleSmall article={article} />
+      </Container>
+    </>
   )
 }
 

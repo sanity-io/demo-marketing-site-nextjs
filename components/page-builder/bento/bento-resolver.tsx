@@ -1,4 +1,3 @@
-import { Icon, IconSymbol } from '@sanity/icons'
 import { KeyedObject } from 'sanity'
 
 import { ArticleStub } from '../../../types'
@@ -27,25 +26,5 @@ export default function BentoResolver(props: BentoBoxProps) {
     )
   }
 
-  return (
-    <div className="py-24">
-      {/* <Container className="grid grid-cols-1 gap-y-24 text-center md:grid-cols-3 lg:grid-cols-5"> */}
-      {articles.map((article) => (
-        <div key={article._key} className="flex flex-col items-center gap-5">
-          {article?.icon ? (
-            <div className="text-4xl">
-              <Icon symbol={article.icon as IconSymbol} />
-            </div>
-          ) : null}
-          <h2 className="px-5 text-xl font-extrabold leading-tight tracking-tight">
-            {article.title}
-          </h2>
-          <p className="px-10 text-xs text-gray-600 dark:text-gray-200">
-            {article.subtitle}
-          </p>
-        </div>
-      ))}
-      {/* </Container> */}
-    </div>
-  )
+  return <BentoEven articles={articles} />
 }

@@ -82,6 +82,7 @@ export default function Alert(props: AlertProps) {
               {!queryParams.date ? labelDate : targetDate.split(`T`).shift()}
             </strong>
           </Link>
+
           <div>
             <input
               type="date"

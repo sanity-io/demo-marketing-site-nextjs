@@ -2,12 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
-  outline: 1px solid red;
-} */
+@layer components {
+  .text-container > :first-child {
+    margin-top: 0;
+  }
+
+  .text-container > :last-child {
+    margin-bottom: 0;
+  }
+}
 
 body {
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 html {

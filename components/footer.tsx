@@ -19,7 +19,7 @@ export default function Footer(props: FooterProps) {
       <Container className="relative">
         <DebugGrid />
 
-        <div className="flex items-center gap-5 py-4 md:py-5">
+        <div className="flex items-center gap-5 p-4 md:p-5">
           <Logo>{title}</Logo>
 
           {domainLocales && domainLocales.length > 0 ? (
