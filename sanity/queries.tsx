@@ -129,7 +129,7 @@ const pageFields = groq`
 `
 
 export const homeQuery = groq`
-*[_id == $homeId][0]{
+*[_id == $homeId]|order(_updatedAt desc)[0]{
   ${pageFields}
 }`
 
