@@ -40,16 +40,15 @@ export default function Index(props: { article: ArticleStub; index: number }) {
       <Container>
         <div
           className={
-            'flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:items-center md:py-5 ' +
-            (even ? 'md:flex-row' : 'md:flex-row-reverse')
+            'flex flex-col-reverse items-stretch justify-items-stretch gap-4 py-4 sm:py-5 md:items-center md:py-5 ' +
+            (image ? (even ? 'md:flex-row' : 'md:flex-row-reverse') : '')
           }
         >
           {hasText ? (
             <div
               className={
                 'flex flex-col items-start gap-4 py-6 md:py-24 ' +
-                (image ? 'md:w-3/5 ' : '') +
-                (even ? 'md:w-3/5 ' : 'pl-4')
+                (image ? 'md:w-3/5 ' : '')
               }
             >
               <BentoSubtitle subtitle={article?.subtitle} className="" />
