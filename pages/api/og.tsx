@@ -39,7 +39,7 @@ export default async function (req: NextRequest) {
         style={{
           backgroundColor: 'black',
           backgroundImage:
-                'linear-gradient(-45deg, rgba(234, 95, 177,1), rgba(234, 95, 177,0.5) )',
+            'linear-gradient(-45deg, rgba(234, 95, 177,1), rgba(234, 95, 177,0.5) )',
           width: WIDTH,
           height: HEIGHT,
           position: 'relative',
@@ -91,7 +91,7 @@ export default async function (req: NextRequest) {
             <div
               style={{
                 fontSize: 64,
-                color: '#ea5fb1', 
+                color: '#ea5fb1',
                 fontWeight: 700,
                 fontFamily: `Inter`,
                 letterSpacing: `-0.04em`,
