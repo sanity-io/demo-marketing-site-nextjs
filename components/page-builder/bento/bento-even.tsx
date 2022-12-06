@@ -111,7 +111,7 @@ function ArticleEven(props: {
               width={276}
               height={227}
               alt={article.title ?? ``}
-              className="h-full w-full rounded-lg object-cover"
+              className="h-full w-full rounded object-cover"
             />
           </div>
         </div>

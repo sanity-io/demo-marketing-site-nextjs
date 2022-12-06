@@ -38,7 +38,7 @@ export default function HeroH1WithImage(props: HeroProps) {
               width={496}
               height={372}
               alt={title ?? ``}
-              className="h-full w-full rounded-lg object-cover"
+              className="h-full w-full rounded object-cover"
             />
           </div>
         </m.div>

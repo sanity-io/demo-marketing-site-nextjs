@@ -106,7 +106,7 @@ function Wide({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
                 width={1280}
                 height={512}
                 alt={first.title ?? ``}
-                className="h-full w-full rounded-lg object-cover"
+                className="h-full w-full rounded object-cover"
               />
             </div>
           ) : null}

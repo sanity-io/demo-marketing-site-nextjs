@@ -77,7 +77,7 @@ export default function Index(props: { article: ArticleStub; index: number }) {
                 width={hasText ? 496 : 1112}
                 height={hasText ? 372 : 834}
                 alt={article.title ?? ``}
-                className="h-full w-full rounded-lg object-cover"
+                className="h-full w-full rounded object-cover"
               />
             </m.div>
           )}

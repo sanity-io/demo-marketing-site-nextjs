@@ -92,7 +92,7 @@ export function Small({
             width={276}
             height={227}
             alt={article.title ?? ``}
-            className="rounded-lg object-cover"
+            className="rounded object-cover"
           />
         </div>
       ) : (
@@ -138,7 +138,7 @@ function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
                 width={hasText ? 262 : 276 * 2}
                 height={642}
                 alt={first.title ?? ``}
-                className="h-full w-full rounded-lg object-cover"
+                className="h-full w-full rounded object-cover"
               />
             </div>
           ) : null}
