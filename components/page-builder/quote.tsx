@@ -1,8 +1,6 @@
-import { getEasingFunction } from '@motionone/animation'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { m, MotionStyle, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import { easeInOut, easeOut } from 'polished'
 import React, { useRef } from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
@@ -26,10 +24,8 @@ type QuoteProps = KeyedObject &
   }
 
 export default function PageBuilderQuote(props: QuoteProps) {
-  const { quote, person, index } = props
-  const even = index % 2 === 0
-  const { logoRef, logoStyle } = useLogoStyle(index)
-  const { quoteRef, quoteStyle } = useQuoteStyle(index)
+  const { quote, person } = props
+  const { quoteRef, quoteStyle } = useQuoteStyle()
 
   if (!person) {
     return null
@@ -38,20 +34,12 @@ export default function PageBuilderQuote(props: QuoteProps) {
   return (
     <div>
       <Container
-        className={
-          'relative flex lg:items-center ' +
-          (even
-            ? 'flex-col-reverse lg:flex-row'
-            : 'flex-col lg:flex-row-reverse')
-        }
+        className={'relative flex flex-col-reverse lg:flex-row lg:items-center'}
       >
         <DebugGrid columns={4} />
 
         <m.div
-          className={
-            'mt-5 flex flex-row gap-5 md:px-5 lg:mb-0 lg:w-1/2 ' +
-            (even ? 'mb-6' : '')
-          }
+          className={'mt-5 mb-5 flex flex-row gap-5 md:px-5'}
           style={quoteStyle}
         >
           <div
@@ -105,78 +93,25 @@ export default function PageBuilderQuote(props: QuoteProps) {
             </div>
           </div>
         </m.div>
-
-        <m.div
-          className="my-12 flex-1 flex-shrink-0 px-5 lg:w-1/2"
-          ref={logoRef}
-          style={logoStyle}
-        >
-          <div className="mx-auto flex aspect-video w-full max-w-lg items-center justify-center rounded bg-orange-100 dark:bg-magenta-900">
-            {person?.company?.logo ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                className="w-4/5 flex-shrink-0 rounded bg-gray-200"
-                src={urlForImage(person.company.logo).url()}
-                alt={person?.name}
-                width={512}
-                height={512}
-              />
-            ) : null}
-          </div>
-        </m.div>
       </Container>
     </div>
   )
 }
 
-function useQuoteStyle(index: number) {
+function useQuoteStyle() {
   const quoteRef = useRef(null)
-  const even = index % 2 === 0
 
   const { scrollYProgress } = useScroll({
     target: quoteRef,
     offset: ['start end', 'start start'],
   })
 
-  const outputRange = [300, 300, 0].map((v) => v * (even ? -1 : 1))
   const quoteStyle: MotionStyle = {
     opacity: useTransform(scrollYProgress, [0, 0.1, 0.4], [0, 0, 1]),
-    translateX: useTransform(scrollYProgress, [0, 0.15, 0.45], outputRange, {
-      ease: easeOutQuad,
-    }),
+    translateY: useTransform(scrollYProgress, [0, 0.15, 0.45], [20, 20, 0]),
   }
   return {
     quoteRef,
     quoteStyle,
   }
-}
-
-function useLogoStyle(index: number) {
-  const logoRef = useRef(null)
-  const even = index % 2 === 0
-
-  const { scrollYProgress } = useScroll({
-    target: logoRef,
-    offset: ['start end', 'start start'],
-  })
-
-  const logoStyle: MotionStyle = {
-    opacity: useTransform(scrollYProgress, [0, 0.1, 0.4], [0, 0, 1]),
-    translateX: useTransform(
-      scrollYProgress,
-      [0, 0.1, 0.4],
-      [300, 300, 0].map((v) => v * (even ? 1 : -1), {
-        ease: easeOutQuad,
-      })
-    ),
-  }
-
-  return {
-    logoRef,
-    logoStyle,
-  }
-}
-
-function easeOutQuad(x: number): number {
-  return x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
 }

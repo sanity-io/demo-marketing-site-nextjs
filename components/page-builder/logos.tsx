@@ -1,7 +1,7 @@
 import { getImageDimensions } from '@sanity/asset-utils'
 import { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import delve from 'dlv'
-import { m } from 'framer-motion'
+import { m, MotionStyle, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { KeyedObject, TypedObject } from 'sanity'
 
@@ -9,27 +9,26 @@ import { urlForImage } from '../../sanity/sanity'
 import Container from '../container'
 import { DebugGrid } from '../debug/grid'
 
+interface LogoType {
+  _id: string
+  name?: string
+  logo?: {
+    asset: SanityImageSource
+  }
+}
 type PageBuilderLogosProps = KeyedObject &
   TypedObject & {
-    logos?: {
-      _key: string
-      _id: string
-      name?: string
-      logo?: {
-        asset: SanityImageSource
-      }
-    }[]
+    logos?: LogoType[]
   }
 
 export default function PageBuilderLogos(props: PageBuilderLogosProps) {
   const { logos } = props
-  const ref = useRef()
   if (!logos?.length) {
     return null
   }
 
   return (
-    <div ref={ref}>
+    <div>
       <Container className="relative w-full py-5 sm:py-6 md:py-7">
         <DebugGrid />
 
@@ -38,64 +37,67 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5">
-          {logos.map((company, i) => {
-            const ref = delve(company, 'logo.asset._ref')
-
-            if (!ref) {
-              return null
-            }
-
-            // TODO: adjust width/height based on vertical/landscape logos
-            const { width, height } = getImageDimensions(ref)
-
-            const img = (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
-                // TODO: Adjust if the file is not an SVG
-                src={urlForImage(company.logo).url()}
-                alt={company?.name}
-                width={width}
-                height={height}
-              />
-            )
-            return (
-              <m.div
-                key={company._key}
-                initial={{ translateY: 70 }}
-                whileInView={{ translateY: 0 }}
-                viewport={{
-                  amount: 'all',
-                  margin: '100px',
-                  root: ref,
-                }}
-                transition={{
-                  type: 'spring',
-                  delay: 0.4 * (i / logos.length),
-                  velocity: 80,
-                  damping: 8,
-                }}
-              >
-                <m.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{
-                    amount: 'all',
-                    margin: '100px',
-                    root: ref,
-                  }}
-                  transition={{
-                    delay: 0.4 * (i / logos.length),
-                    duration: 0.8,
-                  }}
-                >
-                  {img}
-                </m.div>
-              </m.div>
-            )
-          })}
+          {logos.map((company, i) => (
+            <Logo
+              key={company._id}
+              company={company}
+              index={i}
+              companies={logos.length}
+            />
+          ))}
         </div>
       </Container>
     </div>
   )
+}
+
+function Logo({
+  company,
+}: {
+  company: LogoType
+  index: number
+  companies: number
+}) {
+  const ref = delve(company, 'logo.asset._ref')
+  const { ref: containerRef, style } = useStyle()
+  if (!ref) {
+    return null
+  }
+
+  // TODO: adjust width/height based on vertical/landscape logos
+  const { width, height } = getImageDimensions(ref)
+  return (
+    <div ref={containerRef}>
+      <m.div style={style}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
+          // TODO: Adjust if the file is not an SVG
+          src={urlForImage(company.logo).url()}
+          alt={company?.name}
+          width={width}
+          height={height}
+        />
+      </m.div>
+    </div>
+  )
+}
+
+function useStyle() {
+  const ref = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'start start'],
+  })
+
+  const inputRange = [0, 0.1]
+  const style: MotionStyle = {
+    opacity: useTransform(scrollYProgress, inputRange, [0, 1]),
+    translateY: useTransform(scrollYProgress, inputRange, [20, 0]),
+  }
+  return {
+    ref,
+    style,
+  }
 }

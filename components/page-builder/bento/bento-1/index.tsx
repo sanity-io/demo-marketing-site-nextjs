@@ -6,6 +6,7 @@ import { urlForImage } from '../../../../sanity/sanity'
 import { ArticleStub } from '../../../../types'
 import Container from '../../../container'
 import { ElementScrollStyle } from '../../../framer-motion/useElementScroll'
+import Links from '../../../links'
 import {
   BentoNumberCallout,
   isBentoNumberCallout,
@@ -46,19 +47,18 @@ export default function Index(props: { article: ArticleStub; index: number }) {
           {hasText ? (
             <div
               className={
-                'gap -5 flex flex-col items-start py-6 md:py-24 ' +
+                'flex flex-col items-start gap-4 py-6 md:py-24 ' +
                 (image ? 'md:w-3/5 ' : '') +
                 (even ? 'md:w-3/5 ' : 'pl-4')
               }
             >
-              <BentoSubtitle
-                subtitle={article?.subtitle}
-                type={image ? 'plain' : 'pill'}
-              />
+              <BentoSubtitle subtitle={article?.subtitle} className="" />
 
               <BentoTitle title={article?.title} />
 
               <BentoSummary summary={article?.summary} />
+
+              {article.links ? <Links links={article.links} /> : null}
             </div>
           ) : null}
           {image && (
