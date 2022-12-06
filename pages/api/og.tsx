@@ -37,7 +37,9 @@ export default async function (req: NextRequest) {
     (
       <div
         style={{
-          backgroundColor: '#79FFE1',
+          backgroundColor: 'black',
+          backgroundImage:
+                'linear-gradient(-45deg, rgba(234, 95, 177,1), rgba(234, 95, 177,0.5) )',
           width: WIDTH,
           height: HEIGHT,
           position: 'relative',
@@ -75,7 +77,6 @@ export default async function (req: NextRequest) {
             style={{
               backgroundImage:
                 'linear-gradient(-45deg, rgba(0,0,0,1), rgba(0,0,0,0.5) )',
-              transform: `rotate(2deg)`,
               display: 'flex',
               width: CREDIT_CARD_WIDTH,
               height: CREDIT_CARD_HEIGHT,
@@ -89,20 +90,8 @@ export default async function (req: NextRequest) {
           >
             <div
               style={{
-                backgroundColor: 'goldenrod',
-                position: 'absolute',
-                width: 120,
-                height: 80,
-                top: `45%`,
-                left: 50,
-                borderRadius: 20,
-                opacity: 0.75,
-              }}
-            />
-            <div
-              style={{
                 fontSize: 64,
-                color: 'cyan',
+                color: '#ea5fb1', 
                 fontWeight: 700,
                 fontFamily: `Inter`,
                 letterSpacing: `-0.04em`,

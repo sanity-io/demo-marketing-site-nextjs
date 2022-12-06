@@ -67,7 +67,7 @@ export default async function (req: NextRequest) {
         >
           <div
             style={{
-              color: 'cyan',
+              color: '#ea5fb1',
               fontSize: 100,
               fontWeight: 700,
               fontFamily: `Inter`,
