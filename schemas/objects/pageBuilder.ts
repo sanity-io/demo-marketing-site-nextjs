@@ -1,6 +1,5 @@
-import { RemoveIcon } from '@sanity/icons'
-import { Building } from 'lucide-react'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import {RemoveIcon} from '@sanity/icons'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export default defineType(
   {
@@ -12,9 +11,9 @@ export default defineType(
         name: 'article',
         title: 'Article',
         type: 'reference',
-        to: [{ type: 'article' }],
+        to: [{type: 'article'}],
         options: {
-          filter: ({ document }) => {
+          filter: ({document}) => {
             if (!document.market) {
               return {
                 filter: '!defined(market)',
@@ -23,7 +22,7 @@ export default defineType(
 
             return {
               filter: `market == $market`,
-              params: { market: document.market },
+              params: {market: document.market},
             }
           },
         },
@@ -37,7 +36,7 @@ export default defineType(
         name: 'intermission',
         title: 'Intermission',
         type: 'reference',
-        to: [{ type: 'intermission' }],
+        to: [{type: 'intermission'}],
       }),
       defineArrayMember({
         name: 'logos',
@@ -48,9 +47,9 @@ export default defineType(
         name: 'quote',
         title: 'Quote',
         type: 'reference',
-        to: [{ type: 'quote' }],
+        to: [{type: 'quote'}],
         options: {
-          filter: ({ document }) => {
+          filter: ({document}) => {
             if (!document.market) {
               return {
                 filter: '!defined(market)',
@@ -59,7 +58,7 @@ export default defineType(
 
             return {
               filter: `market == $market`,
-              params: { market: document.market },
+              params: {market: document.market},
             }
           },
         },
@@ -80,7 +79,7 @@ export default defineType(
           select: {
             title: 'text',
           },
-          prepare({ title }) {
+          prepare({title}) {
             return {
               title: title || 'Break',
               media: RemoveIcon,
@@ -90,5 +89,5 @@ export default defineType(
       }),
     ],
   },
-  { strict: false }
+  {strict: false}
 )

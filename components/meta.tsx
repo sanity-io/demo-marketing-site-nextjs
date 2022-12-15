@@ -1,6 +1,7 @@
 import Head from 'next/head'
+import * as React from 'react'
 
-import { CMS_NAME } from '../lib/constants'
+import {CMS_NAME} from '../lib/constants'
 
 export default function Meta() {
   return (

@@ -3,11 +3,12 @@ import {
   PortableTextProps,
   PortableTextReactComponents,
 } from '@portabletext/react'
-import { PortableTextBlock, TypedObject } from '@portabletext/types'
+import {PortableTextBlock, TypedObject} from '@portabletext/types'
+import * as React from 'react'
 
 const components: Partial<PortableTextReactComponents> = {
   marks: {
-    strong: ({ children }) => (
+    strong: ({children}) => (
       <strong className="text-magenta-500 dark:text-magenta-400">
         {children}
       </strong>

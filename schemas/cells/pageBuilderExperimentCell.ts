@@ -1,7 +1,5 @@
-import { Wand2 } from 'lucide-react'
-import { defineField } from 'sanity'
-
-import RowDisplay from '../components/RowDisplay'
+import {Wand2} from 'lucide-react'
+import {defineField} from 'sanity'
 
 export default defineField({
   name: 'pageBuilderExperimentCell',
@@ -17,10 +15,10 @@ export default defineField({
         defineField({
           name: 'experiment',
           type: 'reference',
-          to: [{ type: 'article' }],
+          to: [{type: 'article'}],
           options: {
             // Scope references to only those in the same Market
-            filter: ({ document }) => {
+            filter: ({document}) => {
               if (!document.market) {
                 return {
                   filter: '!defined(market)',
@@ -29,7 +27,7 @@ export default defineField({
 
               return {
                 filter: `market == $market`,
-                params: { market: document.market },
+                params: {market: document.market},
               }
             },
           },
@@ -43,7 +41,7 @@ export default defineField({
       title0: 'experiments.0.title',
       title1: 'experiments.1.title',
     },
-    prepare: ({ title0, title1 }) => ({
+    prepare: ({title0, title1}) => ({
       title:
         title0 || title1
           ? [title0, title1]

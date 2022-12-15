@@ -1,6 +1,7 @@
-import { KeyedObject, TypedObject } from 'sanity'
+import * as React from 'react'
+import {KeyedObject, TypedObject} from 'sanity'
 
-import { ArticleStub } from '../../types'
+import {ArticleStub} from '../../types'
 import BentoResolver from './bento/bento-resolver'
 import Hero from './hero'
 
@@ -11,7 +12,7 @@ type PageBuilderArticleProps = KeyedObject &
   }
 
 export default function PageBuilderArticle(props: PageBuilderArticleProps) {
-  const { isHero, articles, index } = props
+  const {isHero, articles, index} = props
 
   if (!articles?.length) {
     return null

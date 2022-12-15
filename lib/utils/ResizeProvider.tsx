@@ -1,4 +1,5 @@
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react'
+import {ReactNode, useCallback, useEffect, useMemo, useRef} from 'react'
+import * as React from 'react'
 
 import {
   ResizeContext,
@@ -11,7 +12,7 @@ export function ResizeProvider(props: {
   children?: ReactNode
   rootElement?: HTMLElement | null
 }) {
-  const { children, rootElement = null } = props
+  const {children, rootElement = null} = props
 
   const mo = useRef<MutationObserver | undefined>()
   const ro = useRef<ResizeObserver | undefined>()
@@ -86,7 +87,7 @@ export function ResizeProvider(props: {
     }
   }, [])
 
-  const resize = useMemo(() => ({ observe }), [observe])
+  const resize = useMemo(() => ({observe}), [observe])
 
   return (
     <ResizeContext.Provider value={resize}>{children}</ResizeContext.Provider>

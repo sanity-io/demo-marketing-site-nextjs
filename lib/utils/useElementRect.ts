@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import {useEffect, useState} from 'react'
 
-import { useResize } from './useResize'
-import { useScrollY } from './useScrollY'
+import {useResize} from './useResize'
 
 export interface ElementRect {
   x: number

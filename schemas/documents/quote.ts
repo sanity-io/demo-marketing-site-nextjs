@@ -1,6 +1,6 @@
-import { CalendarIcon, ComposeIcon, LinkIcon, SearchIcon } from '@sanity/icons'
-import { Quote } from 'lucide-react'
-import { defineField, defineType } from 'sanity'
+import {CalendarIcon, ComposeIcon} from '@sanity/icons'
+import {Quote} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 import RowDisplay from '../components/RowDisplay'
 
@@ -13,8 +13,8 @@ export default defineType({
     preview: RowDisplay,
   },
   groups: [
-    { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
-    { name: 'visibility', title: 'Visibility', icon: CalendarIcon },
+    {name: 'content', title: 'Content', icon: ComposeIcon, default: true},
+    {name: 'visibility', title: 'Visibility', icon: CalendarIcon},
   ],
   fields: [
     defineField({
@@ -31,11 +31,11 @@ export default defineType({
     defineField({
       name: 'person',
       type: 'reference',
-      to: [{ type: 'person' }],
+      to: [{type: 'person'}],
       group: ['content'],
       options: {
         // Scope references to only those in the same Market
-        filter: ({ document }) => {
+        filter: ({document}) => {
           if (!document.market) {
             return {
               filter: '!defined(market)',
@@ -44,7 +44,7 @@ export default defineType({
 
           return {
             filter: `market == $market`,
-            params: { market: document.market },
+            params: {market: document.market},
           }
         },
       },

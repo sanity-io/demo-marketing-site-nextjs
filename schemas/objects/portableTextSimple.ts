@@ -1,4 +1,4 @@
-import { defineType } from 'sanity'
+import {defineType} from 'sanity'
 
 export default defineType({
   name: 'portableTextSimple',
@@ -11,8 +11,8 @@ export default defineType({
       lists: [],
       marks: {
         decorators: [
-          { title: 'Strong', value: 'strong' },
-          { title: 'Emphasis', value: 'em' },
+          {title: 'Strong', value: 'strong'},
+          {title: 'Emphasis', value: 'em'},
         ],
         annotations: [],
       },

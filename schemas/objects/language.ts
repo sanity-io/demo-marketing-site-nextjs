@@ -1,13 +1,13 @@
-import { defineField } from 'sanity'
+import {defineField} from 'sanity'
 
-import { MARKETS, SCHEMA_ITEMS } from '../../lib/constants'
+import {MARKETS, SCHEMA_ITEMS} from '../../lib/constants'
 
 export default defineField({
   name: 'language',
   title: 'Language',
   type: 'string',
   // TODO: Hide field completely once initial value templates are configured
-  hidden: ({ document, value }) => {
+  hidden: ({document, value}) => {
     const market = MARKETS.find((m) => m.name === document?.market)
 
     // Hide on singleton documents
@@ -31,7 +31,7 @@ export default defineField({
   readOnly: true,
   // Only required if this market has more than one language
   validation: (Rule) =>
-    Rule.custom((value, { document }) => {
+    Rule.custom((value, {document}) => {
       const market = MARKETS.find((m) => m.name === document?.market)
 
       // Not required on singleton documents

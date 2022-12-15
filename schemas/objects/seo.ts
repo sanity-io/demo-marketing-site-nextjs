@@ -1,5 +1,5 @@
-import { getExtension, getImageDimensions } from '@sanity/asset-utils'
-import { defineField, defineType } from 'sanity'
+import {getExtension, getImageDimensions} from '@sanity/asset-utils'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'seo',
@@ -43,7 +43,7 @@ export default defineType({
     defineField({
       name: `image`,
       type: `image`,
-      options: { hotspot: true },
+      options: {hotspot: true},
       validation: (rule) =>
         rule.custom((value) => {
           if (!value?.asset?._ref) {
@@ -56,7 +56,7 @@ export default defineType({
             return 'Image must be a JPG or PNG'
           }
 
-          const { width, height } = getImageDimensions(value.asset._ref)
+          const {width, height} = getImageDimensions(value.asset._ref)
 
           if (width < 1200 || height < 630) {
             return 'Image must be at least 1200x630 pixels'

@@ -1,4 +1,4 @@
-const { theme } = require('@sanity/demo/tailwind')
+const {theme} = require('@sanity/demo/tailwind')
 
 const screen = [360, 600, 900, 1200, 1800, 2400]
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { KeyedObject, TypedObject } from 'sanity'
+import {KeyedObject, TypedObject} from 'sanity'
 
 import Container from '../container'
 
@@ -19,7 +19,7 @@ const ROWS = {
 }
 
 export default function PageBuilder(props: PageBuilderProps) {
-  const { rows } = props
+  const {rows} = props
   // We scoop all `feature` type blocks into a single block
   // This creates ✨magic✨ layout opportunities
   const rowsGrouped = React.useMemo(
@@ -45,7 +45,7 @@ export default function PageBuilder(props: PageBuilderProps) {
         if (curIndex === 0) {
           return [
             ...acc,
-            { _key: cur._key, _type: cur._type, isHero: true, articles: [cur] },
+            {_key: cur._key, _type: cur._type, isHero: true, articles: [cur]},
           ]
         }
 

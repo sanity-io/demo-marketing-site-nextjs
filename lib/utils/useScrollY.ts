@@ -1,7 +1,7 @@
-import { useContext } from 'react'
+import {useContext} from 'react'
 
-import { ScrollYContext } from './ScrollYContext'
+import {ScrollYContext} from './ScrollYContext'
 
-export function useScrollY() {
+export function useScrollY(): number {
   return useContext(ScrollYContext)
 }

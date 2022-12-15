@@ -1,36 +1,28 @@
-import { m, useScroll, useTransform } from 'framer-motion'
+import {m, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, { useMemo, useRef } from 'react'
+import React, {useRef} from 'react'
 
-import { urlForImage } from '../../../../sanity/sanity'
-import { ArticleStub } from '../../../../types'
+import {urlForImage} from '../../../../sanity/sanity'
+import {ArticleStub} from '../../../../types'
 import Container from '../../../container'
-import { ElementScrollStyle } from '../../../framer-motion/useElementScroll'
+import {ElementScrollStyle} from '../../../framer-motion/useElementScroll'
 import Links from '../../../links'
-import {
-  BentoNumberCallout,
-  isBentoNumberCallout,
-} from '../bento-number-callout'
-import { BentoSubtitle } from './BentoSubtitle'
-import { BentoSummary } from './BentoSummary'
-import { BentoTitle } from './BentoTitle'
+import {BentoNumberCallout, isBentoNumberCallout} from '../bento-number-callout'
+import {BentoSubtitle} from './BentoSubtitle'
+import {BentoSummary} from './BentoSummary'
+import {BentoTitle} from './BentoTitle'
 
-export default function Index(props: { article: ArticleStub; index: number }) {
-  const { article, index } = props
-  const { image } = article
+export default function Index(props: {article: ArticleStub; index: number}) {
+  const {article, index} = props
+  const {image} = article
   const hasText = !!(article.title || article.subtitle || article.summary)
   const even = index % 2 === 0
 
-  const { ref: imageRef, style: imageStyle } = useImageStyle()
-  const articles = useMemo(() => [article], [article])
+  const {ref: imageRef, style: imageStyle} = useImageStyle()
   if (isBentoNumberCallout(article)) {
     return (
       <div className="border-t border-b border-gray-200 dark:border-gray-800">
-        <BentoNumberCallout
-          article={article}
-          articleIndex={index}
-          articles={articles}
-        />
+        <BentoNumberCallout article={article} />
       </div>
     )
   }
@@ -39,17 +31,15 @@ export default function Index(props: { article: ArticleStub; index: number }) {
     <div>
       <Container>
         <div
-          className={
-            'flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5 ' +
-            (image ? (even ? 'md:flex-row' : 'md:flex-row-reverse') : '')
-          }
+          className={`flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5 ${
+            image ? (even ? 'md:flex-row' : 'md:flex-row-reverse') : ''
+          }`}
         >
           {hasText ? (
             <div
-              className={
-                'flex flex-col items-start gap-4 py-6 md:py-24 ' +
-                (image ? 'md:w-3/5 ' : '')
-              }
+              className={`flex flex-col items-start gap-4 py-6 md:py-24 ${
+                image ? 'md:w-3/5 ' : ''
+              }`}
             >
               <BentoSubtitle subtitle={article?.subtitle} className="" />
 
@@ -64,10 +54,9 @@ export default function Index(props: { article: ArticleStub; index: number }) {
             <m.div
               ref={imageRef}
               style={imageStyle}
-              className={
-                'flex items-stretch justify-items-stretch self-stretch md:py-24' +
-                (hasText ? 'w-full md:w-2/5' : 'm-auto w-full')
-              }
+              className={`flex items-stretch justify-items-stretch self-stretch md:py-24${
+                hasText ? 'w-full md:w-2/5' : 'm-auto w-full'
+              }`}
             >
               <Image
                 src={urlForImage(image)
@@ -89,7 +78,7 @@ export default function Index(props: { article: ArticleStub; index: number }) {
 
 function useImageStyle(): ElementScrollStyle {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   })

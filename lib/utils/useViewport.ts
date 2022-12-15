@@ -1,6 +1,6 @@
-import { useContext } from 'react'
+import {useContext} from 'react'
 
-import { ViewportContext, ViewportContextValue } from './ViewportContext'
+import {ViewportContext, ViewportContextValue} from './ViewportContext'
 
 export function useViewport(): ViewportContextValue {
   const viewport = useContext(ViewportContext)

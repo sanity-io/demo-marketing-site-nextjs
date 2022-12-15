@@ -1,7 +1,7 @@
 import React from 'react'
-import { KeyedObject } from 'sanity'
+import {KeyedObject} from 'sanity'
 
-import { Link } from '../types'
+import {Link} from '../types'
 import Button from './button'
 
 type LinksProps = {
@@ -9,7 +9,7 @@ type LinksProps = {
 }
 
 export default function Links(props: LinksProps) {
-  const { links } = props
+  const {links} = props
 
   if (!links?.length) return null
 

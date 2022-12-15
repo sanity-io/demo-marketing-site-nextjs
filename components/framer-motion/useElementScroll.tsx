@@ -1,5 +1,5 @@
-import { MotionStyle, useScroll } from 'framer-motion'
-import React, { useRef } from 'react'
+import {MotionStyle, useScroll} from 'framer-motion'
+import React, {useRef} from 'react'
 
 export interface ElementScrollStyle {
   ref: React.MutableRefObject<any>

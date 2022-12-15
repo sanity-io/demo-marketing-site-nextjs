@@ -1,15 +1,16 @@
-import { domAnimation, LazyMotion, m } from 'framer-motion'
+import {domAnimation, LazyMotion} from 'framer-motion'
 import Link from 'next/link'
-import { useState } from 'react'
+import {useState} from 'react'
+import * as React from 'react'
 
 import PageBuilder from '../components/page-builder'
-import { ResizeProvider } from '../lib/utils/ResizeProvider'
-import { ScrollYProvider } from '../lib/utils/ScrollYProvider'
-import { ViewportProvider } from '../lib/utils/ViewportProvider'
-import { PageProps } from '../types'
+import {ResizeProvider} from '../lib/utils/ResizeProvider'
+import {ScrollYProvider} from '../lib/utils/ScrollYProvider'
+import {ViewportProvider} from '../lib/utils/ViewportProvider'
+import {PageProps} from '../types'
 
 export default function Page(props: PageProps) {
-  const { slug, market, translations, content } = props
+  const {slug, market, translations, content} = props
   const [element, setElement] = useState<HTMLElement | null>(null)
 
   return (

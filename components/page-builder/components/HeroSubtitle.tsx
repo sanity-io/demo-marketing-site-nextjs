@@ -1,4 +1,4 @@
-import { m, useTransform } from 'framer-motion'
+import {m, useTransform} from 'framer-motion'
 import React from 'react'
 
 import {
@@ -6,8 +6,8 @@ import {
   useElementScroll,
 } from '../../framer-motion/useElementScroll'
 
-export function HeroSubtitle({ subtitle }: { subtitle?: string }) {
-  const { ref, style } = useStyle()
+export function HeroSubtitle({subtitle}: {subtitle?: string}) {
+  const {ref, style} = useStyle()
   if (!subtitle) {
     return null
   }
@@ -25,7 +25,7 @@ export function HeroSubtitle({ subtitle }: { subtitle?: string }) {
 function useStyle(): ElementScrollStyle {
   const {
     ref,
-    scroll: { scrollYProgress },
+    scroll: {scrollYProgress},
   } = useElementScroll()
   const translateY = useTransform(scrollYProgress, [0, 0.7, 1], [0, 0, -20])
   const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0])

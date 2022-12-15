@@ -1,7 +1,5 @@
-import { ConfigContext } from 'sanity'
-import { DefaultDocumentNodeResolver, StructureBuilder } from 'sanity/desk'
-import DocumentsPane from 'sanity-plugin-documents-pane'
-import Iframe from 'sanity-plugin-iframe-pane'
+import {ConfigContext} from 'sanity'
+import {StructureBuilder} from 'sanity/desk'
 
 import {
   Language,
@@ -166,9 +164,7 @@ export const structure = (
   context: ConfigContext,
   marketName?: string
 ) => {
-  const market = marketName
-    ? MARKETS.find((market) => market.name === marketName)
-    : null
+  const market = marketName ? MARKETS.find((m) => m.name === marketName) : null
 
   if (market) {
     return S.list()

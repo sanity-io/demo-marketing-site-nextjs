@@ -1,6 +1,6 @@
-import { useContext } from 'react'
+import {useContext} from 'react'
 
-import { ResizeContext, ResizeContextValue } from './ResizeContext'
+import {ResizeContext, ResizeContextValue} from './ResizeContext'
 
 export function useResize(): ResizeContextValue {
   const resize = useContext(ResizeContext)

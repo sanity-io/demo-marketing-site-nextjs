@@ -1,6 +1,7 @@
+/* eslint-disable no-process-env */
 /** @type {import('next').NextConfig} */
 
-const { markets } = require('./lib/markets')
+const {markets} = require('./lib/markets')
 
 function createLocalesFromSingleMarket(market) {
   return market.languages.map((language) =>
@@ -8,8 +9,10 @@ function createLocalesFromSingleMarket(market) {
   )
 }
 
-function createAllLocalesFromMarkets(markets) {
-  return markets.map((market) => createLocalesFromSingleMarket(market)).flat()
+function createAllLocalesFromMarkets(fromMarkets) {
+  return fromMarkets
+    .map((market) => createLocalesFromSingleMarket(market))
+    .flat()
 }
 
 const domainBase = process.env.VERCEL ? process.env.VERCEL_URL : `localhost`
@@ -38,9 +41,9 @@ const i18n = {
 module.exports = {
   images: {
     remotePatterns: [
-      { hostname: 'cdn.sanity.io' },
-      { hostname: 'source.unsplash.com' },
-      { hostname: 'img.logoipsum.com' },
+      {hostname: 'cdn.sanity.io'},
+      {hostname: 'source.unsplash.com'},
+      {hostname: 'img.logoipsum.com'},
     ],
   },
   i18n,

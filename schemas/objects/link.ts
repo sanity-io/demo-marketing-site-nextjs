@@ -1,4 +1,4 @@
-import { defineType } from 'sanity'
+import {defineType} from 'sanity'
 
 export default defineType({
   name: 'link',
@@ -9,16 +9,16 @@ export default defineType({
       name: `reference`,
       type: `reference`,
       description: `If this link has a reference and a URL, the reference will be used`,
-      to: [{ type: 'page' }],
+      to: [{type: 'page'}],
       // Read-only if a URL is used
-      readOnly: ({ value, parent }) => !value && Boolean(parent?.url),
+      readOnly: ({value, parent}) => !value && Boolean(parent?.url),
       options: {
-        filter: ({ document }) => {
+        filter: ({document}) => {
           // Filter to the same market
           if (document.market) {
             return {
               filter: `market == $market`,
-              params: { market: document.market },
+              params: {market: document.market},
             }
           }
 
@@ -44,7 +44,7 @@ export default defineType({
       title: 'URL',
       type: `url`,
       // Read-only if a reference is used
-      readOnly: ({ value, parent }) => !value && Boolean(parent?.reference),
+      readOnly: ({value, parent}) => !value && Boolean(parent?.reference),
       validation: (Rule) =>
         Rule.uri({
           scheme: ['https', 'mailto', 'tel'],
@@ -59,7 +59,7 @@ export default defineType({
       url: 'url',
     },
     prepare(selection) {
-      const { refSlug, refTitle, text, url } = selection
+      const {refSlug, refTitle, text, url} = selection
 
       return {
         title: !text && !refTitle ? `Empty Text` : text ?? refTitle,

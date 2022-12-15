@@ -1,5 +1,5 @@
-import { SanityImageSource } from '@sanity/image-url/lib/types/types'
-import { Block, KeyedObject } from 'sanity'
+import {SanityImageSource} from '@sanity/image-url/lib/types/types'
+import {Block, KeyedObject} from 'sanity'
 
 export interface AuthorProps {
   name: string

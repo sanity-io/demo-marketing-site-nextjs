@@ -1,7 +1,8 @@
-import { ArrowRight } from 'lucide-react'
+import {ArrowRight} from 'lucide-react'
 import Link from 'next/link'
+import * as React from 'react'
 
-import { Link as LinkProps } from '../types'
+import {Link as LinkProps} from '../types'
 
 type ButtonMode = 'default' | 'ghost' | 'bleed'
 type ButtonProps = LinkProps & {

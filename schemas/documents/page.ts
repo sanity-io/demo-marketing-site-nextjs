@@ -1,6 +1,6 @@
-import { CogIcon, ComposeIcon, SearchIcon } from '@sanity/icons'
-import { File } from 'lucide-react'
-import { defineField, defineType } from 'sanity'
+import {ComposeIcon, SearchIcon} from '@sanity/icons'
+import {File} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'page',
@@ -8,8 +8,8 @@ export default defineType({
   icon: File,
   type: 'document',
   groups: [
-    { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
-    { name: 'seo', title: 'SEO', icon: SearchIcon },
+    {name: 'content', title: 'Content', icon: ComposeIcon, default: true},
+    {name: 'seo', title: 'SEO', icon: SearchIcon},
     // { name: 'options', title: 'Options', icon: CogIcon },
   ],
   fields: [
@@ -57,7 +57,7 @@ export default defineType({
       market: 'market',
       language: 'language',
     },
-    prepare: ({ title, market, language }) => {
+    prepare: ({title, market, language}) => {
       const subtitle = [language?.toLowerCase(), market?.toUpperCase()]
         .filter(Boolean)
         .join('-')

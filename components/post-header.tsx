@@ -1,4 +1,6 @@
-import { PageProps } from '../types'
+import * as React from 'react'
+
+import {PageProps} from '../types'
 // import Avatar from './avatar'
 // import CoverImage from './cover-image'
 // import Date from './date'

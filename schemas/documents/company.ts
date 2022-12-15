@@ -1,5 +1,5 @@
-import { Building } from 'lucide-react'
-import { defineField, defineType } from 'sanity'
+import {Building} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'company',
@@ -28,7 +28,7 @@ export default defineType({
       title: 'name',
       logo: 'logo',
     },
-    prepare: ({ title, logo }) => ({
+    prepare: ({title, logo}) => ({
       title,
       media: logo ?? Building,
     }),

@@ -24,10 +24,11 @@
 
  */
 
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { type ParseBody, parseBody } from 'next-sanity/webhook'
+import type {NextApiRequest, NextApiResponse} from 'next'
+import {parseBody} from 'next-sanity/webhook'
 
-import { getClient } from '../../sanity/sanity.server'
+import {env} from '../../lib/utils/env'
+import {getClient} from '../../sanity/sanity.server'
 
 // Next.js will by default parse the body, which can lead to invalid signatures
 export const config = {
@@ -57,32 +58,32 @@ const getQueryForType = (type) => {
 }
 
 const log = (msg, error?) =>
+  // eslint-disable-next-line no-console
   console[error ? 'error' : 'log'](`[revalidate] ${msg}`)
 
 export default async function revalidate(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { body, isValidSignature } = await parseBody(
+  const {body, isValidSignature} = await parseBody(
     req,
-    process.env.SANITY_REVALIDATE_SECRET
+    env('SANITY_REVALIDATE_SECRET')
   )
   if (!isValidSignature) {
     const invalidSignature = 'Invalid signature'
     log(invalidSignature, true)
-    res.status(401).json({ success: false, message: invalidSignature })
-    return
+    return res.status(401).json({success: false, message: invalidSignature})
   }
 
-  const { _id: id, _type } = body
+  const {_id: id, _type} = body
   if (typeof id !== 'string' || !id) {
     const invalidId = 'Invalid _id'
     log(invalidId, true)
-    return res.status(400).json({ message: invalidId })
+    return res.status(400).json({message: invalidId})
   }
 
   log(`Querying post slug for _id '${id}', type '${_type}' ..`)
-  const slug = await getClient(false).fetch(getQueryForType(_type), { id })
+  const slug = await getClient(false).fetch(getQueryForType(_type), {id})
   const slugs = (Array.isArray(slug) ? slug : [slug]).map(
     (_slug) => `/posts/${_slug}`
   )
@@ -92,9 +93,9 @@ export default async function revalidate(
     await Promise.all(staleRoutes.map((route) => res.revalidate(route)))
     const updatedRoutes = `Updated routes: ${staleRoutes.join(', ')}`
     log(updatedRoutes)
-    return res.status(200).json({ message: updatedRoutes })
+    return res.status(200).json({message: updatedRoutes})
   } catch (err) {
     log(err.message, true)
-    return res.status(500).json({ message: err.message })
+    return res.status(500).json({message: err.message})
   }
 }

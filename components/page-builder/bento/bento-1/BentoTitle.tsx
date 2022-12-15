@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function BentoTitle({ title }: { title?: string }) {
+export function BentoTitle({title}: {title?: string}) {
   if (!title) {
     return null
   }

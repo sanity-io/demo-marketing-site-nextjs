@@ -1,4 +1,6 @@
-import { ArticleStub } from '../../../types'
+import * as React from 'react'
+
+import {ArticleStub} from '../../../types'
 import HeroH1 from './hero-h1'
 import HeroH1WithImage from './hero-h1-with-image'
 import HeroH2 from './hero-h2'
@@ -9,11 +11,10 @@ export type HeroProps = ArticleStub & {
 }
 
 export default function PageBuilderHero(props: HeroProps) {
-  const { index, image } = props
+  const {index, image} = props
 
   if (index === 0) {
     return image ? <HeroH1WithImage {...props} /> : <HeroH1 {...props} />
-  } else {
-    return image ? <HeroH2WithImage {...props} /> : <HeroH2 {...props} />
   }
+  return image ? <HeroH2WithImage {...props} /> : <HeroH2 {...props} />
 }

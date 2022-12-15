@@ -1,4 +1,4 @@
-import { SCHEMA_ITEMS, SchemaItem } from '../lib/constants'
+import {SCHEMA_ITEMS, SchemaItem} from '../lib/constants'
 
 const onlySchemaItems = SCHEMA_ITEMS.filter((item) => item.kind === 'list')
 
@@ -9,7 +9,7 @@ export const schemaTemplates = (prev) => [
     title: `${schemaItem.title} with Market`,
     type: 'initialValueTemplateItem',
     schemaType: schemaItem.schemaType,
-    parameters: [{ name: `market`, title: `Market`, type: `string` }],
-    value: ({ market }) => ({ market }),
+    parameters: [{name: `market`, title: `Market`, type: `string`}],
+    value: ({market}) => ({market}),
   })),
 ]

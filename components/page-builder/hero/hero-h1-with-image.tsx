@@ -1,20 +1,20 @@
-import { m, useScroll, useTransform } from 'framer-motion'
+import {m, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, { useRef } from 'react'
+import React, {useRef} from 'react'
 
-import { urlForImage } from '../../../sanity/sanity'
+import {urlForImage} from '../../../sanity/sanity'
 import Container from '../../container'
-import { DebugGrid } from '../../debug/grid'
-import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
+import {DebugGrid} from '../../debug/grid'
+import {ElementScrollStyle} from '../../framer-motion/useElementScroll'
 import Links from '../../links'
-import { HeroSubtitle } from '../components/HeroSubtitle'
-import { HeroSummary } from '../components/HeroSummary'
-import { HeroTitle } from '../components/HeroTitle'
-import { HeroProps } from '.'
+import {HeroSubtitle} from '../components/HeroSubtitle'
+import {HeroSummary} from '../components/HeroSummary'
+import {HeroTitle} from '../components/HeroTitle'
+import {HeroProps} from '.'
 
 export default function HeroH1WithImage(props: HeroProps) {
-  const { title, subtitle, summary, image, links } = props
-  const { ref, style } = useStyle()
+  const {title, subtitle, summary, image, links} = props
+  const {ref, style} = useStyle()
   return (
     <div>
       <Container className="relative">
@@ -49,7 +49,7 @@ export default function HeroH1WithImage(props: HeroProps) {
 
 function useStyle(): ElementScrollStyle {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['end end', '0.8 start'],
   })

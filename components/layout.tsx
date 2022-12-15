@@ -1,8 +1,9 @@
-import type { PropsWithChildren } from 'react'
+import type {PropsWithChildren} from 'react'
+import * as React from 'react'
 
-import { GlobalDataProps, PageQueryParams } from '../types'
+import {GlobalDataProps, PageQueryParams} from '../types'
 import Alert from './alert'
-import { DebugProvider } from './debug/debug-provider'
+import {DebugProvider} from './debug/debug-provider'
 import Footer from './footer'
 import Header from './header'
 import Meta from './meta'
@@ -14,8 +15,8 @@ export type LayoutProps = {
 }
 
 export default function Layout(props: PropsWithChildren<LayoutProps>) {
-  const { preview, queryParams, children } = props
-  const { settings, menus } = props.globalData || {}
+  const {preview, queryParams, children} = props
+  const {settings, menus} = props.globalData || {}
 
   return (
     <DebugProvider>

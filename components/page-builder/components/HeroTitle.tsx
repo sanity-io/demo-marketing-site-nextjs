@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function HeroTitle({ title }: { title?: string }) {
+export function HeroTitle({title}: {title?: string}) {
   if (!title) {
     return null
   }

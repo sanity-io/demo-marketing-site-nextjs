@@ -3,9 +3,10 @@
  * utilities we use on the client side, we are able to tree-shake (remove)
  * code that is not used on the client side.
  */
-import { createClient } from 'next-sanity'
+import {createClient} from 'next-sanity'
 
-import { sanityConfig } from './config'
+import {env} from '../lib/utils/env'
+import {sanityConfig} from './config'
 
 export const getClient = (preview) =>
   preview
@@ -14,9 +15,7 @@ export const getClient = (preview) =>
         useCdn: false,
         // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
         // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
-        token:
-          process.env.SANITY_API_READ_TOKEN ||
-          process.env.SANITY_API_WRITE_TOKEN,
+        token: env('SANITY_API_READ_TOKEN') || env('SANITY_API_WRITE_TOKEN'),
       })
     : createClient(sanityConfig)
 

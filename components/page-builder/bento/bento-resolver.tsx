@@ -1,7 +1,8 @@
-import { Icon, IconSymbol } from '@sanity/icons'
-import { KeyedObject } from 'sanity'
+import {Icon, IconSymbol} from '@sanity/icons'
+import * as React from 'react'
+import {KeyedObject} from 'sanity'
 
-import { ArticleStub } from '../../../types'
+import {ArticleStub} from '../../../types'
 import Bento1 from './bento-1'
 import Bento3 from './bento-3'
 import Bento3Wide from './bento-3-wide'
@@ -13,7 +14,7 @@ export interface BentoBoxProps {
 }
 
 export default function BentoResolver(props: BentoBoxProps) {
-  const { articles, index } = props
+  const {articles, index} = props
 
   if (articles.length === 1) {
     return <Bento1 article={articles[0]} index={index} />

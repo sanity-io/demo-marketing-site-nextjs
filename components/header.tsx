@@ -1,12 +1,12 @@
-import { Menu } from 'lucide-react'
+import {Menu} from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
+import * as React from 'react'
 
-import link from '../schemas/objects/link'
-import { GlobalDataProps } from '../types'
+import {GlobalDataProps} from '../types'
 import Button from './button'
 import Container from './container'
-import { DebugGrid } from './debug/grid'
+import {DebugGrid} from './debug/grid'
 import Logo from './logo'
 
 type HeaderProps = {
@@ -15,12 +15,11 @@ type HeaderProps = {
 }
 
 export default function Header(props: HeaderProps) {
-  const { title, headerPrimary } = props
-  const { domainLocales, locale } = useRouter()
+  const {title, headerPrimary} = props
+  const {domainLocales, locale} = useRouter()
 
   const domainLocale =
-    domainLocales &&
-    domainLocales.find((domainLocale) => domainLocale.locales.includes(locale))
+    domainLocales && domainLocales.find((l) => l.locales.includes(locale))
   // const domainMarket = domainLocale.locales[0].split(`-`)[1]
 
   return (
