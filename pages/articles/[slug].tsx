@@ -8,7 +8,7 @@ import * as React from 'react'
 import Container from '../../components/container'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
-import {env} from '../../lib/utils/env'
+import { config } from '../../lib/config'
 import {
   articleQuery,
   articleSlugsQuery,
@@ -18,7 +18,6 @@ import {urlForImage} from '../../sanity/sanity'
 import {getClient} from '../../sanity/sanity.server'
 import {GlobalDataProps, PageQueryParams} from '../../types'
 import {getLanguageFromNextLocale, getMarketFromNextLocale} from '../'
-import { config } from '../../lib/config'
 
 interface Props {
   data: any

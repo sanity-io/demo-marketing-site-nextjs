@@ -9,12 +9,11 @@ import Container from '../components/container'
 import Layout from '../components/layout'
 import Page from '../components/page'
 import PostTitle from '../components/post-title'
-import {env} from '../lib/utils/env'
+import { config } from '../lib/config'
 import {globalDataQuery, pageQuery, pageSlugsQuery} from '../sanity/queries'
 import {getClient} from '../sanity/sanity.server'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
 import {getLanguageFromNextLocale, getMarketFromNextLocale} from '.'
-import { config } from '../lib/config'
 
 const PreviewPage = lazy(() => import('../components/preview-page'))
 
