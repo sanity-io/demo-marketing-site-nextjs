@@ -18,6 +18,7 @@ import {urlForImage} from '../../sanity/sanity'
 import {getClient} from '../../sanity/sanity.server'
 import {GlobalDataProps, PageQueryParams} from '../../types'
 import {getLanguageFromNextLocale, getMarketFromNextLocale} from '../'
+import { config } from '../../lib/config'
 
 interface Props {
   data: any
@@ -127,7 +128,7 @@ export async function getStaticProps({
       globalData,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-    revalidate: env('SANITY_REVALIDATE_SECRET') ? undefined : 60,
+    revalidate: config.revalidateSecret ? undefined : 60,
   }
 }
 
