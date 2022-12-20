@@ -37,9 +37,9 @@ export default function Bento3Wide(props: {
   )
   return (
     <div className="max-h-xl">
-      {!even ? high : cells}
+      {even ? cells : high}
       <div className="border-t border-gray-200 dark:border-gray-800">
-        {!even ? cells : high}
+        {even ? high : cells}
       </div>
     </div>
   )

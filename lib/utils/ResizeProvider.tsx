@@ -23,7 +23,7 @@ export function ResizeProvider(props: {
 
   // Set up the mutation observer
   useEffect(() => {
-    if (!rootElement) return
+    if (!rootElement) return undefined
 
     mo.current = new MutationObserver(() => {
       for (const element of elements.current) {
@@ -52,9 +52,10 @@ export function ResizeProvider(props: {
       for (const entry of entries) {
         const element = entry.target
 
-        const next = subscriberMap.current?.get(element)
-
-        next(entry)
+        const nextSubscriber = subscriberMap.current?.get(element)
+        if (nextSubscriber) {
+          nextSubscriber(entry)
+        }
       }
     })
 

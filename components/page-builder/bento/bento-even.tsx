@@ -51,8 +51,8 @@ function CellWrapper({
         // prettier-ignore
         `border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col py-4 sm:py-5
         ${articles.length === 4 ? 'xl:w-1/4' : ''}
-        ${articleIndex !== 0 ? 'border-t' : ''}
-        ${articleIndex % 4 != 0 ? 'md:border-l' : ''}
+        ${articleIndex === 0 ? '' : 'border-t'}
+        ${articleIndex % 4 === 0 ? '' : 'md:border-l'}
         ${articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'}`
       }
     >

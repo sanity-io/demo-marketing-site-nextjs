@@ -27,13 +27,16 @@ export default function Index(props: {article: ArticleStub; index: number}) {
     )
   }
 
+  let rowClass = ''
+  if (image) {
+    rowClass = even ? 'md:flex-row' : 'md:flex-row-reverse'
+  }
+
   return (
     <div>
       <Container>
         <div
-          className={`flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5 ${
-            image ? (even ? 'md:flex-row' : 'md:flex-row-reverse') : ''
-          }`}
+          className={`flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5 ${rowClass}`}
         >
           {hasText ? (
             <div

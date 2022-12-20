@@ -51,14 +51,20 @@ export default defineField({
       logos: 'logos',
       visibility: 'visibility',
     },
-    prepare: ({logos}) => ({
-      title: logos?.length
-        ? logos.length === 1
-          ? `1 Logo`
-          : `${logos.length} Logos`
-        : 'All Logos',
-      subtitle: 'Logos',
-      media: Building,
-    }),
+    prepare: ({logos}) => {
+      let title = 'All Logos'
+      if (logos?.length) {
+        if (logos.length === 1) {
+          title = `1 Logo`
+        } else {
+          title = `${logos.length} Logos`
+        }
+      }
+      return {
+        title,
+        subtitle: 'Logos',
+        media: Building,
+      }
+    },
   },
 })

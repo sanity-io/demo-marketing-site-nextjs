@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-import { config } from '../../lib/config'
+import {config} from '../../lib/config'
 import {previewBySlugQuery} from '../../sanity/queries'
 import {getClient} from '../../sanity/sanity.server'
 
@@ -37,9 +37,10 @@ export default async function preview(
   const queryDate = Array.isArray(req.query.date)
     ? req.query.date[0]
     : req.query.date
-  const queryAudience = !['string', 'boolean'].includes(typeof req.previewData)
-    ? Number(req.query.audience)
-    : null
+  // I refactored this to pass linting, but I don't quite know what this is doing
+  const queryAudience = ['string', 'boolean'].includes(typeof req.previewData)
+    ? null
+    : Number(req.query.audience)
 
   // Control some of the query parameters in Preview mode
   // These should typically be set by a cookie or session
