@@ -13,6 +13,9 @@ export default function Page(props: PageProps) {
   const {slug, market, translations, content} = props
   const [element, setElement] = useState<HTMLElement | null>(null)
 
+  // FIXME: translations array, if set, can have a null element as the first
+  // member. Find out why and eliminate it.
+
   return (
     <LazyMotion features={domAnimation}>
       <ViewportProvider>
@@ -21,7 +24,8 @@ export default function Page(props: PageProps) {
             <article className="flex flex-col" ref={setElement}>
               {translations.length > 0 ? (
                 <ul className="flex items-center gap-4">
-                  {translations.map((translation) => (
+                  {translations.filter(i => i).map((translation) => {
+                    return (
                     <li
                       key={translation.slug}
                       className={
@@ -38,7 +42,7 @@ export default function Page(props: PageProps) {
                         </span>
                       </Link>
                     </li>
-                  ))}
+                  )})}
                 </ul>
               ) : null}
               {content && content.length > 0 ? (
