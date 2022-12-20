@@ -16,9 +16,9 @@
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
     "lint:next": "next lint -- --ignore-path .gitignore",
+    "prepare": "husky install",
     "start": "next start",
-    "type-check": "tsc --noEmit",
-    "prepare": "husky install"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",

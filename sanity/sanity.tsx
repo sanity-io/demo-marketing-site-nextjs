@@ -1,11 +1,11 @@
 import createImageUrlBuilder from '@sanity/image-url'
 import {definePreview} from 'next-sanity/preview'
 
-import { config } from '../lib/config'
+import {config} from '../lib/config'
 
 export const imageBuilder = createImageUrlBuilder({
   projectId: config.sanity.projectId,
-  dataset: config.sanity.dataset
+  dataset: config.sanity.dataset,
 })
 
 export const urlForImage = (source) =>

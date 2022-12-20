@@ -132,7 +132,7 @@ function High({first}: {first: ArticleStub}) {
           {hasText ? (
             <div
               className={first?.image ? 'md:w-1/2' : 'w-full'}
-              ref={first?.image ? undefined : ref }
+              ref={first?.image ? undefined : ref}
             >
               <BentoSubtitle subtitle={first.subtitle} />
               <BentoTitle title={first.title} />

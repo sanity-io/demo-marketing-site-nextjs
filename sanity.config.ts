@@ -11,7 +11,7 @@ import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import {media} from 'sanity-plugin-media'
 import {muxInput} from 'sanity-plugin-mux-input'
 
-import { config } from './lib/config'
+import {config} from './lib/config'
 import {MARKETS, SCHEMA_ITEMS} from './lib/constants'
 import {marketBadge} from './sanity/badges/market-badge'
 import CustomToolMenu from './sanity/components/CustomToolMenu'

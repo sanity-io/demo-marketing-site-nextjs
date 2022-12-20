@@ -8,7 +8,7 @@ import * as React from 'react'
 import Container from '../../components/container'
 import Layout from '../../components/layout'
 import PostTitle from '../../components/post-title'
-import { config } from '../../lib/config'
+import {config} from '../../lib/config'
 import {
   articleQuery,
   articleSlugsQuery,

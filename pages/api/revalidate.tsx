@@ -27,9 +27,8 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {parseBody} from 'next-sanity/webhook'
 
-import {config as globalConfig } from '../../lib/config'
+import {config as globalConfig} from '../../lib/config'
 import {getClient} from '../../sanity/sanity.server'
-
 
 // Next.js will by default parse the body, which can lead to invalid signatures
 export const config = {

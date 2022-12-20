@@ -144,15 +144,11 @@ const createSchemaItemList = (
   let languageTitle = null
   if (language?.id) {
     languageTitle = `(${language.id.toUpperCase()})`
-  } else if(market.languages.length > 1) {
+  } else if (market.languages.length > 1) {
     languageTitle = `(No Language)`
   }
 
-  const itemTitle = [
-    market.name,
-    schemaItem.title,
-    languageTitle,
-  ]
+  const itemTitle = [market.name, schemaItem.title, languageTitle]
     .filter(Boolean)
     .join(` `)
 
