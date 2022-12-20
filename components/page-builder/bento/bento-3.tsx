@@ -1,29 +1,26 @@
-import { m, useScroll, useTransform } from 'framer-motion'
+import {m, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, { PropsWithChildren, useRef } from 'react'
-import { KeyedObject } from 'sanity'
+import React, {PropsWithChildren, useRef} from 'react'
+import {KeyedObject} from 'sanity'
 
-import { urlForImage } from '../../../sanity/sanity'
-import { ArticleStub } from '../../../types'
+import {urlForImage} from '../../../sanity/sanity'
+import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import { DebugGrid } from '../../debug/grid'
-import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
-import { StyledPortableText } from '../portable-text/StyledPortableText'
-import { BentoSubtitle } from './bento-1/BentoSubtitle'
-import { BentoTitle } from './bento-1/BentoTitle'
-import {
-  BentoNumberCallout,
-  isBentoNumberCallout,
-} from './bento-number-callout'
+import {DebugGrid} from '../../debug/grid'
+import {ElementScrollStyle} from '../../framer-motion/useElementScroll'
+import {StyledPortableText} from '../portable-text/StyledPortableText'
+import {BentoSubtitle} from './bento-1/BentoSubtitle'
+import {BentoTitle} from './bento-1/BentoTitle'
+import {BentoNumberCallout, isBentoNumberCallout} from './bento-number-callout'
 
 export default function Bento3(props: {
   articles: (KeyedObject & ArticleStub)[]
   index: number
 }) {
-  const { articles, index } = props
+  const {articles, index} = props
   const [first, ...rest] = articles
   const reverse = index % 4 == 0
-  const high = <High first={first} articles={articles} />
+  const high = <High first={first} />
   const cells = (
     <div className="flex flex-col">
       {rest.map((article, articleIndex) => {
@@ -33,11 +30,7 @@ export default function Bento3(props: {
         return (
           <CellWrapper key={article._key} articleIndex={articleIndex}>
             <Container>
-              <Component
-                article={article}
-                articleIndex={articleIndex}
-                articles={articles}
-              />
+              <Component article={article} />
             </Container>
           </CellWrapper>
         )
@@ -57,8 +50,8 @@ export default function Bento3(props: {
 function CellWrapper({
   articleIndex,
   children,
-}: PropsWithChildren<{ articleIndex: number }>) {
-  const { ref, style } = useStyle(0)
+}: PropsWithChildren<{articleIndex: number}>) {
+  const {ref, style} = useStyle(0)
   return (
     <div
       className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
@@ -72,13 +65,7 @@ function CellWrapper({
   )
 }
 
-export function Small({
-  article,
-}: {
-  article: ArticleStub
-  articleIndex: number
-  articles: ArticleStub[]
-}) {
+export function Small({article}: {article: ArticleStub}) {
   const image = article.image
   const hasText =
     article.title || article.subtitle || article?.summary?.length > 0
@@ -115,9 +102,9 @@ export function Small({
   )
 }
 
-function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
+function High({first}: {first: ArticleStub}) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
-  const { ref, style } = useStyle(0.2)
+  const {ref, style} = useStyle(0.2)
   return (
     <Container className="relative flex content-center justify-center">
       <m.div layout className="flex items-center justify-center" style={style}>
@@ -125,10 +112,9 @@ function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
           {first?.image ? (
             <div
               ref={ref}
-              className={
-                'flex items-stretch justify-items-stretch self-stretch ' +
-                (hasText ? 'md:w-1/2' : 'w-full')
-              }
+              className={`flex items-stretch justify-items-stretch self-stretch ${
+                hasText ? 'md:w-1/2' : 'w-full'
+              }`}
             >
               <Image
                 src={urlForImage(first?.image)
@@ -146,7 +132,7 @@ function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
           {hasText ? (
             <div
               className={first?.image ? 'md:w-1/2' : 'w-full'}
-              ref={!first?.image ? ref : undefined}
+              ref={first?.image ? undefined : ref }
             >
               <BentoSubtitle subtitle={first.subtitle} />
               <BentoTitle title={first.title} />
@@ -167,7 +153,7 @@ function High({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
 }
 function useStyle(offset: number): ElementScrollStyle {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['start end', 'start start'],
   })

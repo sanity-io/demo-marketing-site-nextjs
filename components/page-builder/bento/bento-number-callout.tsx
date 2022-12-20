@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { ArticleStub } from '../../../types'
+import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import { DebugGrid } from '../../debug/grid'
-import { BentoSubtitle } from './bento-1/BentoSubtitle'
-import { BentoSummary } from './bento-1/BentoSummary'
-import { BentoTitle } from './bento-1/BentoTitle'
+import {DebugGrid} from '../../debug/grid'
+import {BentoSubtitle} from './bento-1/BentoSubtitle'
+import {BentoSummary} from './bento-1/BentoSummary'
+import {BentoTitle} from './bento-1/BentoTitle'
 
 export function isBentoNumberCallout(article: ArticleStub) {
   const title = article.title
@@ -17,12 +17,8 @@ export function isBentoNumberCallout(article: ArticleStub) {
   return numbers >= other
 }
 
-export function BentoNumberCallout(props: {
-  article: ArticleStub
-  articleIndex: number
-  articles: ArticleStub[]
-}) {
-  const { article } = props
+export function BentoNumberCallout(props: {article: ArticleStub}) {
+  const {article} = props
   return (
     <Container className="relative flex items-center justify-center gap-3 py-6 md:py-12 md:px-5">
       <DebugGrid />

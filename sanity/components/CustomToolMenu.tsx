@@ -1,6 +1,7 @@
-import { HomeIcon } from '@sanity/icons'
-import { Box, Button, Flex } from '@sanity/ui'
+import {HomeIcon} from '@sanity/icons'
+import {Box, Button, Flex} from '@sanity/ui'
 import Link from 'next/link'
+import * as React from 'react'
 
 export default function CustomToolMenu(props) {
   return (

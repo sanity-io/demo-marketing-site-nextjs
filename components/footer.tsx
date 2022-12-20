@@ -1,9 +1,10 @@
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
+import * as React from 'react'
 
-import { getMarketFromNextLocale } from '../pages'
+import {getMarketFromNextLocale} from '../pages'
 import Button from './button'
 import Container from './container'
-import { DebugGrid } from './debug/grid'
+import {DebugGrid} from './debug/grid'
 import Logo from './logo'
 
 type FooterProps = {
@@ -11,8 +12,8 @@ type FooterProps = {
 }
 
 export default function Footer(props: FooterProps) {
-  const { title } = props
-  const { domainLocales, locale } = useRouter()
+  const {title} = props
+  const {domainLocales, locale} = useRouter()
 
   return (
     <div className="border-t border-gray-200 dark:border-gray-800">

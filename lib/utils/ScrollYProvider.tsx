@@ -1,9 +1,10 @@
-import { ReactNode, useEffect, useState } from 'react'
+import {ReactNode, useEffect, useState} from 'react'
+import * as React from 'react'
 
-import { ScrollYContext } from './ScrollYContext'
+import {ScrollYContext} from './ScrollYContext'
 
-export function ScrollYProvider(props: { children?: ReactNode }) {
-  const { children } = props
+export function ScrollYProvider(props: {children?: ReactNode}) {
+  const {children} = props
   const [scrollTop, setScrollTop] = useState(0)
 
   useEffect(() => {

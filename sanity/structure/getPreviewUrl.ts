@@ -1,9 +1,15 @@
-import { Slug } from 'sanity'
+import {SanityDocument, Slug} from 'sanity'
 
+import {config} from '../../lib/config'
 import articleType from '../../schemas/documents/article'
 import pageType from '../../schemas/documents/page'
 
-export async function getPreviewUrl(document) {
+type Market = SanityDocument & {
+  market?: string
+  slug?: Slug
+}
+
+export function getPreviewUrl(document: Market): string {
   // Ensure URL origin matches the document's market
   // We need to load the Preview API route
   // In the same subdomain as the document's market
@@ -23,7 +29,7 @@ export async function getPreviewUrl(document) {
   }
 
   const url = new URL('/api/preview', location.origin)
-  const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
+  const secret = config.previewSecret
   if (secret) {
     url.searchParams.set('secret', secret)
   }
@@ -33,10 +39,10 @@ export async function getPreviewUrl(document) {
   try {
     switch (document._type) {
       case pageType.name:
-        url.searchParams.set('slug', (document.slug as Slug).current!)
+        url.searchParams.set('slug', document.slug.current!)
         break
       case articleType.name:
-        url.searchParams.set('slug', (document.slug as Slug).current!)
+        url.searchParams.set('slug', document.slug.current!)
         break
       default:
         return ``

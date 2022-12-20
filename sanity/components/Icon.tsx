@@ -1,8 +1,8 @@
-import { Card, Flex, Text } from '@sanity/ui'
+import {Card, Flex} from '@sanity/ui'
 import React from 'react'
 import Twemoji from 'react-twemoji'
 
-import { Market } from '../../lib/constants'
+import {Market} from '../../lib/constants'
 
 export default function Icon(props: Market) {
   return (

@@ -1,16 +1,20 @@
-import { domAnimation, LazyMotion, m } from 'framer-motion'
+import {domAnimation, LazyMotion} from 'framer-motion'
 import Link from 'next/link'
-import { useState } from 'react'
+import {useState} from 'react'
+import * as React from 'react'
 
 import PageBuilder from '../components/page-builder'
-import { ResizeProvider } from '../lib/utils/ResizeProvider'
-import { ScrollYProvider } from '../lib/utils/ScrollYProvider'
-import { ViewportProvider } from '../lib/utils/ViewportProvider'
-import { PageProps } from '../types'
+import {ResizeProvider} from '../lib/utils/ResizeProvider'
+import {ScrollYProvider} from '../lib/utils/ScrollYProvider'
+import {ViewportProvider} from '../lib/utils/ViewportProvider'
+import {PageProps} from '../types'
 
 export default function Page(props: PageProps) {
-  const { slug, market, translations, content } = props
+  const {slug, market, translations, content} = props
   const [element, setElement] = useState<HTMLElement | null>(null)
+
+  // FIXME: translations array, if set, can have a null element as the first
+  // member. Find out why and eliminate it.
 
   return (
     <LazyMotion features={domAnimation}>
@@ -20,7 +24,8 @@ export default function Page(props: PageProps) {
             <article className="flex flex-col" ref={setElement}>
               {translations.length > 0 ? (
                 <ul className="flex items-center gap-4">
-                  {translations.map((translation) => (
+                  {translations.filter(i => i).map((translation) => {
+                    return (
                     <li
                       key={translation.slug}
                       className={
@@ -37,7 +42,7 @@ export default function Page(props: PageProps) {
                         </span>
                       </Link>
                     </li>
-                  ))}
+                  )})}
                 </ul>
               ) : null}
               {content && content.length > 0 ? (

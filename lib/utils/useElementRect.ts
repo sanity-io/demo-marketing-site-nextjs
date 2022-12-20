@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import {useEffect, useState} from 'react'
 
-import { useResize } from './useResize'
-import { useScrollY } from './useScrollY'
+import {useResize} from './useResize'
 
 export interface ElementRect {
   x: number
@@ -15,7 +14,7 @@ export function useElementRect(element: Element | null): ElementRect | null {
   const [rect, setRect] = useState<ElementRect | null>(null)
 
   useEffect(() => {
-    if (!element) return
+    if (!element) return undefined
 
     const rect$ = resize.observe(element)
 

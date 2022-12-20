@@ -1,7 +1,7 @@
-import { CalendarIcon, ComposeIcon, LinkIcon, SearchIcon } from '@sanity/icons'
+import {CalendarIcon, ComposeIcon, LinkIcon, SearchIcon} from '@sanity/icons'
 import delve from 'dlv'
-import { Puzzle } from 'lucide-react'
-import { defineField, defineType } from 'sanity'
+import {Puzzle} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 import RowDisplay from '../components/RowDisplay'
 
@@ -14,10 +14,10 @@ export default defineType({
     preview: RowDisplay,
   },
   groups: [
-    { name: 'content', title: 'Content', icon: ComposeIcon, default: true },
-    { name: 'links', title: 'Links', icon: LinkIcon },
-    { name: 'seo', title: 'SEO', icon: SearchIcon },
-    { name: 'visibility', title: 'Visibility', icon: CalendarIcon },
+    {name: 'content', title: 'Content', icon: ComposeIcon, default: true},
+    {name: 'links', title: 'Links', icon: LinkIcon},
+    {name: 'seo', title: 'SEO', icon: SearchIcon},
+    {name: 'visibility', title: 'Visibility', icon: CalendarIcon},
   ],
   fields: [
     defineField({
@@ -64,14 +64,14 @@ export default defineType({
     defineField({
       name: 'seo',
       type: 'seo',
-      hidden: ({ document }) => !delve(document, 'slug.current'),
+      hidden: ({document}) => !delve(document, 'slug.current'),
       group: ['seo'],
     }),
     defineField({
       name: 'content',
       description: 'Used if this Article is a standalone page',
       type: 'portableText',
-      hidden: ({ document }) => !delve(document, 'slug.current'),
+      hidden: ({document}) => !delve(document, 'slug.current'),
       group: ['content'],
     }),
     defineField({
@@ -88,7 +88,7 @@ export default defineType({
     defineField({
       name: 'image',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
       group: ['content'],
     }),
 

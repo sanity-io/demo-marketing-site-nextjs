@@ -1,5 +1,5 @@
-import { SanityReference } from '@sanity/image-url/lib/types/types'
-import { SanityClient, SanityDocument } from 'sanity'
+import {SanityReference} from '@sanity/image-url/lib/types/types'
+import {SanityClient, SanityDocument} from 'sanity'
 
 type Document = SanityDocument & {
   quote: string
@@ -8,7 +8,7 @@ type Document = SanityDocument & {
 export async function getSocialShareUrl(
   document: Document,
   client: SanityClient
-) {
+): Promise<string> {
   const url = new URL('/api/social-share', location.origin)
 
   const result = await client.fetch(

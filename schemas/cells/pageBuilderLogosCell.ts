@@ -1,5 +1,5 @@
-import { Building } from 'lucide-react'
-import { defineField } from 'sanity'
+import {Building} from 'lucide-react'
+import {defineField} from 'sanity'
 
 import RowDisplay from '../components/RowDisplay'
 
@@ -22,10 +22,10 @@ export default defineField({
         defineField({
           name: 'logo',
           type: 'reference',
-          to: [{ type: 'company' }],
+          to: [{type: 'company'}],
           options: {
             // Scope references to only those in the same Market
-            filter: ({ document }) => {
+            filter: ({document}) => {
               if (!document.market) {
                 return {
                   filter: '!defined(market)',
@@ -34,7 +34,7 @@ export default defineField({
 
               return {
                 filter: `market == $market`,
-                params: { market: document.market },
+                params: {market: document.market},
               }
             },
           },
@@ -51,14 +51,20 @@ export default defineField({
       logos: 'logos',
       visibility: 'visibility',
     },
-    prepare: ({ logos }) => ({
-      title: logos?.length
-        ? logos.length === 1
-          ? `1 Logo`
-          : `${logos.length} Logos`
-        : 'All Logos',
-      subtitle: 'Logos',
-      media: Building,
-    }),
+    prepare: ({logos}) => {
+      let title = 'All Logos'
+      if (logos?.length) {
+        if (logos.length === 1) {
+          title = `1 Logo`
+        } else {
+          title = `${logos.length} Logos`
+        }
+      }
+      return {
+        title,
+        subtitle: 'Logos',
+        media: Building,
+      }
+    },
   },
 })

@@ -1,6 +1,6 @@
-import { DocumentBadgeDescription, DocumentBadgeProps } from 'sanity'
+import {DocumentBadgeDescription, DocumentBadgeProps} from 'sanity'
 
-import { Market } from '../../lib/constants'
+import {Market} from '../../lib/constants'
 
 export function marketBadge(
   props: DocumentBadgeProps,

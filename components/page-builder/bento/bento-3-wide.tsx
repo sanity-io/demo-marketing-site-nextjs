@@ -1,29 +1,26 @@
-import { m, useScroll, useTransform } from 'framer-motion'
+import {m, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, { PropsWithChildren, useRef } from 'react'
-import { KeyedObject } from 'sanity'
+import React, {PropsWithChildren, useRef} from 'react'
+import {KeyedObject} from 'sanity'
 
-import { urlForImage } from '../../../sanity/sanity'
-import { ArticleStub } from '../../../types'
+import {urlForImage} from '../../../sanity/sanity'
+import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
-import { StyledPortableText } from '../portable-text/StyledPortableText'
-import { BentoSubtitle } from './bento-1/BentoSubtitle'
-import { BentoTitle } from './bento-1/BentoTitle'
-import { Small } from './bento-3'
-import {
-  BentoNumberCallout,
-  isBentoNumberCallout,
-} from './bento-number-callout'
+import {ElementScrollStyle} from '../../framer-motion/useElementScroll'
+import {StyledPortableText} from '../portable-text/StyledPortableText'
+import {BentoSubtitle} from './bento-1/BentoSubtitle'
+import {BentoTitle} from './bento-1/BentoTitle'
+import {Small} from './bento-3'
+import {BentoNumberCallout, isBentoNumberCallout} from './bento-number-callout'
 
 export default function Bento3Wide(props: {
   articles: (KeyedObject & ArticleStub)[]
   index: number
 }) {
-  const { articles, index } = props
+  const {articles, index} = props
   const [first, ...rest] = articles
   const even = index % 2 == 0
-  const high = <Wide first={first} articles={articles} />
+  const high = <Wide first={first} />
   const cells = (
     <div className="flex flex-col lg:flex-row">
       {rest.map((article, articleIndex) => {
@@ -32,11 +29,7 @@ export default function Bento3Wide(props: {
           : Small
         return (
           <CellWrapper key={article._key} articleIndex={articleIndex}>
-            <Component
-              article={article}
-              articleIndex={articleIndex}
-              articles={articles}
-            />
+            <Component article={article} />
           </CellWrapper>
         )
       })}
@@ -44,9 +37,9 @@ export default function Bento3Wide(props: {
   )
   return (
     <div className="max-h-xl">
-      {!even ? high : cells}
+      {even ? cells : high}
       <div className="border-t border-gray-200 dark:border-gray-800">
-        {!even ? cells : high}
+        {even ? high : cells}
       </div>
     </div>
   )
@@ -55,8 +48,8 @@ export default function Bento3Wide(props: {
 function CellWrapper({
   articleIndex,
   children,
-}: PropsWithChildren<{ articleIndex: number }>) {
-  const { ref, style } = useStyle(0)
+}: PropsWithChildren<{articleIndex: number}>) {
+  const {ref, style} = useStyle(0)
   return (
     <Container
       className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
@@ -72,9 +65,9 @@ function CellWrapper({
   )
 }
 
-function Wide({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
+function Wide({first}: {first: ArticleStub}) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
-  const { ref, style } = useStyle(0)
+  const {ref, style} = useStyle(0)
   return (
     <Container className="relative flex py-4">
       <m.div
@@ -117,7 +110,7 @@ function Wide({ first }: { first: ArticleStub; articles: ArticleStub[] }) {
 }
 function useStyle(offset: number): ElementScrollStyle {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['start end', 'start start'],
   })

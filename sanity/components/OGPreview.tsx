@@ -1,7 +1,7 @@
-import { CopyIcon } from '@sanity/icons'
-import { Button, Card, Flex, Stack, Text } from '@sanity/ui'
+import {CopyIcon} from '@sanity/icons'
+import {Button, Card, Flex, Stack, Text} from '@sanity/ui'
 import React from 'react'
-import { useCopyToClipboard } from 'usehooks-ts'
+import {useCopyToClipboard} from 'usehooks-ts'
 
 export default function OGPreview(props) {
   const document = props.document.displayed
@@ -40,8 +40,8 @@ export default function OGPreview(props) {
               tone="primary"
               icon={CopyIcon}
             />
-            <Card style={{ overflow: `hidden` }}>
-              <pre style={{ opacity: 0.5 }}>{imageUrl}</pre>
+            <Card style={{overflow: `hidden`}}>
+              <pre style={{opacity: 0.5}}>{imageUrl}</pre>
             </Card>
           </Flex>
         </Card>

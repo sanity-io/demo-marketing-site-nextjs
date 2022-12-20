@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
+import {useMemo} from 'react'
+import * as React from 'react'
 
-import { useDebug } from './debug-provider'
+import {useDebug} from './debug-provider'
 
-export function DebugGrid(props: { columns?: number }) {
-  const { grid } = useDebug()
+export function DebugGrid(props: {columns?: number}) {
+  const {grid} = useDebug()
 
   const columns = useMemo(
     () => Array.from(new Array(props.columns || 0)).map((_, i) => i),

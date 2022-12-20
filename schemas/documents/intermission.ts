@@ -1,5 +1,5 @@
-import { SplitHorizontalIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType, Rule } from 'sanity'
+import {SplitHorizontalIcon} from '@sanity/icons'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'intermission',
@@ -23,9 +23,9 @@ export default defineType({
           type: 'block',
           lists: [],
           marks: {
-            decorators: [{ title: 'Strong', value: 'strong' }],
+            decorators: [{title: 'Strong', value: 'strong'}],
           },
-          styles: [{ title: 'Normal', value: 'normal' }],
+          styles: [{title: 'Normal', value: 'normal'}],
         }),
       ],
     }),
@@ -41,9 +41,9 @@ export default defineType({
           options: {
             layout: 'radio',
             list: [
-              { title: 'Image', value: 'image' },
-              { title: 'Video', value: 'video' },
-              { title: 'None', value: undefined },
+              {title: 'Image', value: 'image'},
+              {title: 'Video', value: 'video'},
+              {title: 'None', value: undefined},
             ],
           },
         }),
@@ -51,21 +51,21 @@ export default defineType({
           type: 'mux.video',
           name: 'video',
           title: 'Video',
-          hidden: ({ document }: any) =>
+          hidden: ({document}: any) =>
             document?.background?.mediaType !== 'video',
         }),
         defineField({
           type: 'image',
           name: 'image',
           title: 'Image',
-          hidden: ({ document }: any) =>
+          hidden: ({document}: any) =>
             document?.background?.mediaType !== 'image',
         }),
       ],
     }),
   ],
   preview: {
-    select: { title: 'title' },
-    prepare: ({ title }) => ({ title, media: SplitHorizontalIcon }),
+    select: {title: 'title'},
+    prepare: ({title}) => ({title, media: SplitHorizontalIcon}),
   },
 })

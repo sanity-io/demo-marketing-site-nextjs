@@ -1,16 +1,15 @@
-import { SanityImageSource } from '@sanity/image-url/lib/types/types'
-import { m, MotionStyle, useScroll, useTransform } from 'framer-motion'
+import {SanityImageSource} from '@sanity/image-url/lib/types/types'
+import {m, MotionStyle, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, { useRef } from 'react'
-import { KeyedObject, TypedObject } from 'sanity'
+import React, {useRef} from 'react'
+import {KeyedObject, TypedObject} from 'sanity'
 
-import { urlForImage } from '../../sanity/sanity'
+import {urlForImage} from '../../sanity/sanity'
 import Container from '../container'
-import { DebugGrid } from '../debug/grid'
+import {DebugGrid} from '../debug/grid'
 
 type QuoteProps = KeyedObject &
   TypedObject & {
-    index: number
     quote?: string
     person?: {
       name?: string
@@ -24,8 +23,8 @@ type QuoteProps = KeyedObject &
   }
 
 export default function PageBuilderQuote(props: QuoteProps) {
-  const { quote, person } = props
-  const { quoteRef, quoteStyle } = useQuoteStyle()
+  const {quote, person} = props
+  const {quoteRef, quoteStyle} = useQuoteStyle()
 
   if (!person) {
     return null
@@ -50,7 +49,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
           >
             <span
               className="font-serif text-5xl"
-              style={{ transform: 'translate3d(3%, 20%, 0)' }}
+              style={{transform: 'translate3d(3%, 20%, 0)'}}
             >
               &rdquo;
             </span>
@@ -103,7 +102,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
 function useQuoteStyle() {
   const quoteRef = useRef(null)
 
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: quoteRef,
     offset: ['start end', 'start start'],
   })

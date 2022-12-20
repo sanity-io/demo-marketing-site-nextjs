@@ -1,7 +1,5 @@
-import { ConfigContext } from 'sanity'
-import { DefaultDocumentNodeResolver, StructureBuilder } from 'sanity/desk'
-import DocumentsPane from 'sanity-plugin-documents-pane'
-import Iframe from 'sanity-plugin-iframe-pane'
+import {ConfigContext} from 'sanity'
+import {StructureBuilder} from 'sanity/desk'
 
 import {
   Language,
@@ -143,14 +141,17 @@ const createSchemaItemList = (
   market: Market,
   language: Language | null
 ) => {
+  let languageTitle = null
+  if (language?.id) {
+    languageTitle = `(${language.id.toUpperCase()})`
+  } else if(market.languages.length > 1) {
+    languageTitle = `(No Language)`
+  }
+
   const itemTitle = [
     market.name,
     schemaItem.title,
-    language?.id
-      ? `(${language.id.toUpperCase()})`
-      : market.languages.length > 1
-      ? `(No Language)`
-      : null,
+    languageTitle,
   ]
     .filter(Boolean)
     .join(` `)
@@ -166,9 +167,7 @@ export const structure = (
   context: ConfigContext,
   marketName?: string
 ) => {
-  const market = marketName
-    ? MARKETS.find((market) => market.name === marketName)
-    : null
+  const market = marketName ? MARKETS.find((m) => m.name === marketName) : null
 
   if (market) {
     return S.list()

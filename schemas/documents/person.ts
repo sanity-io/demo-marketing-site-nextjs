@@ -1,5 +1,5 @@
-import { User } from 'lucide-react'
-import { defineField, defineType } from 'sanity'
+import {User} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'person',
@@ -23,16 +23,16 @@ export default defineType({
     defineField({
       name: 'picture',
       type: 'image',
-      options: { hotspot: true },
+      options: {hotspot: true},
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'company',
       type: 'reference',
-      to: [{ type: 'company' }],
+      to: [{type: 'company'}],
       options: {
         // Scope references to only those in the same Market
-        filter: ({ document }) => {
+        filter: ({document}) => {
           if (!document.market) {
             return {
               filter: '!defined(market)',
@@ -41,7 +41,7 @@ export default defineType({
 
           return {
             filter: `market == $market`,
-            params: { market: document.market },
+            params: {market: document.market},
           }
         },
       },
@@ -54,7 +54,7 @@ export default defineType({
       media: 'picture',
       company: 'company.name',
     },
-    prepare: ({ name, title, media, company }) => ({
+    prepare: ({name, title, media, company}) => ({
       title: name,
       subtitle: title ? `${title} at ${company}` : company,
       media: media ?? User,

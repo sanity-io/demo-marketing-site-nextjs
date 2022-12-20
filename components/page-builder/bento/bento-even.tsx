@@ -1,23 +1,20 @@
-import { Icon, IconSymbol } from '@sanity/icons'
-import { m, useScroll, useTransform } from 'framer-motion'
+import {Icon, IconSymbol} from '@sanity/icons'
+import {m, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, { PropsWithChildren, useRef } from 'react'
-import { KeyedObject } from 'sanity'
+import React, {PropsWithChildren, useRef} from 'react'
+import {KeyedObject} from 'sanity'
 
-import { urlForImage } from '../../../sanity/sanity'
-import { ArticleStub } from '../../../types'
+import {urlForImage} from '../../../sanity/sanity'
+import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import { DebugGrid } from '../../debug/grid'
-import { ElementScrollStyle } from '../../framer-motion/useElementScroll'
-import {
-  BentoNumberCallout,
-  isBentoNumberCallout,
-} from './bento-number-callout'
+import {DebugGrid} from '../../debug/grid'
+import {ElementScrollStyle} from '../../framer-motion/useElementScroll'
+import {BentoNumberCallout, isBentoNumberCallout} from './bento-number-callout'
 
 export default function BentoEven(props: {
   articles: (KeyedObject & ArticleStub)[]
 }) {
-  const { articles } = props
+  const {articles} = props
 
   return (
     <div>
@@ -32,11 +29,7 @@ export default function BentoEven(props: {
               articleIndex={articleIndex}
               articles={articles}
             >
-              <Component
-                article={article}
-                articleIndex={articleIndex}
-                articles={articles}
-              />
+              <Component article={article} />
             </CellWrapper>
           )
         })}
@@ -49,8 +42,8 @@ function CellWrapper({
   articleIndex,
   articles,
   children,
-}: PropsWithChildren<{ articleIndex: number; articles: ArticleStub[] }>) {
-  const { ref, style } = useStyle((articleIndex / articles.length) * 0.15)
+}: PropsWithChildren<{articleIndex: number; articles: ArticleStub[]}>) {
+  const {ref, style} = useStyle((articleIndex / articles.length) * 0.15)
   return (
     <div
       ref={ref}
@@ -58,8 +51,8 @@ function CellWrapper({
         // prettier-ignore
         `border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col py-4 sm:py-5
         ${articles.length === 4 ? 'xl:w-1/4' : ''}
-        ${articleIndex !== 0 ? 'border-t' : ''}
-        ${articleIndex % 4 != 0 ? 'md:border-l' : ''}
+        ${articleIndex === 0 ? '' : 'border-t'}
+        ${articleIndex % 4 === 0 ? '' : 'md:border-l'}
         ${articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'}`
       }
     >
@@ -68,12 +61,8 @@ function CellWrapper({
   )
 }
 
-function ArticleEven(props: {
-  article: ArticleStub & KeyedObject
-  articleIndex: number
-  articles: ArticleStub[]
-}) {
-  const { article } = props
+function ArticleEven(props: {article: ArticleStub & KeyedObject}) {
+  const {article} = props
   const hasText = !!(article.title || article.subtitle)
 
   return (
@@ -104,7 +93,7 @@ function ArticleEven(props: {
         >
           <div
             className="m-auto flex items-stretch justify-items-stretch self-stretch"
-            style={{ height: 276 }}
+            style={{height: 276}}
           >
             <Image
               src={urlForImage(article.image).width(276).height(227).url()}
@@ -122,7 +111,7 @@ function ArticleEven(props: {
 
 function useStyle(offset: number): ElementScrollStyle {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['start end', 'start start'],
   })

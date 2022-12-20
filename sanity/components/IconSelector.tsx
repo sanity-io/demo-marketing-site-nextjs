@@ -1,18 +1,28 @@
-import { Icon, icons, IconSymbol } from '@sanity/icons'
-import { Autocomplete, Box, Flex, Label, Text } from '@sanity/ui'
-import { useCallback } from 'react'
-import { set, StringInputProps, unset } from 'sanity'
+import {Icon, icons, IconSymbol} from '@sanity/icons'
+import {Autocomplete, Box, Flex, Label, Text} from '@sanity/ui'
+import {useCallback} from 'react'
+import * as React from 'react'
+import {set, StringInputProps, unset} from 'sanity'
 
 const options = Object.keys(icons)
   .filter((key) => key !== 'unknown')
-  .map((key) => ({ value: key }))
+  .map((key) => ({value: key}))
+
+const renderOption = (props) => (
+  <Flex padding={3} align="center" gap={4}>
+    <Text size={4}>
+      <Icon symbol={props.value} />
+    </Text>
+    <Label>{props.value}</Label>
+  </Flex>
+)
 
 export default function IconSelector(props: StringInputProps) {
-  const { onChange, readOnly, value } = props
+  const {onChange, readOnly, value} = props
 
   const handleChange = useCallback(
-    (value) => {
-      onChange(value ? set(value) : unset())
+    (newValue) => {
+      onChange(newValue ? set(newValue) : unset())
     },
     [onChange]
   )
@@ -35,14 +45,7 @@ export default function IconSelector(props: StringInputProps) {
           value={value}
           readOnly={readOnly}
           onChange={handleChange}
-          renderOption={({ value }: { value: IconSymbol }) => (
-            <Flex padding={3} align="center" gap={4}>
-              <Text size={4}>
-                <Icon symbol={value} />
-              </Text>
-              <Label>{value}</Label>
-            </Flex>
-          )}
+          renderOption={renderOption}
         />
       </Box>
     </Flex>

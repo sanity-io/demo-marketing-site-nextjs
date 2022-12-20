@@ -1,17 +1,19 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { PreviewSuspense } from 'next-sanity/preview'
-import { lazy } from 'react'
+import {useRouter} from 'next/router'
+import {PreviewSuspense} from 'next-sanity/preview'
+import {lazy} from 'react'
+import * as React from 'react'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
 import Page from '../components/page'
 import PostTitle from '../components/post-title'
-import { globalDataQuery, pageQuery, pageSlugsQuery } from '../sanity/queries'
-import { getClient } from '../sanity/sanity.server'
-import { GlobalDataProps, PageProps, PageQueryParams } from '../types'
-import { getLanguageFromNextLocale, getMarketFromNextLocale } from '.'
+import { config } from '../lib/config'
+import {globalDataQuery, pageQuery, pageSlugsQuery} from '../sanity/queries'
+import {getClient} from '../sanity/sanity.server'
+import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
+import {getLanguageFromNextLocale, getMarketFromNextLocale} from '.'
 
 const PreviewPage = lazy(() => import('../components/preview-page'))
 
@@ -24,7 +26,7 @@ interface Props {
 }
 
 export default function Slug(props: Props) {
-  const { data, preview, query, queryParams, globalData } = props
+  const {data, preview, query, queryParams, globalData} = props
   const router = useRouter()
 
   if (preview) {
@@ -46,7 +48,7 @@ export default function Slug(props: Props) {
     )
   }
 
-  const { title = 'Marketing.' } = globalData?.settings || {}
+  const {title = 'Marketing.'} = globalData?.settings || {}
 
   if (!router.isFallback && !data) {
     return <ErrorPage statusCode={404} />
@@ -116,7 +118,7 @@ export async function getStaticProps({
       globalData,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
+    revalidate: config.revalidateSecret ? undefined : 60,
   }
 }
 
@@ -126,7 +128,7 @@ export async function getStaticPaths() {
   // So sadly, we have to fetch all slugs for all locales
   const paths = await getClient(false).fetch(pageSlugsQuery)
   return {
-    paths: paths.map((slug) => ({ params: { slug } })),
+    paths: paths.map((slug) => ({params: {slug}})),
     fallback: true,
   }
 }

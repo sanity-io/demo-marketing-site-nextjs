@@ -10,7 +10,7 @@ import {
   User,
 } from 'lucide-react'
 
-import { markets, uniqueLanguages } from './markets'
+import {markets, uniqueLanguages} from './markets'
 
 export const CMS_NAME = 'Sanity.io'
 export const CMS_URL = 'https://sanity.io/'
@@ -55,17 +55,17 @@ export type SchemaDivider = {
 // As they're used to dynamically generate per-market schema items
 // With the helper functions defined in lib/structure.tsx
 export const SCHEMA_ITEMS: (SchemaItem | SchemaSingleton | SchemaDivider)[] = [
-  { kind: 'singleton', schemaType: `page`, title: 'Home', icon: Home },
-  { kind: 'list', schemaType: `page`, title: 'Pages', icon: File },
-  { kind: 'divider' },
-  { kind: 'list', schemaType: `article`, title: 'Articles', icon: Puzzle },
-  { kind: 'divider' },
-  { kind: 'list', schemaType: `person`, title: 'People', icon: User },
-  { kind: 'list', schemaType: `company`, title: 'Companies', icon: Building },
-  { kind: 'list', schemaType: `quote`, title: 'Quotes', icon: Quote },
-  { kind: 'divider' },
-  { kind: 'singleton', schemaType: `settings`, title: 'Settings', icon: Cog },
-  { kind: 'singleton', schemaType: `menu`, title: 'Menus', icon: Menu },
+  {kind: 'singleton', schemaType: `page`, title: 'Home', icon: Home},
+  {kind: 'list', schemaType: `page`, title: 'Pages', icon: File},
+  {kind: 'divider'},
+  {kind: 'list', schemaType: `article`, title: 'Articles', icon: Puzzle},
+  {kind: 'divider'},
+  {kind: 'list', schemaType: `person`, title: 'People', icon: User},
+  {kind: 'list', schemaType: `company`, title: 'Companies', icon: Building},
+  {kind: 'list', schemaType: `quote`, title: 'Quotes', icon: Quote},
+  {kind: 'divider'},
+  {kind: 'singleton', schemaType: `settings`, title: 'Settings', icon: Cog},
+  {kind: 'singleton', schemaType: `menu`, title: 'Menus', icon: Menu},
   {
     kind: 'list',
     schemaType: `redirect`,

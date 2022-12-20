@@ -1,14 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type {NextApiRequest, NextApiResponse} from 'next'
 
-import { previewBySlugQuery } from '../../sanity/queries'
-import { getClient } from '../../sanity/sanity.server'
+import {config} from '../../lib/config'
+import {previewBySlugQuery} from '../../sanity/queries'
+import {getClient} from '../../sanity/sanity.server'
 
 function redirectToPreview(res: NextApiResponse, Location: string, data = {}) {
   // Enable Preview Mode by setting the cookies
   res.setPreviewData(data)
   // Redirect to a preview capable route
-  res.writeHead(307, { Location })
-  res.end()
+  res.writeHead(307, {Location})
+  return res.end()
 }
 
 type PreviewData = {
@@ -24,9 +25,9 @@ export default async function preview(
 ) {
   // Check the secret if it's provided, enables running preview mode locally before the env var is setup
   // Skip if preview is already enabled (TODO: check if this is okay)
-  const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
+  const secret = config.previewSecret
   if (!req.preview && secret && req.query.secret !== secret) {
-    return res.status(401).json({ message: 'Invalid secret' })
+    return res.status(401).json({message: 'Invalid secret'})
   }
 
   // Get existing previewData values
@@ -36,9 +37,10 @@ export default async function preview(
   const queryDate = Array.isArray(req.query.date)
     ? req.query.date[0]
     : req.query.date
-  const queryAudience = !['string', 'boolean'].includes(typeof req.previewData)
-    ? Number(req.query.audience)
-    : null
+  // I refactored this to pass linting, but I don't quite know what this is doing
+  const queryAudience = ['string', 'boolean'].includes(typeof req.previewData)
+    ? null
+    : Number(req.query.audience)
 
   // Control some of the query parameters in Preview mode
   // These should typically be set by a cookie or session
@@ -68,19 +70,17 @@ export default async function preview(
 
   // If the slug doesn't exist prevent preview mode from being enabled
   if (!pageSlug) {
-    return res.status(401).json({ message: 'Invalid slug' })
+    return res.status(401).json({message: 'Invalid slug'})
   }
 
   // Redirect to the path from the fetched post
   // We don't redirect to req.query.slug as that might lead to open redirect vulnerabilities
   switch (req.query.type) {
     case 'page':
-      redirectToPreview(res, `/${pageSlug}`, previewData)
-      break
+      return redirectToPreview(res, `/${pageSlug}`, previewData)
     case 'article':
-      redirectToPreview(res, `/articles/${pageSlug}`, previewData)
-      break
+      return redirectToPreview(res, `/articles/${pageSlug}`, previewData)
     default:
-      redirectToPreview(res, `/${pageSlug}`, previewData)
+      return redirectToPreview(res, `/${pageSlug}`, previewData)
   }
 }

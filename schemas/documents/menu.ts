@@ -1,5 +1,5 @@
-import { Menu } from 'lucide-react'
-import { defineField, defineType, stringToPath } from 'sanity'
+import {Menu} from 'lucide-react'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'menu',
@@ -31,14 +31,14 @@ export default defineType({
                 defineField({
                   name: 'link',
                   type: 'object',
-                  fields: [{ name: 'link', type: 'link' }],
+                  fields: [{name: 'link', type: 'link'}],
                   preview: {
                     select: {
                       title: 'link.text',
                       url: 'link.url',
                       ref: 'link.reference.slug.current',
                     },
-                    prepare({ title, url, ref }) {
+                    prepare({title, url, ref}) {
                       return {
                         title,
                         subtitle: ref ?? url,
@@ -58,7 +58,7 @@ export default defineType({
               url: 'link.url',
             },
             prepare(selection) {
-              const { children, refSlug, refTitle, text, url } = selection
+              const {children, refSlug, refTitle, text, url} = selection
 
               let subtitle
               if (children) {
@@ -84,12 +84,12 @@ export default defineType({
     defineField({
       name: 'headerSecondary',
       type: 'array',
-      of: [{ name: 'link', type: 'link' }],
+      of: [{name: 'link', type: 'link'}],
     }),
     defineField({
       name: 'footer',
       type: 'array',
-      of: [{ name: 'link', type: 'link' }],
+      of: [{name: 'link', type: 'link'}],
     }),
   ],
   preview: {

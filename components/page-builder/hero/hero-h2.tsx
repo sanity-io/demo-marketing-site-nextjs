@@ -2,11 +2,11 @@ import React from 'react'
 
 import Container from '../../container'
 import Links from '../../links'
-import { StyledPortableText } from '../portable-text/StyledPortableText'
-import { HeroProps } from '.'
+import {StyledPortableText} from '../portable-text/StyledPortableText'
+import {HeroProps} from '.'
 
 export default function HeroH2(props: HeroProps) {
-  const { title, subtitle, content, links } = props
+  const {title, subtitle, content, links} = props
 
   return (
     <div>

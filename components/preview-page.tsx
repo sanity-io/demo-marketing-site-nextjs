@@ -1,13 +1,14 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
+import * as React from 'react'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
 import Page from '../components/page'
 import PostTitle from '../components/post-title'
-import { usePreview } from '../sanity/sanity'
-import { GlobalDataProps, PageProps, PageQueryParams } from '../types'
+import {usePreview} from '../sanity/sanity'
+import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
 
 interface Props {
   data: PageProps
@@ -17,11 +18,11 @@ interface Props {
 }
 
 export default function PreviewPage(props: Props) {
-  const { query, queryParams, globalData } = props
+  const {query, queryParams, globalData} = props
   const router = useRouter()
 
   const data = usePreview(null, query, queryParams) || props.data
-  const { title = 'Marketing.' } = globalData?.settings || {}
+  const {title = 'Marketing.'} = globalData?.settings || {}
 
   if (!router.isFallback && !data) {
     return <ErrorPage statusCode={404} />

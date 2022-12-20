@@ -1,6 +1,8 @@
 import '../styles/index.css'
 
-function MyApp({ Component, pageProps }) {
+import * as React from 'react'
+
+function MyApp({Component, pageProps}) {
   return <Component {...pageProps} />
 }
 

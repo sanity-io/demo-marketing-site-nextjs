@@ -1,10 +1,11 @@
-import { HTMLProps } from 'react'
+import {HTMLProps} from 'react'
+import * as React from 'react'
 
-import { useDebug } from './debug/debug-provider'
+import {useDebug} from './debug/debug-provider'
 
 export default function Container(props: HTMLProps<HTMLDivElement>) {
-  const { className, children, ...restProps } = props
-  const { grid } = useDebug()
+  const {className, children, ...restProps} = props
+  const {grid} = useDebug()
 
   return (
     <div

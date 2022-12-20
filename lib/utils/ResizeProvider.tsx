@@ -1,4 +1,5 @@
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from 'react'
+import {ReactNode, useCallback, useEffect, useMemo, useRef} from 'react'
+import * as React from 'react'
 
 import {
   ResizeContext,
@@ -11,7 +12,7 @@ export function ResizeProvider(props: {
   children?: ReactNode
   rootElement?: HTMLElement | null
 }) {
-  const { children, rootElement = null } = props
+  const {children, rootElement = null} = props
 
   const mo = useRef<MutationObserver | undefined>()
   const ro = useRef<ResizeObserver | undefined>()
@@ -22,7 +23,7 @@ export function ResizeProvider(props: {
 
   // Set up the mutation observer
   useEffect(() => {
-    if (!rootElement) return
+    if (!rootElement) return undefined
 
     mo.current = new MutationObserver(() => {
       for (const element of elements.current) {
@@ -51,9 +52,10 @@ export function ResizeProvider(props: {
       for (const entry of entries) {
         const element = entry.target
 
-        const next = subscriberMap.current?.get(element)
-
-        next(entry)
+        const nextSubscriber = subscriberMap.current?.get(element)
+        if (nextSubscriber) {
+          nextSubscriber(entry)
+        }
       }
     })
 
@@ -86,7 +88,7 @@ export function ResizeProvider(props: {
     }
   }, [])
 
-  const resize = useMemo(() => ({ observe }), [observe])
+  const resize = useMemo(() => ({observe}), [observe])
 
   return (
     <ResizeContext.Provider value={resize}>{children}</ResizeContext.Provider>

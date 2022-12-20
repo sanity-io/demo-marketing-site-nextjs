@@ -1,10 +1,7 @@
-import cn from 'classnames'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { ReactHTMLElement } from 'react'
-import React from 'react'
+import * as React from 'react'
 
-import { LayoutProps } from './layout'
+import {LayoutProps} from './layout'
 
 const AUDIENCES = {
   0: 'A',
@@ -14,7 +11,7 @@ const AUDIENCES = {
 type AlertProps = LayoutProps
 
 export default function Alert(props: AlertProps) {
-  const { preview, queryParams } = props
+  const {preview, queryParams} = props
 
   const toggleAudienceUrl = new URLSearchParams()
   toggleAudienceUrl.set('slug', String(queryParams.slug))
@@ -79,7 +76,7 @@ export default function Alert(props: AlertProps) {
           >
             Time:{` `}
             <strong>
-              {!queryParams.date ? labelDate : targetDate.split(`T`).shift()}
+              {queryParams.date ? targetDate.split(`T`).shift() : labelDate}
             </strong>
           </Link>
           <div>

@@ -1,14 +1,14 @@
 import Image from 'next/image'
 import React from 'react'
 
-import { urlForImage } from '../../../sanity/sanity'
+import {urlForImage} from '../../../sanity/sanity'
 import Container from '../../container'
 import Links from '../../links'
-import { StyledPortableText } from '../portable-text/StyledPortableText'
-import { HeroProps } from '.'
+import {StyledPortableText} from '../portable-text/StyledPortableText'
+import {HeroProps} from '.'
 
 export default function HeroH2WithImage(props: HeroProps) {
-  const { title, subtitle, content, links, image } = props
+  const {title, subtitle, content, links, image} = props
 
   return (
     <div>

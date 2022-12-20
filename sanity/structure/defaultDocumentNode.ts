@@ -1,32 +1,32 @@
-import { DefaultDocumentNodeResolver, StructureBuilder } from 'sanity/desk'
+import {DefaultDocumentNodeResolver} from 'sanity/desk'
 import DocumentsPane from 'sanity-plugin-documents-pane'
 import Iframe from 'sanity-plugin-iframe-pane'
 
 import OGPreview from '../components/OGPreview'
 import SocialSharePreview from '../components/SocialSharePreview'
-import { getOgUrl } from './getOgUrl'
-import { getPreviewUrl } from './getPreviewUrl'
-import { getSocialShareUrl } from './getSocialShareUrl'
+import {getOgUrl} from './getOgUrl'
+import {getPreviewUrl} from './getPreviewUrl'
+import {getSocialShareUrl} from './getSocialShareUrl'
 
 const pagesUsed = (S) =>
   S.view
     .component(DocumentsPane)
     .options({
       query: `*[!(_id in path("drafts.**")) && _type == "page" && references($id)]`,
-      params: { id: `_id` },
+      params: {id: `_id`},
     })
     .title('Pages Used')
 
-// `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
+// `defaultDocumentNode is responsible for adding a “Preview” tab to the document pane
 // You can add any React component to `S.view.component` and it will be rendered in the pane
 // and have access to content in the form in real-time.
 // It's part of the Studio's “Structure Builder API” and is documented here:
 // https://www.sanity.io/docs/structure-builder-reference
 export const defaultDocumentNode: DefaultDocumentNodeResolver = (
   S,
-  { schemaType, getClient }
+  {schemaType, getClient}
 ) => {
-  const client = getClient({ apiVersion: `2022-11-24` })
+  const client = getClient({apiVersion: `2022-11-24`})
 
   switch (schemaType) {
     case `page`:
@@ -36,7 +36,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
           .component(Iframe)
           .options({
             url: (doc) => getPreviewUrl(doc),
-            reload: { button: true },
+            reload: {button: true},
           })
           .title('Preview'),
         S.view
@@ -65,7 +65,7 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (
           .component(Iframe)
           .options({
             url: (doc) => getPreviewUrl(doc),
-            reload: { button: true },
+            reload: {button: true},
           })
           .title('Preview'),
       ])

@@ -1,16 +1,18 @@
 import ErrorPage from 'next/error'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { PreviewSuspense } from 'next-sanity/preview'
-import { lazy } from 'react'
+import {useRouter} from 'next/router'
+import {PreviewSuspense} from 'next-sanity/preview'
+import {lazy} from 'react'
+import * as React from 'react'
 
 import Container from '../components/container'
 import Layout from '../components/layout'
 import Page from '../components/page'
 import PostTitle from '../components/post-title'
-import { globalDataQuery, homeQuery } from '../sanity/queries'
-import { getClient } from '../sanity/sanity.server'
-import { GlobalDataProps, PageProps, PageQueryParams } from '../types'
+import { config } from '../lib/config'
+import {globalDataQuery, homeQuery} from '../sanity/queries'
+import {getClient} from '../sanity/sanity.server'
+import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
 
 const PreviewPage = lazy(() => import('../components/preview-page'))
 
@@ -18,12 +20,12 @@ interface Props {
   data: PageProps
   preview: boolean
   query: string | null
-  queryParams: PageQueryParams & { homeId: string }
+  queryParams: PageQueryParams & {homeId: string}
   globalData: GlobalDataProps
 }
 
 export default function Home(props: Props) {
-  const { data, preview, query, queryParams, globalData } = props
+  const {data, preview, query, queryParams, globalData} = props
   const router = useRouter()
 
   if (preview) {
@@ -45,7 +47,7 @@ export default function Home(props: Props) {
     )
   }
 
-  const { title = 'Marketing.' } = globalData?.settings || {}
+  const {title = 'Marketing.'} = globalData?.settings || {}
 
   if (!router.isFallback && !data) {
     return <ErrorPage statusCode={404} />
@@ -79,11 +81,11 @@ export function getLanguageFromNextLocale(locale: string) {
   return locale.split(`-`).shift()
 }
 
-export async function getStaticProps({ locale, preview = false, previewData }) {
+export async function getStaticProps({locale, preview = false, previewData}) {
   /* check if the project id has been defined by fetching the vercel envs */
 
   // TODO: Don't repeat this here and in [slug].tst
-  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+  if (config.sanity.projectId) {
     // These query params are used to power this preview
     // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
     const queryParams: PageQueryParams = {
@@ -128,7 +130,7 @@ export async function getStaticProps({ locale, preview = false, previewData }) {
         globalData,
       },
       // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-      revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
+      revalidate: config.revalidateSecret ? undefined : 60,
     }
   }
 

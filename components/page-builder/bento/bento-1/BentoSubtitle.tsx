@@ -1,4 +1,4 @@
-import { m } from 'framer-motion'
+import {m} from 'framer-motion'
 import React from 'react'
 
 export function BentoSubtitle({
@@ -25,7 +25,7 @@ export function BentoSubtitle({
           amount: 'all',
           margin: '100px',
         }}
-        transition={{ duration: 1 }}
+        transition={{duration: 1}}
         className={
           'max-w-xl rounded-full text-2xl text-magenta-500 dark:text-magenta-400'
         }

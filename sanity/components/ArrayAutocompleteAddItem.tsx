@@ -1,17 +1,33 @@
-import { randomKey } from '@sanity/block-tools'
-import { AddIcon } from '@sanity/icons'
-import { Autocomplete, Box, Button, Grid, Stack } from '@sanity/ui'
+import {randomKey} from '@sanity/block-tools'
+import {AddIcon} from '@sanity/icons'
+import {Autocomplete, Box, Button, Grid, Stack} from '@sanity/ui'
 import React from 'react'
-import { ArrayOfObjectsInputProps, insert } from 'sanity'
+import {ArrayOfObjectsInputProps, insert} from 'sanity'
+
+const renderOption = (option) => (
+  <Grid>
+    <Button
+      icon={option.payload.icon}
+      text={option.payload.title}
+      mode="ghost"
+    />
+  </Grid>
+)
+
+const filterOption = (query: string, option: any) =>
+  option.payload.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+
+const renderValue = (value: string, option: any) =>
+  option?.payload.name || value
 
 export default function ArrayAutocompleteAddItem(
   props: ArrayOfObjectsInputProps
 ) {
-  const { onChange } = props
+  const {onChange} = props
 
   const options = React.useMemo(
     () =>
-      props.schemaType.of.map((item) => ({ value: item.name, payload: item })),
+      props.schemaType.of.map((item) => ({value: item.name, payload: item})),
     [props.schemaType]
   )
 
@@ -37,21 +53,11 @@ export default function ArrayAutocompleteAddItem(
           id="array-autocomplete-add-item"
           options={options}
           placeholder="Add item..."
-          filterOption={(query, option) =>
-            option.payload.name.toLowerCase().indexOf(query.toLowerCase()) > -1
-          }
+          filterOption={filterOption}
           openButton
-          renderOption={(option) => (
-            <Grid>
-              <Button
-                icon={option.payload.icon}
-                text={option.payload.title}
-                mode="ghost"
-              />
-            </Grid>
-          )}
+          renderOption={renderOption}
           // custom value render function
-          renderValue={(value, option) => option?.payload.name || value}
+          renderValue={renderValue}
         />
       </Box>
     </Stack>

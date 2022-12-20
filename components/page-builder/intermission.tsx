@@ -1,12 +1,12 @@
-import { m, MotionValue, useScroll, useTransform } from 'framer-motion'
+import {m, MotionValue, useScroll, useTransform} from 'framer-motion'
 import NextImage from 'next/image'
-import React, { Fragment, memo, useRef } from 'react'
-import { Image, KeyedObject, TypedObject } from 'sanity'
+import React, {Fragment, memo, useRef} from 'react'
+import {Image, KeyedObject, TypedObject} from 'sanity'
 
-import { urlForImage } from '../../sanity/sanity'
+import {urlForImage} from '../../sanity/sanity'
 import Container from '../container'
-import { BgVideo } from '../video/bg-video'
-import { SanityMuxVideo } from '../video/types'
+import {BgVideo} from '../video/bg-video'
+import {SanityMuxVideo} from '../video/types'
 
 interface SanityImage extends Image {
   _type: 'image'
@@ -27,8 +27,6 @@ interface TextStatement {
 
 type PageBuilderIntermissionProps = KeyedObject &
   TypedObject & {
-    _id: string
-    title?: string
     statements?: TextStatement[]
     background?: SanityMuxVideo | SanityImage
   }
@@ -36,10 +34,10 @@ type PageBuilderIntermissionProps = KeyedObject &
 const Intermission = memo(function Intermission(
   props: PageBuilderIntermissionProps
 ) {
-  const { background, statements = [] } = props
+  const {background, statements = []} = props
 
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   })
@@ -48,9 +46,9 @@ const Intermission = memo(function Intermission(
   return (
     <div
       className="relative py-5 sm:py-6 md:py-7"
-      style={{ minHeight: '150vh', padding: '25vh 0' }}
+      style={{minHeight: '150vh', padding: '25vh 0'}}
     >
-      <m.div className="absolute inset-0" ref={ref} style={{ opacity }}>
+      <m.div className="absolute inset-0" ref={ref} style={{opacity}}>
         <div className="sticky top-0 h-screen">
           {background?._type === 'mux.video' && background.asset && (
             <BgVideo asset={background.asset} />
@@ -74,9 +72,9 @@ const Intermission = memo(function Intermission(
   )
 })
 
-function Statements({ statements }: { statements: TextStatement[] }) {
+function Statements({statements}: {statements: TextStatement[]}) {
   const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
+  const {scrollYProgress} = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
   })
@@ -136,7 +134,7 @@ function Statement({
     <m.span
       className="text-white"
       key={statement._key}
-      style={{ opacity }}
+      style={{opacity}}
       ref={ref}
     >
       {statement.children.map((n) => {
@@ -146,7 +144,7 @@ function Statement({
   )
 }
 
-function Span({ span }: { span: TextSpan }) {
+function Span({span}: {span: TextSpan}) {
   if (span.marks.includes('strong')) {
     return (
       <strong className="font-extrabold text-magenta-500 dark:text-magenta-400">

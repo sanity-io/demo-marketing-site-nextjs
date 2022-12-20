@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable import/no-anonymous-default-export */
-import { ImageResponse } from '@vercel/og'
-import { NextRequest } from 'next/server'
+import {ImageResponse} from '@vercel/og'
+import {NextRequest} from 'next/server'
+import * as React from 'react'
 
-import { urlForImage } from '../../sanity/sanity'
+import {urlForImage} from '../../sanity/sanity'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -28,7 +29,7 @@ export default async function (req: NextRequest) {
   const fontData700 = await font700
   const fontData700Italic = await font700Italic
 
-  const { searchParams } = new URL(req.url)
+  const {searchParams} = new URL(req.url)
 
   const quote = searchParams.get('quote')
   const name = searchParams.get('name')
@@ -159,7 +160,7 @@ export default async function (req: NextRequest) {
               </div>
             </div>
           </div>
-          <div style={{ display: 'flex' }}>
+          <div style={{display: 'flex'}}>
             <img
               alt=""
               src={logoUrl}

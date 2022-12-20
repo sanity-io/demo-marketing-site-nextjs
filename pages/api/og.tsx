@@ -1,8 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { ImageResponse } from '@vercel/og'
-import { NextRequest } from 'next/server'
+import {ImageResponse} from '@vercel/og'
+import {NextRequest} from 'next/server'
+import * as React from 'react'
 
-import { urlForImage } from '../../sanity/sanity'
+import {urlForImage} from '../../sanity/sanity'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -22,7 +23,7 @@ const font = fetch(
 export default async function (req: NextRequest) {
   const fontData = await font
 
-  const { searchParams } = new URL(req.url)
+  const {searchParams} = new URL(req.url)
 
   const siteTitle = searchParams.get('siteTitle')
   const title = searchParams.get('title')
@@ -52,7 +53,7 @@ export default async function (req: NextRequest) {
           alt=""
           width={WIDTH / 2}
           height={HEIGHT}
-          style={{ objectFit: 'cover' }}
+          style={{objectFit: 'cover'}}
         />
         <div
           style={{

@@ -1,13 +1,6 @@
-import { Badge, Box, Flex } from '@sanity/ui'
+import {Badge, Box, Flex} from '@sanity/ui'
 import React from 'react'
-import { PreviewProps } from 'sanity'
-
-type CellValue = {
-  visibility: {
-    displayFrom?: string
-    displayTo?: string
-  }
-}
+import {PreviewProps} from 'sanity'
 
 type Status = 'EXPIRED' | 'CURRENT' | 'FUTURE'
 
@@ -40,15 +33,20 @@ export default function RowDisplay(props: PreviewProps) {
   // TODO: Why does this component receive the document value
   // When the type disagrees?
   // @ts-ignore
-  const { displayFrom, displayTo } = props?.visibility || {}
+  const {displayFrom, displayTo} = props?.visibility || {}
   let status
   const now = new Date()
   const from = new Date(displayFrom)
   const to = new Date(displayTo)
 
   if (displayFrom && displayTo) {
-    status =
-      now > from && now < to ? 'CURRENT' : now > to ? 'EXPIRED' : 'FUTURE'
+    if (now > from && now < to) {
+      status = 'CURRENT'
+    } else if (now > to) {
+      status = 'EXPIRED'
+    } else {
+      status = 'FUTURE'
+    }
   } else if (displayFrom && !displayTo) {
     status = now > from ? 'CURRENT' : 'FUTURE'
   } else if (!displayFrom && displayTo) {

@@ -1,9 +1,9 @@
-import { PortableTextBlock } from '@portabletext/types'
+import {PortableTextBlock} from '@portabletext/types'
 import React from 'react'
 
-import { StyledPortableText } from '../portable-text/StyledPortableText'
+import {StyledPortableText} from '../portable-text/StyledPortableText'
 
-export function HeroSummary({ summary }: { summary?: PortableTextBlock[] }) {
+export function HeroSummary({summary}: {summary?: PortableTextBlock[]}) {
   if (!summary?.length) {
     return null
   }

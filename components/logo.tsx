@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { PropsWithChildren } from 'react'
+import React, {PropsWithChildren} from 'react'
 
 /* TODO: use href from domainLocale */
 export default function Logo(props: PropsWithChildren) {
