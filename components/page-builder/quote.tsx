@@ -1,5 +1,6 @@
 import {SanityImageSource} from '@sanity/image-url/lib/types/types'
 import Image from 'next/image'
+import React from 'react'
 import {KeyedObject, TypedObject} from 'sanity'
 
 import {urlForImage} from '../../sanity/sanity'

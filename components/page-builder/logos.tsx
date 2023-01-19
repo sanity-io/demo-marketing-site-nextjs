@@ -1,6 +1,7 @@
 import {getImageDimensions} from '@sanity/asset-utils'
 import {SanityImageSource} from '@sanity/image-url/lib/types/types'
 import delve from 'dlv'
+import React from 'react'
 import {KeyedObject, TypedObject} from 'sanity'
 
 import {urlForImage} from '../../sanity/sanity'
