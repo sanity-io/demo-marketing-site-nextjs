@@ -1,6 +1,7 @@
+import {clsx} from 'clsx'
 import {ArrowRight} from 'lucide-react'
 import Link from 'next/link'
-import * as React from 'react'
+import React from 'react'
 
 import {Link as LinkProps} from '../types'
 
@@ -32,17 +33,20 @@ export default function Button(props: ButtonProps) {
     href,
     disabled = false,
   } = props
-  const classNames = [
-    buttonClasses.base,
-    buttonClasses[mode],
-    ...(disabled ? [buttonClasses.disabled] : []),
-  ]
-    .filter(Boolean)
-    .join(` `)
 
-  if (locale && href) {
+  const classes = React.useMemo(
+    () =>
+      clsx(
+        buttonClasses.base,
+        buttonClasses[mode],
+        disabled && buttonClasses.disabled
+      ),
+    [mode, disabled]
+  )
+
+  if (href) {
     return (
-      <Link className={classNames} href={href}>
+      <Link className={classes} href={href} locale={locale ?? undefined}>
         <span>{text ?? reference?.title}</span>
         {icon ? <ArrowRight className="w-5" /> : null}
       </Link>
@@ -50,21 +54,21 @@ export default function Button(props: ButtonProps) {
   }
   if (reference?.slug && (reference?.title || text)) {
     return (
-      <Link className={classNames} href={reference.slug}>
+      <Link className={classes} href={reference.slug}>
         <span>{text ?? reference?.title}</span>
         {icon ? <ArrowRight className="w-5" /> : null}
       </Link>
     )
   } else if (url && text) {
     return (
-      <a className={classNames} href={url}>
+      <a className={classes} href={url}>
         <span>{text}</span>
         {icon ? <ArrowRight className="w-5" /> : null}
       </a>
     )
   } else if (text) {
     return (
-      <span className={classNames}>
+      <span className={classes}>
         <span>{text}</span>
         {icon ? <ArrowRight className="w-5" /> : null}
       </span>

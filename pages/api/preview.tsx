@@ -1,6 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 
-import {env} from '../../lib/utils/env'
 import {previewBySlugQuery} from '../../sanity/queries'
 import {getClient} from '../../sanity/sanity.server'
 
@@ -25,7 +24,7 @@ export default async function preview(
 ) {
   // Check the secret if it's provided, enables running preview mode locally before the env var is setup
   // Skip if preview is already enabled (TODO: check if this is okay)
-  const secret = env('NEXT_PUBLIC_PREVIEW_SECRET')
+  const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
   if (!req.preview && secret && req.query.secret !== secret) {
     return res.status(401).json({message: 'Invalid secret'})
   }
@@ -37,9 +36,9 @@ export default async function preview(
   const queryDate = Array.isArray(req.query.date)
     ? req.query.date[0]
     : req.query.date
-  const queryAudience = !['string', 'boolean'].includes(typeof req.previewData)
-    ? Number(req.query.audience)
-    : null
+  const queryAudience = ['string', 'boolean'].includes(typeof req.previewData)
+    ? null
+    : Number(req.query.audience)
 
   // Control some of the query parameters in Preview mode
   // These should typically be set by a cookie or session

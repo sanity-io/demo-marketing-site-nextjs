@@ -1,12 +1,10 @@
-import {m, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
-import React, {PropsWithChildren, useRef} from 'react'
+import React, {PropsWithChildren} from 'react'
 import {KeyedObject} from 'sanity'
 
 import {urlForImage} from '../../../sanity/sanity'
 import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import {ElementScrollStyle} from '../../framer-motion/useElementScroll'
 import {StyledPortableText} from '../portable-text/StyledPortableText'
 import {BentoSubtitle} from './bento-1/BentoSubtitle'
 import {BentoTitle} from './bento-1/BentoTitle'
@@ -37,9 +35,9 @@ export default function Bento3Wide(props: {
   )
   return (
     <div className="max-h-xl">
-      {!even ? high : cells}
+      {even ? cells : high}
       <div className="border-t border-gray-200 dark:border-gray-800">
-        {!even ? cells : high}
+        {even ? high : cells}
       </div>
     </div>
   )
@@ -49,7 +47,6 @@ function CellWrapper({
   articleIndex,
   children,
 }: PropsWithChildren<{articleIndex: number}>) {
-  const {ref, style} = useStyle(0)
   return (
     <Container
       className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
@@ -58,24 +55,18 @@ function CellWrapper({
           : ``
       }`}
     >
-      <m.div ref={ref} style={style}>
-        {children}
-      </m.div>
+      <div>{children}</div>
     </Container>
   )
 }
 
 function Wide({first}: {first: ArticleStub}) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
-  const {ref, style} = useStyle(0)
+
   return (
     <Container className="relative flex py-4">
-      <m.div
-        layout
-        className="stretch-self flex w-full items-center"
-        style={style}
-      >
-        <div className="flex w-full flex-col gap-5 py-12 text-left" ref={ref}>
+      <div className="stretch-self flex w-full items-center">
+        <div className="flex w-full flex-col gap-5 py-12 text-left">
           {hasText ? (
             <div className={'flex w-full flex-col gap-5'}>
               <BentoSubtitle subtitle={first.subtitle} />
@@ -104,22 +95,7 @@ function Wide({first}: {first: ArticleStub}) {
             </div>
           ) : null}
         </div>
-      </m.div>
+      </div>
     </Container>
   )
-}
-function useStyle(offset: number): ElementScrollStyle {
-  const ref = useRef(null)
-  const {scrollYProgress} = useScroll({
-    target: ref,
-    offset: ['start end', 'start start'],
-  })
-  const scrollRange = [0, 0.6].map((r) => r + offset)
-  const opacity = useTransform(scrollYProgress, scrollRange, [0, 1])
-  return {
-    ref,
-    style: {
-      opacity,
-    },
-  }
 }

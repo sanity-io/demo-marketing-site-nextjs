@@ -8,7 +8,6 @@ import {KeyedObject, TypedObject} from 'sanity'
 
 import {urlForImage} from '../../sanity/sanity'
 import Container from '../container'
-import {DebugGrid} from '../debug/grid'
 
 interface LogoType {
   _id: string
@@ -31,8 +30,6 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
   return (
     <div>
       <Container className="relative w-full py-5 sm:py-6 md:py-7">
-        <DebugGrid />
-
         <div className="mb-4 text-center text-gray-700 dark:text-gray-200 sm:mb-5">
           Trusted by industry leaders
         </div>

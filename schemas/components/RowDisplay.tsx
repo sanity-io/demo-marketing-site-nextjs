@@ -41,6 +41,7 @@ export default function RowDisplay(props: PreviewProps) {
 
   if (displayFrom && displayTo) {
     status =
+      // eslint-disable-next-line no-nested-ternary
       now > from && now < to ? 'CURRENT' : now > to ? 'EXPIRED' : 'FUTURE'
   } else if (displayFrom && !displayTo) {
     status = now > from ? 'CURRENT' : 'FUTURE'

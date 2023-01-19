@@ -4,7 +4,8 @@
   "rules": {
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
-    "react-hooks/exhaustive-deps": "error"
+    "react-hooks/exhaustive-deps": "error",
+    "no-process-env": "off"
   },
   "globals": {
     "JSX": true

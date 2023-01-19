@@ -12,7 +12,6 @@ import {media} from 'sanity-plugin-media'
 import {muxInput} from 'sanity-plugin-mux-input'
 
 import {MARKETS, SCHEMA_ITEMS} from './lib/constants'
-import {env} from './lib/utils/env'
 import {marketBadge} from './sanity/badges/market-badge'
 import CustomToolMenu from './sanity/components/CustomToolMenu'
 import Icon from './sanity/components/Icon'
@@ -82,9 +81,9 @@ const pluginsBase = (marketName?: string) => {
 const configBase = {
   basePath: `${BASE_PATH}/global`,
   name: 'global',
-  projectId: env('NEXT_PUBLIC_SANITY_PROJECT_ID'),
-  dataset: env('NEXT_PUBLIC_SANITY_DATASET'),
-  title: env('NEXT_PUBLIC_SANITY_PROJECT_TITLE') || 'Marketing.',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Marketing.',
   icon: Icon,
   schema: {
     types: schemaTypes,

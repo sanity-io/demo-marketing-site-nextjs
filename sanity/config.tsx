@@ -1,9 +1,8 @@
-import {env} from '../lib/utils/env'
-
 export const sanityConfig = {
-  dataset: env('NEXT_PUBLIC_SANITY_DATASET'),
-  projectId: env('NEXT_PUBLIC_SANITY_PROJECT_ID'),
-  useCdn: typeof document !== 'undefined' && env('NODE_ENV') === 'production',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, // `i1wffqi8`
+  useCdn:
+    typeof document !== 'undefined' && process.env.NODE_ENV === 'production',
   // useCdn == true gives fast, cheap responses using a globally distributed cache.
   // When in production the Sanity API is only queried on build-time, and on-demand when responding to webhooks.
   // Thus the data need to be fresh and API response time is less important.

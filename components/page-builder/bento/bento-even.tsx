@@ -1,14 +1,12 @@
 import {Icon, IconSymbol} from '@sanity/icons'
-import {m, useScroll, useTransform} from 'framer-motion'
+import clsx from 'clsx'
 import Image from 'next/image'
-import React, {PropsWithChildren, useRef} from 'react'
+import React, {PropsWithChildren} from 'react'
 import {KeyedObject} from 'sanity'
 
 import {urlForImage} from '../../../sanity/sanity'
 import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import {DebugGrid} from '../../debug/grid'
-import {ElementScrollStyle} from '../../framer-motion/useElementScroll'
 import {BentoNumberCallout, isBentoNumberCallout} from './bento-number-callout'
 
 export default function BentoEven(props: {
@@ -18,7 +16,7 @@ export default function BentoEven(props: {
 
   return (
     <div>
-      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap ">
+      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap">
         {articles.map((article, articleIndex) => {
           const Component = isBentoNumberCallout(article)
             ? BentoNumberCallout
@@ -43,20 +41,19 @@ function CellWrapper({
   articles,
   children,
 }: PropsWithChildren<{articleIndex: number; articles: ArticleStub[]}>) {
-  const {ref, style} = useStyle((articleIndex / articles.length) * 0.15)
   return (
     <div
-      ref={ref}
-      className={
-        // prettier-ignore
-        `border-gray-200 text-left dark:border-gray-800 md:w-1/2 md:flex-col py-4 sm:py-5
-        ${articles.length === 4 ? 'xl:w-1/4' : ''}
-        ${articleIndex !== 0 ? 'border-t' : ''}
-        ${articleIndex % 4 != 0 ? 'md:border-l' : ''}
-        ${articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'}`
-      }
+      className={clsx(
+        `border-gray-200 py-4 text-left dark:border-gray-800 sm:py-5 md:w-1/2 md:flex-col`,
+        {
+          'xl:w-1/4': articles.length === 4,
+          'border-t': articleIndex !== 0,
+          'md:border-l': articleIndex % 4 != 0,
+        },
+        articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'
+      )}
     >
-      <m.div style={style}>{children}</m.div>
+      <div>{children}</div>
     </div>
   )
 }
@@ -67,7 +64,6 @@ function ArticleEven(props: {article: ArticleStub & KeyedObject}) {
 
   return (
     <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
-      <DebugGrid />
       {hasText ? (
         <div>
           {article?.icon ? (
@@ -107,23 +103,4 @@ function ArticleEven(props: {article: ArticleStub & KeyedObject}) {
       ) : null}
     </Container>
   )
-}
-
-function useStyle(offset: number): ElementScrollStyle {
-  const ref = useRef(null)
-  const {scrollYProgress} = useScroll({
-    target: ref,
-    offset: ['start end', 'start start'],
-  })
-  const scrollRange = [0, 0.0, 0.4].map((r) => r + offset)
-  const translateY = useTransform(scrollYProgress, scrollRange, [105, 105, 0])
-  const opacity = useTransform(scrollYProgress, scrollRange, [0, 0, 1])
-
-  return {
-    ref,
-    style: {
-      translateY,
-      opacity,
-    },
-  }
 }

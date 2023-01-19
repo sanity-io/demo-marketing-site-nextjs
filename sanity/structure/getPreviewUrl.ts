@@ -1,6 +1,5 @@
 import {SanityDocument, Slug} from 'sanity'
 
-import {env} from '../../lib/utils/env'
 import articleType from '../../schemas/documents/article'
 import pageType from '../../schemas/documents/page'
 
@@ -29,7 +28,7 @@ export function getPreviewUrl(document: Market): string {
   }
 
   const url = new URL('/api/preview', location.origin)
-  const secret = env('NEXT_PUBLIC_PREVIEW_SECRET')
+  const secret = process.env.NEXT_PUBLIC_PREVIEW_SECRET
   if (secret) {
     url.searchParams.set('secret', secret)
   }

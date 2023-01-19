@@ -49,44 +49,42 @@ export default function Alert(props: AlertProps) {
   }
 
   return (
-    <div className="pointer-events-none bg-black text-white">
-      <div className="fixed inset-0 z-50 flex h-screen w-screen items-end justify-center">
-        <div className="pointer-events-auto flex overflow-hidden rounded-t-lg bg-black">
-          <Link
-            href="/api/exit-preview"
-            className="py-2 px-4 transition-colors duration-200 hover:bg-purple-500 hover:text-black"
-          >
-            <strong>Preview</strong>
-          </Link>
-          <Link
-            href={`/api/preview?${toggleAudienceUrl.toString()}`}
-            className="py-2 px-4 transition-colors duration-200 hover:bg-purple-500 hover:text-black"
-          >
-            Audience:{' '}
-            <strong>{AUDIENCES[queryParams.audience] ?? `Unknown`}</strong>
-          </Link>
+    <div className="pointer-events-none fixed inset-0 z-50 flex h-screen w-screen items-end justify-center">
+      <div className="pointer-events-auto flex overflow-hidden rounded-t-lg bg-magenta-400 text-white">
+        <Link
+          href="/api/exit-preview"
+          className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+        >
+          <strong>Preview</strong>
+        </Link>
+        <Link
+          href={`/api/preview?${toggleAudienceUrl.toString()}`}
+          className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+        >
+          Audience:{' '}
+          <strong>{AUDIENCES[queryParams.audience] ?? `Unknown`}</strong>
+        </Link>
 
-          <Link
-            href={
-              !queryParams.date && targetDate
-                ? `/api/preview?${updateTimeUrl.toString()}`
-                : `/api/preview?${nowTimeUrl.toString()}`
-            }
-            className="py-2 px-4 transition-colors duration-200 hover:bg-purple-500 hover:text-black"
-          >
-            Time:{` `}
-            <strong>
-              {queryParams.date ? targetDate.split(`T`).shift() : labelDate}
-            </strong>
-          </Link>
-          <div>
-            <input
-              type="date"
-              className="border-l border-gray-800 bg-black py-2 px-4 text-white transition-colors duration-200 hover:bg-purple-500 hover:text-black"
-              onChange={handleDateChange}
-              value={targetDate ? targetDate.split(`T`).shift() : undefined}
-            />
-          </div>
+        <Link
+          href={
+            !queryParams.date && targetDate
+              ? `/api/preview?${updateTimeUrl.toString()}`
+              : `/api/preview?${nowTimeUrl.toString()}`
+          }
+          className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+        >
+          Time:{` `}
+          <strong>
+            {queryParams.date ? targetDate.split(`T`).shift() : labelDate}
+          </strong>
+        </Link>
+        <div>
+          <input
+            type="date"
+            className="bg-magenta-400 py-2 px-4 text-white transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+            onChange={handleDateChange}
+            value={targetDate ? targetDate.split(`T`).shift() : undefined}
+          />
         </div>
       </div>
     </div>

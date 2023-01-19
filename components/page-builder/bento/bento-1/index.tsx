@@ -1,11 +1,10 @@
-import {m, useScroll, useTransform} from 'framer-motion'
+import clsx from 'clsx'
 import Image from 'next/image'
-import React, {useRef} from 'react'
+import React from 'react'
 
 import {urlForImage} from '../../../../sanity/sanity'
 import {ArticleStub} from '../../../../types'
 import Container from '../../../container'
-import {ElementScrollStyle} from '../../../framer-motion/useElementScroll'
 import Links from '../../../links'
 import {BentoNumberCallout, isBentoNumberCallout} from '../bento-number-callout'
 import {BentoSubtitle} from './BentoSubtitle'
@@ -18,7 +17,6 @@ export default function Index(props: {article: ArticleStub; index: number}) {
   const hasText = !!(article.title || article.subtitle || article.summary)
   const even = index % 2 === 0
 
-  const {ref: imageRef, style: imageStyle} = useImageStyle()
   if (isBentoNumberCallout(article)) {
     return (
       <div className="border-t border-b border-gray-200 dark:border-gray-800">
@@ -31,9 +29,11 @@ export default function Index(props: {article: ArticleStub; index: number}) {
     <div>
       <Container>
         <div
-          className={`flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5 ${
-            image ? (even ? 'md:flex-row' : 'md:flex-row-reverse') : ''
-          }`}
+          className={clsx(
+            `flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5`,
+            image && even ? 'md:flex-row' : null,
+            image && !even ? 'md:flex-row-reverse' : null
+          )}
         >
           {hasText ? (
             <div
@@ -51,9 +51,7 @@ export default function Index(props: {article: ArticleStub; index: number}) {
             </div>
           ) : null}
           {image && (
-            <m.div
-              ref={imageRef}
-              style={imageStyle}
+            <div
               className={`flex items-stretch justify-items-stretch self-stretch md:py-24${
                 hasText ? 'w-full md:w-2/5' : 'm-auto w-full'
               }`}
@@ -68,29 +66,10 @@ export default function Index(props: {article: ArticleStub; index: number}) {
                 alt={article.title ?? ``}
                 className="h-full w-full rounded object-cover"
               />
-            </m.div>
+            </div>
           )}
         </div>
       </Container>
     </div>
   )
-}
-
-function useImageStyle(): ElementScrollStyle {
-  const ref = useRef(null)
-  const {scrollYProgress} = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  })
-  const scrollRange = [0, 0.4, 0.7, 1]
-  const scale = useTransform(scrollYProgress, scrollRange, [1.05, 1, 1, 0.7])
-  const opacity = useTransform(scrollYProgress, scrollRange, [0, 1, 1, 0])
-  return {
-    ref,
-    style: {
-      scale,
-      opacity,
-      top: scrollYProgress,
-    },
-  }
 }

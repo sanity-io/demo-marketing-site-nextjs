@@ -4,7 +4,6 @@ import * as React from 'react'
 import {getMarketFromNextLocale} from '../pages'
 import Button from './button'
 import Container from './container'
-import {DebugGrid} from './debug/grid'
 import Logo from './logo'
 
 type FooterProps = {
@@ -18,8 +17,6 @@ export default function Footer(props: FooterProps) {
   return (
     <div className="border-t border-gray-200 dark:border-gray-800">
       <Container className="relative">
-        <DebugGrid />
-
         <div className="flex items-center gap-5 py-4 md:py-5">
           <Logo>{title}</Logo>
 

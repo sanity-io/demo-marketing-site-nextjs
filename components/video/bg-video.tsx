@@ -15,6 +15,7 @@ export function BgVideo(props: {asset: SanityMuxVideoAsset}) {
       loop
       muted
       playbackId={asset.playbackId}
+      streamType="on-demand"
     />
   )
 }

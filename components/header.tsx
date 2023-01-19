@@ -6,7 +6,6 @@ import * as React from 'react'
 import {GlobalDataProps} from '../types'
 import Button from './button'
 import Container from './container'
-import {DebugGrid} from './debug/grid'
 import Logo from './logo'
 
 type HeaderProps = {
@@ -20,25 +19,25 @@ export default function Header(props: HeaderProps) {
 
   const domainLocale =
     domainLocales && domainLocales.find((l) => l.locales.includes(locale))
-  // const domainMarket = domainLocale.locales[0].split(`-`)[1]
 
   return (
     <div className="border-b border-gray-200 dark:border-gray-800">
       <Container className="relative">
-        <DebugGrid />
-
-        <div className="flex items-center gap-5 py-4 sm:py-5">
+        <div className="flex items-center gap-5 py-3 sm:py-4">
           <Logo>{title}</Logo>
           {headerPrimary && headerPrimary?.length > 0 ? (
-            <ul className="hidden items-center justify-start md:flex md:gap-2">
+            <ul className="hidden items-center justify-start sm:flex md:gap-2">
               {headerPrimary.map((item) => (
                 <li key={item._key}>
                   <Button mode="bleed" {...item.link} />
                 </li>
               ))}
+              <li>
+                <Button mode="ghost" href="/studio" text="Studio" />
+              </li>
             </ul>
           ) : null}
-          <div className="ml-auto flex items-center gap-5 md:hidden">
+          <div className="ml-auto flex items-center gap-5 sm:hidden">
             <Menu />
           </div>
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (

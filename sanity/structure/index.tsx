@@ -144,6 +144,7 @@ const createSchemaItemList = (
   const itemTitle = [
     market.name,
     schemaItem.title,
+    // eslint-disable-next-line no-nested-ternary
     language?.id
       ? `(${language.id.toUpperCase()})`
       : market.languages.length > 1

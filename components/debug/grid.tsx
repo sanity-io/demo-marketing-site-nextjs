@@ -7,7 +7,7 @@ export function DebugGrid(props: {columns?: number}) {
   const {grid} = useDebug()
 
   const columns = useMemo(
-    () => Array.from(new Array(props.columns || 0)).map((_, i) => i),
+    () => Array.from(new Array(props.columns || 5)).map((_, i) => i),
     [props.columns]
   )
 

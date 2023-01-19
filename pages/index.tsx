@@ -5,11 +5,9 @@ import {PreviewSuspense} from 'next-sanity/preview'
 import {lazy} from 'react'
 import * as React from 'react'
 
-import Container from '../components/container'
 import Layout from '../components/layout'
+import Loading from '../components/loading'
 import Page from '../components/page'
-import PostTitle from '../components/post-title'
-import {env} from '../lib/utils/env'
 import {globalDataQuery, homeQuery} from '../sanity/queries'
 import {getClient} from '../sanity/sanity.server'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
@@ -30,13 +28,7 @@ export default function Home(props: Props) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <Container>
-            <PostTitle>Loading…</PostTitle>
-          </Container>
-        }
-      >
+      <PreviewSuspense fallback={<Loading />}>
         <PreviewPage
           data={data}
           globalData={globalData}
@@ -56,9 +48,7 @@ export default function Home(props: Props) {
   return (
     <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
       {router.isFallback ? (
-        <Container>
-          <PostTitle>Loading…</PostTitle>
-        </Container>
+        <Loading />
       ) : (
         <>
           <Head>
@@ -85,7 +75,7 @@ export async function getStaticProps({locale, preview = false, previewData}) {
   /* check if the project id has been defined by fetching the vercel envs */
 
   // TODO: Don't repeat this here and in [slug].tst
-  if (env('NEXT_PUBLIC_SANITY_PROJECT_ID')) {
+  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
     // These query params are used to power this preview
     // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
     const queryParams: PageQueryParams = {
@@ -130,7 +120,7 @@ export async function getStaticProps({locale, preview = false, previewData}) {
         globalData,
       },
       // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-      revalidate: env('SANITY_REVALIDATE_SECRET') ? undefined : 60,
+      revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
     }
   }
 

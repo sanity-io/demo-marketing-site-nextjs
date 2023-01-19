@@ -53,9 +53,7 @@ export default defineField({
     },
     prepare: ({logos}) => ({
       title: logos?.length
-        ? logos.length === 1
-          ? `1 Logo`
-          : `${logos.length} Logos`
+        ? `${logos.length === 1 ? `1 Logo` : `${logos.length} Logos`}`
         : 'All Logos',
       subtitle: 'Logos',
       media: Building,

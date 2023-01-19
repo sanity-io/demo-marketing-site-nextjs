@@ -3,12 +3,11 @@ import Head from 'next/head'
 import {useRouter} from 'next/router'
 import * as React from 'react'
 
-import Container from '../components/container'
 import Layout from '../components/layout'
 import Page from '../components/page'
-import PostTitle from '../components/post-title'
 import {usePreview} from '../sanity/sanity'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
+import Loading from './loading'
 
 interface Props {
   data: PageProps
@@ -31,9 +30,7 @@ export default function PreviewPage(props: Props) {
   return (
     <Layout preview queryParams={queryParams} globalData={globalData}>
       {router.isFallback ? (
-        <Container>
-          <PostTitle>Loading…</PostTitle>
-        </Container>
+        <Loading />
       ) : (
         <>
           <Head>

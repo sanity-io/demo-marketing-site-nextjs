@@ -5,7 +5,6 @@
  */
 import {createClient} from 'next-sanity'
 
-import {env} from '../lib/utils/env'
 import {sanityConfig} from './config'
 
 export const getClient = (preview) =>
@@ -15,7 +14,9 @@ export const getClient = (preview) =>
         useCdn: false,
         // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
         // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
-        token: env('SANITY_API_READ_TOKEN') || env('SANITY_API_WRITE_TOKEN'),
+        token:
+          process.env.SANITY_API_READ_TOKEN ||
+          process.env.SANITY_API_WRITE_TOKEN,
       })
     : createClient(sanityConfig)
 
