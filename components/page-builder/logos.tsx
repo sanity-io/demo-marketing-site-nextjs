@@ -1,9 +1,6 @@
 import {getImageDimensions} from '@sanity/asset-utils'
 import {SanityImageSource} from '@sanity/image-url/lib/types/types'
 import delve from 'dlv'
-import {m, MotionStyle, useScroll, useTransform} from 'framer-motion'
-import * as React from 'react'
-import {useRef} from 'react'
 import {KeyedObject, TypedObject} from 'sanity'
 
 import {urlForImage} from '../../sanity/sanity'
@@ -46,16 +43,11 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
 
 function Logo({company}: {company: LogoType}) {
   const ref = delve(company, 'logo.asset._ref')
-  const {ref: containerRef, style} = useStyle()
-  if (!ref) {
-    return null
-  }
 
   // TODO: adjust width/height based on vertical/landscape logos
   const {width, height} = getImageDimensions(ref)
   return (
-    <div ref={containerRef}>
-      <m.div style={style}>
+    <div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
@@ -65,26 +57,6 @@ function Logo({company}: {company: LogoType}) {
           width={width}
           height={height}
         />
-      </m.div>
     </div>
   )
-}
-
-function useStyle() {
-  const ref = useRef(null)
-
-  const {scrollYProgress} = useScroll({
-    target: ref,
-    offset: ['start end', 'start start'],
-  })
-
-  const inputRange = [0, 0.1]
-  const style: MotionStyle = {
-    opacity: useTransform(scrollYProgress, inputRange, [0, 1]),
-    translateY: useTransform(scrollYProgress, inputRange, [20, 0]),
-  }
-  return {
-    ref,
-    style,
-  }
 }

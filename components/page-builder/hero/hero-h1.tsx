@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import Container from '../../container'
+import {DebugGrid} from '../../debug/grid'
 import Links from '../../links'
 import {StyledPortableText} from '../portable-text/StyledPortableText'
 import {HeroProps} from '.'
@@ -10,7 +11,12 @@ export default function HeroH1(props: HeroProps) {
 
   return (
     <div>
-      <Container className="sticky top-0 flex min-h-screen flex-col items-center justify-center gap-4 py-5 text-center md:py-8">
+      <Container
+        className="sticky top-0 flex flex-col items-center justify-center gap-4 py-5 text-center md:py-8"
+        style={{height: '100vh'}}
+      >
+        <DebugGrid columns={5} />
+
         {subtitle ? (
           <p className="text-lg text-magenta-500 dark:text-magenta-400 md:w-full md:text-2xl">
             {subtitle}

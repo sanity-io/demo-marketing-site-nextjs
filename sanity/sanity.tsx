@@ -3,7 +3,9 @@ import {definePreview} from 'next-sanity/preview'
 
 import {sanityConfig} from './config'
 
-export const imageBuilder = createImageUrlBuilder(sanityConfig)
+const {projectId, dataset} = sanityConfig
+
+export const imageBuilder = createImageUrlBuilder({ projectId, dataset })
 
 export const urlForImage = (source) =>
   imageBuilder
@@ -15,5 +17,4 @@ export const urlForImage = (source) =>
     .auto('format')
     .fit('max')
 
-const {projectId, dataset} = sanityConfig
 export const usePreview = definePreview({projectId, dataset})

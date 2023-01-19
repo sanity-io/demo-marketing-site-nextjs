@@ -8,6 +8,8 @@ import * as React from 'react'
 import Layout from '../components/layout'
 import Loading from '../components/loading'
 import Page from '../components/page'
+import PostTitle from '../components/post-title'
+import {config} from '../lib/config'
 import {globalDataQuery, pageQuery, pageSlugsQuery} from '../sanity/queries'
 import {getClient} from '../sanity/sanity.server'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
@@ -108,7 +110,7 @@ export async function getStaticProps({
       globalData,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
+    revalidate: config.revalidateSecret ? undefined : 60,
   }
 }
 

@@ -96,7 +96,6 @@ export function Small({article}: {article: ArticleStub}) {
 
 function High({first}: {first: ArticleStub}) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
-
   return (
     <Container className="relative flex content-center justify-center">
       <div className="flex items-center justify-center">

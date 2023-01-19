@@ -36,6 +36,7 @@ export default async function preview(
   const queryDate = Array.isArray(req.query.date)
     ? req.query.date[0]
     : req.query.date
+  // I refactored this to pass linting, but I don't quite know what this is doing
   const queryAudience = ['string', 'boolean'].includes(typeof req.previewData)
     ? null
     : Number(req.query.audience)

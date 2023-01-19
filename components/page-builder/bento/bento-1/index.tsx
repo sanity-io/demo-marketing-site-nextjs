@@ -25,6 +25,11 @@ export default function Index(props: {article: ArticleStub; index: number}) {
     )
   }
 
+  let rowClass = ''
+  if (image) {
+    rowClass = even ? 'md:flex-row' : 'md:flex-row-reverse'
+  }
+
   return (
     <div>
       <Container>

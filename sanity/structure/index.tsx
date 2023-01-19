@@ -141,16 +141,14 @@ const createSchemaItemList = (
   market: Market,
   language: Language | null
 ) => {
-  const itemTitle = [
-    market.name,
-    schemaItem.title,
-    // eslint-disable-next-line no-nested-ternary
-    language?.id
-      ? `(${language.id.toUpperCase()})`
-      : market.languages.length > 1
-      ? `(No Language)`
-      : null,
-  ]
+  let languageTitle = null
+  if (language?.id) {
+    languageTitle = `(${language.id.toUpperCase()})`
+  } else if (market.languages.length > 1) {
+    languageTitle = `(No Language)`
+  }
+
+  const itemTitle = [market.name, schemaItem.title, languageTitle]
     .filter(Boolean)
     .join(` `)
 

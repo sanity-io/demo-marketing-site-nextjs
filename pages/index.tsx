@@ -8,6 +8,7 @@ import * as React from 'react'
 import Layout from '../components/layout'
 import Loading from '../components/loading'
 import Page from '../components/page'
+import {config} from '../lib/config'
 import {globalDataQuery, homeQuery} from '../sanity/queries'
 import {getClient} from '../sanity/sanity.server'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
@@ -75,7 +76,7 @@ export async function getStaticProps({locale, preview = false, previewData}) {
   /* check if the project id has been defined by fetching the vercel envs */
 
   // TODO: Don't repeat this here and in [slug].tst
-  if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+  if (config.sanity.projectId) {
     // These query params are used to power this preview
     // And fed into <Alert /> to create ✨ DYNAMIC ✨ params!
     const queryParams: PageQueryParams = {
@@ -120,7 +121,7 @@ export async function getStaticProps({locale, preview = false, previewData}) {
         globalData,
       },
       // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-      revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
+      revalidate: config.revalidateSecret ? undefined : 60,
     }
   }
 

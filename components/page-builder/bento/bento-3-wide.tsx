@@ -62,7 +62,6 @@ function CellWrapper({
 
 function Wide({first}: {first: ArticleStub}) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
-
   return (
     <Container className="relative flex py-4">
       <div className="stretch-self flex w-full items-center">

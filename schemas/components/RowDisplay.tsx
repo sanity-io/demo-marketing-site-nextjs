@@ -40,9 +40,13 @@ export default function RowDisplay(props: PreviewProps) {
   const to = new Date(displayTo)
 
   if (displayFrom && displayTo) {
-    status =
-      // eslint-disable-next-line no-nested-ternary
-      now > from && now < to ? 'CURRENT' : now > to ? 'EXPIRED' : 'FUTURE'
+    if (now > from && now < to) {
+      status = 'CURRENT'
+    } else if (now > to) {
+      status = 'EXPIRED'
+    } else {
+      status = 'FUTURE'
+    }
   } else if (displayFrom && !displayTo) {
     status = now > from ? 'CURRENT' : 'FUTURE'
   } else if (!displayFrom && displayTo) {
