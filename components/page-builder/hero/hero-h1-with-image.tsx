@@ -19,7 +19,7 @@ export default function HeroH1WithImage(props: HeroProps) {
           <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
             <HeroSubtitle subtitle={subtitle} />
             <HeroTitle title={title} />
-            <HeroSummary summary={summary} />
+            {summary?.length> 0 ?<HeroSummary summary={summary} /> : null}
             <Links links={links} />
           </div>
 

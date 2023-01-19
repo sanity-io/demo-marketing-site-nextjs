@@ -1,6 +1,6 @@
+import {PortableTextBlock} from '@portabletext/types'
 import {SanityImageSource} from '@sanity/image-url/lib/types/types'
-import {Block, KeyedObject} from 'sanity'
-
+import {KeyedObject} from 'sanity'
 export interface AuthorProps {
   name: string
   picture: any
@@ -42,8 +42,8 @@ export type ArticleStub = {
   _type: 'article'
   title?: string
   subtitle?: string
-  content?: Block[]
-  summary?: Block[]
+  content?: PortableTextBlock[]
+  summary?: PortableTextBlock[]
   image?: SanityImageSource
   links?: (KeyedObject & Link)[]
 }

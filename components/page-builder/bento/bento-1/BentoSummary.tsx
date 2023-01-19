@@ -9,7 +9,7 @@ export function BentoSummary({summary}: {summary?: PortableTextBlock[]}) {
   }
 
   return (
-    <div className="text-2xl text-gray-600 dark:text-gray-200 ">
+    <div className="text-2xl text-gray-600 dark:text-gray-200">
       <StyledPortableText value={summary} />
     </div>
   )
