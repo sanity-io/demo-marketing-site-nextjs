@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import {KeyedObject} from 'sanity'
 
@@ -6,15 +7,16 @@ import Button from './button'
 
 type LinksProps = {
   links: (KeyedObject & Link)[]
+  className?: string
 }
 
 export default function Links(props: LinksProps) {
-  const {links} = props
+  const {links, className} = props
 
   if (!links?.length) return null
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={clsx("flex items-center gap-2", className)}>
       {links.map((link, linkIndex) => (
         <Button
           key={link._key}

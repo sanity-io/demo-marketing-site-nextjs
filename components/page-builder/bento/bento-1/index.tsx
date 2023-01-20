@@ -72,7 +72,10 @@ export default function Index(props: {article: ArticleStub; index: number}) {
           ) : null}
           {links?.length > 0 ? (
             <div className="col-span-5 row-start-3 lg:col-span-3 lg:col-start-2">
-              <Links links={article.links} />
+              <Links
+                links={article.links}
+                className={!even && `lg:justify-end`}
+              />
             </div>
           ) : null}
         </div>
