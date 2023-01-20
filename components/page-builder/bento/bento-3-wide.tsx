@@ -1,13 +1,10 @@
-import Image from 'next/image'
+import clsx from 'clsx'
 import React, {PropsWithChildren} from 'react'
 import {KeyedObject} from 'sanity'
 
-import {urlForImage} from '../../../sanity/sanity'
 import {ArticleStub} from '../../../types'
 import Container from '../../container'
-import {StyledPortableText} from '../portable-text/StyledPortableText'
-import {BentoSubtitle} from './bento-1/BentoSubtitle'
-import {BentoTitle} from './bento-1/BentoTitle'
+import Bento1 from './bento-1'
 import {Small} from './bento-3'
 import {BentoNumberCallout, isBentoNumberCallout} from './bento-number-callout'
 
@@ -20,7 +17,7 @@ export default function Bento3Wide(props: {
   const even = index % 2 == 0
   const high = <Wide first={first} />
   const cells = (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-800 lg:flex-row lg:divide-x lg:divide-y-0">
       {rest.map((article, articleIndex) => {
         const Component = isBentoNumberCallout(article)
           ? BentoNumberCallout
@@ -49,11 +46,11 @@ function CellWrapper({
 }: PropsWithChildren<{articleIndex: number}>) {
   return (
     <Container
-      className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
-        articleIndex > 0
-          ? `border-gray-200 dark:border-gray-800 sm:max-md:border-t lg:border-l`
-          : ``
-      }`}
+      className={clsx(
+        `flex items-center justify-center text-left md:h-1/2 md:flex-col`,
+        articleIndex > 0 &&
+          `border-gray-200 dark:border-gray-800 sm:max-md:border-t lg:border-l`
+      )}
     >
       <div>{children}</div>
     </Container>
@@ -61,40 +58,5 @@ function CellWrapper({
 }
 
 function Wide({first}: {first: ArticleStub}) {
-  const hasText = first.title || first.subtitle || first?.summary?.length > 0
-  return (
-    <Container className="relative flex py-4">
-      <div className="stretch-self flex w-full items-center">
-        <div className="flex w-full flex-col gap-5 py-12 text-left">
-          {hasText ? (
-            <div className={'flex w-full flex-col gap-5'}>
-              <BentoSubtitle subtitle={first.subtitle} />
-              <BentoTitle title={first.title} />
-
-              {first?.summary?.length > 0 ? (
-                <div className="text-l max-w-xl text-gray-700 dark:text-gray-200 md:text-xl">
-                  <StyledPortableText value={first?.summary} />
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-          {first?.image ? (
-            <div
-              className={
-                'flex w-full items-stretch justify-items-stretch self-stretch'
-              }
-            >
-              <Image
-                src={urlForImage(first?.image).width(1280).height(512).url()}
-                width={1280}
-                height={512}
-                alt={first.title ?? ``}
-                className="h-full w-full rounded object-cover"
-              />
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </Container>
-  )
+  return <Bento1 article={first} index={0} />
 }

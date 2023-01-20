@@ -23,10 +23,10 @@ export default function Header(props: HeaderProps) {
   return (
     <div className="border-b border-gray-200 dark:border-gray-800">
       <Container className="relative">
-        <div className="flex items-center gap-5 py-3 sm:py-4">
+        <div className="flex items-center gap-5 py-3 lg:py-4">
           <Logo>{title}</Logo>
           {headerPrimary && headerPrimary?.length > 0 ? (
-            <ul className="hidden items-center justify-start sm:flex md:gap-2">
+            <ul className="hidden items-center justify-start md:gap-2 lg:flex">
               {headerPrimary.map((item) => (
                 <li key={item._key}>
                   <Button mode="bleed" {...item.link} />
@@ -37,7 +37,7 @@ export default function Header(props: HeaderProps) {
               </li>
             </ul>
           ) : null}
-          <div className="ml-auto flex items-center gap-5 sm:hidden">
+          <div className="ml-auto flex items-center gap-5 lg:hidden">
             <Menu />
           </div>
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (

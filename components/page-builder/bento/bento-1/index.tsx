@@ -14,7 +14,6 @@ import {BentoTitle} from './BentoTitle'
 export default function Index(props: {article: ArticleStub; index: number}) {
   const {article, index} = props
   const {image} = article
-  const hasText = !!(article.title || article.subtitle || article.summary)
   const even = index % 2 === 0
 
   if (isBentoNumberCallout(article)) {
@@ -29,45 +28,44 @@ export default function Index(props: {article: ArticleStub; index: number}) {
 
   return (
     <div>
-      <Container
-        className={clsx(
-          `flex flex-col-reverse items-stretch justify-items-stretch gap-5 py-4 sm:py-5 md:items-center md:py-5`,
-          image && even ? 'md:flex-row' : null,
-          image && !even ? 'md:flex-row-reverse' : null
-        )}
-      >
-        {hasText ? (
-          <div
-            className={clsx(
-              `flex flex-col items-start gap-4 py-6 md:py-24`,
-              image && `md:w-3/5`
-            )}
-          >
-            {subtitle ? <BentoSubtitle subtitle={subtitle} /> : null}
-            {title ? <BentoTitle title={title} /> : null}
-            {summary?.length > 0 ? <BentoSummary summary={summary} /> : null}
-            {links?.length > 0 ? <Links links={article.links} /> : null}
-          </div>
-        ) : null}
-        {image && (
-          <div
-            className={clsx(
-              `flex items-stretch justify-items-stretch self-stretch md:py-24`,
-              hasText ? 'w-full md:w-2/5' : 'm-auto w-full'
-            )}
-          >
-            <Image
-              src={urlForImage(image)
-                .width(hasText ? 496 : 1112)
-                .height(hasText ? 372 : 834)
-                .url()}
-              width={hasText ? 496 : 1112}
-              height={hasText ? 372 : 834}
-              alt={article.title ?? ``}
-              className="h-full w-full rounded object-cover"
-            />
-          </div>
-        )}
+      <Container>
+        <div className="grid grid-cols-5 gap-4 py-6 md:py-24 lg:gap-6">
+          {image ? (
+            <>
+              <div
+                className={clsx(
+                  `col-span-2 flex items-center gap-4 lg:col-span-1 lg:gap-6`,
+                  even ? `col-start-1` : `col-start-4`
+                )}
+              >
+                <Image
+                  src={urlForImage(image).width(300).height(300).url()}
+                  width={300}
+                  height={300}
+                  alt={article.title ?? ``}
+                  className="aspect-square w-full rounded-full object-cover"
+                />
+              </div>
+              <div
+                className={clsx(
+                  `col-span-3 row-start-1 flex flex-col items-start gap-2`,
+                  even ? `col-start-2` : `col-start-1`
+                )}
+              >
+                {subtitle ? <BentoSubtitle subtitle={subtitle} /> : null}
+                {title ? <BentoTitle title={title} /> : null}
+              </div>
+            </>
+          ) : null}
+          {!image && subtitle ? <BentoSubtitle subtitle={subtitle} /> : null}
+          {!image && title ? <BentoTitle title={title} /> : null}
+          {summary?.length > 0 ? (
+            <div className="col-span-5 lg:col-span-3 lg:col-start-2">
+              <BentoSummary summary={summary} />
+            </div>
+          ) : null}
+          {links?.length > 0 ? <Links links={article.links} /> : null}
+        </div>
       </Container>
     </div>
   )

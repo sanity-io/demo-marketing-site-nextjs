@@ -6,6 +6,7 @@ export default defineType(
     name: 'pageBuilder',
     title: 'Page Builder',
     type: 'array',
+    validation: (rule) => rule.unique(),
     of: [
       defineArrayMember({
         name: 'article',

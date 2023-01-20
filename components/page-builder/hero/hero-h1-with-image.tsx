@@ -15,8 +15,8 @@ export default function HeroH1WithImage(props: HeroProps) {
   return (
     <div>
       <Container className="relative">
-        <div className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5">
-          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8">
+        <div className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 lg:flex-row lg:items-center lg:py-5">
+          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 lg:w-3/5 lg:py-8">
             {subtitle ? <HeroSubtitle subtitle={subtitle} /> : null}
             {title ? <HeroTitle title={title} /> : null}
             {summary?.length > 0 ? <HeroSummary summary={summary} /> : null}
@@ -24,13 +24,13 @@ export default function HeroH1WithImage(props: HeroProps) {
           </div>
 
           {image ? (
-            <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
+            <div className="flex w-full lg:w-2/5 lg:py-8">
               <Image
-                src={urlForImage(image).width(496).height(372).url()}
-                width={496}
-                height={372}
+                src={urlForImage(image).width(960).height(540).url()}
+                width={960}
+                height={540}
                 alt={title ?? ``}
-                className="h-full w-full rounded object-cover"
+                className="aspect-video w-full rounded-lg object-cover"
               />
             </div>
           ) : null}
