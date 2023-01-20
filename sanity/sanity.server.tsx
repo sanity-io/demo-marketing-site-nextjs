@@ -17,8 +17,8 @@ export const getClient = (preview) =>
         // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
         // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
         token:
-        process.env.SANITY_API_READ_TOKEN ||
-        process.env.SANITY_API_WRITE_TOKEN,
+          process.env.SANITY_API_READ_TOKEN ||
+          process.env.SANITY_API_WRITE_TOKEN,
       })
     : createClient({
         projectId: sanityConfig.projectId,

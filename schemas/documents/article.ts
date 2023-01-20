@@ -48,6 +48,8 @@ export default defineType({
     }),
     defineField({
       name: 'summary',
+      description:
+        'Short text when this Article is displayed as a block in a page. Give this Article a slug to add longer form content.',
       type: 'portableTextSimple',
       group: ['content'],
     }),

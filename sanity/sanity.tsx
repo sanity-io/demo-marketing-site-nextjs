@@ -5,7 +5,7 @@ import {sanityConfig} from './config'
 
 const {projectId, dataset} = sanityConfig
 
-export const imageBuilder = createImageUrlBuilder({ projectId, dataset })
+export const imageBuilder = createImageUrlBuilder({projectId, dataset})
 
 export const urlForImage = (source) =>
   imageBuilder

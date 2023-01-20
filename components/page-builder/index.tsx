@@ -12,7 +12,7 @@ const ROWS = {
   logos: React.lazy(() => import('./logos')),
   quote: React.lazy(() => import('./quote')),
   // Experiment block displays whichever hero was returned in the query
-  experiment: React.lazy(() => import('./hero')),
+  experiment: React.lazy(() => import('./article')),
   // Promotion component takes a grouped set of contiguous `promotion` rows
   article: React.lazy(() => import('./article')),
   intermission: React.lazy(() => import('./intermission')),
@@ -24,7 +24,7 @@ export default function PageBuilder(props: PageBuilderProps) {
   // This creates ✨magic✨ layout opportunities
   const rowsGrouped = React.useMemo(
     () =>
-      rows.reduce((acc, cur, curIndex, initial) => {
+      rows.reduce((acc, cur) => {
         const prev = acc[acc.length - 1]
 
         if (cur._type === 'infoBreak') {
@@ -36,13 +36,16 @@ export default function PageBuilder(props: PageBuilderProps) {
           return acc
         }
 
-        if (cur._type !== `article`) {
+        // Not an experiment or an article? Just add it to the array
+        if (![`experiment`, `article`].includes(cur._type)) {
           return [...acc, cur]
         }
 
-        // Is this the first _type of `article`?
-        // TODO: This needs to be smarter, an article might not be the first block
-        if (curIndex === 0) {
+        // Is this the first `article` _type in the array? Make it the hero!
+        if (
+          (cur._type === `article` || cur._type === `experiment`) &&
+          !acc.find((a) => a.isHero)
+        ) {
           return [
             ...acc,
             {_key: cur._key, _type: cur._type, isHero: true, articles: [cur]},
@@ -88,7 +91,7 @@ export default function PageBuilder(props: PageBuilderProps) {
   }
 
   return (
-    <div className="divide-y divide-gray-200 dark:divide-gray-800">
+    <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-800">
       {rowsGrouped.map((row, rowIndex) => {
         if (row._type && ROWS[row._type]) {
           const Row = ROWS[row._type]

@@ -6,7 +6,7 @@ export function BentoTitle({title}: {title?: string}) {
   }
 
   return (
-    <h2 className="text-5xl font-extrabold leading-tight tracking-tight md:text-7xl">
+    <h2 className="text-4xl font-extrabold leading-tight tracking-tight lg:text-7xl">
       {title}
     </h2>
   )

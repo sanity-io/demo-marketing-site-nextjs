@@ -2,7 +2,7 @@
 
 ## Multi-tenant
 
-Throughout the schema is a required `market` field which is hidden once it has a value, and should be populated by Initial Value Templates. 
+Throughout the schema is a required `market` field which is hidden once it has a value, and should be populated by Initial Value Templates.
 
 This allows authors to create content specifically relevant to only their market, within the constraints of globally-relevant schema.
 
@@ -24,7 +24,8 @@ Languages are defined in `./lib/markets.js` and are also used in `next.config.js
 
 ## Next.js
 
-The Sanity Studio installed in this application can be accessed at `/studio` and is set up with Live Preview. 
+The Sanity Studio installed in this application can be accessed at `/studio` and is set up with Live Preview.
+
 ## Page Builder
 
 The Page Builder in this Studio is set up as a demonstration of how content can drive design. It deliberately excludes fields for design choices like colors, fonts, spacing and columns. It allows content editors to focus on content creation while the website's design takes care of itself.

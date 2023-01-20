@@ -16,22 +16,24 @@ export default function HeroH1WithImage(props: HeroProps) {
     <div>
       <Container className="relative">
         <div className="flex flex-col-reverse items-stretch justify-items-stretch py-4 sm:py-5 md:flex-row md:items-center md:py-5">
-          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8 ">
-            <HeroSubtitle subtitle={subtitle} />
-            <HeroTitle title={title} />
+          <div className="relative flex w-full flex-col gap-4 py-5 sm:py-6 md:w-3/5 md:py-7 lg:py-8">
+            {subtitle ? <HeroSubtitle subtitle={subtitle} /> : null}
+            {title ? <HeroTitle title={title} /> : null}
             {summary?.length > 0 ? <HeroSummary summary={summary} /> : null}
-            <Links links={links} />
+            {links?.length > 0 ? <Links links={links} /> : null}
           </div>
 
-          <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
-            <Image
-              src={urlForImage(image).width(496).height(372).url()}
-              width={496}
-              height={372}
-              alt={title ?? ``}
-              className="h-full w-full rounded object-cover"
-            />
-          </div>
+          {image ? (
+            <div className="flex w-full items-stretch justify-items-stretch self-stretch md:w-2/5 md:py-7 lg:py-8 ">
+              <Image
+                src={urlForImage(image).width(496).height(372).url()}
+                width={496}
+                height={372}
+                alt={title ?? ``}
+                className="h-full w-full rounded object-cover"
+              />
+            </div>
+          ) : null}
         </div>
       </Container>
     </div>

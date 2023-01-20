@@ -49,15 +49,15 @@ function Logo({company}: {company: LogoType}) {
   const {width, height} = getImageDimensions(ref)
   return (
     <div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
-          // TODO: Adjust if the file is not an SVG
-          src={urlForImage(company.logo).url()}
-          alt={company?.name}
-          width={width}
-          height={height}
-        />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        className="h-auto w-[50px] flex-shrink-0 md:w-[100px]"
+        // TODO: Adjust if the file is not an SVG
+        src={urlForImage(company.logo).url()}
+        alt={company?.name}
+        width={width}
+        height={height}
+      />
     </div>
   )
 }

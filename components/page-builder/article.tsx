@@ -12,7 +12,7 @@ type PageBuilderArticleProps = KeyedObject &
   }
 
 export default function PageBuilderArticle(props: PageBuilderArticleProps) {
-  const {isHero, articles, index} = props
+  const {isHero, articles = [], index} = props
 
   if (!articles?.length) {
     return null
@@ -21,7 +21,7 @@ export default function PageBuilderArticle(props: PageBuilderArticleProps) {
   if (isHero && articles.length === 1) {
     const [article] = articles
 
-    return <Hero {...article} index={0} />
+    return <Hero {...article} />
   }
 
   return <BentoResolver articles={articles} index={index} />
