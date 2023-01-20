@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 
 export function BentoSubtitle({
@@ -12,10 +13,13 @@ export function BentoSubtitle({
   }
 
   return (
-    <div className={className ?? 'py-2'}>
-      <p className="text-xl text-magenta-500 dark:text-magenta-400 lg:text-2xl">
-        {subtitle}
-      </p>
-    </div>
+    <p
+      className={clsx(
+        `text-xl text-magenta-500 dark:text-magenta-400 lg:text-2xl`,
+        className ?? `py-2`
+      )}
+    >
+      {subtitle}
+    </p>
   )
 }

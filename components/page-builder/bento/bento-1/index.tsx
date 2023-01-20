@@ -29,27 +29,28 @@ export default function Index(props: {article: ArticleStub; index: number}) {
   return (
     <div>
       <Container>
-        <div className="grid grid-cols-5 gap-4 py-6 md:py-24 lg:gap-6">
+        <div className="grid grid-cols-5 gap-4 py-6 lg:gap-6 lg:py-24">
           {image ? (
             <>
               <div
                 className={clsx(
-                  `col-span-2 flex items-center gap-4 lg:col-span-1 lg:gap-6`,
-                  even ? `col-start-1` : `col-start-4`
+                  `relative col-span-1 row-start-1 flex items-center gap-4 lg:col-span-1 lg:gap-6`,
+                  even ? `col-start-1` : `col-start-5`
                 )}
               >
+                <div className="absolute aspect-square w-full rounded-full bg-magenta-400 opacity-50 blur-3xl" />
                 <Image
                   src={urlForImage(image).width(300).height(300).url()}
                   width={300}
                   height={300}
                   alt={article.title ?? ``}
-                  className="aspect-square w-full rounded-full object-cover"
+                  className="relative aspect-square w-full rounded-full object-cover"
                 />
               </div>
               <div
                 className={clsx(
-                  `col-span-3 row-start-1 flex flex-col items-start gap-2`,
-                  even ? `col-start-2` : `col-start-1`
+                  `col-span-4 row-start-1 flex flex-col justify-center`,
+                  even ? `col-start-2 items-start` : `col-start-1 items-end`
                 )}
               >
                 {subtitle ? <BentoSubtitle subtitle={subtitle} /> : null}
@@ -60,11 +61,20 @@ export default function Index(props: {article: ArticleStub; index: number}) {
           {!image && subtitle ? <BentoSubtitle subtitle={subtitle} /> : null}
           {!image && title ? <BentoTitle title={title} /> : null}
           {summary?.length > 0 ? (
-            <div className="col-span-5 lg:col-span-3 lg:col-start-2">
+            <div
+              className={clsx(
+                `col-span-5 row-start-2 lg:col-span-3 lg:col-start-2`,
+                !even && `text-right`
+              )}
+            >
               <BentoSummary summary={summary} />
             </div>
           ) : null}
-          {links?.length > 0 ? <Links links={article.links} /> : null}
+          {links?.length > 0 ? (
+            <div className="col-span-5 row-start-3 lg:col-span-3 lg:col-start-2">
+              <Links links={article.links} />
+            </div>
+          ) : null}
         </div>
       </Container>
     </div>
