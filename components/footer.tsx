@@ -21,8 +21,8 @@ export default function Footer(props: FooterProps) {
           <Logo>{title}</Logo>
 
           {domainLocales && domainLocales.length > 0 ? (
-            <div className="ml-auto flex items-center gap-2">
-              <span>Global sites</span>
+            <div className="ml-auto flex flex-wrap items-center gap-2">
+              <span className="w-full lg:w-auto">Global sites</span>
               {domainLocales.map((domainLocale) => (
                 <Button
                   key={domainLocale.domain}

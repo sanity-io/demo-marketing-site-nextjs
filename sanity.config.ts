@@ -9,7 +9,6 @@ import {deskTool} from 'sanity/desk'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import {media} from 'sanity-plugin-media'
-import {muxInput} from 'sanity-plugin-mux-input'
 
 import {MARKETS, SCHEMA_ITEMS} from './lib/constants'
 import {marketBadge} from './sanity/badges/market-badge'
@@ -32,7 +31,6 @@ const pluginsBase = (marketName?: string) => {
       structure: (S, context) => structure(S, context, marketName),
       defaultDocumentNode,
     }),
-    muxInput(),
     unsplashImageAsset(),
     visionTool({defaultApiVersion: '2022-08-08'}),
     media(),

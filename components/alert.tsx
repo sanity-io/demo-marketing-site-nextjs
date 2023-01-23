@@ -49,19 +49,20 @@ export default function Alert(props: AlertProps) {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-50 flex h-screen w-screen items-end justify-center">
+    <div className="pointer-events-none fixed inset-0 z-50 flex h-screen w-screen items-end justify-center text-xs lg:text-sm">
       <div className="pointer-events-auto flex overflow-hidden rounded-t-lg bg-magenta-400 text-white">
         <Link
           href="/api/exit-preview"
           className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
         >
-          <strong>Preview</strong>
+          Preview{` `}
+          <strong>On</strong>
         </Link>
         <Link
           href={`/api/preview?${toggleAudienceUrl.toString()}`}
           className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
         >
-          Audience:{' '}
+          Audience{' '}
           <strong>{AUDIENCES[queryParams.audience] ?? `Unknown`}</strong>
         </Link>
 
@@ -73,7 +74,7 @@ export default function Alert(props: AlertProps) {
           }
           className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
         >
-          Time:{` `}
+          Time{` `}
           <strong>
             {queryParams.date ? targetDate.split(`T`).shift() : labelDate}
           </strong>

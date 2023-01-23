@@ -47,22 +47,6 @@ const pageFields = groq`
         visibility
       })
     },
-    _type == "intermission" => {
-      ...(@->{
-        statements,
-        background{
-          mediaType == "image" => {
-            ...image
-          },
-          mediaType == "video" => {
-            ...video{
-              _type,
-              asset->
-            }
-          }
-        }
-      })
-    },
     _type == "quote" => {
       ...(@->{
         quote,

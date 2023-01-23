@@ -17,7 +17,7 @@ export default function Bento3Wide(props: {
   const even = index % 2 == 0
   const high = <Wide first={first} />
   const cells = (
-    <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-800 lg:flex-row lg:divide-x lg:divide-y-0">
+    <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-800 lg:flex-row lg:items-stretch lg:divide-x lg:divide-y-0">
       {rest.map((article, articleIndex) => {
         const Component = isBentoNumberCallout(article)
           ? BentoNumberCallout
@@ -47,12 +47,12 @@ function CellWrapper({
   return (
     <Container
       className={clsx(
-        `flex items-center justify-center text-left md:h-1/2 md:flex-col`,
+        `flex items-center justify-center text-left lg:flex-col lg:items-start`,
         articleIndex > 0 &&
-          `border-gray-200 dark:border-gray-800 sm:max-md:border-t lg:border-l`
+          `border-gray-200 dark:border-gray-800 sm:max-lg:border-t lg:border-l`
       )}
     >
-      <div>{children}</div>
+      {children}
     </Container>
   )
 }

@@ -34,12 +34,6 @@ export default defineType(
         type: 'pageBuilderExperimentCell',
       }),
       defineArrayMember({
-        name: 'intermission',
-        title: 'Intermission',
-        type: 'reference',
-        to: [{type: 'intermission'}],
-      }),
-      defineArrayMember({
         name: 'logos',
         title: 'Logos',
         type: 'pageBuilderLogosCell',

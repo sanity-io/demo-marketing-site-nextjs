@@ -16,7 +16,7 @@ export default function BentoEven(props: {
 
   return (
     <div>
-      <div className="flex flex-col dark:divide-gray-800 md:flex-row md:flex-wrap">
+      <div className="flex flex-col dark:divide-gray-800 lg:flex-row lg:flex-wrap">
         {articles.map((article, articleIndex) => {
           const Component = isBentoNumberCallout(article)
             ? BentoNumberCallout
@@ -44,13 +44,13 @@ function CellWrapper({
   return (
     <div
       className={clsx(
-        `border-gray-200 py-4 text-left dark:border-gray-800 sm:py-5 md:w-1/2 md:flex-col`,
+        `border-gray-200 py-4 text-left dark:border-gray-800 sm:py-5 lg:w-1/2 lg:flex-col`,
         {
           'xl:w-1/4': articles.length === 4,
           'border-t': articleIndex !== 0,
-          'md:border-l': articleIndex % 4 != 0,
+          'lg:border-l': articleIndex % 4 !== 0,
         },
-        articleIndex > 1 ? 'md:border-t' : 'md:border-t-0'
+        articleIndex > 1 ? 'lg:border-t' : 'lg:border-t-0'
       )}
     >
       <div>{children}</div>
@@ -63,7 +63,7 @@ function ArticleEven(props: {article: ArticleStub & KeyedObject}) {
   const hasText = !!(article.title || article.subtitle)
 
   return (
-    <Container className="relative flex gap-3 py-12 md:py-24 md:px-5">
+    <Container className="relative flex gap-3 py-12 lg:py-24 lg:px-5">
       {hasText ? (
         <div>
           {article?.icon ? (
@@ -75,7 +75,7 @@ function ArticleEven(props: {article: ArticleStub & KeyedObject}) {
             <h2 className="text-xl font-extrabold leading-tight tracking-tight">
               {article.title}
             </h2>
-            <p className="text-gray-600 dark:text-gray-200 md:pr-12">
+            <p className="text-gray-600 dark:text-gray-200 lg:pr-12">
               {article.subtitle}
             </p>
           </div>

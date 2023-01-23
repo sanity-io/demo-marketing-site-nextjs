@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import Image from 'next/image'
 import React, {PropsWithChildren} from 'react'
 import {KeyedObject} from 'sanity'
@@ -36,7 +37,7 @@ export default function Bento3(props: {
   )
   return (
     <div>
-      <div className="max-h-xl grid divide-y divide-gray-200 dark:divide-gray-800 md:grid-cols-2 md:divide-x md:divide-y-0">
+      <div className="max-h-xl grid divide-y divide-gray-200 dark:divide-gray-800 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
         {reverse ? high : cells}
         {reverse ? cells : high}
       </div>
@@ -50,9 +51,10 @@ function CellWrapper({
 }: PropsWithChildren<{articleIndex: number}>) {
   return (
     <div
-      className={`flex items-center justify-center text-left md:h-1/2 md:flex-col ${
-        articleIndex > 0 ? `border-t border-gray-200 dark:border-gray-800` : ``
-      }`}
+      className={clsx(
+        `flex items-center justify-center text-left lg:h-1/2 lg:flex-col`,
+        articleIndex > 0 && `border-t border-gray-200 dark:border-gray-800`
+      )}
     >
       {children}
     </div>
@@ -76,18 +78,14 @@ export function Small({article}: {article: ArticleStub}) {
           />
         </div>
       ) : (
-        <div className="relative">
-          <div className="flex flex-col gap-3 py-12 ">
-            <div className="flex flex-col gap-5">
-              <BentoSubtitle subtitle={article.subtitle} />
-              <BentoTitle title={article.title} />
-              {article?.summary?.length > 0 ? (
-                <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
-                  <StyledPortableText value={article?.summary} />
-                </div>
-              ) : null}
+        <div className="relative flex h-full flex-col gap-3 py-12">
+          <BentoSubtitle subtitle={article.subtitle} />
+          <BentoTitle title={article.title} />
+          {article?.summary?.length > 0 ? (
+            <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 lg:text-2xl">
+              <StyledPortableText value={article?.summary} />
             </div>
-          </div>
+          ) : null}
         </div>
       )}
     </>
@@ -99,12 +97,13 @@ function High({first}: {first: ArticleStub}) {
   return (
     <Container className="relative flex content-center justify-center">
       <div className="flex items-center justify-center">
-        <div className="flex w-full flex-col gap-5 py-12 text-left md:flex-row md:justify-center md:py-24">
+        <div className="flex w-full flex-col gap-5 py-12 text-left lg:flex-row lg:justify-center lg:py-24">
           {first?.image ? (
             <div
-              className={`flex items-stretch justify-items-stretch self-stretch ${
-                hasText ? 'md:w-1/2' : 'w-full'
-              }`}
+              className={clsx(
+                `flex items-stretch justify-items-stretch self-stretch`,
+                hasText ? 'lg:w-1/2' : 'w-full'
+              )}
             >
               <Image
                 src={urlForImage(first?.image)
@@ -114,19 +113,19 @@ function High({first}: {first: ArticleStub}) {
                 width={hasText ? 262 : 276 * 2}
                 height={642}
                 alt={first.title ?? ``}
-                className="h-full w-full rounded object-cover"
+                className="h-48 w-full rounded object-cover lg:h-full"
               />
             </div>
           ) : null}
 
           {hasText ? (
-            <div className={first?.image ? 'md:w-1/2' : 'w-full'}>
+            <div className={first?.image ? 'lg:w-1/2' : 'w-full'}>
               <BentoSubtitle subtitle={first.subtitle} />
               <BentoTitle title={first.title} />
 
               {first?.summary?.length > 0 ? (
                 <div className="flex flex-col gap-5">
-                  <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
+                  <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 lg:text-2xl">
                     <StyledPortableText value={first?.summary} />
                   </div>
                 </div>

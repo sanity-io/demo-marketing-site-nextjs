@@ -1,5 +1,7 @@
 # Multi-tenant, multi-lingual Marketing Next.js website with Page Builder powered by Sanity.io
 
+This project was created for demonstration purposes and is not intended as a feature-complete, production-ready website.
+
 ## Multi-tenant
 
 Throughout the schema is a required `market` field which is hidden once it has a value, and should be populated by Initial Value Templates.
