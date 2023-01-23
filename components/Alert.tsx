@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import * as React from 'react'
 
-import {LayoutProps} from './Layout'
+import {LayoutProps} from './Fix/Layout'
 
 const AUDIENCES = {
   0: 'A',
