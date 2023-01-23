@@ -5,7 +5,7 @@ import {KeyedObject} from 'sanity'
 
 import {urlForImage} from '../../../sanity/sanity'
 import {ArticleStub} from '../../../types'
-import Container from '../../Fix/Container'
+import Container from '../../Container'
 import {StyledPortableText} from '../PortableText/StyledPortableText'
 import {BentoSubtitle} from './Bento1/BentoSubtitle'
 import {BentoTitle} from './Bento1/BentoTitle'

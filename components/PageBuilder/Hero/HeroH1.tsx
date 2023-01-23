@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import Container from '../../Fix/Container'
-import Links from '../../Fix/Links'
+import Container from '../../Container'
+import Links from '../../Links'
 import {HeroSubtitle} from '../HeroSubtitle'
 import {HeroSummary} from '../HeroSummary'
 import {HeroTitle} from '../HeroTitle'

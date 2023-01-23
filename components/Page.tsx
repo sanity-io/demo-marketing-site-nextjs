@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 
-import {PageProps} from '../../types'
-import PageBuilder from '../PageBuilder'
+import {PageProps} from '../types'
+import PageBuilder from './PageBuilder'
 
 export default function Page(props: PageProps) {
   const {slug, market, translations, content} = props

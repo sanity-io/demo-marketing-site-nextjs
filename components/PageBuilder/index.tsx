@@ -1,7 +1,7 @@
 import React from 'react'
 import {KeyedObject, TypedObject} from 'sanity'
 
-import Container from '../Fix/Container'
+import Container from '../Container'
 
 type PageBuilderProps = {
   rows: (KeyedObject & TypedObject)[]

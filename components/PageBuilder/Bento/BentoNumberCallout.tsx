@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {ArticleStub} from '../../../types'
-import Container from '../../Fix/Container'
+import Container from '../../Container'
 import {BentoSubtitle} from './Bento1/BentoSubtitle'
 import {BentoSummary} from './Bento1/BentoSummary'
 

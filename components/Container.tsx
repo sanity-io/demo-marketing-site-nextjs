@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import {HTMLProps} from 'react'
 import * as React from 'react'
 
-import {useDebug} from '../Debug/DebugProvider'
+import {useDebug} from './Debug/DebugProvider'
 
 export default function Container(props: HTMLProps<HTMLDivElement>) {
   const {className, children, ...restProps} = props

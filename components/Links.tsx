@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import {KeyedObject} from 'sanity'
 
-import {Link} from '../../types'
+import {Link} from '../types'
 import Button from './Button'
 
 type LinksProps = {

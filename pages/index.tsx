@@ -5,15 +5,15 @@ import {PreviewSuspense} from 'next-sanity/preview'
 import {lazy} from 'react'
 import * as React from 'react'
 
-import Layout from '../components/Fix/Layout'
-import Loading from '../components/Fix/Loading'
-import Page from '../components/Fix/Page'
+import Layout from '../components/Layout'
+import Loading from '../components/Loading'
+import Page from '../components/Page'
 import {config} from '../lib/config'
 import {globalDataQuery, homeQuery} from '../sanity/queries'
 import {getClient} from '../sanity/sanity.server'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
 
-const PreviewPage = lazy(() => import('../components/Fix/PreviewPage'))
+const PreviewPage = lazy(() => import('../components/PreviewPage'))
 
 interface Props {
   data: PageProps

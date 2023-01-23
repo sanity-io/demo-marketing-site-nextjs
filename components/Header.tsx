@@ -3,7 +3,7 @@ import Link from 'next/link'
 import {useRouter} from 'next/router'
 import * as React from 'react'
 
-import {GlobalDataProps} from '../../types'
+import {GlobalDataProps} from '../types'
 import Button from './Button'
 import Container from './Container'
 import Logo from './Logo'

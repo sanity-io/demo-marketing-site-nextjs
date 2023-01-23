@@ -3,7 +3,7 @@ import React, {PropsWithChildren} from 'react'
 import {KeyedObject} from 'sanity'
 
 import {ArticleStub} from '../../../types'
-import Container from '../../Fix/Container'
+import Container from '../../Container'
 import Bento1 from './Bento1'
 import {Small} from './Bento3'
 import {BentoNumberCallout, isBentoNumberCallout} from './BentoNumberCallout'

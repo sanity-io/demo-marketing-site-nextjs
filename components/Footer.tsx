@@ -1,7 +1,7 @@
 import {useRouter} from 'next/router'
 import * as React from 'react'
 
-import {getMarketFromNextLocale} from '../../pages'
+import {getMarketFromNextLocale} from '../pages'
 import Button from './Button'
 import Container from './Container'
 import Logo from './Logo'

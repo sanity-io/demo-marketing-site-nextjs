@@ -4,7 +4,7 @@ import React from 'react'
 import {KeyedObject, TypedObject} from 'sanity'
 
 import {urlForImage} from '../../sanity/sanity'
-import Container from '../Fix/Container'
+import Container from '../Container'
 
 type QuoteProps = KeyedObject &
   TypedObject & {

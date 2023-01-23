@@ -6,7 +6,7 @@ import {KeyedObject} from 'sanity'
 
 import {urlForImage} from '../../../sanity/sanity'
 import {ArticleStub} from '../../../types'
-import Container from '../../Fix/Container'
+import Container from '../../Container'
 import {BentoNumberCallout, isBentoNumberCallout} from './BentoNumberCallout'
 
 export default function BentoEven(props: {

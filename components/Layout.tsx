@@ -1,9 +1,9 @@
 import type {PropsWithChildren} from 'react'
 import * as React from 'react'
 
-import {GlobalDataProps, PageQueryParams} from '../../types'
-import Alert from '../Alert'
-import {DebugProvider} from '../Debug/DebugProvider'
+import {GlobalDataProps, PageQueryParams} from '../types'
+import Alert from './Alert'
+import {DebugProvider} from './Debug/DebugProvider'
 import Footer from './Footer'
 import Header from './Header'
 import Meta from './Meta'
