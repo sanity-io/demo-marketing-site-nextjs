@@ -50,7 +50,7 @@ export default function Index(props: {article: ArticleStub; index: number}) {
               <div
                 className={clsx(
                   `col-span-4 row-start-1 flex flex-col justify-center`,
-                  even ? `col-start-2 items-start` : `col-start-1 items-end`
+                  even ? `col-start-2 items-start` : `col-start-1 lg:items-end text-left lg:text-right`
                 )}
               >
                 {subtitle ? <BentoSubtitle subtitle={subtitle} /> : null}
@@ -64,7 +64,7 @@ export default function Index(props: {article: ArticleStub; index: number}) {
             <div
               className={clsx(
                 `col-span-5 row-start-2 lg:col-span-3 lg:col-start-2`,
-                !even && `text-right`
+                !even && `lg:text-right`
               )}
             >
               <BentoSummary summary={summary} />

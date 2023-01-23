@@ -16,7 +16,7 @@ export function BentoSubtitle({
     <p
       className={clsx(
         `text-xl text-magenta-500 dark:text-magenta-400 lg:text-2xl`,
-        className ?? `py-2`
+        className
       )}
     >
       {subtitle}

@@ -52,7 +52,7 @@ function CellWrapper({
   return (
     <div
       className={clsx(
-        `flex items-center justify-center text-left lg:h-1/2 lg:flex-col`,
+        `flex items-center justify-center text-left lg:h-1/2 lg:flex-col lg:py-12`,
         articleIndex > 0 && `border-t border-gray-200 dark:border-gray-800`
       )}
     >
@@ -95,39 +95,34 @@ export function Small({article}: {article: ArticleStub}) {
 function High({first}: {first: ArticleStub}) {
   const hasText = first.title || first.subtitle || first?.summary?.length > 0
   return (
-    <Container className="relative flex content-center justify-center">
-      <div className="flex items-center justify-center">
-        <div className="flex w-full flex-col gap-5 py-12 text-left lg:flex-row lg:justify-center lg:py-24">
+    <Container className="relative flex content-center justify-center from-black via-magenta-900 bg-gradient-to-tl">
+      <div className="flex w-full items-center justify-center">
+        <div className="flex w-full gap-5 py-12 lg:flex-col lg:justify-center lg:py-24">
           {first?.image ? (
             <div
               className={clsx(
                 `flex items-stretch justify-items-stretch self-stretch`,
-                hasText ? 'lg:w-1/2' : 'w-full'
+                hasText ? '' : 'w-1/2 flex-shrink-0 lg:w-full'
               )}
             >
               <Image
-                src={urlForImage(first?.image)
-                  .width(hasText ? 262 : 276 * 2)
-                  .height(642)
-                  .url()}
-                width={hasText ? 262 : 276 * 2}
-                height={642}
+                src={urlForImage(first.image).width(960).height(540).url()}
+                width={960}
+                height={540}
                 alt={first.title ?? ``}
-                className="h-48 w-full rounded object-cover lg:h-full"
+                className="h-48 w-full rounded-lg object-cover"
               />
             </div>
           ) : null}
 
           {hasText ? (
-            <div className={first?.image ? 'lg:w-1/2' : 'w-full'}>
+            <div className='flex flex-col gap-4'>
               <BentoSubtitle subtitle={first.subtitle} />
               <BentoTitle title={first.title} />
 
               {first?.summary?.length > 0 ? (
-                <div className="flex flex-col gap-5">
-                  <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 lg:text-2xl">
-                    <StyledPortableText value={first?.summary} />
-                  </div>
+                <div className="flex flex-col gap-5 text-xl text-gray-700 dark:text-gray-200 lg:text-2xl">
+                  <StyledPortableText value={first?.summary} />
                 </div>
               ) : null}
             </div>
