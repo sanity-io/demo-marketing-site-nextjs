@@ -37,9 +37,7 @@ export default function Header(props: HeaderProps) {
               </li>
             </ul>
           ) : null}
-          <div className="ml-auto flex items-center gap-5 lg:hidden">
-            <Menu />
-          </div>
+
           {domainLocale?.locales && domainLocale.locales.length > 1 ? (
             <div className="ml-auto flex items-center gap-5 text-sm uppercase">
               {domainLocale.locales.map((language) => (
@@ -54,6 +52,10 @@ export default function Header(props: HeaderProps) {
               ))}
             </div>
           ) : null}
+          
+          <div className="ml-auto flex flex-1 items-center justify-end gap-5 lg:hidden">
+            <Menu />
+          </div>
         </div>
       </Container>
     </div>
