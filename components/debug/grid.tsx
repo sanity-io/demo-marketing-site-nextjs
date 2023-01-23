@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
 import * as React from 'react'
 
-import {useDebug} from './debug-provider'
+import { useDebug } from './DebugProvider'
 
 export function DebugGrid(props: {columns?: number}) {
   const {grid} = useDebug()
