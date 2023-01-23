@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import {GlobalDataProps, PageQueryParams} from '../types'
 import Alert from './Alert'
-import {DebugProvider} from './Debug/DebugProvider'
+import {DebugProvider} from './Debugs/DebugProvider'
 import Footer from './Footer'
 import Header from './Header'
 import Meta from './Meta'
