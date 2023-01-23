@@ -1,7 +1,7 @@
 import {defineField} from 'sanity'
 
 import {MARKETS, SCHEMA_ITEMS} from '../../lib/constants'
-import { uniqueLanguages } from '../../lib/markets'
+import {uniqueLanguages} from '../../lib/markets'
 
 export default defineField({
   name: 'language',
@@ -25,7 +25,6 @@ export default defineField({
       return true
     }
 
-
     // Hide on *published* documents that have a language
     // In markets with more than one language
     if (market && market.languages.length > 1) {
@@ -36,7 +35,7 @@ export default defineField({
   },
   // This field should be populated by @sanity/document-internationalization
   // But unlock if it's invalid
-  readOnly: (({value, document}) => {
+  readOnly: ({value, document}) => {
     const market = MARKETS.find((m) => m.name === document?.market)
 
     // Value is invalid for this market, show the field
@@ -45,13 +44,15 @@ export default defineField({
     }
 
     return true
-  }),
-  // Only allow language selection from the unique language codes from all the unique market-language combinations
+  },
+  // Only allow language selection from the unique language codes from *all* the unique market-language combinations
   options: {
-    list: Array.from(new Set(uniqueLanguages.map(lang => lang.split(`-`)[0]))).map(lang => ({
-value: lang,
-title: lang.toUpperCase()
-    }))
+    list: Array.from(
+      new Set(uniqueLanguages.map((lang) => lang.split(`-`)[0]))
+    ).map((lang) => ({
+      value: lang,
+      title: lang.toUpperCase(),
+    })),
   },
   // Only required if this market has more than one language
   validation: (Rule) =>
@@ -73,9 +74,10 @@ title: lang.toUpperCase()
       }
 
       if (value && !market.languages.find((l) => l.id === value)) {
-        return `Invalid language "${value}", must be one of ${market.languages
+        const marketLanguages = market.languages
           .map((l) => `"${l.id}"`)
-          .join(', ')}`
+          .join(', ')
+        return `Invalid language "${value}", must be one of ${marketLanguages}`
       }
 
       return true
