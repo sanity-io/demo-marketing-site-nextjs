@@ -6,6 +6,7 @@ export default defineType(
     name: 'pageBuilder',
     title: 'Page Builder',
     type: 'array',
+    validation: (rule) => rule.unique(),
     of: [
       defineArrayMember({
         name: 'article',
@@ -31,12 +32,6 @@ export default defineType(
         name: 'experiment',
         title: 'Experiment',
         type: 'pageBuilderExperimentCell',
-      }),
-      defineArrayMember({
-        name: 'intermission',
-        title: 'Intermission',
-        type: 'reference',
-        to: [{type: 'intermission'}],
       }),
       defineArrayMember({
         name: 'logos',

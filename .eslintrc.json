@@ -5,6 +5,7 @@
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
     "react-hooks/exhaustive-deps": "error",
+    "no-process-env": "off",
     "no-warning-comments": "off"
   },
   "globals": {

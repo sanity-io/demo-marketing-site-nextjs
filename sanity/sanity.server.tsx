@@ -5,23 +5,25 @@
  */
 import {createClient} from 'next-sanity'
 
-import {config} from '../lib/config'
+import {sanityConfig} from './config'
 
 export const getClient = (preview) =>
   preview
     ? createClient({
-        projectId: config.sanity.projectId,
-        dataset: config.sanity.dataset,
+        projectId: sanityConfig.projectId,
+        dataset: sanityConfig.dataset,
         useCdn: false,
-        apiVersion: config.sanity.apiVersion,
+        apiVersion: sanityConfig.apiVersion,
         // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
         // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
-        token: config.readToken || config.writeToken,
+        token:
+          process.env.SANITY_API_READ_TOKEN ||
+          process.env.SANITY_API_WRITE_TOKEN,
       })
     : createClient({
-        projectId: config.sanity.projectId,
-        dataset: config.sanity.dataset,
-        apiVersion: config.sanity.apiVersion,
+        projectId: sanityConfig.projectId,
+        dataset: sanityConfig.dataset,
+        apiVersion: sanityConfig.apiVersion,
       })
 
 export function overlayDrafts(docs) {

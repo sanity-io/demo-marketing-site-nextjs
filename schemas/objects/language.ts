@@ -1,6 +1,7 @@
 import {defineField} from 'sanity'
 
 import {MARKETS, SCHEMA_ITEMS} from '../../lib/constants'
+import {uniqueLanguages} from '../../lib/markets'
 
 export default defineField({
   name: 'language',
@@ -9,6 +10,11 @@ export default defineField({
   // TODO: Hide field completely once initial value templates are configured
   hidden: ({document, value}) => {
     const market = MARKETS.find((m) => m.name === document?.market)
+
+    // Value is invalid for this market, show the field
+    if (value && !market.languages.find((l) => l.id === value)) {
+      return false
+    }
 
     // Hide on singleton documents
     const schemaIsSingleton = SCHEMA_ITEMS.find(
@@ -28,7 +34,26 @@ export default defineField({
     return true
   },
   // This field should be populated by @sanity/document-internationalization
-  readOnly: true,
+  // But unlock if it's invalid
+  readOnly: ({value, document}) => {
+    const market = MARKETS.find((m) => m.name === document?.market)
+
+    // Value is invalid for this market, show the field
+    if (value && market && !market.languages.find((l) => l.id === value)) {
+      return false
+    }
+
+    return true
+  },
+  // Only allow language selection from the unique language codes from *all* the unique market-language combinations
+  options: {
+    list: Array.from(
+      new Set(uniqueLanguages.map((lang) => lang.split(`-`)[0]))
+    ).map((lang) => ({
+      value: lang,
+      title: lang.toUpperCase(),
+    })),
+  },
   // Only required if this market has more than one language
   validation: (Rule) =>
     Rule.custom((value, {document}) => {
@@ -49,9 +74,10 @@ export default defineField({
       }
 
       if (value && !market.languages.find((l) => l.id === value)) {
-        return `Invalid language "${value}", must be one of ${market.languages
-          .map((l) => l.id)
-          .join(', ')}`
+        const marketLanguages = market.languages
+          .map((l) => `"${l.id}"`)
+          .join(', ')
+        return `Invalid language "${value}", must be one of ${marketLanguages}`
       }
 
       return true

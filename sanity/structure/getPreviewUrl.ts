@@ -4,12 +4,12 @@ import {config} from '../../lib/config'
 import articleType from '../../schemas/documents/article'
 import pageType from '../../schemas/documents/page'
 
-type Market = SanityDocument & {
+type PreviewDocument = SanityDocument & {
   market?: string
   slug?: Slug
 }
 
-export function getPreviewUrl(document: Market): string {
+export function getPreviewUrl(document: PreviewDocument): string {
   // Ensure URL origin matches the document's market
   // We need to load the Preview API route
   // In the same subdomain as the document's market
@@ -20,15 +20,12 @@ export function getPreviewUrl(document: Market): string {
     return ``
   }
 
-  const currentUrlMatchesMarket =
-    market !== 'US' &&
-    window.location.host.split(`.`)[0].toUpperCase() !== market.toUpperCase()
+  // Market is the US = must use root domain
+  // Market is not the US = must use market subdomain
+  const rootLocation = window.location.host.split(`.`).pop()
+  const marketOrigin = market.toUpperCase() === "US" ? rootLocation : `${market.toLowerCase()}.${rootLocation}`
 
-  if (!currentUrlMatchesMarket) {
-    return ``
-  }
-
-  const url = new URL('/api/preview', location.origin)
+  const url = new URL('/api/preview', `${window.location.protocol}//${marketOrigin}`)
   const secret = config.previewSecret
   if (secret) {
     url.searchParams.set('secret', secret)

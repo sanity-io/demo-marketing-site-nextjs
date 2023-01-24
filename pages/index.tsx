@@ -5,16 +5,15 @@ import {PreviewSuspense} from 'next-sanity/preview'
 import {lazy} from 'react'
 import * as React from 'react'
 
-import Container from '../components/container'
-import Layout from '../components/layout'
-import Page from '../components/page'
-import PostTitle from '../components/post-title'
+import Layout from '../components/Layout'
+import Loading from '../components/Loading'
+import Page from '../components/Page'
 import {config} from '../lib/config'
 import {globalDataQuery, homeQuery} from '../sanity/queries'
 import {getClient} from '../sanity/sanity.server'
 import {GlobalDataProps, PageProps, PageQueryParams} from '../types'
 
-const PreviewPage = lazy(() => import('../components/preview-page'))
+const PreviewPage = lazy(() => import('../components/PreviewPage'))
 
 interface Props {
   data: PageProps
@@ -30,13 +29,7 @@ export default function Home(props: Props) {
 
   if (preview) {
     return (
-      <PreviewSuspense
-        fallback={
-          <Container>
-            <PostTitle>Loading…</PostTitle>
-          </Container>
-        }
-      >
+      <PreviewSuspense fallback={<Loading />}>
         <PreviewPage
           data={data}
           globalData={globalData}
@@ -56,9 +49,7 @@ export default function Home(props: Props) {
   return (
     <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
       {router.isFallback ? (
-        <Container>
-          <PostTitle>Loading…</PostTitle>
-        </Container>
+        <Loading />
       ) : (
         <>
           <Head>

@@ -5,10 +5,9 @@ import Image from 'next/image'
 import {useRouter} from 'next/router'
 import * as React from 'react'
 
-import Container from '../../components/container'
-import Layout from '../../components/layout'
-import PostTitle from '../../components/post-title'
-import {config} from '../../lib/config'
+import Container from '../../components/Container'
+import Layout from '../../components/Layout'
+import Loading from '../../components/Loading'
 import {
   articleQuery,
   articleSlugsQuery,
@@ -39,9 +38,7 @@ export default function Slug(props: Props) {
   return (
     <Layout preview={preview} queryParams={queryParams} globalData={globalData}>
       {router.isFallback ? (
-        <Container>
-          <PostTitle>Loading…</PostTitle>
-        </Container>
+        <Loading />
       ) : (
         <>
           <Head>
@@ -127,7 +124,7 @@ export async function getStaticProps({
       globalData,
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-    revalidate: config.revalidateSecret ? undefined : 60,
+    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
   }
 }
 

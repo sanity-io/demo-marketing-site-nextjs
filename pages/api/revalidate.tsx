@@ -27,7 +27,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {parseBody} from 'next-sanity/webhook'
 
-import {config as globalConfig} from '../../lib/config'
 import {getClient} from '../../sanity/sanity.server'
 
 // Next.js will by default parse the body, which can lead to invalid signatures
@@ -67,7 +66,7 @@ export default async function revalidate(
 ) {
   const {body, isValidSignature} = await parseBody(
     req,
-    globalConfig.revalidateSecret
+    process.env.SANITY_REVALIDATE_SECRET
   )
   if (!isValidSignature) {
     const invalidSignature = 'Invalid signature'

@@ -1,3 +1,4 @@
+import {PortableTextBlock} from '@portabletext/types'
 import {CalendarIcon, ComposeIcon, LinkIcon, SearchIcon} from '@sanity/icons'
 import delve from 'dlv'
 import {Puzzle} from 'lucide-react'
@@ -48,6 +49,16 @@ export default defineType({
     }),
     defineField({
       name: 'summary',
+      description:
+        'Short text displayed when this Article is used as a Block in a Page. Give this Article a slug to add longer form content.',
+      validation: (rule) =>
+        rule.custom((value: PortableTextBlock[]) => {
+          if (value && value?.length > 1) {
+            return 'Summary should be a single paragraph'
+          }
+
+          return true
+        }),
       type: 'portableTextSimple',
       group: ['content'],
     }),

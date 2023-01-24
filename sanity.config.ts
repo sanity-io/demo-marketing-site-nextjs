@@ -9,9 +9,7 @@ import {deskTool} from 'sanity/desk'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import {media} from 'sanity-plugin-media'
-import {muxInput} from 'sanity-plugin-mux-input'
 
-import {config} from './lib/config'
 import {MARKETS, SCHEMA_ITEMS} from './lib/constants'
 import {marketBadge} from './sanity/badges/market-badge'
 import CustomToolMenu from './sanity/components/CustomToolMenu'
@@ -33,7 +31,6 @@ const pluginsBase = (marketName?: string) => {
       structure: (S, context) => structure(S, context, marketName),
       defaultDocumentNode,
     }),
-    muxInput(),
     unsplashImageAsset(),
     visionTool({defaultApiVersion: '2022-08-08'}),
     media(),
@@ -82,9 +79,9 @@ const pluginsBase = (marketName?: string) => {
 const configBase = {
   basePath: `${BASE_PATH}/global`,
   name: 'global',
-  projectId: config.sanity.projectId,
-  dataset: config.sanity.dataset,
-  title: config.sanity.projectTitle || 'Marketing.',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  title: process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Marketing.',
   icon: Icon,
   schema: {
     types: schemaTypes,

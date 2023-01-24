@@ -5,9 +5,7 @@ import * as React from 'react'
 
 import {urlForImage} from '../../sanity/sanity'
 
-export const config = {
-  runtime: 'experimental-edge',
-}
+export const config = {runtime: 'edge'}
 
 const WIDTH = 1200
 const HEIGHT = 630

@@ -17,7 +17,7 @@ export default defineType({
       type: 'array',
       of: [
         defineField({
-          name: 'link',
+          name: 'item',
           type: 'object',
           fields: [
             defineField({
@@ -29,7 +29,7 @@ export default defineType({
               type: 'array',
               of: [
                 defineField({
-                  name: 'link',
+                  name: 'item',
                   type: 'object',
                   fields: [{name: 'link', type: 'link'}],
                   preview: {
@@ -74,7 +74,7 @@ export default defineType({
 
               return {
                 title: !text && !refTitle ? `Empty Text` : text ?? refTitle,
-                subtitle: String(subtitle),
+                subtitle: subtitle ?? `No link`,
               }
             },
           },
@@ -83,11 +83,13 @@ export default defineType({
     }),
     defineField({
       name: 'headerSecondary',
+      description: 'Additional links in the website Header',
       type: 'array',
       of: [{name: 'link', type: 'link'}],
     }),
     defineField({
       name: 'footer',
+      description: 'Additional links in the website Footer',
       type: 'array',
       of: [{name: 'link', type: 'link'}],
     }),
