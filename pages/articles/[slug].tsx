@@ -63,7 +63,7 @@ export default function Slug(props: Props) {
               </div>
             ) : null}
           </div>
-          <Container className="relative py-5">
+          <Container className="relative py-5 min-h-screen">
             <div className="prose prose-lg relative z-10 pb-5 prose-headings:font-extrabold prose-headings:leading-none prose-headings:tracking-tight dark:prose-invert">
               {data.subtitle ? (
                 <h3 className="text-magenta-400">{data.subtitle}</h3>
