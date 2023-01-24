@@ -22,7 +22,9 @@ export function getPreviewUrl(document: PreviewDocument): string {
 
   // Market is the US = must use root domain
   // Market is not the US = must use market subdomain
-  const rootLocation = window.location.host.split(`.`).pop()
+  // TODO: Fix in Production on Vercel's URL
+  // const rootLocation = window.location.host.split(`.`).pop()
+  const rootLocation = window.location.host
   const marketOrigin = market.toUpperCase() === "US" ? rootLocation : `${market.toLowerCase()}.${rootLocation}`
 
   const url = new URL('/api/preview', `${window.location.protocol}//${marketOrigin}`)
