@@ -11,7 +11,7 @@ export default function Page(props: PageProps) {
   return (
     <article className="flex flex-col">
       <Container>
-      {translations.length > 0 ? (
+      {translations.length > 1 ? (
         <ul className="flex items-center justify-end gap-4 py-3 border-b border-gray-200 dark:border-gray-800">
           {translations
             .filter((i) => i)
