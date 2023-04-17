@@ -24,6 +24,7 @@ export const getClient = (preview) =>
         projectId: sanityConfig.projectId,
         dataset: sanityConfig.dataset,
         apiVersion: sanityConfig.apiVersion,
+        useCdn: true
       })
 
 export function overlayDrafts(docs) {
