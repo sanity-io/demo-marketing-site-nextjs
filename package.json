@@ -57,7 +57,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-sanity": "^6.0.0",
     "eslint-plugin-react": "^7.31.11",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "postcss": "^8.4.20",
