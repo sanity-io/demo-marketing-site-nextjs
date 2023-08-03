@@ -35,7 +35,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
 
         <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-5">
           {logos.map((company) => (
-            <Logo key={company._id} company={company} />
+            <Logo key={company?._id} company={company} />
           ))}
         </div>
       </Container>
