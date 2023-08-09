@@ -21,7 +21,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@portabletext/react": "^2.0.0",
+    "@portabletext/react": "^3.0.0",
     "@sanity/demo": "^1.0.1",
     "@sanity/document-internationalization": "^2.0.0-studio-v3-plugin-v2.9",
     "@sanity/image-url": "^1.0.1",
