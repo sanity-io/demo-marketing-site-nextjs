@@ -61,11 +61,18 @@ const createSchemaItem = (
         .icon(schemaItem.icon)
         .child(createSchemaItemChildren(S, schemaItem, market))
     case 'singleton':
-      return S.documentListItem()
-        .schemaType(schemaItem.schemaType)
+      return S.listItem()
         .icon(schemaItem.icon)
         .id([market.name.toLowerCase(), schemaItem.schemaType].join(`-`))
         .title([market.name, schemaItem.title].join(` `))
+        .child(
+          S.editor()
+            .id([market.name.toLowerCase(), schemaItem.schemaType].join(`-`))
+            .schemaType(schemaItem.schemaType)
+            .documentId(
+              [market.name.toLowerCase(), schemaItem.schemaType].join(`-`)
+            )
+        )
     default:
       return null
   }
