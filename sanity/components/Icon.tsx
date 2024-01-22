@@ -6,7 +6,12 @@ import {Market} from '../../lib/constants'
 
 export default function Icon(props: Market) {
   return (
-    <Card tone="primary" height="fill" padding={2}>
+    <Card
+      tone="primary"
+      height="fill"
+      padding={1}
+      style={{background: 'transparent'}}
+    >
       <Flex align="center" justify="center" height="fill">
         <Twemoji>{props.flag ?? `🌐`}</Twemoji>
       </Flex>

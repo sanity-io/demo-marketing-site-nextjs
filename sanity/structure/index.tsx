@@ -1,5 +1,5 @@
 import {ConfigContext} from 'sanity'
-import {StructureBuilder} from 'sanity/desk'
+import {StructureBuilder} from 'sanity/structure'
 
 import {
   Language,
@@ -11,6 +11,7 @@ import {
   SchemaSingleton,
 } from '../../lib/constants'
 import Icon from '../components/Icon'
+import {sanityConfig} from '../config'
 
 // Create Items for all Markets
 const createAllMarketItems = (S: StructureBuilder, config: ConfigContext) =>
@@ -123,6 +124,7 @@ const createSchemaItemChild = (
         .filter(Boolean)
         .join(` && `)
     )
+    .apiVersion(sanityConfig.apiVersion || '2022-08-08')
     .params({
       schemaType: schemaItem.schemaType,
       market: market.name,

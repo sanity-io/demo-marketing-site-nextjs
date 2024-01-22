@@ -1,4 +1,4 @@
-import {DefaultDocumentNodeResolver} from 'sanity/desk'
+import {DefaultDocumentNodeResolver} from 'sanity/structure'
 import DocumentsPane from 'sanity-plugin-documents-pane'
 import Iframe, {IframeOptions} from 'sanity-plugin-iframe-pane'
 

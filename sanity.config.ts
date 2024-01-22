@@ -5,14 +5,14 @@
 import {documentInternationalization} from '@sanity/document-internationalization'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
+import {structureTool} from 'sanity/structure'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import {media} from 'sanity-plugin-media'
 
 import {MARKETS, SCHEMA_ITEMS} from './lib/constants'
 import {marketBadge} from './sanity/badges/market-badge'
-import CustomToolMenu from './sanity/components/CustomToolMenu'
+import CustomNavBar from './sanity/components/CustomNavBar'
 import Icon from './sanity/components/Icon'
 import {schemaTemplates} from './sanity/schemaTemplates'
 import {structure} from './sanity/structure'
@@ -27,7 +27,7 @@ const pluginsBase = (marketName?: string) => {
 
   // Shared plugins across all "market" configs
   const base = [
-    deskTool({
+    structureTool({
       structure: (S, context) => structure(S, context, marketName),
       defaultDocumentNode,
     }),
@@ -76,7 +76,7 @@ const pluginsBase = (marketName?: string) => {
 
 // Shared config across all "market" configs
 // Some elements are overwritten in the market-specific configs
-const configBase = {
+const configBase = defineConfig({
   basePath: `${BASE_PATH}/global`,
   name: 'global',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
@@ -106,10 +106,10 @@ const configBase = {
   },
   studio: {
     components: {
-      toolMenu: CustomToolMenu,
+      navbar: CustomNavBar,
     },
   },
-}
+})
 
 export default defineConfig([
   ...MARKETS.map((market) => ({
