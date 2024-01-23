@@ -64,14 +64,15 @@ const createSchemaItem = (
       return S.listItem()
         .icon(schemaItem.icon)
         .id([market.name.toLowerCase(), schemaItem.schemaType].join(`-`))
+        .schemaType(schemaItem.schemaType)
         .title([market.name, schemaItem.title].join(` `))
         .child(
-          S.editor()
-            .id([market.name.toLowerCase(), schemaItem.schemaType].join(`-`))
-            .schemaType(schemaItem.schemaType)
-            .documentId(
-              [market.name.toLowerCase(), schemaItem.schemaType].join(`-`)
-            )
+          S.defaultDocument({
+            documentId: [market.name, schemaItem.schemaType].join(`-`),
+            schemaType: schemaItem.schemaType,
+          }).documentId(
+            [market.name.toLowerCase(), schemaItem.schemaType].join(`-`)
+          )
         )
     default:
       return null
