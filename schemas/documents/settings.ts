@@ -45,4 +45,16 @@ export default defineType({
     //   type: 'internationalizedArrayString',
     // }),
   ],
+  preview: {
+    select: {
+      market: 'market',
+      language: 'language',
+    },
+    prepare({market}) {
+      return {
+        title: `${market} Settings`,
+        subtitle: market,
+      }
+    },
+  },
 })

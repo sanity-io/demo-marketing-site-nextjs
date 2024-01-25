@@ -1,5 +1,5 @@
 import {ConfigContext} from 'sanity'
-import {StructureBuilder} from 'sanity/desk'
+import {StructureBuilder} from 'sanity/structure'
 
 import {
   Language,
@@ -11,6 +11,7 @@ import {
   SchemaSingleton,
 } from '../../lib/constants'
 import Icon from '../components/Icon'
+import {sanityConfig} from '../config'
 
 // Create Items for all Markets
 const createAllMarketItems = (S: StructureBuilder, config: ConfigContext) =>
@@ -60,11 +61,19 @@ const createSchemaItem = (
         .icon(schemaItem.icon)
         .child(createSchemaItemChildren(S, schemaItem, market))
     case 'singleton':
-      return S.documentListItem()
-        .schemaType(schemaItem.schemaType)
+      return S.listItem()
         .icon(schemaItem.icon)
         .id([market.name.toLowerCase(), schemaItem.schemaType].join(`-`))
+        .schemaType(schemaItem.schemaType)
         .title([market.name, schemaItem.title].join(` `))
+        .child(
+          S.defaultDocument({
+            documentId: [market.name, schemaItem.schemaType].join(`-`),
+            schemaType: schemaItem.schemaType,
+          }).documentId(
+            [market.name.toLowerCase(), schemaItem.schemaType].join(`-`)
+          )
+        )
     default:
       return null
   }
@@ -123,6 +132,7 @@ const createSchemaItemChild = (
         .filter(Boolean)
         .join(` && `)
     )
+    .apiVersion(sanityConfig.apiVersion || '2022-08-08')
     .params({
       schemaType: schemaItem.schemaType,
       market: market.name,
