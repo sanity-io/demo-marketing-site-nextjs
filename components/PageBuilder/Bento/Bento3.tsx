@@ -37,7 +37,7 @@ export default function Bento3(props: {
   )
   return (
     <div>
-      <div className="max-h-xl grid divide-y divide-gray-200 dark:divide-gray-800 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+      <div className="max-h-xl grid divide-y divide-gray-200 lg:grid-cols-2 lg:divide-x lg:divide-y-0 dark:divide-gray-800">
         {reverse ? high : cells}
         {reverse ? cells : high}
       </div>
@@ -82,7 +82,7 @@ export function Small({article}: {article: ArticleStub}) {
           <BentoSubtitle subtitle={article.subtitle} />
           <BentoTitle title={article.title} />
           {article?.summary?.length > 0 ? (
-            <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 lg:text-2xl">
+            <div className="max-w-xl text-xl text-gray-700 lg:text-2xl dark:text-gray-200">
               <StyledPortableText value={article?.summary} />
             </div>
           ) : null}
@@ -121,7 +121,7 @@ function High({first}: {first: ArticleStub}) {
               <BentoTitle title={first.title} />
 
               {first?.summary?.length > 0 ? (
-                <div className="flex flex-col gap-5 text-xl text-gray-700 dark:text-gray-200 lg:text-2xl">
+                <div className="flex flex-col gap-5 text-xl text-gray-700 lg:text-2xl dark:text-gray-200">
                   <StyledPortableText value={first?.summary} />
                 </div>
               ) : null}

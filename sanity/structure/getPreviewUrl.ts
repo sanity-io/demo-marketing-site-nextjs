@@ -25,9 +25,15 @@ export function getPreviewUrl(document: PreviewDocument): string {
   // TODO: Fix in Production on Vercel's URL
   // const rootLocation = window.location.host.split(`.`).pop()
   const rootLocation = window.location.host
-  const marketOrigin = market.toUpperCase() === "US" ? rootLocation : `${market.toLowerCase()}.${rootLocation}`
+  const marketOrigin =
+    market.toUpperCase() === 'US'
+      ? rootLocation
+      : `${market.toLowerCase()}.${rootLocation}`
 
-  const url = new URL('/api/preview', `${window.location.protocol}//${marketOrigin}`)
+  const url = new URL(
+    '/api/preview',
+    `${window.location.protocol}//${marketOrigin}`
+  )
   const secret = config.previewSecret
   if (secret) {
     url.searchParams.set('secret', secret)

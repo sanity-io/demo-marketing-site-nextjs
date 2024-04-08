@@ -29,7 +29,7 @@ export default function PageBuilderLogos(props: PageBuilderLogosProps) {
   return (
     <div>
       <Container className="relative w-full py-5 lg:py-7">
-        <div className="mb-4 text-center text-gray-700 dark:text-gray-200 lg:mb-5">
+        <div className="mb-4 text-center text-gray-700 lg:mb-5 dark:text-gray-200">
           Trusted by industry leaders
         </div>
 

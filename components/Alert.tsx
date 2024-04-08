@@ -53,14 +53,14 @@ export default function Alert(props: AlertProps) {
       <div className="pointer-events-auto flex overflow-hidden rounded-t-lg bg-magenta-400 text-white">
         <Link
           href="/api/exit-preview"
-          className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+          className="px-4 py-2 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
         >
           Preview{` `}
           <strong>On</strong>
         </Link>
         <Link
           href={`/api/preview?${toggleAudienceUrl.toString()}`}
-          className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+          className="px-4 py-2 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
         >
           Audience{' '}
           <strong>{AUDIENCES[queryParams.audience] ?? `Unknown`}</strong>
@@ -72,7 +72,7 @@ export default function Alert(props: AlertProps) {
               ? `/api/preview?${updateTimeUrl.toString()}`
               : `/api/preview?${nowTimeUrl.toString()}`
           }
-          className="py-2 px-4 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+          className="px-4 py-2 transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
         >
           Time{` `}
           <strong>
@@ -82,7 +82,7 @@ export default function Alert(props: AlertProps) {
         <div>
           <input
             type="date"
-            className="bg-magenta-400 py-2 px-4 text-white transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
+            className="bg-magenta-400 px-4 py-2 text-white transition-colors duration-200 hover:bg-magenta-300 hover:text-black"
             onChange={handleDateChange}
             value={targetDate ? targetDate.split(`T`).shift() : undefined}
           />

@@ -1,6 +1,6 @@
 import {DefaultDocumentNodeResolver} from 'sanity/structure'
 import DocumentsPane from 'sanity-plugin-documents-pane'
-import Iframe, {IframeOptions} from 'sanity-plugin-iframe-pane'
+import {Iframe,IframeOptions} from 'sanity-plugin-iframe-pane'
 
 import OGPreview from '../components/OGPreview'
 import SocialSharePreview from '../components/SocialSharePreview'
