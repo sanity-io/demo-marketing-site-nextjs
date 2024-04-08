@@ -52,7 +52,7 @@ export default function Header(props: HeaderProps) {
               ))}
             </div>
           ) : null}
-          
+
           <div className="ml-auto flex flex-1 items-center justify-end gap-5 lg:hidden">
             <Menu />
           </div>

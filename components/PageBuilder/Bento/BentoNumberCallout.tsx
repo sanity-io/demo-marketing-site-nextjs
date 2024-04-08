@@ -19,7 +19,7 @@ export function BentoNumberCallout(props: {article: ArticleStub}) {
   const {article} = props
   return (
     <Container className="relative flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center py-6 lg:gap-3 lg:py-12 lg:px-5">
+      <div className="flex flex-col items-center justify-center py-6 lg:gap-3 lg:px-5 lg:py-12">
         <BentoSubtitle subtitle={article.subtitle} />
         <h2 className="text-6xl font-extrabold leading-tight tracking-tight lg:text-8xl">
           {article.title}

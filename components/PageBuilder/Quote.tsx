@@ -30,7 +30,7 @@ export default function PageBuilderQuote(props: QuoteProps) {
   return (
     <div>
       <Container className="relative flex max-w-4xl flex-col-reverse p-4 lg:flex-row lg:items-center">
-        <div className="mt-5 mb-5 flex flex-row gap-5 md:px-5">
+        <div className="mb-5 mt-5 flex flex-row gap-5 md:px-5">
           <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 dark:border-gray-800">
             <span
               className="font-serif text-5xl"

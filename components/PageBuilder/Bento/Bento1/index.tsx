@@ -18,7 +18,7 @@ export default function Index(props: {article: ArticleStub; index: number}) {
 
   if (isBentoNumberCallout(article)) {
     return (
-      <div className="border-t border-b border-gray-200 dark:border-gray-800">
+      <div className="border-b border-t border-gray-200 dark:border-gray-800">
         <BentoNumberCallout article={article} />
       </div>
     )

@@ -46,7 +46,7 @@ export default function Slug(props: Props) {
           </Head>
           <div className="relative">
             {data.image ? (
-              <div className="absolute top-0 left-0 aspect-video max-h-[400px] w-screen">
+              <div className="absolute left-0 top-0 aspect-video max-h-[400px] w-screen">
                 <div className="absolute inset-0 z-10 h-full w-screen bg-gradient-to-b from-black/0 to-black/100" />
                 <Image
                   className="absolute inset-0 h-full w-screen object-cover opacity-75"
@@ -63,8 +63,8 @@ export default function Slug(props: Props) {
               </div>
             ) : null}
           </div>
-          <Container className="relative py-5 min-h-screen">
-            <div className="prose prose-lg relative z-10 pb-5 prose-headings:font-extrabold prose-headings:leading-none prose-headings:tracking-tight dark:prose-invert">
+          <Container className="relative min-h-screen py-5">
+            <div className="prose prose-lg relative z-10 pb-5 dark:prose-invert prose-headings:font-extrabold prose-headings:leading-none prose-headings:tracking-tight">
               {data.subtitle ? (
                 <h3 className="text-magenta-400">{data.subtitle}</h3>
               ) : null}

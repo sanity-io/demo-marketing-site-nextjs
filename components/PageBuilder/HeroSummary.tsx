@@ -9,7 +9,7 @@ export function HeroSummary({summary}: {summary?: PortableTextBlock[]}) {
   }
 
   return (
-    <div className="max-w-xl text-xl text-gray-700 dark:text-gray-200 md:text-2xl">
+    <div className="max-w-xl text-xl text-gray-700 md:text-2xl dark:text-gray-200">
       <StyledPortableText value={summary} />
     </div>
   )
